@@ -1,9 +1,11 @@
-import { hotelData } from './hoteldata' // temporary import of json 
+import { hotelData } from './hoteldata'; // temporary import of json 
+import { hotelPrice } from './hotelPrice';
 import { Card, Image, Text, Badge, Button, Group, useMantineTheme, Progress } from '@mantine/core';
 import './SearchItem.css';
 
 function getPrices() {
-  
+
+  return null;
 }
 
 function SearchItem() {
