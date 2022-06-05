@@ -1,15 +1,12 @@
-import SearchItem from './SearchItem';
-import SearchBar from './SearchBar';
-function getPrices() {
+import SearchWrapper from './SearchItem/SearchWrapper';
+import SearchBar from './SearchBar/SearchBar';
 
-    return null;
-}
 
 function App() {
     return (
         <>
             <SearchBar/>
-            <SearchItem/>
+            <SearchWrapper/>
         </>
 
     );
