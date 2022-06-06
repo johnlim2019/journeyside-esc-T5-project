@@ -18,7 +18,10 @@ export const searchBarSlice = createSlice({
         test: 0,
         apiQuery: "./",
         api: "",
-        hotelData: []
+        hotelData: [],
+        pageItems: 10,
+        pageStart:0,
+        selectHotelId:""
     },
     reducers: {
         query: (state, action) => {
@@ -39,15 +42,30 @@ export const searchBarSlice = createSlice({
             // console.log(state.checkIn)
         },
         hotelDataLoad: (state, action) => {
-            
             state.hotelData = action.payload.hotelData;
-            console.log("STOREEEEE");
+            console.log("STORE hotel data");
             console.log(state.hotelData);   
+        },
+        pageItemsLoad:(state, action) => {
+            state.pageItems = action.payload.items;
+            console.log("STORE page length");
+            console.log(state.pageItems);
+        },
+        pageStartLoad: (state,action) => {
+            state.pageStart = action.payload.start * state.pageItems;
+            console.log("STORE page start");
+            console.log(state.pageStart);
+        },
+        selectHotelId: (state,action) =>{
+            state.selectHotelId = action.payload.id;
+            console.log("STORE selected hotel id");
+            console.log(state.selectHotelId);
         }
+        
     }
 });
 
-export const { query, hotelDataLoad} = searchBarSlice.actions;
+export const { query, hotelDataLoad, pageItemsLoad, pageStartLoad, selectHotelId} = searchBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const apiURL = (state: RootState) => state.SearchBarReducer.api;

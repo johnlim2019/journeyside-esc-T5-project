@@ -10,12 +10,11 @@ import axios from 'axios';
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
         width: '75%',
-        padding: '0 0 0 5px',
         margin: 'auto',
-        marginBottom: '1em',
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            width: '120%',
+            width: '100%',
+            alignItems:'center'
         },
     },
     searchbarcomponets: {
@@ -32,12 +31,12 @@ function SearchBar(): JSX.Element {
     // redux dispatch hook
     const dispatch = useAppDispatch(); // to add things to store!!!
     const [location, setLocation] = useState("");
+    console.log("location: "+location);
+    // load the destination details
     let id = "";
     let dest = "";
     let lng = 0;
     let lat = 0;
-
-
     for (let i of destinations) {
         if (i.term === location) {
             id = i.uid;
@@ -46,10 +45,11 @@ function SearchBar(): JSX.Element {
             lat = i.lat;
         }
     }
-    console.log("id")
+    console.log("id");
     console.log(id);
+    
 
-
+    // load dates, num of adults,children,rooms
     let date = new Date();
     date.setDate(date.getDate() + 7);
     let dateUTC = date.getUTCMilliseconds();
@@ -65,6 +65,7 @@ function SearchBar(): JSX.Element {
     const [rooms, setRoom] = useState('');
     const { classes } = useStyles();
 
+    // prepare all values to be dispatched to store
     let dispatchQuery = {
         id: id,
         location: dest,
@@ -76,8 +77,7 @@ function SearchBar(): JSX.Element {
         children: children,
         rooms: rooms,
     }
-
-    const fetchApi = async (api: string) => {
+    const fetchHotelApi = async (api: string) => {
         await axios({
           url: api,
           method: 'GET',
@@ -90,7 +90,8 @@ function SearchBar(): JSX.Element {
           return;
         });
       };
-      const api = "./"+id+".json";
+      const hotelApi = "./"+id+".json";
+
     return (
         <div className={classes.searchbarwrapper} >
             <Center>
@@ -160,7 +161,7 @@ function SearchBar(): JSX.Element {
                         <Space className={classes.searchbarcomponets} h="xl" />
                         <Button fullWidth={true} onClick={() =>{
                             dispatch(query({ dispatchQuery }));
-                            fetchApi(api);                            
+                            fetchHotelApi(hotelApi);                            
                             }}>GO!</Button>
                     </Grid.Col>
                 </Grid>

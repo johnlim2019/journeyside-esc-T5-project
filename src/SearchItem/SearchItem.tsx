@@ -1,8 +1,22 @@
 //import { hotelData } from '../data/hotelData' // temporary import of json 
-import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, Progress, Loader } from '@mantine/core';
+import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, Progress, NativeSelect, createStyles, Pagination } from '@mantine/core';
 import './SearchItem.css';
-import { useAppSelector} from '../hooks';
-import { Suspense } from 'react';
+import { useAppSelector, useAppDispatch} from '../hooks';
+import { useState } from 'react';
+import { pageItemsLoad, pageStartLoad, selectHotelId } from '../SearchBar/SearchBarSlice';
+
+const useStyles = createStyles((theme) => ({
+  cardContainer: {
+    width: '30rem',
+    margin: 'auto',
+    marginTop:"2rem",
+      // Media query with value from theme
+      [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+          width: '22rem',
+          alignItems:'center'
+      },
+  }
+}));
 
 function SearchItem() {
 
@@ -11,24 +25,78 @@ function SearchItem() {
   console.log(dest);
   const theme = useMantineTheme();
   
+  // header to confirm the destination in store
   let headerString = dest || "Begin you Adventure!";
   //console.log(api);
 
-  // fetch api!
-  let hotelDataLs: any[] = [];
-  hotelDataLs = useAppSelector(state => state.SearchBarReducer.hotelData); // to load things from store !!!
 
+  // set up pagination settings
+  const dispatch = useAppDispatch(); // to add things to store!!!
+  const [numberItemsDirty, setNumberItemsDirty] = useState("10");
+  const [activePage, setPage] = useState(1);
+  console.log('active page: '+activePage);
+  console.log('numberItems: '+numberItemsDirty.slice(0,3));
+
+
+  
+  // update the store on interaction with pagination element we dispatch new page 
+  dispatch(pageStartLoad({start:activePage-1}))
+  // on change of number items we update the store
+  dispatch(pageItemsLoad({items:+numberItemsDirty.slice(0,3).trim()})) // cast string to number 
+
+  // fetch data from store
+  let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData); // to load things from store !!!
+  let numberItems = useAppSelector(state => state.SearchBarReducer.pageItems);
+  let elementsStart = useAppSelector(state => state.SearchBarReducer.pageStart);
+
+  // Pagination controls
+  let elementsEnd = elementsStart + numberItems;
+  let numPages = Math.ceil(hotelDataLong.length / numberItems);
+  if (elementsEnd >= hotelDataLong.length){
+    elementsEnd = hotelDataLong.length;
+  }
+
+
+  // print the new list of data
+  let hotelDataLs: any[] = [];
+  for (let i=elementsStart;i<elementsEnd;i++){
+    hotelDataLs.push(hotelDataLong[i]);
+  }
+  console.log("start item: "+elementsStart);
+  console.log("LIST SIZE: "+hotelDataLs.length);
+  console.log("end item: "+elementsEnd);
+
+
+
+  const { classes } = useStyles();
+
+  // show or hide pagination!
+  let hidden = true;
+  if(hotelDataLs.length === 0){
+    hidden = false;
+  }
 
   return (
     <div className="results-container">
-      <Paper style={{ width: '30rem', margin: 'auto', marginBottom: "2em" }}>
-        <Text size="sm" className='subtitle' align='center'>{headerString}</Text>
+      <Paper className={classes.cardContainer} style={{marginBottom: "2em" }}>
+        <div>
+        <Text size="md" className='subtitle' align='center'>{headerString}</Text>
+        </div>
+        {/* <Pagination total={numPages} size="xs" radius="xs" withEdges /> */}
+        <NativeSelect
+          data={['10 items','20 items','30 items','40 items','50 items','100 items']}
+          value={numberItemsDirty}
+          onChange={(event) => setNumberItemsDirty(event.currentTarget.value)}
+          label="Show"
+          radius="md"
+          size="xs"
+        />  
       </Paper>
-      <div className='card-container' style={{ width: '30rem', margin: 'auto', }}>
+      <div className={classes.cardContainer}>
         {hotelDataLs.map((data, key) => {
 
           //console.log(data.image_details.prefix);
-          let imageUrl = data.image_details.prefix + "0" + data.image_details.suffix;
+          let imageUrl = data.image_details.prefix + "1" + data.image_details.suffix;
           let ratingScore = data.rating / 5 * 100;
           let reviewScore = data.trustyou.score.kaligo_overall;
           let reviewColor = 'gray';
@@ -58,11 +126,6 @@ function SearchItem() {
           //console.log("review: "+reviewScore)
           return (
             <>
-              <Suspense fallback={
-                <div style={{ width: '5em', margin: 'auto' }}>
-                  <Loader />
-                </div>
-              }>
                 <Card key={key} className="card-main" p="lg" style={{ marginBottom: '5em' }}>
                   <Card.Section>
                     <Image id='image' withPlaceholder={true} src={imageUrl} height={160} alt={data.name} />
@@ -88,18 +151,35 @@ function SearchItem() {
                     style={{ marginTop: 10 }}
                     sx={(theme) => ({
                       backgroundColor: theme.colors.gray[5],
-
                     })}
                     value={ratingScore}
                   />
-                  <Button variant="light" color="blue" fullWidth style={{ marginTop: 14 }}>
-                    299 a night
+                  <Button variant="light" color="blue" fullWidth style={{ marginTop: 14 }} 
+                  onClick={()=>dispatch(selectHotelId({id:data.id}))}
+                  >
+                    Book Room
                   </Button>
                 </Card>
-              </Suspense>
             </>
           );
         })}
+      <Paper className={classes.cardContainer} style={{marginBottom: "2em" }}>
+        <Group position='center' spacing='xl'>
+        {/* <div>
+          <Space h='xl'></Space>
+        <Text size="md" className='subtitle' align='center'>{headerString}</Text>
+        </div> */}
+        {hidden && <Pagination total={numPages} size="xs" radius="xs" withEdges page={activePage} onChange={setPage}/>}
+        <NativeSelect
+          data={['10 items','20 items','30 items','40 items','50 items','100 items']}
+          value={numberItemsDirty}
+          onChange={(event) => setNumberItemsDirty(event.currentTarget.value)}
+          label="Show"
+          radius="md"
+          size="xs"
+        />  
+        </Group>
+      </Paper>
       </div>
     </div>
 
