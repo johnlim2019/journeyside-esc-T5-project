@@ -20,8 +20,10 @@
     "dayjs": "^1.11.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-list": "^0.8.17",
     "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
+    "react-sticky": "^6.0.3",
     "typescript": "^4.7.2",
     "web-vitals": "^2.1.4"
   },
@@ -48,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-sticky": "^6.0.4"
   }
 }

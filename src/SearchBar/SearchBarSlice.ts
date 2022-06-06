@@ -16,9 +16,9 @@ export const searchBarSlice = createSlice({
         children: 0,
         rooms: 1,
         test: 0,
-        apiQuery: "https://hotelapi.loyalty.dev/api/hotels?destination_id=",
+        apiQuery: "./",
         api: "",
-        hotelData: JSON
+        hotelData: []
     },
     reducers: {
         query: (state, action) => {
@@ -31,17 +31,23 @@ export const searchBarSlice = createSlice({
             state.adults = action.payload.checkOut;
             state.children = action.payload.dispatchQuery.children;
             state.rooms = action.payload.dispatchQuery.rooms;
-            state.api = state.apiQuery + state.id;
+            state.api = state.apiQuery + state.id +'.json';
             //console.log(state.id);
             //console.log("api");
             //console.log(state.api);
             // console.log(typeof(state.rooms))
             // console.log(state.checkIn)
+        },
+        hotelDataLoad: (state, action) => {
+            
+            state.hotelData = action.payload.hotelData;
+            console.log("STOREEEEE");
+            console.log(state.hotelData);   
         }
     }
 });
 
-export const { query } = searchBarSlice.actions;
+export const { query, hotelDataLoad} = searchBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const apiURL = (state: RootState) => state.SearchBarReducer.api;

@@ -1,12 +1,13 @@
-import SearchWrapper from './SearchItem/SearchWrapper';
+import SearchItem from './SearchItem/SearchItem';
 import SearchBar from './SearchBar/SearchBar';
-
 
 function App() {
     return (
         <>
-            <SearchBar/>
-            <SearchWrapper/>
+            <div style={{  position: 'sticky',top: 0, zIndex:2, width:'100%'}}>
+                <SearchBar />
+            </div>
+            <SearchItem />
         </>
 
     );

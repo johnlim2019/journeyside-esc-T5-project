@@ -1,24 +1,23 @@
-import { hotelData } from '../data/hotelData' // temporary import of json 
+//import { hotelData } from '../data/hotelData' // temporary import of json 
 import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, Progress, Loader } from '@mantine/core';
 import './SearchItem.css';
-import { useAppSelector, useAppDispatch } from '../hooks';
-import { lazy, Suspense } from 'react';
-
+import { useAppSelector} from '../hooks';
+import { Suspense } from 'react';
 
 function SearchItem() {
-  const api = useAppSelector(state => state.SearchBarReducer.api); // to load things from store !!!
+
+  //const api = useAppSelector(state => state.SearchBarReducer.api); // to load things from store !!!
   const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
   console.log(dest);
-  console.log(AnimationPlaybackEvent);
   const theme = useMantineTheme();
-
-  let headerString: any = api || "Begin your Adventure Today!";
+  
+  let headerString = dest || "Begin you Adventure!";
   //console.log(api);
 
   // fetch api!
-  // still not working cannot fetch 
+  let hotelDataLs: any[] = [];
+  hotelDataLs = useAppSelector(state => state.SearchBarReducer.hotelData); // to load things from store !!!
 
-  let hotelDataLs = hotelData;
 
   return (
     <div className="results-container">
@@ -32,8 +31,8 @@ function SearchItem() {
           let imageUrl = data.image_details.prefix + "0" + data.image_details.suffix;
           let ratingScore = data.rating / 5 * 100;
           let reviewScore = data.trustyou.score.kaligo_overall;
-          let reviewColor = 'grey';
-          if (reviewScore <= 1) {
+          let reviewColor = 'gray';
+          if (reviewScore <= 1 && reviewScore> 0) {
             reviewColor = 'pink';
           }
           else if (reviewScore <= 3.5 && reviewScore > 1) {
@@ -42,6 +41,7 @@ function SearchItem() {
           else if (reviewScore > 3.5) {
             reviewColor = 'green';
           }
+
           let ratingColor = 'pink';
           if (ratingScore <= 70 && ratingScore > 20) {
             ratingColor = 'orange';
@@ -49,7 +49,11 @@ function SearchItem() {
           else if (ratingScore > 70) {
             ratingColor = 'green';
           }
-          let distance = data.distance.toFixed(1);
+          let distance = data.distance;
+          if (distance > 1000){
+            distance = distance/1000;
+          }
+          distance = distance.toFixed(1);
           //console.log("rating: "+data.rating);
           //console.log("review: "+reviewScore)
           return (

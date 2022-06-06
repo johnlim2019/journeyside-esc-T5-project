@@ -1,10 +1,11 @@
-import { createStyles, Autocomplete, Text, Button, Space, NativeSelect, Grid, Paper } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, NativeSelect, Grid, Paper, Center } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState } from 'react';
-import { query} from './SearchBarSlice';
-import { useAppSelector, useAppDispatch } from '../hooks';
-import {destinations} from '../data/destinations';
-
+import { query } from './SearchBarSlice';
+import { useAppDispatch } from '../hooks';
+import { destinations } from '../data/destinations';
+import { hotelDataLoad } from '../SearchBar/SearchBarSlice';
+import axios from 'axios';
 
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
@@ -14,7 +15,7 @@ const useStyles = createStyles((theme) => ({
         marginBottom: '1em',
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            width: '100%'
+            width: '120%',
         },
     },
     searchbarcomponets: {
@@ -30,23 +31,23 @@ const useStyles = createStyles((theme) => ({
 function SearchBar(): JSX.Element {
     // redux dispatch hook
     const dispatch = useAppDispatch(); // to add things to store!!!
-    const [location, setLocation] = useState(""); 
+    const [location, setLocation] = useState("");
     let id = "";
-    let dest ="";
+    let dest = "";
     let lng = 0;
     let lat = 0;
-    
 
-    for (let i of destinations){
-        if (i.term === location){
+
+    for (let i of destinations) {
+        if (i.term === location) {
             id = i.uid;
             dest = i.term;
             lng = i.lng;
             lat = i.lat;
-        }}
+        }
+    }
     console.log("id")
     console.log(id);
-
 
 
     let date = new Date();
@@ -65,32 +66,46 @@ function SearchBar(): JSX.Element {
     const { classes } = useStyles();
 
     let dispatchQuery = {
-        id : id,
-        location : dest,
-        lng : lng,
-        lat : lat,
+        id: id,
+        location: dest,
+        lng: lng,
+        lat: lat,
         checkIn: dateUTC,
         checkOut: date2UTC,
-        adults:adults,
-        children:children,
-        rooms:rooms,
+        adults: adults,
+        children: children,
+        rooms: rooms,
     }
 
+    const fetchApi = async (api: string) => {
+        await axios({
+          url: api,
+          method: 'GET',
+          //headers: {"Access-Control-Allow-Origin": "*"}
+        }).then((response) => {
+          // do what u want with the response here
+          console.log(response.data);
+          const data = response.data;
+          dispatch(hotelDataLoad({ hotelData: data }));
+          return;
+        });
+      };
+      const api = "./"+id+".json";
     return (
-
         <div className={classes.searchbarwrapper} >
+            <Center>
             <Paper shadow='sm'>
-                <Grid columns={18} grow gutter='sm' align='center' p='md' >
+                <Grid columns={16} grow gutter='sm' align='center' p='md' >
                     <Grid.Col span={4}>
                         <Paper>
                             <Autocomplete
                                 className={classes.searchbarcomponets}
                                 label="Destination"
                                 placeholder="Begin Your Adventure"
-                                value = {location}
+                                value={location}
                                 onChange={setLocation}
-                                data={["Paris, France","Istanbul, Turkey","Singapore, Singapore"]}
-                                />
+                                data={["Paris, France", "Istanbul, Turkey", "Singapore, Singapore", "Kuala Lumpur, Malaysia"]}
+                            />
                         </Paper>
                     </Grid.Col>
                     <Grid.Col span={4}>
@@ -136,17 +151,22 @@ function SearchBar(): JSX.Element {
                                 data={['1', '2']}
                                 label='Rooms'
                                 value={rooms}
-                                onChange = {(event) => setRoom(event.currentTarget.value)}
+                                onChange={(event) => setRoom(event.currentTarget.value)}
                             />
                         </Paper>
 
                     </Grid.Col>
                     <Grid.Col span={2}>
                         <Space className={classes.searchbarcomponets} h="xl" />
-                        <Button fullWidth={true} onClick={()=> dispatch(query({dispatchQuery}))}>GO!</Button>
+                        <Button fullWidth={true} onClick={() =>{
+                            dispatch(query({ dispatchQuery }));
+                            fetchApi(api);                            
+                            }}>GO!</Button>
                     </Grid.Col>
                 </Grid>
             </Paper>
+            </Center>
+
         </div>
 
 
