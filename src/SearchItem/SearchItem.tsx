@@ -43,7 +43,7 @@ function SearchItem() {
 
   // header to confirm the destination in store
   let headerString = dest || "Begin you Adventure!";
-  //console.log(api);
+  //console.log(api); 
 
   // set up pagination settings
   const dispatch = useAppDispatch(); // to add things to store!!!
@@ -65,6 +65,7 @@ function SearchItem() {
   // sort selector
   const [sortBy, setSortBy] = useState("reviews");
   // sort code
+  // create copy to sort
   var hotelDataLongSort = [...hotelDataLong];
   if (sortBy === "Rating"){
     if (hotelDataLongSort.length > 0) {
@@ -78,7 +79,8 @@ function SearchItem() {
       hotelDataLongSort.sort((a: any, b: any) => (a.trustyou.score.kaligo_overall < b.trustyou.score.kaligo_overall) ? 1 : -1);
     }
   }
-hotelDataLong = hotelDataLongSort;
+  // assign the new sorted values
+  hotelDataLong = hotelDataLongSort;
 
    
 
@@ -98,13 +100,13 @@ hotelDataLong = hotelDataLongSort;
   console.log("LIST SIZE: " + hotelDataLs.length);
   console.log("end item: " + elementsEnd);
 
-  const { classes } = useStyles();
   // show or hide pagination!
   let hidden = true;
   if (hotelDataLs.length === 0) {
     hidden = false;
   }
-
+  // declare mantine style classes
+  const { classes } = useStyles();
 
   return (
     <div className={classes.resultsContainer}>

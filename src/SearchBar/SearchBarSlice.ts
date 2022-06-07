@@ -5,6 +5,7 @@ import { RootState } from "../store";
 // create slice contains the reducers and the actions
 export const searchBarSlice = createSlice({
     name: 'query',
+    
     initialState: {
         id: "",
         location: "",
@@ -24,6 +25,7 @@ export const searchBarSlice = createSlice({
         selectHotelId:""
     },
     reducers: {
+        // these take in data from the components 
         query: (state, action) => {
             state.location = action.payload.dispatchQuery.location;
             state.id = action.payload.dispatchQuery.id;
@@ -69,6 +71,7 @@ export const searchBarSlice = createSlice({
     }
 });
 
+// export our actions, these need to be imported by the component so dispatch function in component can send data to STORE
 export const { query, hotelDataLoad, pageItemsLoad, pageStartLoad, selectHotelId} = searchBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

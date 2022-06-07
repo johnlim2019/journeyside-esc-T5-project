@@ -30,6 +30,8 @@ const useStyles = createStyles((theme) => ({
 function SearchBar(): JSX.Element {
     // redux dispatch hook
     const dispatch = useAppDispatch(); // to add things to store!!!
+    
+    // get location from input
     const [location, setLocation] = useState("");
     console.log("location: "+location);
     // load the destination details
@@ -60,12 +62,13 @@ function SearchBar(): JSX.Element {
         date,
         date2
     ]);
+    //get other values form input components
     const [adults, setAdults] = useState('');
     const [children, setChildren] = useState('');
     const [rooms, setRoom] = useState('');
     const { classes } = useStyles();
 
-    // prepare all values to be dispatched to store
+    // prepare object of values to be dispatched to store
     let dispatchQuery = {
         id: id,
         location: dest,
@@ -77,11 +80,13 @@ function SearchBar(): JSX.Element {
         children: children,
         rooms: rooms,
     }
+
+    // api import function 
     const fetchHotelApi = async (api: string) => {
         await axios({
           url: api,
           method: 'GET',
-          //headers: {"Access-Control-Allow-Origin": "*"}
+          headers: {"Access-Control-Allow-Origin": "*"}
         }).then((response) => {
             // do what u want with the response here
             console.log(response.data);
@@ -91,6 +96,7 @@ function SearchBar(): JSX.Element {
             return;
         });
       };
+      // set the api url for axios import function 
       const hotelApi = "./"+id+".json";
 
     return (
