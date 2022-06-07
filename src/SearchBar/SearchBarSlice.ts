@@ -60,7 +60,11 @@ export const searchBarSlice = createSlice({
             state.selectHotelId = action.payload.id;
             console.log("STORE selected hotel id");
             console.log(state.selectHotelId);
+        },
+        sortReviews: (state) => {
+
         }
+
         
     }
 });

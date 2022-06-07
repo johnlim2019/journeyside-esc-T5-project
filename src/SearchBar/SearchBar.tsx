@@ -45,8 +45,8 @@ function SearchBar(): JSX.Element {
             lat = i.lat;
         }
     }
-    console.log("id");
-    console.log(id);
+    // console.log("id");
+    // console.log(id);
     
 
     // load dates, num of adults,children,rooms
@@ -83,11 +83,12 @@ function SearchBar(): JSX.Element {
           method: 'GET',
           //headers: {"Access-Control-Allow-Origin": "*"}
         }).then((response) => {
-          // do what u want with the response here
-          console.log(response.data);
-          const data = response.data;
-          dispatch(hotelDataLoad({ hotelData: data }));
-          return;
+            // do what u want with the response here
+            console.log(response.data);
+            const data = response.data as object[];
+            console.log(typeof data);
+            dispatch(hotelDataLoad({ hotelData: data }));
+            return;
         });
       };
       const hotelApi = "./"+id+".json";
