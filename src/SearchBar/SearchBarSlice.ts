@@ -7,7 +7,7 @@ export const searchBarSlice = createSlice({
     name: 'query',
     
     initialState: {
-        id: "",
+        locationId: "",
         location: "",
         lng: 0,
         lat: 0,
@@ -28,7 +28,7 @@ export const searchBarSlice = createSlice({
         // these take in data from the components 
         query: (state, action) => {
             state.location = action.payload.dispatchQuery.location;
-            state.id = action.payload.dispatchQuery.id;
+            state.locationId = action.payload.dispatchQuery.id;
             state.lng = action.payload.dispatchQuery.lng;
             state.lat = action.payload.dispatchQuery.lat;
             state.checkIn = action.payload.dispatchQuery;
@@ -36,7 +36,7 @@ export const searchBarSlice = createSlice({
             state.adults = action.payload.checkOut;
             state.children = action.payload.dispatchQuery.children;
             state.rooms = action.payload.dispatchQuery.rooms;
-            state.api = state.apiQuery + state.id +'.json';
+            state.api = state.apiQuery + state.locationId +'.json';
             //console.log(state.id);
             //console.log("api");
             //console.log(state.api);
