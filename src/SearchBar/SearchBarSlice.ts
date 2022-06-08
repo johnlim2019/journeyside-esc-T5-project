@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState, store } from "../store";
+import { RootState} from "../store";
 
 
 // create slice contains the reducers and the actions
@@ -12,9 +12,9 @@ export const searchBarSlice = createSlice({
         lat: 0,
         checkIn: new Date(),
         checkOut: new Date(),
-        adults: 2,
-        children: 0,
-        rooms: 1,
+        adults: "2",
+        children: "0",
+        rooms: "1",
         test: 0,
         apiQuery: "./",
         api: "",

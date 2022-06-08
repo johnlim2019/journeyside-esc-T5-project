@@ -1,4 +1,4 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NumberInput, Image } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState } from 'react';
 import { query } from '../SearchBar/SearchBarSlice';
@@ -92,9 +92,9 @@ function SearchBarSplashPage(): JSX.Element {
         date2
     ]);
     //get other values form input components
-    const [adults, setAdults] = useState(2);
-    const [children, setChildren] = useState(0);
-    const [rooms, setRoom] = useState(1);
+    const [adults, setAdults] = useState("2");
+    const [children, setChildren] = useState("0");
+    const [rooms, setRoom] = useState("1");
     const { classes } = useStyles();
 
     // prepare object of values to be dispatched to store
@@ -144,46 +144,37 @@ function SearchBarSplashPage(): JSX.Element {
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Paper>
-                                <NumberInput
+                                <NativeSelect
                                     className={classes.searchbarcomponets}
-                                    min={1}
-                                    step={1}
-                                    max={5}
+                                    data={['1', '2', '3', '4','5']}
                                     placeholder="2"
                                     label="Adults"
                                     value={adults}
-                                    onChange={(val: number) => setAdults(val)}
+                                    onChange={(event) => setAdults(event.currentTarget.value)}
                                 />
                             </Paper>
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Paper>
-                                <NumberInput
+                                <NativeSelect
                                     className={classes.searchbarcomponets}
-                                    min={0}
-                                    step={1}
-                                    max={5}
-                                    placeholder="0"
-                                    label="Kids"
+                                    data={['0', '1', '2', '3', '4']}
                                     value={children}
-                                    onChange={(val: number) => setChildren(val)}
+                                    label="Kids"
+                                    onChange={(event) => setChildren(event.currentTarget.value)}
                                 />
                             </Paper>
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Paper>
-                                <NumberInput
+                                <NativeSelect
                                     className={classes.searchbarcomponets}
-                                    min={1}
-                                    step={1}
-                                    max={3}
-                                    placeholder="1"
-                                    label="Rooms"
+                                    data={['1', '2','3']}
+                                    label='Rooms'
                                     value={rooms}
-                                    onChange={(val: number) => setRoom(val)}
+                                    onChange={(event) => setRoom(event.currentTarget.value)}
                                 />
                             </Paper>
-
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Space className={classes.searchbarcomponets} h="xl" />

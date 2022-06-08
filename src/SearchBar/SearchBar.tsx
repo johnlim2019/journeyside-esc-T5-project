@@ -1,12 +1,14 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NumberInput } from '@mantine/core';
-import { DateRangePicker } from '@mantine/dates';   
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect } from '@mantine/core';
+import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
 import { query } from './SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { hotelDataLoad, loadDestinations } from '../SearchBar/SearchBarSlice';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
-import {destinations} from '../data/destinations';
+import { destinations } from '../data/destinations';
+
+
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
         width: '75%',
@@ -25,7 +27,7 @@ const useStyles = createStyles((theme) => ({
         },
     },
 }));
-function getDestDetails(location:string,destinations:any){
+function getDestDetails(location: string, destinations: any) {
     // load the destination details
     let id = "";
     let dest = "";
@@ -39,9 +41,9 @@ function getDestDetails(location:string,destinations:any){
             lat = i.lat;
         }
     }
-    return [id,dest,lng,lat];
+    return [id, dest, lng, lat];
 }
-function getMinDate(){
+function getMinDate() {
     let minDate = new Date();
     minDate.setDate(minDate.getDate() + 7);
     return minDate;
@@ -88,10 +90,10 @@ function SearchBar(): JSX.Element {
 
     // redux dispatch hook
     const dispatch = useAppDispatch(); // to add things to store!!!
-    
+
 
     // load destination details
-    let [id,dest,lng,lat] = getDestDetails(location,destinations);
+    let [id, dest, lng, lat] = getDestDetails(location, destinations);
 
     // set minDate
     let minDate = getMinDate();
@@ -130,10 +132,10 @@ function SearchBar(): JSX.Element {
 
 
     // check if we can load hotel results once when loaded the page
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(query({ dispatchQuery }));
         fetchHotelApi(hotelApi);
-    },[]);
+    }, []);
 
 
     return (
@@ -168,46 +170,37 @@ function SearchBar(): JSX.Element {
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Paper>
-                                <NumberInput
+                                <NativeSelect
                                     className={classes.searchbarcomponets}
-                                    min={1}
-                                    step={1}
-                                    max={5}
+                                    data={['1', '2', '3', '4','5']}
                                     placeholder="2"
                                     label="Adults"
                                     value={adults}
-                                    onChange={(val: number) => setAdults(val)}
+                                    onChange={(event) => setAdults(event.currentTarget.value)}
                                 />
                             </Paper>
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Paper>
-                                <NumberInput
+                                <NativeSelect
                                     className={classes.searchbarcomponets}
-                                    min={0}
-                                    step={1}
-                                    max={5}
-                                    placeholder="0"
-                                    label="Kids"
+                                    data={['0', '1', '2', '3', '4']}
                                     value={children}
-                                    onChange={(val: number) => setChildren(val)}
+                                    label="Kids"
+                                    onChange={(event) => setChildren(event.currentTarget.value)}
                                 />
                             </Paper>
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Paper>
-                                <NumberInput
+                                <NativeSelect
                                     className={classes.searchbarcomponets}
-                                    min={1}
-                                    step={1}
-                                    max={3}
-                                    placeholder="1"
-                                    label="Rooms"
+                                    data={['1', '2','3']}
+                                    label='Rooms'
                                     value={rooms}
-                                    onChange={(val: number) => setRoom(val)}
+                                    onChange={(event) => setRoom(event.currentTarget.value)}
                                 />
                             </Paper>
-
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Space className={classes.searchbarcomponets} h="xl" />

@@ -1,5 +1,5 @@
 //import { hotelData } from '../data/hotelData' // temporary import of json 
-import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, Progress, NativeSelect, createStyles, Pagination, Center } from '@mantine/core';
+import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, Progress, NativeSelect, createStyles, Pagination, Center   } from '@mantine/core';
 import './SearchItem.css';
 import { useAppSelector, useAppDispatch } from '../hooks';
 import { useState } from 'react';
@@ -218,11 +218,7 @@ function SearchItem() {
         })}
         <Paper className={classes.cardContainer} style={{ marginBottom: "2em" }}>
           <Group position='center' spacing='xl'>
-            {/* <div>
-          <Space h='xl'></Space>
-        <Text size="md" className={classes.subtitle} align='center'>{headerString}</Text>
-        </div> */}
-            {hidden && <Pagination total={numPages} size="xs" radius="xs" withEdges page={activePage} onChange={setPage} />}
+            {hidden && <Pagination total={numPages} size="xs" radius="xs" withEdges page={activePage} onChange={setPage} style={{marginTop:'1.75em'}} />}
             <NativeSelect
               data={['10 items', '20 items', '30 items', '40 items', '50 items', '100 items']}
               value={numberItemsDirty}
