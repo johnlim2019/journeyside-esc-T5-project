@@ -3,11 +3,10 @@ import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
 import { query } from './SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { destinations } from '../data/destinations';
 import { hotelDataLoad, loadDestinations } from '../SearchBar/SearchBarSlice';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
-
+import {destinations} from '../data/destinations';
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
         width: '75%',
@@ -49,7 +48,27 @@ function getMinDate(){
 }
 
 function SearchBar(): JSX.Element {
+    // load destination api function
+    // const fetchDestApi = async (api: string) => {
+    //     await axios({
+    //         url: api,
+    //         method: 'GET',
+    //         headers: { "Access-Control-Allow-Origin": "*" }
+    //     }).then((response) => {
+    //         // do what u want with the response here
+    //         //console.log(response.data);
+    //         const data = response.data as object[];
+    //         dispatch(loadDestinations({ destinations: data }));
+    //     });
+    // };
+    // const destApi = './destinations.json';
+    // useEffect(()=>{
+    //     fetchDestApi(destApi);
+    //     wait(100);
+    // },[]);
+
     //get STORE values form input components
+    // const destinations = useState(useAppSelector(state=> state.SearchBarReducer.destinations))
     const [adults, setAdults] = useState(useAppSelector(state => state.SearchBarReducer.adults));
     const [children, setChildren] = useState(useAppSelector(state => state.SearchBarReducer.children));
     const [rooms, setRoom] = useState(useAppSelector(state => state.SearchBarReducer.rooms));
@@ -108,24 +127,10 @@ function SearchBar(): JSX.Element {
     const hotelApi = "./" + id + ".json";
 
 
-    // load destination api function
-    const fetchDestApi = async (api: string) => {
-    await axios({
-        url: api,
-        method: 'GET',
-        headers: { "Access-Control-Allow-Origin": "*" }
-    }).then((response) => {
-        // do what u want with the response here
-        //console.log(response.data);
-        const data = response.data as object[];
-        dispatch(loadDestinations({ destinations: data }));
-    });
-};
-    const destApi = './destinations.json';
+
 
     // check if we can load hotel results once when loaded the page
     useEffect(()=>{
-        fetchDestApi(destApi);
         dispatch(query({ dispatchQuery }));
         fetchHotelApi(hotelApi);
     },[]);

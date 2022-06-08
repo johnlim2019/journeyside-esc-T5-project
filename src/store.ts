@@ -1,10 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import SearchBarSlice from './SearchBar/SearchBarSlice';
-import SearchItemSlice from './SearchItem/SearchItemSlice';
 
 const reducers = combineReducers({
     SearchBarReducer:SearchBarSlice,
-    SearchItemReducer:SearchItemSlice
 })
 
 export const store = configureStore({

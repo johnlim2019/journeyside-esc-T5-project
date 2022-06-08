@@ -1,16 +1,18 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NumberInput } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NumberInput, Image } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
-import { Component, useState } from 'react';
+import { useState } from 'react';
 import { query } from '../SearchBar/SearchBarSlice';
 import { useAppDispatch } from '../hooks';
-import { destinations } from '../data/destinations';
 import { PlaneDeparture } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
+import {destinations} from '../data/destinations';
+// import { loadDestinations } from '../SearchBar/SearchBarSlice';
+// import axios from 'axios';
 
 
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
-        marginTop: '10rem',
+        top: '35%',
         width: '50rem',
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -54,6 +56,26 @@ function getDefaultDates() {
 }
 
 function SearchBarSplashPage(): JSX.Element {
+    // // load destinations
+    // const fetchDestApi = async (api: string) => {
+    //     await axios({
+    //         url: api,
+    //         method: 'GET',
+    //         headers: { "Access-Control-Allow-Origin": "*" }
+    //     }).then((response) => {
+    //         // do what u want with the response here
+    //         //console.log(response.data);
+    //         const data = response.data as object[];
+    //         dispatch(loadDestinations({ destinations: data }));
+    //     });
+    // };
+    // const destApi = './destinations.json';
+
+    // useEffect(()=>{
+    //     fetchDestApi(destApi);
+    // },[]);
+
+    //const destinations = useAppSelector(state=>state.SearchBarReducer.destinations);
     // redux dispatch hook
     const dispatch = useAppDispatch(); // to add things to store!!!
 
@@ -87,10 +109,13 @@ function SearchBarSplashPage(): JSX.Element {
         children: children,
         rooms: rooms,
     }
+
     return (
-        <div className={classes.searchbarwrapper} >
+        <>
+        <Image radius='lg' style={{position:'relative', width:'45%',marginLeft:'auto',marginRight:'auto',marginTop:'5em'}} src='./sandBeach.jpg' />
+        <div>
             <Center>
-                <Paper withBorder>
+                <Paper className={classes.searchbarwrapper} style={{position:'absolute'}} withBorder>
                     <Grid columns={16} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={8} sm={5} >
                             <Paper>
@@ -175,7 +200,7 @@ function SearchBarSplashPage(): JSX.Element {
                 </Paper>
             </Center>
         </div>
-
+    </>
 
 
     );
