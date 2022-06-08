@@ -4,6 +4,7 @@ import './SearchItem.css';
 import { useAppSelector, useAppDispatch } from '../hooks';
 import { useState } from 'react';
 import { pageItemsLoad, pageStartLoad, selectHotelId } from '../SearchBar/SearchBarSlice';
+import { Luggage } from 'tabler-icons-react';
 
 // set up themes for classes
 const useStyles = createStyles((theme) => ({
@@ -32,10 +33,56 @@ const useStyles = createStyles((theme) => ({
   }
 
 }));
+function sortResults(hotelDataLongSort:any,sortBy:string){
+  if (sortBy === "Rating"){
+    if (hotelDataLongSort.length > 0) {
+      console.log("sort by rating");
+      hotelDataLongSort.sort((a: any, b: any) => (a.rating < b.rating) ? 1 : -1);
+    }
+  }
+  else if (sortBy === "Reviews") {
+    if (hotelDataLongSort.length > 0) {
+      console.log("sort by rating");
+      hotelDataLongSort.sort((a: any, b: any) => (a.trustyou.score.kaligo_overall < b.trustyou.score.kaligo_overall) ? 1 : -1);
+    }
+  }
+  return hotelDataLongSort;
+}
+function getCardValues(key:number,data:any){
+    //console.log(data.image_details.prefix);
+    let imageUrl = data.image_details.prefix + "1" + data.image_details.suffix;
+    let ratingScore = data.rating / 5 * 100;
+    let reviewScore = data.trustyou.score.kaligo_overall;
+    let reviewColor = 'gray';
+    if (reviewScore <= 1 && reviewScore > 0) {
+      reviewColor = 'pink';
+    }
+    else if (reviewScore <= 3.5 && reviewScore > 1) {
+      reviewColor = 'orange';
+    }
+    else if (reviewScore > 3.5) {
+      reviewColor = 'green';
+    }
+
+    let ratingColor = 'pink';
+    if (ratingScore <= 70 && ratingScore > 20) {
+      ratingColor = 'orange';
+    }
+    else if (ratingScore > 70) {
+      ratingColor = 'green';
+    }
+    let distance = data.distance;
+    if (distance > 1000) {
+      distance = distance / 1000;
+    }
+    distance = distance.toFixed(1);
+    //console.log("rating: "+data.rating);
+    //console.log("review: "+reviewScore)
+  return [imageUrl,ratingScore,reviewScore,reviewColor,ratingColor,distance]
+}
 
 
 function SearchItem() {
-
   //const api = useAppSelector(state => state.SearchBarReducer.api); // to load things from store !!!
   const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
   console.log(dest);
@@ -63,26 +110,14 @@ function SearchItem() {
   let elementsStart = useAppSelector(state => state.SearchBarReducer.pageStart);
 
   // sort selector
-  const [sortBy, setSortBy] = useState("reviews");
+  const [sortBy, setSortBy] = useState("Reviews");
+  
   // sort code
   // create copy to sort
   var hotelDataLongSort = [...hotelDataLong];
-  if (sortBy === "Rating"){
-    if (hotelDataLongSort.length > 0) {
-      console.log("sort by rating");
-      hotelDataLongSort.sort((a: any, b: any) => (a.rating < b.rating) ? 1 : -1);
-    }
-  }
-  else if (sortBy === "Reviews") {
-    if (hotelDataLongSort.length > 0) {
-      console.log("sort by rating");
-      hotelDataLongSort.sort((a: any, b: any) => (a.trustyou.score.kaligo_overall < b.trustyou.score.kaligo_overall) ? 1 : -1);
-    }
-  }
+  hotelDataLongSort = sortResults(hotelDataLongSort,sortBy);
   // assign the new sorted values
   hotelDataLong = hotelDataLongSort;
-
-   
 
   // Pagination controls
   let elementsEnd = elementsStart + numberItems;
@@ -136,42 +171,12 @@ function SearchItem() {
               style={{ width: '5em' }}
             />
           </Group>
-
         </Center>
 
       </Paper>
       <div className={classes.cardContainer}>
         {hotelDataLs.map((data, key) => {
-          // preparing Card data
-          //console.log(data.image_details.prefix);
-          let imageUrl = data.image_details.prefix + "1" + data.image_details.suffix;
-          let ratingScore = data.rating / 5 * 100;
-          let reviewScore = data.trustyou.score.kaligo_overall;
-          let reviewColor = 'gray';
-          if (reviewScore <= 1 && reviewScore > 0) {
-            reviewColor = 'pink';
-          }
-          else if (reviewScore <= 3.5 && reviewScore > 1) {
-            reviewColor = 'orange';
-          }
-          else if (reviewScore > 3.5) {
-            reviewColor = 'green';
-          }
-
-          let ratingColor = 'pink';
-          if (ratingScore <= 70 && ratingScore > 20) {
-            ratingColor = 'orange';
-          }
-          else if (ratingScore > 70) {
-            ratingColor = 'green';
-          }
-          let distance = data.distance;
-          if (distance > 1000) {
-            distance = distance / 1000;
-          }
-          distance = distance.toFixed(1);
-          //console.log("rating: "+data.rating);
-          //console.log("review: "+reviewScore)
+          let  [imageUrl,ratingScore,reviewScore,reviewColor,ratingColor,distance] = getCardValues(key,data);
           return (
             <>
               <Card key={key} className="card-main" p="lg" style={{ marginBottom: '5em' }}>
@@ -182,7 +187,7 @@ function SearchItem() {
                 <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
                   <Text id='title' className={classes.title}>{data.name}</Text>
                   <Badge id='review' color={reviewColor} variant="light">
-                    Reviews: {data.trustyou.score.kaligo_overall}
+                    Reviews: {reviewScore}
                   </Badge>
                 </Group>
                 <Text id="address" size="sm" className={classes.subtitle}>
@@ -202,10 +207,10 @@ function SearchItem() {
                   })}
                   value={ratingScore}
                 />
-                <Button variant="light" color="blue" fullWidth style={{ marginTop: 14 }}
+                <Button variant="filled" color="blue" fullWidth leftIcon={<Luggage />} loaderPosition="right" style={{ marginTop: 14 }}
                   onClick={() => dispatch(selectHotelId({ id: data.id }))}
                 >
-                  Book Room
+                  <Center>$499 a night</Center>
                 </Button>
               </Card>
             </>

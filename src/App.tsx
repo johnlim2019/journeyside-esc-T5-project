@@ -1,13 +1,17 @@
-import SearchWrapper from './SearchItem/SearchWrapper';
-import SearchBar from './SearchBar/SearchBar';
+import SplashPage from './SplashPage/SplashPage';
+import SearchResults from './SearchResults';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 
 function App() {
     return (
         <>
-            <div style={{  position: 'sticky',top: 0, zIndex:2, width:'100%'}}>
-                <SearchBar />
-            </div>
-            <SearchWrapper />
+            <Router>
+                <Routes>
+                    <Route path="/SplashPage" element={<SplashPage/>}/>
+                    <Route path='/SearchResults' element={<SearchResults />} />
+                </Routes>
+            </Router>
+
         </>
 
     );
