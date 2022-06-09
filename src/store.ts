@@ -1,12 +1,18 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import SearchBarSlice from './SearchBar/SearchBarSlice';
+import { hotelPricesApi } from "./services/hotelPricesApi";
+import ChosenDestinationSlice from './SearchBar/chosenDestinationSlice';
 
 const reducers = combineReducers({
     SearchBarReducer:SearchBarSlice,
+    [hotelPricesApi.reducerPath]: hotelPricesApi.reducer,
+    ChosenDestinationReducer: ChosenDestinationSlice,
 })
 
 export const store = configureStore({
-    reducer: reducers
+    reducer: reducers,
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(hotelPricesApi.middleware),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
