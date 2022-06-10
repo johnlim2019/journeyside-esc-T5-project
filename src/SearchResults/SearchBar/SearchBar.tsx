@@ -1,14 +1,29 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
-import { query } from './SearchBarSlice';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { hotelDataLoad, loadDestinations } from '../SearchBar/SearchBarSlice';
+import { query } from '../../SearchBarSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { hotelDataLoad } from '../../SearchBarSlice';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
-import { destinations } from '../data/destinations';
 
-
+const destinations =     [
+    {
+        "term": "Singapore, Singapore",
+        "uid": "RsBU",
+        "lat": 1.2800945,
+        "lng": 103.8509491,
+        "type": "city"
+    },
+    {
+        "term": "Kuala Lumpur, Malaysia",
+        "uid": "EzoR",
+        "lat": 3.139003,
+        "lng": 101.686856,
+        "type": "city",
+        "state": "Selangor"
+    },
+]
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
         width: '75%',
@@ -49,6 +64,7 @@ function getMinDate() {
     return minDate;
 }
 
+
 function SearchBar(): JSX.Element {
     // load destination api function
     // const fetchDestApi = async (api: string) => {
@@ -80,9 +96,10 @@ function SearchBar(): JSX.Element {
     const [dates, setDates] = useState<[Date | null, Date | null]>([
         date1, date2
     ]);
-    console.log("SEARCHBAR DATES");
-    console.log(dates[0]);
-    console.log(dates[1]);
+    let cacheId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId);    
+    // console.log("SEARCHBAR DATES");
+    // console.log(dates[0]);
+    // console.log(dates[1]);
 
 
     // load styles css
@@ -94,13 +111,14 @@ function SearchBar(): JSX.Element {
 
     // load destination details
     let [id, dest, lng, lat] = getDestDetails(location, destinations);
+    let queryId = id.toString();
 
     // set minDate
     let minDate = getMinDate();
 
     // prepare object of values to be dispatched to store
     let dispatchQuery = {
-        id: id,
+        id: queryId,
         location: dest,
         lng: lng,
         lat: lat,
@@ -112,29 +130,32 @@ function SearchBar(): JSX.Element {
     }
 
     // api import function 
-    const fetchHotelApi = async (api: string) => {
+    const fetchHotelApi = async (api: string,queryId:string) => {
         await axios({
             url: api,
             method: 'GET',
             headers: { "Access-Control-Allow-Origin": "*" }
         }).then((response) => {
             // do what u want with the response here
+            console.log("API CALL");
             console.log(response.data);
             const data = response.data as object[];
-            dispatch(hotelDataLoad({ hotelData: data }));
+            dispatch(hotelDataLoad({ hotels: data, locationId:queryId }));
             return;
         });
     };
     // set the api url for axios import function 
-    const hotelApi = "./" + id + ".json";
+    const hotelApi = "./" + queryId + ".json";
 
 
-
-
-    // check if we can load hotel results once when loaded the page
+    // check the cache id and the queryId 
+    // load the data from api 
+    // else use cache.
     useEffect(() => {
-        dispatch(query({ dispatchQuery }));
-        fetchHotelApi(hotelApi);
+        if (queryId.trim() != cacheId.trim()){
+            // we need to fetch api data
+            fetchHotelApi(hotelApi, queryId);
+        }
     }, []);
 
 
@@ -206,8 +227,8 @@ function SearchBar(): JSX.Element {
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
                                 <Button onClick={() => {
-                                    dispatch(query({ dispatchQuery }));
-                                    fetchHotelApi(hotelApi);
+                                    dispatch(query({ dispatchQuery }));// update the state with new search
+                                    fetchHotelApi(hotelApi, queryId);   
                                 }}>
                                     <PlaneDeparture />
                                 </Button>

@@ -1,12 +1,16 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import SearchBarSlice from './SearchBar/SearchBarSlice';
+import SearchBarSlice from './SearchBarSlice';
+import { loadState } from './Browser-Storage';
 
 const reducers = combineReducers({
     SearchBarReducer:SearchBarSlice,
 })
 
 export const store = configureStore({
-    reducer: reducers
+    devTools:true,
+    reducer: reducers,
+    // restore the previous state
+    preloadedState: loadState()
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

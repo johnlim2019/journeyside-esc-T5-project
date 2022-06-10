@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState} from "../store";
+import { RootState} from "./store";
 
 
 // create slice contains the reducers and the actions
@@ -10,19 +10,19 @@ export const searchBarSlice = createSlice({
         location: "",
         lng: 0,
         lat: 0,
-        checkIn: new Date(),
-        checkOut: new Date(),
+        checkIn: new Date().getTime(),
+        checkOut: new Date().getTime(),
         adults: "2",
         children: "0",
         rooms: "1",
-        test: 0,
-        apiQuery: "./",
-        api: "",
-        hotelData: [],
         pageItems: 10,
-        pageStart:0,
+        pageStart: 0,
         selectHotelId:"",
-        destinations: []
+        hotelData: {
+            locationId : "",
+            hotels :[]
+        },
+
     },
     reducers: {
         // these take in data from the components 
@@ -36,7 +36,8 @@ export const searchBarSlice = createSlice({
             state.adults = action.payload.dispatchQuery.adults;
             state.children = action.payload.dispatchQuery.children;
             state.rooms = action.payload.dispatchQuery.rooms;
-            state.api = state.apiQuery + state.locationId +'.json';
+            // reset page numbers to 0 but keep the pageItems setting
+            state.pageStart = 0; 
             console.log("STORE destination details")
             console.log(state.location);
             console.log(state.locationId);
@@ -49,13 +50,14 @@ export const searchBarSlice = createSlice({
             console.log("adults "+state.adults);
             console.log("children "+state.children);
             console.log("rooms " +state.rooms);
-            //console.log(state.destinations);
-            console.log(typeof state.destinations); 
+            console.log("pageStart "+state.pageStart);
         },
         hotelDataLoad: (state, action) => {
-            state.hotelData = action.payload.hotelData;
+            state.hotelData.hotels = action.payload.hotels;
+            state.hotelData.locationId = action.payload.locationId;
             console.log("STORE hotel data");
-            console.log(state.hotelData);   
+            console.log(state.hotelData.locationId);   
+            console.log(state.hotelData.hotels);
         },
         pageItemsLoad:(state, action) => {
             state.pageItems = action.payload.items;
@@ -72,22 +74,14 @@ export const searchBarSlice = createSlice({
             console.log("STORE selected hotel id");
             console.log(state.selectHotelId);
         },
-        loadDestinations: (state,action) => {
-            state.destinations = action.payload.destinations;
-            console.log("STORE destinations");
-            console.log(state.destinations);
-            for (let i=0;i<11;i++){
-                console.log(state.destinations[i]);
-            }
-        }        
+            
     }
 });
 
 // export our actions, these need to be imported by the component so dispatch function in component can send data to STORE
-export const { query, hotelDataLoad, pageItemsLoad, pageStartLoad, selectHotelId, loadDestinations} = searchBarSlice.actions;
+export const { query, hotelDataLoad, pageItemsLoad, pageStartLoad, selectHotelId} = searchBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const apiURL = (state: RootState) => state.SearchBarReducer.api;
 export const location = (state: RootState) => state.SearchBarReducer.location;
 
 export default searchBarSlice.reducer;

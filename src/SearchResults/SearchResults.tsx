@@ -1,6 +1,6 @@
 import SearchWrapper from './SearchItem/SearchWrapper';
 import SearchBar from './SearchBar/SearchBar';
-import NavBar from './NavBar/NavBar';
+import NavBar from '../NavBar/NavBar';
 import { Center } from '@mantine/core';
 
 function SearchResults() {

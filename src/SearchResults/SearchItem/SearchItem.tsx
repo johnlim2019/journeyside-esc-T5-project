@@ -1,9 +1,9 @@
 //import { hotelData } from '../data/hotelData' // temporary import of json 
 import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, Progress, NativeSelect, createStyles, Pagination, Center   } from '@mantine/core';
 import './SearchItem.css';
-import { useAppSelector, useAppDispatch } from '../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { useState } from 'react';
-import { pageItemsLoad, pageStartLoad, selectHotelId } from '../SearchBar/SearchBarSlice';
+import { pageItemsLoad, pageStartLoad, selectHotelId } from '../../SearchBarSlice';
 import { Luggage } from 'tabler-icons-react';
 
 // set up themes for classes
@@ -81,33 +81,35 @@ function getCardValues(key:number,data:any){
   return [imageUrl,ratingScore,reviewScore,reviewColor,ratingColor,distance]
 }
 
+// from the pagination state indicators calculate the page number
+function getPageNum(pageStart:number, pageItems:number){
+  return pageStart/pageItems + 1;
+}
+
 
 function SearchItem() {
-  //const api = useAppSelector(state => state.SearchBarReducer.api); // to load things from store !!!
-  const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
-  console.log(dest);
+  const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store <!DOCTYPE html>
+  
+  console.log("SEARCH RESULTS CONTAINER");
+  console.log("dest "+dest);
   const theme = useMantineTheme();
 
   // header to confirm the destination in store
   let headerString = dest || "Begin you Adventure!";
-  //console.log(api); 
 
   // set up pagination settings
   const dispatch = useAppDispatch(); // to add things to store!!!
-  const [numberItemsDirty, setNumberItemsDirty] = useState("10");
-  const [activePage, setPage] = useState(1);
+  // read the page location from store.
+  let numberItems = useAppSelector(state=> state.SearchBarReducer.pageItems)
+  let elementsStart = useAppSelector(state => state.SearchBarReducer.pageStart); // to load things from store !!!
+  const [numberItemsDirty, setNumberItemsDirty] = useState(numberItems+" items");
+  const [activePage, setPage] = useState(getPageNum(elementsStart,numberItems));
+
   console.log('active page: ' + activePage);
   console.log('numberItems: ' + numberItemsDirty.slice(0, 3));
 
-  // update the store on interaction with pagination element we dispatch new page 
-  dispatch(pageStartLoad({ start: activePage - 1 }))
-  // on change of number items we update the store
-  dispatch(pageItemsLoad({ items: +numberItemsDirty.slice(0, 3).trim() })) // cast string to number 
-
   // fetch data from store
-  let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData); // to load things from store !!!
-  let numberItems = useAppSelector(state => state.SearchBarReducer.pageItems);
-  let elementsStart = useAppSelector(state => state.SearchBarReducer.pageStart);
+  let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
 
   // sort selector
   const [sortBy, setSortBy] = useState("Reviews");
