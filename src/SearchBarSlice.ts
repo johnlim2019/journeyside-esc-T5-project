@@ -15,8 +15,8 @@ export const searchBarSlice = createSlice({
         adults: "2",
         children: "0",
         rooms: "1",
-        pageItems: 10,
-        pageStart: 0,
+        pageItems: 20,
+        pageStart: 2,
         selectHotelId:"",
         hotelData: {
             locationId : "",
@@ -36,8 +36,6 @@ export const searchBarSlice = createSlice({
             state.adults = action.payload.dispatchQuery.adults;
             state.children = action.payload.dispatchQuery.children;
             state.rooms = action.payload.dispatchQuery.rooms;
-            // reset page numbers to 0 but keep the pageItems setting
-            state.pageStart = 0; 
             console.log("STORE destination details")
             console.log(state.location);
             console.log(state.locationId);
@@ -65,7 +63,7 @@ export const searchBarSlice = createSlice({
             console.log(state.pageItems);
         },
         pageStartLoad: (state,action) => {
-            state.pageStart = action.payload.start * state.pageItems;
+            state.pageStart = action.payload.start;
             console.log("STORE page start");
             console.log(state.pageStart);
         },

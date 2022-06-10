@@ -2,7 +2,7 @@
 import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, Progress, NativeSelect, createStyles, Pagination, Center   } from '@mantine/core';
 import './SearchItem.css';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { pageItemsLoad, pageStartLoad, selectHotelId } from '../../SearchBarSlice';
 import { Luggage } from 'tabler-icons-react';
 
@@ -81,36 +81,18 @@ function getCardValues(key:number,data:any){
   return [imageUrl,ratingScore,reviewScore,reviewColor,ratingColor,distance]
 }
 
-// from the pagination state indicators calculate the page number
-function getPageNum(pageStart:number, pageItems:number){
-  return pageStart/pageItems + 1;
-}
-
 
 function SearchItem() {
-  const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store <!DOCTYPE html>
-  
-  console.log("SEARCH RESULTS CONTAINER");
-  console.log("dest "+dest);
+  const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
   const theme = useMantineTheme();
 
   // header to confirm the destination in store
   let headerString = dest || "Begin you Adventure!";
+  //console.log(api); 
 
   // set up pagination settings
   const dispatch = useAppDispatch(); // to add things to store!!!
-  // read the page location from store.
-  let numberItems = useAppSelector(state=> state.SearchBarReducer.pageItems)
-  let elementsStart = useAppSelector(state => state.SearchBarReducer.pageStart); // to load things from store !!!
-  const [numberItemsDirty, setNumberItemsDirty] = useState(numberItems+" items");
-  const [activePage, setPage] = useState(getPageNum(elementsStart,numberItems));
-
-  console.log('active page: ' + activePage);
-  console.log('numberItems: ' + numberItemsDirty.slice(0, 3));
-
-  // fetch data from store
   let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
-
   // sort selector
   const [sortBy, setSortBy] = useState("Reviews");
   
@@ -121,12 +103,35 @@ function SearchItem() {
   // assign the new sorted values
   hotelDataLong = hotelDataLongSort;
 
+  const [numberItemsDirty, setNumberItemsDirty] = useState(useAppSelector(state => state.SearchBarReducer.pageItems)+" items");
+  const [activePage, setPage] = useState(1);
+  const value = useAppSelector(state => state.SearchBarReducer.pageStart);
+
   // Pagination controls
-  let elementsEnd = elementsStart + numberItems;
+  const numberItems = +numberItemsDirty.slice(0, 3).trim();
+  const elementsStart = ((activePage-1)*numberItems);
+  let elementsEnd = (elementsStart + numberItems);
   let numPages = Math.ceil(hotelDataLong.length / numberItems);
   if (elementsEnd >= hotelDataLong.length) {
     elementsEnd = hotelDataLong.length;
   }
+  // set default page
+  // console.log("HELP "+value);
+  // eslint-disable-next-line
+  useEffect(() => {
+        setPage(value);  
+        // console.log("HELP "+activePage);
+      });
+
+  console.log("search item component");
+  console.log('active page: ' + activePage);
+  console.log('numberItems: ' + numberItemsDirty.slice(0, 3));
+  
+
+  console.log("element Start "+elementsStart);
+
+
+
 
   // print the new list of data
   let hotelDataLs: any[] = [];
@@ -145,6 +150,7 @@ function SearchItem() {
   // declare mantine style classes
   const { classes } = useStyles();
 
+  const numberItemsLs = ['10 items', '20 items', '30 items', '40 items', '50 items', '100 items'];
   return (
     <div className={classes.resultsContainer}>
       <Paper className={classes.cardContainer} style={{ marginBottom: "2em" }}>
@@ -155,7 +161,7 @@ function SearchItem() {
         <Center>
           <Group>
             <NativeSelect
-              data={['10 items', '20 items', '30 items', '40 items', '50 items', '100 items']}
+              data={numberItemsLs}
               value={numberItemsDirty}
               onChange={(event) => setNumberItemsDirty(event.currentTarget.value)}
               label="Show"
@@ -220,11 +226,21 @@ function SearchItem() {
         })}
         <Paper className={classes.cardContainer} style={{ marginBottom: "2em" }}>
           <Group position='center' spacing='xl'>
-            {hidden && <Pagination total={numPages} size="xs" radius="xs" withEdges page={activePage} onChange={setPage} style={{marginTop:'1.75em'}} />}
+            {hidden && <Pagination total={numPages} size="xs" radius="xs" withEdges page={activePage} onChange={
+              (value) =>{
+                setPage(value);
+                dispatch(pageStartLoad({start:value}));
+                console.log("HELP pageNum"+value);
+              }
+              } style={{marginTop:'1.75em'}} />}
             <NativeSelect
-              data={['10 items', '20 items', '30 items', '40 items', '50 items', '100 items']}
+              data={numberItemsLs}
               value={numberItemsDirty}
-              onChange={(event) => setNumberItemsDirty(event.currentTarget.value)}
+              onChange={(event) => {
+                setNumberItemsDirty(event.currentTarget.value);
+                dispatch(pageItemsLoad({items:event.currentTarget.value.slice(0, 3).trim()}))
+                console.log("HELP pageItems"+event.currentTarget.value);
+              }}
               label="Show"
               radius="md"
               size="xs"

@@ -1,7 +1,7 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
-import { query } from '../../SearchBarSlice';
+import { pageStartLoad, query } from '../../SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { hotelDataLoad } from '../../SearchBarSlice';
 import { PlaneDeparture } from 'tabler-icons-react';
@@ -58,11 +58,19 @@ function getDestDetails(location: string, destinations: any) {
     }
     return [id, dest, lng, lat];
 }
+function getDefaultDates() {
+    let date = new Date();
+    date.setDate(date.getDate() + 7);
+    let date2 = new Date();
+    date2.setDate(date.getDate() + 1);
+    return [date, date2];
+}
 function getMinDate() {
     let minDate = new Date();
     minDate.setDate(minDate.getDate() + 7);
     return minDate;
 }
+
 
 
 function SearchBar(): JSX.Element {
@@ -87,12 +95,11 @@ function SearchBar(): JSX.Element {
 
     //get STORE values form input components
     // const destinations = useState(useAppSelector(state=> state.SearchBarReducer.destinations))
+    const [date1,date2] = getDefaultDates();
     const [adults, setAdults] = useState(useAppSelector(state => state.SearchBarReducer.adults));
     const [children, setChildren] = useState(useAppSelector(state => state.SearchBarReducer.children));
     const [rooms, setRoom] = useState(useAppSelector(state => state.SearchBarReducer.rooms));
     const [location, setLocation] = useState(useAppSelector(state => state.SearchBarReducer.location));
-    let date1 = new Date(useAppSelector(state => state.SearchBarReducer.checkIn));
-    let date2 = new Date(useAppSelector(state => state.SearchBarReducer.checkOut));
     const [dates, setDates] = useState<[Date | null, Date | null]>([
         date1, date2
     ]);
@@ -152,17 +159,18 @@ function SearchBar(): JSX.Element {
     // load the data from api 
     // else use cache.
     useEffect(() => {
-        if (queryId.trim() != cacheId.trim()){
+        if (queryId.trim() !== cacheId.trim()){
             // we need to fetch api data
             fetchHotelApi(hotelApi, queryId);
         }
-    }, []);
+    // eslint-disable-next-line
+    },[]);
 
 
     return (
         <div className={classes.searchbarwrapper} >
             <Center>
-                <Paper shadow='sm'>
+                <Paper shadow='sm' style={{width:'100%'}}>
                     <Grid columns={24} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={6} sm={4}>
                             <Paper>
@@ -227,8 +235,13 @@ function SearchBar(): JSX.Element {
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
                                 <Button onClick={() => {
-                                    dispatch(query({ dispatchQuery }));// update the state with new search
-                                    fetchHotelApi(hotelApi, queryId);   
+                                    console.log("HELP "+cacheId)
+                                    console.log('HELP '+queryId)
+                                    if (cacheId !== queryId){ // only reload the query state if it changes.
+                                        dispatch(pageStartLoad({start:1}));
+                                        fetchHotelApi(hotelApi, queryId);            
+                                    }                  
+                                    dispatch(query({ dispatchQuery }));// update the state with new search  
                                 }}>
                                     <PlaneDeparture />
                                 </Button>
