@@ -1,7 +1,7 @@
 import SplashPage from './SplashPage/SplashPage';
 import SearchResults from './SearchResults/SearchResults';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { store } from './store';
+import { store } from './services/store';
 import { debounce } from 'debounce';
 import { saveState } from './Browser-Storage';
 function App() {
