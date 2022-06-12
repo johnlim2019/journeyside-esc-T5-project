@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { pageItemsLoad, pageStartLoad, selectHotelId } from '../../services/SearchBarSlice';
 import { Luggage } from 'tabler-icons-react';
 
+const NOTFOUND = "We could not find results for ";
+const NOTFOUNDEMPTY = "Please enter a destination!";
 // set up themes for classes
 const useStyles = createStyles((theme) => ({
   cardContainer: {
@@ -84,10 +86,20 @@ function getCardValues(key:number,data:any){
 
 function SearchItem() {
   const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
+  const destId = useAppSelector(state => state.SearchBarReducer.locationId);
+  // header update based on whether valid dest id was found 
+  let header = "";
+  if (dest.length === 0){
+    header = NOTFOUNDEMPTY;
+  }
+  else if (destId.length === 0){
+    header = NOTFOUND+dest+".";
+  }
+
   const theme = useMantineTheme();
 
   // header to confirm the destination in store
-  let headerString = dest || "Begin you Adventure!";
+  let headerString = header || "Begin you Adventure!";
   //console.log(api); 
 
   // set up pagination settings

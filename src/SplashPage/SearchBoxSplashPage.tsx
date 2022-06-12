@@ -5,8 +5,7 @@ import { query } from '../services/SearchBarSlice';
 import { useAppDispatch } from '../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
-// import { loadDestinations } from '../SearchBar/SearchBarSlice';
-// import axios from 'axios';
+import  {autoCompleteList } from '../data/destinationsTerm';
 const destinations =     [
     {
         "term": "Singapore, Singapore",
@@ -144,7 +143,7 @@ function SearchBarSplashPage(): JSX.Element {
                                     placeholder="Begin Your Adventure"
                                     value={location}
                                     onChange={setLocation}
-                                    data={["Singapore, Singapore", "Kuala Lumpur, Malaysia"]}
+                                    data={autoCompleteList}
                                 />
                             </Paper>
                         </Grid.Col>

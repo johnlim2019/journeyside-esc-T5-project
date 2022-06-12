@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { pageStartLoad, query, hotelDataLoad } from '../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
+import  {autoCompleteList } from '../../data/destinationsTerm';
 import axios from 'axios';
 
 const destinations =     [
@@ -116,8 +117,10 @@ function SearchBar(): JSX.Element {
 
 
     // load destination details
+    // eslint-disable-next-line
     let [id, dest, lng, lat] = getDestDetails(location, destinations);
     let queryId = id.toString();
+
 
     // set minDate
     let minDate = getMinDate();
@@ -125,7 +128,7 @@ function SearchBar(): JSX.Element {
     // prepare object of values to be dispatched to store
     let dispatchQuery = {
         id: queryId,
-        location: dest,
+        location: location,
         lng: lng,
         lat: lat,
         checkIn: dates[0],
@@ -179,7 +182,7 @@ function SearchBar(): JSX.Element {
                                     placeholder="Begin Your Adventure"
                                     value={location}
                                     onChange={setLocation}
-                                    data={["Singapore, Singapore", "Kuala Lumpur, Malaysia"]}
+                                    data={autoCompleteList}
                                 />
                             </Paper>
                         </Grid.Col>
@@ -234,13 +237,14 @@ function SearchBar(): JSX.Element {
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
                                 <Button onClick={() => {
-                                    console.log("HELP "+cacheId)
-                                    console.log('HELP '+queryId)
+                                    console.log("HELP cache "+cacheId)
+                                    console.log('HELP query '+queryId)                                
                                     if (cacheId !== queryId){ // only reload the query state if it changes.
                                         dispatch(pageStartLoad({start:1}));
                                         fetchHotelApi(hotelApi, queryId);            
-                                    }                  
+                                    }                 
                                     dispatch(query({ dispatchQuery }));// update the state with new search  
+                                    console.log("HELP querylocation "+dispatchQuery.location)
                                 }}>
                                     <PlaneDeparture />
                                 </Button>
