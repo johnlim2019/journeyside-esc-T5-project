@@ -13,7 +13,8 @@ function SearchWrapper() {
         width:"100%",
         top:0,
         left:0
-      }}><Loader/></Center>
+      }}><Loader/>
+      </Center>
     }>
         <OtherComponent />
     </Suspense>

@@ -14,6 +14,7 @@ export const store = configureStore({
     reducer: reducers,
     // restore the previous state
     preloadedState: loadState(),
+    // for prices api
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(hotelPricesApi.middleware),
 })

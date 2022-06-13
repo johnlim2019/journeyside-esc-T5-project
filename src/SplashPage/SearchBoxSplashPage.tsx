@@ -1,11 +1,12 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState } from 'react';
-import { query } from '../services/SearchBarSlice';
+import { query, setHotelPrices } from '../services/SearchBarSlice';
 import { useAppDispatch } from '../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 import  {autoCompleteList } from '../data/destinationsTerm';
+import { useHotelPricesQuery } from '../services/fetchPricesApi';
 const destinations =     [
     {
         "term": "Singapore, Singapore",
@@ -127,7 +128,12 @@ function SearchBarSplashPage(): JSX.Element {
         children: children,
         rooms: rooms,
     }
-
+    // Get the pricing api 
+    const {
+        data: post,
+    } = useHotelPricesQuery(id);
+    const prices = post.hotels;
+    
     return (
         <>
         <Image radius='lg' style={{position:'relative', width:'45%',marginLeft:'auto',marginRight:'auto',marginTop:'5em'}} src='./sandBeach.jpg' />
@@ -199,6 +205,7 @@ function SearchBarSplashPage(): JSX.Element {
                             <Center>
                                 <Button component={Link} to='/SearchResults' onClick={() => {
                                     dispatch(query({ dispatchQuery }));
+                                    dispatch(setHotelPrices({prices:prices}));
                                 }}>
                                     <PlaneDeparture />
                                 </Button>

@@ -1,10 +1,11 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
-import { pageStartLoad, query, hotelDataLoad } from '../../services/SearchBarSlice';
+import { pageStartLoad, query, hotelDataLoad, setHotelPrices } from '../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import  {autoCompleteList } from '../../data/destinationsTerm';
+import { useHotelPricesQuery } from "../../services/fetchPricesApi";
 import axios from 'axios';
 
 const destinations =     [
@@ -146,8 +147,8 @@ function SearchBar(): JSX.Element {
             headers: { "Access-Control-Allow-Origin": "*" }
         }).then((response) => {
             // do what u want with the response here
-            console.log("API CALL");
-            console.log(response.data);
+            //console.log("API CALL");
+           // console.log(response.data);
             const data = response.data as object[];
             dispatch(hotelDataLoad({ hotels: data, locationId:queryId }));
             return;
@@ -156,6 +157,12 @@ function SearchBar(): JSX.Element {
     // set the api url for axios import function 
     const hotelApi = "./" + queryId + ".json";
 
+    // Get the pricing api 
+    const {
+        data: post,
+    } = useHotelPricesQuery(queryId);
+    const prices = post.hotels;
+    // console.log(prices)
 
     // check the cache id and the queryId 
     // load the data from api 
@@ -237,14 +244,15 @@ function SearchBar(): JSX.Element {
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
                                 <Button onClick={() => {
-                                    console.log("HELP cache "+cacheId)
-                                    console.log('HELP query '+queryId)                                
+                                    //console.log("HELP cache "+cacheId)
+                                    //console.log('HELP query '+queryId)                                
                                     if (cacheId !== queryId){ // only reload the query state if it changes.
                                         dispatch(pageStartLoad({start:1}));
                                         fetchHotelApi(hotelApi, queryId);            
                                     }                 
                                     dispatch(query({ dispatchQuery }));// update the state with new search  
-                                    console.log("HELP querylocation "+dispatchQuery.location)
+                                    //console.log("HELP querylocation "+dispatchQuery.location);
+                                    dispatch(setHotelPrices({prices:prices}));
                                 }}>
                                     <PlaneDeparture />
                                 </Button>
@@ -254,7 +262,6 @@ function SearchBar(): JSX.Element {
                     </Grid>
                 </Paper>
             </Center>
-
         </div>
 
 

@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { wait } from "@testing-library/user-event/dist/utils";
 import { RootState} from "./store";
 
 
 // create slice contains the reducers and the actions
 export const searchBarSlice = createSlice({
-    name: 'query',
+    name: 'hotelData',
     initialState: {
         locationId: "",
         location: "",
@@ -18,9 +19,11 @@ export const searchBarSlice = createSlice({
         pageItems: 20,
         pageStart: 2,
         selectHotelId:"",
+        sortByCat:"Review",
         hotelData: {
             locationId : "",
-            hotels :[]
+            hotels :[],
+            prices:[]
         },
 
     },
@@ -72,12 +75,23 @@ export const searchBarSlice = createSlice({
             console.log("STORE selected hotel id");
             console.log(state.selectHotelId);
         },
+        setHotelPrices: (state,action) => {
+            state.hotelData.prices = action.payload.prices;
+            wait(300);
+            console.log("STORE prices");
+            console.log(state.hotelData.prices);
+        },
+        setCategory: (state, action) => {
+            state.sortByCat = action.payload.category;
+            console.log("STORE category");
+            console.log(state.sortByCat);            
+        }
             
     }
 });
 
 // export our actions, these need to be imported by the component so dispatch function in component can send data to STORE
-export const { query, hotelDataLoad, pageItemsLoad, pageStartLoad, selectHotelId} = searchBarSlice.actions;
+export const { query, hotelDataLoad, pageItemsLoad, pageStartLoad, selectHotelId, setHotelPrices, setCategory} = searchBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const location = (state: RootState) => state.SearchBarReducer.location;
