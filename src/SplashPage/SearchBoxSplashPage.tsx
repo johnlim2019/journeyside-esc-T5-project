@@ -132,7 +132,12 @@ function SearchBarSplashPage(): JSX.Element {
     const {
         data: post,
     } = useHotelPricesQuery(id);
-    const prices = post.hotels;
+    let prices:any[] = [];
+    try {
+        prices = post.hotels;
+    } catch (error) {
+        console.log(error);
+    }
     
     return (
         <>
@@ -217,8 +222,6 @@ function SearchBarSplashPage(): JSX.Element {
             </Center>
         </div>
     </>
-
-
     );
 } export default SearchBarSplashPage;
 

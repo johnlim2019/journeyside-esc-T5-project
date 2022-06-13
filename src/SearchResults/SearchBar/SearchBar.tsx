@@ -8,7 +8,8 @@ import  {autoCompleteList } from '../../data/destinationsTerm';
 import { useHotelPricesQuery } from "../../services/fetchPricesApi";
 import axios from 'axios';
 
-const destinations =     [
+const destinations =     
+[
     {
         "term": "Singapore, Singapore",
         "uid": "RsBU",
@@ -161,7 +162,12 @@ function SearchBar(): JSX.Element {
     const {
         data: post,
     } = useHotelPricesQuery(queryId);
-    const prices = post.hotels;
+    let prices:any[] = [];
+    try {
+        prices = post.hotels;
+    } catch (error) {
+        console.log(error);
+    }
     // console.log(prices)
 
     // check the cache id and the queryId 
