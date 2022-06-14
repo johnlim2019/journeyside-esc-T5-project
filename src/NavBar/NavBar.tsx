@@ -39,7 +39,7 @@ function NavBar() {
                         </Grid.Col>
                         <Grid.Col span={6}>
                             <Center>
-                                <Button variant="subtle" color="dark">Login</Button>
+                                <Button variant="subtle" color="dark">Favourites</Button>
                             </Center>
                         </Grid.Col>
                     </Grid>

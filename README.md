@@ -9,6 +9,7 @@ Libraries to install
 * redux-toolkit
 * tabler-icons-react
 * axios
+* debounce 
 
 In the project directory, you can run:
 

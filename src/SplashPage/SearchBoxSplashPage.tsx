@@ -1,22 +1,41 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState } from 'react';
-import { query } from '../SearchBar/SearchBarSlice';
-import { useAppDispatch } from '../hooks';
+import { query, setHotelPrices } from '../services/SearchBarSlice';
+import { useAppDispatch } from '../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
-import {destinations} from '../data/destinations';
-// import { loadDestinations } from '../SearchBar/SearchBarSlice';
-// import axios from 'axios';
-
+import  {autoCompleteList } from '../data/destinationsTerm';
+import { useHotelPricesQuery } from '../services/fetchPricesApi';
+const destinations =     [
+    {
+        "term": "Singapore, Singapore",
+        "uid": "RsBU",
+        "lat": 1.2800945,
+        "lng": 103.8509491,
+        "type": "city"
+    },
+    {
+        "term": "Kuala Lumpur, Malaysia",
+        "uid": "EzoR",
+        "lat": 3.139003,
+        "lng": 101.686856,
+        "type": "city",
+        "state": "Selangor"
+    },
+]
 
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
         top: '35%',
-        width: '50rem',
+        width: '50em',
         marginLeft: 'auto',
         marginRight: 'auto',
         // Media query with value from theme
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            width: '50em',
+            alignItems: 'center'
+        },        
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             width: '100%',
             alignItems: 'center'
@@ -109,7 +128,17 @@ function SearchBarSplashPage(): JSX.Element {
         children: children,
         rooms: rooms,
     }
-
+    // Get the pricing api 
+    const {
+        data: post,
+    } = useHotelPricesQuery(id);
+    let prices:any[] = [];
+    try {
+        prices = post.hotels;
+    } catch (error) {
+        console.log(error);
+    }
+    
     return (
         <>
         <Image radius='lg' style={{position:'relative', width:'45%',marginLeft:'auto',marginRight:'auto',marginTop:'5em'}} src='./sandBeach.jpg' />
@@ -117,7 +146,7 @@ function SearchBarSplashPage(): JSX.Element {
             <Center>
                 <Paper className={classes.searchbarwrapper} style={{position:'absolute'}} withBorder>
                     <Grid columns={16} grow gutter='sm' align='center' p='sm' >
-                        <Grid.Col md={8} sm={5} >
+                        <Grid.Col md={8} sm={8} >
                             <Paper>
                                 <Autocomplete
                                     className={classes.searchbarcomponets}
@@ -125,11 +154,11 @@ function SearchBarSplashPage(): JSX.Element {
                                     placeholder="Begin Your Adventure"
                                     value={location}
                                     onChange={setLocation}
-                                    data={["Singapore, Singapore", "Kuala Lumpur, Malaysia"]}
+                                    data={autoCompleteList}
                                 />
                             </Paper>
                         </Grid.Col>
-                        <Grid.Col md={8} sm={5}>
+                        <Grid.Col md={8} sm={8}>
                             <Paper>
                                 <DateRangePicker
                                     className={classes.searchbarcomponets}
@@ -181,6 +210,7 @@ function SearchBarSplashPage(): JSX.Element {
                             <Center>
                                 <Button component={Link} to='/SearchResults' onClick={() => {
                                     dispatch(query({ dispatchQuery }));
+                                    dispatch(setHotelPrices({prices:prices}));
                                 }}>
                                     <PlaneDeparture />
                                 </Button>
@@ -192,8 +222,6 @@ function SearchBarSplashPage(): JSX.Element {
             </Center>
         </div>
     </>
-
-
     );
 } export default SearchBarSplashPage;
 
