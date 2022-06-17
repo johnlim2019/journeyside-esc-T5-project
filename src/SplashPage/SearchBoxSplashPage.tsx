@@ -1,29 +1,11 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
-import { useState } from 'react';
-import { query, setHotelPrices } from '../services/SearchBarSlice';
-import { useAppDispatch } from '../services/hooks';
+import { useEffect, useState } from 'react';
+import { query, setDestinations } from '../services/SearchBarSlice';
+import { useAppDispatch, useAppSelector } from '../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
-import  {autoCompleteList } from '../data/destinationsTerm';
-import { useHotelPricesQuery } from '../services/fetchPricesApi';
-const destinations =     [
-    {
-        "term": "Singapore, Singapore",
-        "uid": "RsBU",
-        "lat": 1.2800945,
-        "lng": 103.8509491,
-        "type": "city"
-    },
-    {
-        "term": "Kuala Lumpur, Malaysia",
-        "uid": "EzoR",
-        "lat": 3.139003,
-        "lng": 101.686856,
-        "type": "city",
-        "state": "Selangor"
-    },
-]
+import axios from 'axios';
 
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
@@ -75,26 +57,28 @@ function getDefaultDates() {
 }
 
 function SearchBarSplashPage(): JSX.Element {
-    // // load destinations
-    // const fetchDestApi = async (api: string) => {
-    //     await axios({
-    //         url: api,
-    //         method: 'GET',
-    //         headers: { "Access-Control-Allow-Origin": "*" }
-    //     }).then((response) => {
-    //         // do what u want with the response here
-    //         //console.log(response.data);
-    //         const data = response.data as object[];
-    //         dispatch(loadDestinations({ destinations: data }));
-    //     });
-    // };
-    // const destApi = './destinations.json';
+    // load destinations
+    const fetchDestApi = async (api: string) => {
+        await axios({
+            url: api,
+            method: 'GET',
+            headers: { "Access-Control-Allow-Origin": "*" }
+        }).then((response) => {
+            // do what u want with the response here
+            //console.log(response.data);
+            const data = response.data as object[];
+            dispatch(setDestinations({ dest: data }));
+        });
+    };
+    const destApi = './destinations.json';
 
-    // useEffect(()=>{
-    //     fetchDestApi(destApi);
-    // },[]);
-
-    //const destinations = useAppSelector(state=>state.SearchBarReducer.destinations);
+    useEffect(()=>{
+        fetchDestApi(destApi);
+        // eslint-disable-next-line
+    },[]);
+    // get auto complete
+    const destinations = useAppSelector(state=>state.SearchBarReducer.destinationsObjLs);
+    const autoCompleteList = useAppSelector(state=>state.SearchBarReducer.autocompleteLs);
     // redux dispatch hook
     const dispatch = useAppDispatch(); // to add things to store!!!
 
@@ -128,16 +112,7 @@ function SearchBarSplashPage(): JSX.Element {
         children: children,
         rooms: rooms,
     }
-    // Get the pricing api 
-    const {
-        data: post,
-    } = useHotelPricesQuery(id);
-    let prices:any[] = [];
-    try {
-        prices = post.hotels;
-    } catch (error) {
-        console.log(error);
-    }
+
     
     return (
         <>
@@ -210,7 +185,6 @@ function SearchBarSplashPage(): JSX.Element {
                             <Center>
                                 <Button component={Link} to='/SearchResults' onClick={() => {
                                     dispatch(query({ dispatchQuery }));
-                                    dispatch(setHotelPrices({prices:prices}));
                                 }}>
                                     <PlaneDeparture />
                                 </Button>

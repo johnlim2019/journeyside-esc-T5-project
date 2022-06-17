@@ -51,37 +51,14 @@ function sortResults(hotelDataLongSort: any, sortBy: string, hotelPrice: any) {
   else if (sortBy === "Price") {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by price");
-      console.log(typeof hotelPrice);
-      const sortedData = hotelPrice.sort(function (a: any[], b: any[]) { return a[1] - b[1]; });
-      // console.log(hotelPrice);
-      let hotelDataLongSorted = [];
-      // console.log(hotelDataLongSort[0]['id']);
-      // console.log(hotelPrice[0][0]);
-      for (let i = 0; i < sortedData.length; i++) {
-        for (let j = 0; j < hotelDataLongSort.length; j++) {
-          if (sortedData[i][0] === hotelDataLongSort[j]['id']) {
-            hotelDataLongSorted.push(hotelDataLongSort[j]);
-          }
-        }
-      }
-      //console.log(hotelDataLongSorted);
-      return hotelDataLongSorted;
+      hotelDataLongSort.sort((a: any, b: any) => (a.converted_price > b.converted_price) ? 1 : -1);
     }
   }
   else if (sortBy === "Value") {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by value");
-      console.log(typeof hotelPrice);
-      let hotelDataLongSorted = [];
-      const sortedData = hotelPrice.sort(function (a: any[], b: any[]) { return a[1] - b[1]; });
-      for (let i = 0; i < sortedData.length; i++) {
-        for (let j = 0; j < hotelDataLongSort.length; j++) {
-          if (sortedData[i][0] === hotelDataLongSort[j]['id']) {
-            hotelDataLongSorted.push(hotelDataLongSort[j]);
-          }
-        }
-      }
-
+      hotelDataLongSort.sort((a: any, b: any) => (
+        a.rating/a.converted_price+20*a.trustyou.score.kaligo_overall >  b.rating/b.converted_price+20*b.trustyou.score.kaligo_overall) ? 1 : -1);
     }
   }
   return hotelDataLongSort;
@@ -101,38 +78,20 @@ function getCardValues(key: number, data: any) {
   else if (reviewScore > 3.5) {
     reviewColor = 'green';
   }
-  // let ratingColor = 'pink';
-  // if (ratingScore <= 70 && ratingScore > 20) {
-  //   ratingColor = 'orange';
-  // }
-  // else if (ratingScore > 70) {
-  //   ratingColor = 'green';
-  // }
   let distance = data.distance;
   if (distance > 1000) {
     distance = distance / 1000;
   }
   distance = distance.toFixed(1);
-  //console.log("rating: "+data.rating);
-  //console.log("review: "+reviewScore)
-  return [imageUrl, ratingScore, reviewScore, reviewColor, distance]
+  let convertedPrice = data.converted_price;
+  let maxConvertedPrice = data.coverted_max_cash_payment; // the data base misspells it so pleas mispellit
+  return [imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice]
 }
 
-function matchPrice(hotelId: string, hotelPrices: any, prices: any, ogPrices: any, hotelPricesArr: any[], hotelSalePercent:any) {
-  // console.log(hotelId);
-  for (let i = 0; i < hotelPrices.length; i++) {
-    if (hotelPrices[i].id === hotelId) {
-      prices[hotelId] = (hotelPrices[i]['converted_price']);
-      ogPrices[hotelId] = (hotelPrices[i]['coverted_max_cash_payment']);
-      hotelSalePercent[hotelId] = (ogPrices[hotelId] - prices[hotelId]) / ogPrices[hotelId] *100;
-      hotelPricesArr.push([hotelId, prices[hotelId], ogPrices[hotelId],hotelSalePercent[hotelId]]);
-      return true;
-    }
-  }
-  return false;
-}
 
 function isSale(price:number,maxPrice:number){
+  console.log("price "+price);
+  console.log("maxPrice "+maxPrice);
   let salePercent = (maxPrice - price)/maxPrice *100;
   let colour = 'gray';
   if (salePercent <= 5 && salePercent >0){
@@ -148,10 +107,12 @@ function isSale(price:number,maxPrice:number){
     colour = 'red';
   }
   // else{
-  //   return(<></>);
+  //   return(
+  //     <Space h='md'></Space>
+  //   );
   // }
   return(
-    <Badge id='review' color={""+colour} variant="filled" rightSection={"was "+(maxPrice.toString())}>
+    <Badge id='review' color={""+colour} variant="filled" style={{marginTop:'.7rem'}}>
     {salePercent}% off
     </Badge>
   );
@@ -160,23 +121,8 @@ function isSale(price:number,maxPrice:number){
 function SearchItem() {
   const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
   const destId = useAppSelector(state => state.SearchBarReducer.locationId);
-  const hotelPrices = useAppSelector(state => state.SearchBarReducer.hotelData.prices);
-  let hotelDataLong2 = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
-  // filter out those without pricing
-  let hotelDataLong: any[] = [];
-  let hotelPricesMap: any[] = [];
-  let hotelOgPricesMap: any[] = [];
-  let hotelPricesArr: any[] = [];
-  let hotelSalePercent:any[] = [];
-  for (let i = 0; i < hotelDataLong2.length; i++) {
-    if (matchPrice(hotelDataLong2[i]['id'], hotelPrices, hotelPricesMap, hotelOgPricesMap, hotelPricesArr, hotelSalePercent)) {
-      hotelDataLong.push(hotelDataLong2[i]);
-    }
-  }
+  let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
 
-  //let hotelDataLong = hotelDataLong2.filter(matchPrice(destId,hotelPrices));
-  console.log("STORE PRICES ");
-  console.log(hotelPrices);
 
 
   // header update based on whether valid dest id was found 
@@ -202,7 +148,7 @@ function SearchItem() {
   // sort code
   // create copy to sort
   var hotelDataLongSort = [...hotelDataLong];
-  hotelDataLongSort = sortResults(hotelDataLongSort, sortBy, hotelPricesArr);
+  hotelDataLongSort = sortResults(hotelDataLongSort, sortBy, []);
   // assign the new sorted values
   hotelDataLong = hotelDataLongSort;
 
@@ -226,10 +172,10 @@ function SearchItem() {
     // console.log("HELP "+activePage);
   });
 
-  // console.log("search item component");
-  // console.log('active page: ' + activePage);
-  // console.log('numberItems: ' + numberItemsDirty.slice(0, 3));
-  // console.log("element Start "+elementsStart);
+  console.log("search item component");
+  console.log('active page: ' + activePage);
+  console.log('numberItems: ' + numberItemsDirty.slice(0, 3));
+  console.log("element Start "+elementsStart);
 
   // print the new list of data
   let hotelDataLs: any[] = [];
@@ -285,9 +231,9 @@ function SearchItem() {
       <div className={classes.cardContainer}>
         {hotelDataLs.map((data, key) => {
           // Load card values
-          let [imageUrl, ratingScore, reviewScore, reviewColor, distance] = getCardValues(key, data);
+          let [imageUrl, ratingScore, reviewScore, reviewColor, distance, price, ogPrice] = getCardValues(key, data);
           function getStars(ratingScore: number) {
-            console.log("HELP "+ratingScore);
+            // console.log("HELP "+ratingScore);
             if (ratingScore === 1) {
               return (
                 <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
@@ -429,38 +375,33 @@ function SearchItem() {
               )
             }
           }
-          console.log(data.name);
-          // console.log(hotelPricesMap[data.id]);
-          let cardPrice = hotelPricesMap[data.id];
-          let cardOgPrice = hotelOgPricesMap[data.id];
+          let salesComp = isSale(price,ogPrice);
+
           let starsComp = getStars(ratingScore);
-          let saleComp = isSale(cardPrice,cardOgPrice);
           return (
             <>
               <Card key={key} className="card-main" p="lg" style={{ marginBottom: '5em' }}>
                 <Card.Section>
                   <Image id='image' withPlaceholder={true} src={imageUrl} height={160} alt={data.name} />
                 </Card.Section>
-                <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <Text id='title' className={classes.title}>{data.name}</Text>
-                  {saleComp}
-                </Group>
+                <Text id='title' className={classes.title} style={{marginTop:'1rem'}}>{data.name}</Text>
                 <Text id="address" size="sm" className={classes.subtitle}>
                   Address: {data.address}
                 </Text>
                 <Text id="distance" size="sm" className={classes.subtitle}>
                   {distance}km from airport
                 </Text>
-                <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
+                {salesComp}
+                <Group position="apart" style={{ marginBottom: 5, marginTop: 0}}>
                 {starsComp}
                 <Badge id='review' color={reviewColor} variant="filled" size="lg" radius="xs" >
                     Reviews: {reviewScore}
                 </Badge>
                 </Group>
-                <Button variant="filled" color="blue" fullWidth loaderPosition="right" style={{ marginTop: 14 }}
+                <Button variant="filled" color="blue" fullWidth loaderPosition="right"
                   onClick={() => dispatch(selectHotelId({ id: data.id }))}
                 >
-                  <Center>${cardPrice} a night</Center>
+                  <Center>${price} a night</Center>
                 </Button>
               </Card>
             </>
@@ -472,7 +413,6 @@ function SearchItem() {
               (value) => {
                 setPage(value);
                 dispatch(pageStartLoad({ start: value }));
-                //console.log("HELP pageNum"+value);
               }
             } style={{ marginTop: '1.75em' }} />}
             <NativeSelect

@@ -1,12 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { wait } from "@testing-library/user-event/dist/utils";
 import { RootState} from "./store";
 
-
-// create slice contains the reducers and the actions
-export const searchBarSlice = createSlice({
-    name: 'hotelData',
-    initialState: {
+interface searchBarInterface {
+    locationId: string,
+    location: string,
+    lng: number,
+    lat: number,
+    checkIn: number,
+    checkOut: number,
+    adults: string,
+    children: string,
+    rooms: string,
+    pageItems: number,
+    pageStart: number,
+    selectHotelId:string,
+    sortByCat:string,
+    hotelData: {
+        locationId : string,
+        hotels :any[],
+    },
+    destinationsObjLs:any[],
+    autocompleteLs:string[],
+}
+const initialState = {
         locationId: "",
         location: "",
         lng: 0,
@@ -16,17 +32,23 @@ export const searchBarSlice = createSlice({
         adults: "2",
         children: "0",
         rooms: "1",
-        pageItems: 20,
-        pageStart: 2,
+        pageItems: 10,
+        pageStart: 1,
         selectHotelId:"",
-        sortByCat:"Review",
+        sortByCat:"Reviews",
         hotelData: {
             locationId : "",
             hotels :[],
-            prices:[]
         },
+        destinationsObjLs:[],
+        autocompleteLs:[],
+} as searchBarInterface;
 
-    },
+
+// create slice contains the reducers and the actions
+export const searchBarSlice = createSlice({
+    name: 'hotelData',
+    initialState,
     reducers: {
         // these take in data from the components 
         query: (state, action) => {
@@ -53,13 +75,6 @@ export const searchBarSlice = createSlice({
             console.log("rooms " +state.rooms);
             console.log("pageStart "+state.pageStart);
         },
-        hotelDataLoad: (state, action) => {
-            state.hotelData.hotels = action.payload.hotels;
-            state.hotelData.locationId = action.payload.locationId;
-            console.log("STORE hotel data");
-            console.log(state.hotelData.locationId);   
-            console.log(state.hotelData.hotels);
-        },
         pageItemsLoad:(state, action) => {
             state.pageItems = action.payload.items;
             console.log("STORE page length");
@@ -75,23 +90,51 @@ export const searchBarSlice = createSlice({
             console.log("STORE selected hotel id");
             console.log(state.selectHotelId);
         },
-        setHotelPrices: (state,action) => {
-            state.hotelData.prices = action.payload.prices;
-            wait(300);
-            console.log("STORE prices");
-            console.log(state.hotelData.prices);
-        },
+
         setCategory: (state, action) => {
             state.sortByCat = action.payload.category;
             console.log("STORE category");
             console.log(state.sortByCat);            
+        },
+        setDestinations: (state, action) => {
+            state.destinationsObjLs = action.payload.dest;
+            console.log("STORE destinations");
+            console.log(state.destinationsObjLs);
+            var destinations = action.payload.dest;
+            var destLs:string[] = [];
+            for (let i=0;i<destinations?.length;i++){
+                destLs.push(destinations[i]['term']);
+            }
+            state.autocompleteLs = destLs;   
+            console.log(state.autocompleteLs);
+        },
+        compileHotelData: (state,action) => {
+            console.log("COMPILED hotel DATA");
+            let hotelByDestData = action.payload.hotels;
+            let hotelPricesData = action.payload.prices;
+            var list:any[] = [];
+            for (let i=0;i<hotelPricesData.length;i++){
+                // console.log(action.payload.prices[i].id);
+                let hotelId = hotelPricesData[i].id;                
+                var currObj: any = {};
+                for (let j = 0; j < hotelByDestData.length; j++) {
+                    if (hotelByDestData[j].id === hotelId) {
+                    currObj = {...currObj,...hotelByDestData[j]};
+                    currObj = {...currObj,...hotelPricesData[i]};
+                    list.push(currObj);
+                    }          
+                }      
+            }
+            console.log(list);
+            state.hotelData.locationId = action.payload.id;
+            state.hotelData.hotels = list;
+            console.log(state.hotelData.hotels);
         }
-            
     }
 });
 
 // export our actions, these need to be imported by the component so dispatch function in component can send data to STORE
-export const { query, hotelDataLoad, pageItemsLoad, pageStartLoad, selectHotelId, setHotelPrices, setCategory} = searchBarSlice.actions;
+export const { query, pageItemsLoad, pageStartLoad, selectHotelId, setCategory, setDestinations,compileHotelData} = searchBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const location = (state: RootState) => state.SearchBarReducer.location;
