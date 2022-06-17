@@ -15,6 +15,7 @@ interface searchBarInterface {
     pageStart: number,
     selectHotelId:string,
     sortByCat:string,
+    isLoading:boolean,
     hotelData: {
         locationId : string,
         hotels :any[],
@@ -36,6 +37,7 @@ const initialState = {
         pageStart: 1,
         selectHotelId:"",
         sortByCat:"Reviews",
+        isLoading:false,
         hotelData: {
             locationId : "",
             hotels :[],
@@ -129,12 +131,16 @@ export const searchBarSlice = createSlice({
             state.hotelData.locationId = action.payload.id;
             state.hotelData.hotels = list;
             console.log(state.hotelData.hotels);
+        },
+        setLoading: (state,action) => {
+            console.log("loading "+action.payload.loading);
+            state.isLoading = action.payload.loading;
         }
     }
 });
 
 // export our actions, these need to be imported by the component so dispatch function in component can send data to STORE
-export const { query, pageItemsLoad, pageStartLoad, selectHotelId, setCategory, setDestinations,compileHotelData} = searchBarSlice.actions;
+export const { query, pageItemsLoad, pageStartLoad, selectHotelId, setCategory, setDestinations,compileHotelData,setLoading} = searchBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const location = (state: RootState) => state.SearchBarReducer.location;

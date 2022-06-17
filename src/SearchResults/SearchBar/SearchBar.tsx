@@ -1,7 +1,7 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
-import { pageStartLoad, query, setDestinations, compileHotelData } from '../../services/SearchBarSlice';
+import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
@@ -68,6 +68,7 @@ function SearchBar(): JSX.Element {
     const [dates, setDates] = useState<[Date | null, Date | null]>([
         date1, date2
     ]);
+
     let cacheId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId);
     // console.log("SEARCHBAR DATES");
     // console.log(dates[0]);
@@ -90,7 +91,7 @@ function SearchBar(): JSX.Element {
 
     // At the start of the render check if we have destination list read
     useEffect(() => {
-        if (autoCompleteList.length < 1){
+        if (autoCompleteList.length < 1) {
             fetchDestApi(destApi);
         }
         // eslint-disable-next-line
@@ -126,23 +127,27 @@ function SearchBar(): JSX.Element {
         children: children,
         rooms: rooms,
     }
-    
+
     // api caller
     // set the api url for axios import function 
     const hotelApi = "./" + queryId + ".json";
-    const hotelPriceApi = "https://ascendahotels.mocklab.io/api/destinations/"+queryId+"/prices";
-    function sendGetRequest(hotelApi:string,hotelPriceApi:string,queryId:string){
+    const hotelPriceApi = "https://ascendahotels.mocklab.io/api/destinations/" + queryId + "/prices";
+    function sendGetRequest(hotelApi: string, hotelPriceApi: string, queryId: string) {
         const hotelApiCall = axios.get(hotelApi);
         const hotelPriceApiCall = axios.get(hotelPriceApi);
-        axios.all([hotelApiCall,hotelPriceApiCall]).then(axios.spread((...responses) => {
+        axios.all([hotelApiCall, hotelPriceApiCall]).then(axios.spread((...responses) => {
             const hotelsData = responses[0].data;
-            const hotelPrice = responses[1].data.hotels; 
+            const hotelPrice = responses[1].data.hotels;
             console.log("API CALL");
             console.log(hotelsData);
             console.log(hotelPrice);
-            dispatch(compileHotelData({hotels:hotelsData,prices:hotelPrice,id:queryId}));
+            dispatch(compileHotelData({ hotels: hotelsData, prices: hotelPrice, id: queryId }));
+            dispatch(setLoading({ loading: false }));
         })
-        ).catch(errors => console.error(errors));
+        ).catch(errors => {
+            console.error(errors);
+            dispatch(setLoading({ loading: false }));
+        });
     }
 
 
@@ -152,10 +157,12 @@ function SearchBar(): JSX.Element {
     useEffect(() => {
         if (queryId.trim() !== cacheId.trim()) {
             // we need to fetch api data
-            sendGetRequest(hotelApi,hotelPriceApi,queryId);
+            dispatch(setLoading({ loading: true }));
+            sendGetRequest(hotelApi, hotelPriceApi, queryId);
         }
         // eslint-disable-next-line
     }, []);
+
 
 
     return (
@@ -226,12 +233,16 @@ function SearchBar(): JSX.Element {
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
                                 <Button onClick={() => {
-                                    //console.log("HELP cache "+cacheId)
-                                    //console.log('HELP query '+queryId)                                
+                                    console.log("HELP cache " + cacheId)
+                                    console.log('HELP query ' + queryId)
                                     if (cacheId !== queryId) { // only reload the query state if it changes.
+                                        dispatch(setLoading({ loading: true }));
                                         dispatch(pageStartLoad({ start: 1 }));
-                                        sendGetRequest(hotelApi,hotelPriceApi,queryId);
+                                        sendGetRequest(hotelApi, hotelPriceApi, queryId);
                                     }
+                                    if (queryId === undefined || queryId.length === 0){
+                                        dispatch(setLoading({ loading: false }));
+                                    }  
                                     dispatch(query({ dispatchQuery }));// update the state with new search  
                                     //console.log("HELP querylocation "+dispatchQuery.location);
                                 }}>
