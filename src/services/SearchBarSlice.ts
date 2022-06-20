@@ -14,6 +14,7 @@ interface searchBarInterface {
     pageItems: number,
     pageStart: number,
     selectHotelId:string,
+    selectHotelObj:any,
     sortByCat:string,
     isLoading:boolean,
     hotelData: {
@@ -36,6 +37,7 @@ const initialState = {
         pageItems: 10,
         pageStart: 1,
         selectHotelId:"",
+        selectHotelObj:null,
         sortByCat:"Reviews",
         isLoading:false,
         hotelData: {
@@ -91,6 +93,13 @@ export const searchBarSlice = createSlice({
             state.selectHotelId = action.payload.id;
             console.log("STORE selected hotel id");
             console.log(state.selectHotelId);
+            for (let i=0;i<state.hotelData.hotels.length;i++){
+                if (state.hotelData.hotels[i]["id"] === action.payload.id){
+                    state.selectHotelObj = state.hotelData.hotels[i];
+                    console.log(state.selectHotelObj);
+                    break
+                }
+            }
         },
 
         setCategory: (state, action) => {

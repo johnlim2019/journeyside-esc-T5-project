@@ -147,6 +147,8 @@ function SearchBar(): JSX.Element {
         ).catch(errors => {
             console.error(errors);
             dispatch(setLoading({ loading: false }));
+            dispatch(compileHotelData({ hotels: [], prices: [], id: queryId }));
+
         });
     }
 

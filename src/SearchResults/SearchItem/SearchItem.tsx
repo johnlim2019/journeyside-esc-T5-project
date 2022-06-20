@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../services/hooks';
 import { useEffect, useState } from 'react';
 import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../services/SearchBarSlice';
 import { Star, StarHalf } from 'tabler-icons-react';
+import { Link } from 'react-router-dom';
 
 const NOTFOUND = "We could not find results for ";
 const NOTFOUNDEMPTY = "Please enter a destination!";
@@ -127,11 +128,11 @@ function isSale(price: number, maxPrice: number) {
 
 function SearchItem() {
   const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
-  // const destId = useAppSelector(state => state.SearchBarReducer.locationId);
+  const destId = useAppSelector(state => state.SearchBarReducer.locationId);
   let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
   const isLoading = useAppSelector(state => state.SearchBarReducer.isLoading);
-  // console.log("HELP "+dest);
-  // console.log("HELP "+destId);
+  console.log("HELP "+dest);
+  console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
 
   // header update based on whether valid dest id was found 
@@ -142,10 +143,10 @@ function SearchItem() {
   else if (hotelDataLong.length === 0) {
     header = NOTFOUND + dest + ".";
   }
-
+  console.log("HELP"+header);
 
   // header to confirm the destination in store
-  let headerString = header || "Begin you Adventure!";
+  let headerString = header;
   //console.log(api); 
 
   // set up pagination settings
@@ -421,6 +422,7 @@ function SearchItem() {
                 </Group>
                 <Button variant="filled" color="blue" fullWidth loaderPosition="right"
                   onClick={() => dispatch(selectHotelId({ id: data.id }))}
+                  component={Link} to="/RoomDetails"
                 >
                   <Center>${price} a night</Center>
                 </Button>
