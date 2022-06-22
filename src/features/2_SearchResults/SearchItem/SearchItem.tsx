@@ -7,7 +7,9 @@ import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../
 import { Star, StarHalf } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 
+
 const NOTFOUND = "We could not find results for ";
+const NODEST = "Please enter a destination."
 // set up themes for classes
 const useStyles = createStyles((theme) => ({
   cardContainer: {
@@ -65,7 +67,7 @@ function sortResults(hotelDataLongSort: any, sortBy: string, hotelPrice: any) {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by value");
       hotelDataLongSort.sort((a: any, b: any) => ( /*the misspelled converted here so type coverted */
-        (a.coverted_max_cash_payment - a.converted_price) /a.coverted_max_cash_payment > (b.coverted_max_cash_payment - b.converted_price) /b.coverted_max_cash_payment) ? 1 : -1);
+        (a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment > (b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment) ? 1 : -1);
     }
   }
   return hotelDataLongSort;
@@ -127,13 +129,19 @@ function isSale(price: number, maxPrice: number) {
 
 function SearchItem() {
   const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
-  // const destId = useAppSelector(state => state.SearchBarReducer.locationId);
+  const destId = useAppSelector(state => state.SearchBarReducer.locationId);
   let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
   const isLoading = useAppSelector(state => state.SearchBarReducer.isLoading);
   // console.log("HELP "+dest);
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
-
+  let header = dest;
+  if (dest.length === 0 || destId.length === 0){
+    header = NODEST;
+  }
+  else if (hotelDataLong.length === 0){
+    header = NOTFOUND + dest;
+  }
   // set up pagination settings
   const dispatch = useAppDispatch(); // to add things to store!!!
 
@@ -148,8 +156,7 @@ function SearchItem() {
   hotelDataLong = hotelDataLongSort;
 
   const [numberItemsDirty, setNumberItemsDirty] = useState(useAppSelector(state => state.SearchBarReducer.pageItems) + " items");
-  const [activePage, setPage] = useState(1);
-  const value = useAppSelector(state => state.SearchBarReducer.pageStart);
+  const [activePage, setPage] = useState(useAppSelector(state => state.SearchBarReducer.pageStart));
 
   // Pagination controls
   const numberItems = +numberItemsDirty.slice(0, 3).trim();
@@ -163,9 +170,9 @@ function SearchItem() {
   // console.log("HELP "+value);
   // eslint-disable-next-line
   useEffect(() => {
-    setPage(value);
+    dispatch(pageItemsLoad({ items: numberItems }))
     // console.log("HELP "+activePage);
-  });
+  }, [dispatch, numberItems]);
 
   console.log("search item component");
   console.log('active page: ' + activePage);
@@ -190,7 +197,7 @@ function SearchItem() {
   const theme = useMantineTheme();
   const { classes } = useStyles();
 
-  const numberItemsLs = ['10 items', '20 items', '30 items', '40 items', '50 items', '100 items'];
+  const numberItemsLs = ['10 items', '20 items', '30 items', '40 items', '50 items'];
   return (
     <div className={classes.resultsContainer}>
       <Center style={{
@@ -202,6 +209,12 @@ function SearchItem() {
       }}>
         <LoadingOverlay visible={isLoading} />
       </Center>
+      <Center>
+        <Text style={{marginTop:"2rem",color:'gray'}}>
+          {header}
+        </Text>
+      </Center>
+
 
       <Paper className={classes.cardContainer} style={{ marginBottom: "2em" }}>
         {/* <Pagination total={numPages} size="xs" radius="xs" withEdges /> */}
@@ -217,7 +230,7 @@ function SearchItem() {
               style={{ width: '5em' }}
             />
             <NativeSelect
-              data={['Reviews', 'Rating', 'Price', 'Value',"Sale"]}
+              data={['Reviews', 'Rating', 'Price', 'Value', "Sale"]}
               value={sortBy}
               onChange={(event) => {
                 setSortBy(event.currentTarget.value);

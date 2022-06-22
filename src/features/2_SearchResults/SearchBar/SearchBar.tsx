@@ -5,8 +5,6 @@ import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } f
 import { useAppDispatch, useAppSelector } from '../../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
-import debounce from 'debounce';
-
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
         width: '75%',
@@ -200,6 +198,7 @@ function SearchBar(): JSX.Element {
         let errorsObj = setErrorMessages(validation);
         setValidDestination(errorsObj['locationValid']);
         setValidDates(errorsObj["dateValid"]);
+    // eslint-disable-next-line
     }, [dates,location]);
 
 

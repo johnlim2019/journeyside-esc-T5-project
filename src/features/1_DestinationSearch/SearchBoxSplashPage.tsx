@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import debounce from 'debounce';
 
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
@@ -118,7 +117,6 @@ function SearchBarSplashPage(): JSX.Element {
     const [nextPage, setNextPage] = useState(STAYPAGE);
 
 
-    let cacheId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId);
     // console.log("SEARCHBAR DATES");
     // console.log(dates[0]);
     // console.log(dates[1]);
@@ -185,13 +183,13 @@ function SearchBarSplashPage(): JSX.Element {
         let errorsObj = setErrorMessages(validation);
         setValidDestination(errorsObj['locationValid']);
         setValidDates(errorsObj["dateValid"]);
-        if (validation.length == 0) {
+        if (validation.length === 0) {
             setNextPage(NEXTPAGE);
 
         } else { setNextPage(STAYPAGE); }
         console.log("DEBOUNCE " + nextPage);
-
-    }, [dates, location]);
+    // eslint-disable-next-line
+    }, [dates, location,nextPage]);
 
 
     return (
@@ -221,7 +219,7 @@ function SearchBarSplashPage(): JSX.Element {
                                         label="Dates"
                                         placeholder="Date range"
                                         firstDayOfWeek="sunday"
-                                        minDate={date1}
+                                        minDate={minDate}
                                         value={dates}
                                         onChange={setDates}
                                         error={!validDate}
@@ -282,4 +280,3 @@ function SearchBarSplashPage(): JSX.Element {
         </>
     );
 } export default SearchBarSplashPage;
-
