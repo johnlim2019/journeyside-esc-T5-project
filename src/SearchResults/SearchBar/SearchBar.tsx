@@ -5,6 +5,7 @@ import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } f
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
+import debounce from 'debounce';
 
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
@@ -24,6 +25,44 @@ const useStyles = createStyles((theme) => ({
         },
     },
 }));
+
+function validateQuery(queryObj: any) {
+    // Error codes 
+    // empty arr - correct
+    // 1 - location error
+    // 2 - invalid date 
+
+    let outcome = [];
+    console.log("HELP " + queryObj.id);
+    console.log("HELP " + queryObj.location);
+    console.log("HELP " + queryObj.checkIn);
+    console.log("HELP " + queryObj.checkOut);
+    if ((queryObj.location.length === 0) || (queryObj.id.length === 0)) {
+        outcome.push(1);
+    }
+    if ((queryObj.checkIn === null) || (queryObj.checkOut === null)) {
+        outcome.push(2);
+    }
+    console.log("HELP"+outcome);
+    return outcome;
+}
+function setErrorMessages(outcomes:number[]){
+    let output = {
+        "locationValid":true,
+        "dateValid":true
+    };
+    for (let i=0;i<outcomes.length;i++){
+        if (outcomes[i] === 1){
+            output['locationValid'] = false;   
+        }
+        if (outcomes[i] === 2){
+            output['dateValid'] = false;   
+        }
+    }
+    return output;
+}
+
+
 function getDestDetails(location: string, destinations: any) {
     // load the destination details
     let id = "";
@@ -53,10 +92,7 @@ function getMinDate() {
     return minDate;
 }
 
-
-
 function SearchBar(): JSX.Element {
-
     //get STORE values form input components
     const destinations = useAppSelector(state => state.SearchBarReducer.destinationsObjLs);
     const autoCompleteList = useAppSelector(state => state.SearchBarReducer.autocompleteLs);
@@ -68,6 +104,10 @@ function SearchBar(): JSX.Element {
     const [dates, setDates] = useState<[Date | null, Date | null]>([
         date1, date2
     ]);
+    // flags for inputs 
+    const [validDestination,setValidDestination] = useState(true);
+    const [validDate,setValidDates] = useState(true);
+
 
     let cacheId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId);
     // console.log("SEARCHBAR DATES");
@@ -128,6 +168,7 @@ function SearchBar(): JSX.Element {
         rooms: rooms,
     }
 
+
     // api caller
     // set the api url for axios import function 
     const hotelApi = "./" + queryId + ".json";
@@ -151,6 +192,15 @@ function SearchBar(): JSX.Element {
 
         });
     }
+
+    // check validity upon changes
+    useEffect(() => {
+        console.log("HELP DEBOUNCE");
+        let validation = validateQuery(dispatchQuery);
+        let errorsObj = setErrorMessages(validation);
+        setValidDestination(errorsObj['locationValid']);
+        setValidDates(errorsObj["dateValid"]);
+    }, [dates,location]);
 
 
     // check the cache id and the queryId 
@@ -181,6 +231,7 @@ function SearchBar(): JSX.Element {
                                     value={location}
                                     onChange={setLocation}
                                     data={autoCompleteList}
+                                    error = {!validDestination}
                                 />
                             </Paper>
                         </Grid.Col>
@@ -194,6 +245,7 @@ function SearchBar(): JSX.Element {
                                     minDate={minDate}
                                     value={dates}
                                     onChange={setDates}
+                                    error={!validDate}
                                 />
                             </Paper>
                         </Grid.Col>
@@ -235,18 +287,29 @@ function SearchBar(): JSX.Element {
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
                                 <Button onClick={() => {
-                                    console.log("HELP cache " + cacheId)
-                                    console.log('HELP query ' + queryId)
-                                    if (cacheId !== queryId) { // only reload the query state if it changes.
-                                        dispatch(setLoading({ loading: true }));
-                                        dispatch(pageStartLoad({ start: 1 }));
-                                        sendGetRequest(hotelApi, hotelPriceApi, queryId);
+                                    // console.log("HELP cache " + cacheId)
+                                    // console.log('HELP query ' + queryId)
+                                    let validation = validateQuery(dispatchQuery);
+                                    if (validation.length === 0) {
+                                        // remove any invalid query flags
+                                        setValidDestination(true);
+                                        setValidDates(true);
+                                        if (cacheId !== queryId) { // only reload the query state if it changes.
+                                            dispatch(setLoading({ loading: true }));
+                                            dispatch(pageStartLoad({ start: 1 }));
+                                            sendGetRequest(hotelApi, hotelPriceApi, queryId);
+                                        }
+                                        if (queryId === undefined || queryId.length === 0) {
+                                            dispatch(setLoading({ loading: false }));
+                                        }
+                                        //console.log("HELP querylocation "+dispatchQuery.location);
                                     }
-                                    if (queryId === undefined || queryId.length === 0){
-                                        dispatch(setLoading({ loading: false }));
-                                    }  
+                                    else {
+                                        let errorsObj = setErrorMessages(validation);
+                                        setValidDestination(errorsObj['locationValid']);
+                                        setValidDates(errorsObj["dateValid"]);
+                                    }
                                     dispatch(query({ dispatchQuery }));// update the state with new search  
-                                    //console.log("HELP querylocation "+dispatchQuery.location);
                                 }}>
                                     <PlaneDeparture />
                                 </Button>
