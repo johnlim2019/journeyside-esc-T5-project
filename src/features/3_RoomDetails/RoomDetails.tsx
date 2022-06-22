@@ -1,7 +1,7 @@
 import { Title, Text, Loader, Space, Center } from "@mantine/core";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import { useEffect, useRef, useState } from "react";
-import RoomType from "../components/RoomType";
+import RoomType from "./RoomType";
 import React from "react";
 import { useAppSelector } from "../../services/hooks";
 

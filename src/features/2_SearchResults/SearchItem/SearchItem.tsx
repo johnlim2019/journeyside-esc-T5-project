@@ -1,9 +1,9 @@
 //import { hotelData } from '../data/hotelData' // temporary import of json 
 import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, ThemeIcon, NativeSelect, createStyles, Pagination, Center, Space, LoadingOverlay } from '@mantine/core';
 import './SearchItem.css';
-import { useAppSelector, useAppDispatch } from '../../services/hooks';
+import { useAppSelector, useAppDispatch } from '../../../services/hooks';
 import { useEffect, useState } from 'react';
-import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../services/SearchBarSlice';
+import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../../services/SearchBarSlice';
 import { Star, StarHalf } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 

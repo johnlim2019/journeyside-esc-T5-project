@@ -1,6 +1,6 @@
 import { Card, Text, Image, Group, Badge, Title, Button } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../services/hooks";
+import { useAppSelector } from "../services/hooks";
 function getHotelPrice(obj:any){
   if (obj == null){
     console.error("null object does not have hotel details");

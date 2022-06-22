@@ -1,8 +1,8 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
-import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../services/SearchBarSlice';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
+import { useAppDispatch, useAppSelector } from '../../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
 import debounce from 'debounce';

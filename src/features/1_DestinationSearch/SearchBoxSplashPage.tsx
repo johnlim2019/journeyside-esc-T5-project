@@ -1,8 +1,8 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
-import { query, setDestinations } from '../services/SearchBarSlice';
-import { useAppDispatch, useAppSelector } from '../services/hooks';
+import { query, setDestinations } from '../../services/SearchBarSlice';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';

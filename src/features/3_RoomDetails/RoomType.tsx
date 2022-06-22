@@ -40,7 +40,7 @@ function RoomType() {
       <Text size="sm">Address: {selectedHotelObj.address}</Text>
       <Text size="sm">{distance} km from Airport </Text>
       <Text size="sm">{ratingScore} out of 5</Text>
-      <Button fullWidth component={Link} to="/roomdetail">${price}</Button>
+      <Button fullWidth component={Link} to="/BookingData">${price}</Button>
     </Card>
   );
 
