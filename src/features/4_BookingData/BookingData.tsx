@@ -1,4 +1,4 @@
-import { Button, createStyles, Grid, NumberInput, Space, Table, Text, TextInput, Title } from "@mantine/core";
+import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, Space, Table, Text, TextInput, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -13,7 +13,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 function BookingData() {
     const { classes } = useStyles();
     return (
-      <>
+      <Container mt={20}>
         <Title order={2}>Booking Data</Title>
         <Space h="md" />
         <Title order={3}>Summary</Title>
@@ -49,14 +49,6 @@ function BookingData() {
               <th className={classes.th}>Booking reference</th>
               <td className={classes.td}>XXXXX</td>
             </tr>
-            <tr>
-              <th className={classes.th}>Guest information</th>
-              <td className={classes.td}>Salutation, first name, last name</td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Payee information</th>
-              <td className={classes.td}>Payment ID, Payee ID</td>
-            </tr>
           </tbody>
         </Table>
         <Space h="lg" />
@@ -69,13 +61,28 @@ function BookingData() {
             <TextInput label="Last name" required />
           </Grid.Col>
           <Grid.Col xs={12} sm={6}>
-            <NumberInput label="Phone No." hideControls required />
+            <NumberInput label="Phone Number" hideControls required />
           </Grid.Col>
           <Grid.Col xs={12} sm={6}>
             <TextInput label="Email" required />
           </Grid.Col>
           <Grid.Col xs={12}>
             <TextInput label="Special requests to hotel" />
+          </Grid.Col>
+          <Grid.Col xs={12} sm={6}>
+            <NumberInput label="Credit Card Number" hideControls required />
+          </Grid.Col>
+          <Grid.Col xs={8} sm={4}>
+            <InputWrapper label="Expiry Date" required>
+              <Box  sx={{display:"flex", alignItems:"center"}}>
+                <NumberInput min={1} max={12} hideControls sx={{flex:1}} placeholder="MM" />
+                <span>&nbsp; / &nbsp;</span>
+                <NumberInput min={22} max={99}  hideControls sx={{flex:1}} placeholder="YY" />
+              </Box>
+            </InputWrapper>
+          </Grid.Col>
+          <Grid.Col xs={4} sm={2}>
+            <NumberInput max={999} label="CVV/CVC" hideControls required />
           </Grid.Col>
           <Grid.Col xs={12}>
             <TextInput label="Billing Address" required/>
@@ -84,7 +91,7 @@ function BookingData() {
             <Button fullWidth component={Link} to="/">Submit</Button>
           </Grid.Col>
         </Grid>
-      </>
+      </Container>
     );
   }
   

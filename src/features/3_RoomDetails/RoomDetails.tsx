@@ -1,4 +1,4 @@
-import { Title, Text, Loader, Space, Center } from "@mantine/core";
+import { Title, Text, Loader, Space, Center, Container, Card } from "@mantine/core";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import { useEffect, useRef, useState } from "react";
 import RoomType from "./RoomType";
@@ -43,16 +43,19 @@ function RoomDetails() {
   }
 
   return (
-    <>
+    <Container mt={20}>
       <Title order={2}>{selectedHotelObj.name}</Title><Space h="sm" />
-      <Wrapper apiKey={"AIzaSyD-rkaoiosPhv8ZlFaXDLESTXKLCMdYbPI"} render={render}/>
+      <Card shadow="sm" p={0} sx={{overflow:"hidden"}}>
+        <Wrapper apiKey={"AIzaSyD-rkaoiosPhv8ZlFaXDLESTXKLCMdYbPI"} render={render}/>
+      </Card>
+      
       <Space h="md" />
       <Title order={3}>Rooms List</Title>
       <RoomType />
       {/* <RoomType />
       <RoomType />
       <RoomType /> */}
-    </>
+    </Container>
   );
 }
   
