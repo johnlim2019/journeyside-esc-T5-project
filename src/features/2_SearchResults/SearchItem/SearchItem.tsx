@@ -4,7 +4,7 @@ import './SearchItem.css';
 import { useAppSelector, useAppDispatch } from '../../../services/hooks';
 import { useEffect, useState } from 'react';
 import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../../services/SearchBarSlice';
-import { Star, StarHalf } from 'tabler-icons-react';
+import { Database, Star, StarHalf } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 
 
@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
   }
 
 }));
-function sortResults(hotelDataLongSort: any, sortBy: string, hotelPrice: any) {
+function sortResults(hotelDataLongSort: any, sortBy: string, avePrice: any) {
   if (sortBy === "Rating") {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by rating");
@@ -60,14 +60,14 @@ function sortResults(hotelDataLongSort: any, sortBy: string, hotelPrice: any) {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by value");
       hotelDataLongSort.sort((a: any, b: any) => (
-        a.rating / a.converted_price + 20 * a.trustyou.score.kaligo_overall > b.rating / b.converted_price + 20 * b.trustyou.score.kaligo_overall) ? 1 : -1);
+        a.converted_price/a.rating  +  avePrice* a.trustyou.score.kaligo_overall + avePrice*(a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment > b.converted_price/b.rating + avePrice* b.trustyou.score.kaligo_overall + avePrice*(b.coverted_max_cash_payment - b.converted_price)/b.coverted_max_cash_payment) ? 1 : -1);
     }
   }
   else if (sortBy === "Sale") {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by value");
       hotelDataLongSort.sort((a: any, b: any) => ( /*the misspelled converted here so type coverted */
-        (a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment > (b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment) ? 1 : -1);
+        (a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment < (b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment) ? 1 : -1);
     }
   }
   return hotelDataLongSort;
@@ -81,10 +81,13 @@ function getCardValues(key: number, data: any) {
   if (reviewScore <= 1 && reviewScore > 0) {
     reviewColor = 'pink';
   }
-  else if (reviewScore <= 3.5 && reviewScore > 1) {
+  else if (reviewScore <= 2.5 && reviewScore > 1) {
     reviewColor = 'orange';
   }
-  else if (reviewScore > 3.5) {
+  else if (reviewScore <= 4 && reviewScore > 2.5) {
+    reviewColor = 'blue';
+  }
+  else if (reviewScore > 4) {
     reviewColor = 'green';
   }
   let distance = data.distance;
@@ -93,6 +96,7 @@ function getCardValues(key: number, data: any) {
   }
   distance = distance.toFixed(1);
   let convertedPrice = data.converted_price;
+  convertedPrice = convertedPrice.toFixed(2);
   let maxConvertedPrice = data.coverted_max_cash_payment; // the data base misspells it so pleas mispellit
   return [imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice]
 }
@@ -103,11 +107,11 @@ function isSale(price: number, maxPrice: number) {
   console.log("maxPrice " + maxPrice);
   let salePercent = (maxPrice - price) / maxPrice * 100;
   let colour = 'gray';
-  if (salePercent <= 5 && salePercent > 0) {
-    colour = 'blue';
+  if (salePercent <= 5 && salePercent > 1) {
+    colour = 'yellow';
   }
   else if (salePercent > 5 && salePercent <= 10) {
-    colour = 'green';
+    colour = 'orange';
   }
   else if (salePercent > 10 && salePercent <= 20) {
     colour = 'pink';
@@ -120,9 +124,10 @@ function isSale(price: number, maxPrice: number) {
       <Space h='md'></Space>
     );
   }
+  let salePercentOut = salePercent.toFixed(1);
   return (
     <Badge id='review' color={"" + colour} variant="filled" style={{ marginTop: '.7rem' }}>
-      {salePercent}% off
+      was {maxPrice} -{salePercentOut}%
     </Badge>
   );
 }
@@ -132,6 +137,7 @@ function SearchItem() {
   const destId = useAppSelector(state => state.SearchBarReducer.locationId);
   let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
   const isLoading = useAppSelector(state => state.SearchBarReducer.isLoading);
+  let avePrice = useAppSelector(state =>state.SearchBarReducer.hotelData.avePrice);
   // console.log("HELP "+dest);
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
@@ -151,7 +157,7 @@ function SearchItem() {
   // sort code
   // create copy to sort
   var hotelDataLongSort = [...hotelDataLong];
-  hotelDataLongSort = sortResults(hotelDataLongSort, sortBy, []);
+  hotelDataLongSort = sortResults(hotelDataLongSort, sortBy, avePrice);
   // assign the new sorted values
   hotelDataLong = hotelDataLongSort;
 

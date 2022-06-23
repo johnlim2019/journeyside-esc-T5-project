@@ -20,6 +20,7 @@ interface searchBarInterface {
     hotelData: {
         locationId : string,
         hotels :any[],
+        avePrice : number
     },
     destinationsObjLs:any[],
     autocompleteLs:string[],
@@ -43,6 +44,7 @@ const initialState = {
         hotelData: {
             locationId : "",
             hotels :[],
+            avePrice: 0
         },
         destinationsObjLs:[],
         autocompleteLs:[],
@@ -124,18 +126,31 @@ export const searchBarSlice = createSlice({
             let hotelByDestData = action.payload.hotels;
             let hotelPricesData = action.payload.prices;
             var list:any[] = [];
+            var sum = 1;
             for (let i=0;i<hotelPricesData.length;i++){
                 // console.log(action.payload.prices[i].id);
-                let hotelId = hotelPricesData[i].id;                
                 var currObj: any = {};
+                let convertedPrice = hotelPricesData[i].converted_price;
+                sum += hotelPricesData[i].coverted_max_cash_payment;
+                if ( typeof hotelPricesData[i].market_rates != 'undefined'){
+                  if ( hotelPricesData[i].market_rates.length>0){
+                    for (let k=0;k<hotelPricesData[i].market_rates.length;k++){
+                      convertedPrice = hotelPricesData[i]["market_rates"][k]["rate"];
+
+                    }
+                  }
+                }
+                let hotelId = hotelPricesData[i].id;                
                 for (let j = 0; j < hotelByDestData.length; j++) {
                     if (hotelByDestData[j].id === hotelId) {
                     currObj = {...currObj,...hotelByDestData[j]};
                     currObj = {...currObj,...hotelPricesData[i]};
+                    currObj['converted_price'] = convertedPrice;
                     list.push(currObj);
                     }          
                 }      
             }
+            state.hotelData.avePrice = sum/hotelPricesData.length;
             console.log(list);
             state.hotelData.locationId = action.payload.id;
             state.hotelData.hotels = list;
