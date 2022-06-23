@@ -13,12 +13,12 @@ const NODEST = "Please enter a destination."
 // set up themes for classes
 const useStyles = createStyles((theme) => ({
   cardContainer: {
-    width: '30rem',
+    width: '40rem',
     margin: 'auto',
     marginTop: "2rem",
     // Media query with value from theme
-    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-      width: '22rem',
+    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+      width: '80%',
       alignItems: 'center'
     },
   },
