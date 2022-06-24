@@ -59,8 +59,7 @@ function sortResults(hotelDataLongSort: any, sortBy: string, avePrice: any) {
   else if (sortBy === "Value") {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by value");
-      hotelDataLongSort.sort((a: any, b: any) => (
-        a.converted_price/a.rating  +  avePrice* a.trustyou.score.kaligo_overall + avePrice*(a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment > b.converted_price/b.rating + avePrice* b.trustyou.score.kaligo_overall + avePrice*(b.coverted_max_cash_payment - b.converted_price)/b.coverted_max_cash_payment) ? 1 : -1);
+      hotelDataLongSort.sort((a: any, b: any) => ( ((a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment)*5 + a.rating *0.9 + a.trustyou.score.kaligo_overall*1.2 > ((b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment)*5 + b.rating *0.9 + b.trustyou.score.kaligo_overall*1.2) ? 1 : -1);
     }
   }
   else if (sortBy === "Sale") {
