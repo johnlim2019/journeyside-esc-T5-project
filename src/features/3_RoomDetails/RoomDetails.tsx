@@ -3,7 +3,9 @@ import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import { useEffect, useRef, useState } from "react";
 import RoomType from "./RoomType";
 import React from "react";
-import { useAppSelector } from "../../services/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { setLoading, compileRoomData } from "../../services/RoomDetailSlice";
+import axios from "axios";
 
 const mapHeight = 360;
 function getMapDetails(obj:any){
@@ -21,10 +23,24 @@ function RoomDetails() {
   // Load details 
   const selectedHotelId = useAppSelector(state => state.SearchBarReducer.selectHotelId); // to load things from store !!!
   const selectedHotelObj = useAppSelector(state => state.SearchBarReducer.selectHotelObj);
-  console.log(selectedHotelObj);
-  console.log(selectedHotelId);
+  // console.log(selectedHotelObj);
+  // console.log(selectedHotelId);
   let longitude:number; let latitude:number;
   [longitude, latitude] = getMapDetails(selectedHotelObj);
+  const dispatch = useAppDispatch();
+
+  // Call state manager for rooms list
+  let roomsList = useAppSelector(state => state.RoomDetailReducer.roomsList);
+
+  useEffect(() => {
+    const tempHotelId = 'diH7';
+    const roomPriceApi = 'https://ascendahotels.mocklab.io/api/hotels/'+tempHotelId+'/prices/ean';
+    axios.get(roomPriceApi).then((response) => {
+      dispatch(compileRoomData({ data : response.data}));
+      dispatch(setLoading({ loading: false }));
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // To be adjusted based on previous data
   const zoom = 16;
@@ -51,10 +67,12 @@ function RoomDetails() {
       
       <Space h="md" />
       <Title order={3}>Rooms List</Title>
-      <RoomType />
-      {/* <RoomType />
-      <RoomType />
-      <RoomType /> */}
+        {
+          roomsList.map((data, key) => {
+            return <RoomType key={key} data={data} />
+          })
+        }
+        {/* <RoomType data={roomsList[0]} /> */}
     </Container>
   );
 }

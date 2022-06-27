@@ -1,11 +1,13 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import SearchBarSlice from './SearchBarSlice';
+import RoomDetailSlice from './RoomDetailSlice';
 import { loadState } from '../Browser-Storage';
 import { hotelPricesApi } from "./fetchPricesApi";
 
 
 const reducers = combineReducers({
     SearchBarReducer:SearchBarSlice,
+    RoomDetailReducer:RoomDetailSlice,
     [hotelPricesApi.reducerPath]: hotelPricesApi.reducer,
 })
 
