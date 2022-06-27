@@ -2,8 +2,7 @@ import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, 
 import { useAppSelector } from "../../services/hooks";
 import { useForm } from '@mantine/form';
 import { useEffect } from "react";
-import { Firebase } from '../../services/Firebase-Storage';
-import { writeEncryptedJson, readEncryptedJson } from "../../services/Firebase-Functions";
+
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   th: {
@@ -54,6 +53,7 @@ function BookingData() {
     hotelPrice = hotelObj.converted_price;
   }
 
+
   const bookingReference = "XXXXX";
   const supplierId = "XXXXX";
   const supplierResponse = "XXXXX";
@@ -93,6 +93,9 @@ function BookingData() {
   // console.log(new Date(form.getInputProps('expiryDate').value));
   // TO  GET JSON VALUES JUST CALL forms.values yeah!
   console.log(form.values);
+  const db = Firebase();
+  writeEncryptedJson(db, "testUser", "Test message");
+  console.log(readEncryptedJson(db, "testUser"));
 
   
   return (
