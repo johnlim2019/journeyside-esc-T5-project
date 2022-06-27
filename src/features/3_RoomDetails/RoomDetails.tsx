@@ -35,10 +35,14 @@ function RoomDetails() {
   useEffect(() => {
     const tempHotelId = 'diH7';
     const roomPriceApi = 'https://ascendahotels.mocklab.io/api/hotels/'+tempHotelId+'/prices/ean';
+    dispatch(setLoading({ loading: true }));
     axios.get(roomPriceApi).then((response) => {
       dispatch(compileRoomData({ data : response.data}));
       dispatch(setLoading({ loading: false }));
-    });
+    }).catch(errors => {
+      console.error(errors);
+      dispatch(setLoading({ loading: false }));
+    });;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
