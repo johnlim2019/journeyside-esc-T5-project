@@ -1,9 +1,13 @@
-import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, Space, Table, Text, TextInput, Title } from "@mantine/core";
+import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, Space, Table, Text, TextInput, Title, Modal, Paper, Center, Group } from "@mantine/core";
 import { useAppSelector } from "../../services/hooks";
 import { useForm } from '@mantine/form';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Firebase } from '../../services/Firebase-storage';
 import { writeEncryptedJson, readEncryptedJson } from "../../services/Firebase-Functions";
+import { Link } from "react-router-dom";
+import { ref, child, push } from "firebase/database";
+import { debounce } from "debounce";
+
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   th: {
@@ -13,12 +17,28 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     border: 'none'
   }
 }));
-
-function getReadable(cardNum:any){
+function getJsonObj(form: any, hotelDetails: any) {
+  let jsonObj = {};
+  if (typeof form !== 'undefined') {
+    jsonObj = { ...jsonObj, ...form.values };
+  }
+  else {
+    console.log("getJsonObj form input is undefined");
+  }
+  if (typeof hotelDetails !== 'undefined') {
+    jsonObj = { ...jsonObj, ...hotelDetails };
+  }
+  else {
+    console.log('getJsonObj hotelDetails input is undefined')
+  }
+  // console.log(jsonObj);
+  return jsonObj;
+}
+function getReadable(cardNum: any) {
   let cardNumReadable = "";
   cardNumReadable += cardNum[0];
-  for (let i=1;i<cardNum.length;i++){
-    if (i%4 === 0){
+  for (let i = 1; i < cardNum.length; i++) {
+    if (i % 4 === 0) {
       cardNumReadable += "-";
       cardNumReadable += cardNum[i];
     }
@@ -26,11 +46,12 @@ function getReadable(cardNum:any){
       cardNumReadable += cardNum[i];
     }
   }
-  return cardNumReadable 
+  return cardNumReadable
 }
 
 function BookingData() {
   const { classes } = useStyles();
+
   // pull the data from the query
   const locationId = useAppSelector(state => state.SearchBarReducer.locationId); // to load things from store !!!
   const locationName = useAppSelector(state => state.SearchBarReducer.location);
@@ -43,32 +64,60 @@ function BookingData() {
   const hotelObj = useAppSelector(state => state.SearchBarReducer.selectHotelObj);
   const nightsNum = (checkOut - checkIn) / 86400000;
 
+
+  // setup our data to be pushed to firebase
+  // setup our uuid for the booking
+  const db = Firebase();
+  const [newBookingKey, setBookingKey] = useState<null | string>(null);
+  useEffect(() => {
+    try {
+      setBookingKey(push(child(ref(db), "data")).key);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [db])
+
+
+
   let hotelName = "";
   let hotelAddr = "";
   let hotelPrice = 0;
-  let supplierBookingId = "";
-  let supplierBookingResponse = "";
+
   if (typeof hotelObj !== 'undefined') {
     hotelName = hotelObj.name;
     hotelAddr = hotelObj.address;
     hotelPrice = hotelObj.converted_price;
   }
 
-
-  const bookingReference = "XXXXX";
   const supplierId = "XXXXX";
   const supplierResponse = "XXXXX";
+
+  const hotelDetails = {
+    'bookingKey': newBookingKey,
+    'location': locationName,
+    'locationId': locationId,
+    'checkIn': checkIn,
+    'checkOut': checkOut,
+    'adults': adults,
+    'children': children,
+    'rooms': rooms,
+    'hotelId': hotelId,
+    'hotelName': hotelName,
+    'hotelAddr': hotelAddr,
+    'hotelPrice': hotelPrice,
+    'supplierId': supplierId
+  }
 
   const form = useForm({
     initialValues: {
       firstName: "Tan",
       lastName: "Beng Seng",
       phone: "98684420",
-      email: "bengseng@",
+      email: "bengseng@seng.com",
       specialReq: "",
       cardNum: "4569403961014710",
       expiryMonth: 6,
-      expiryYear: 22,
+      expiryYear: 24,
       expiryDate: new Date().getTime(),
       cvv: 152,
       address: "8 Somapah Road"
@@ -77,30 +126,61 @@ function BookingData() {
       email: (value) => (/^\S+@\S+\.\S+$/.test(value) ? null : 'Invalid email'),
       cardNum: (value) => (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(value) ? null : "invalid card"),
       phone: (value) => (/(?:[6,8,9][0-9]{7})/.test(value) ? null : "Invalid Phone Number"),
-      expiryDate: (value) => (value > new Date().getTime() + 2629800000 ? null : "Expired Card?")
+      expiryDate: (value) => (value > new Date().getTime() ? null : "Expired Card?")
     }
   });
 
-  const expiryDateString = "1/" + form.getInputProps("expiryMonth").value + "/" + form.getInputProps('expiryYear').value;
+
+  const expiryDateString = String(form.getInputProps("expiryMonth").value) + "/1/20" + String(form.getInputProps('expiryYear').value);
   const expiryDate = new Date(expiryDateString).getTime();
   const cardNum = form.getInputProps('cardNum').value;
-  const cardNumReadable:string = getReadable(cardNum)
-  
-  // Set expiry date
-  useEffect(() => {
-    form.setFieldValue('expiryDate', expiryDate);
-    // console.log("HELP "+activePage);
-  }, [expiryDate]);
-  // console.log(new Date(form.getInputProps('expiryDate').value));
-  // TO  GET JSON VALUES JUST CALL forms.values yeah!
-  console.log(form.values);
-  const db = Firebase();
-  writeEncryptedJson(db, "testUser", "Test message");
-  console.log(readEncryptedJson(db, "testUser"));
+  const cardNumReadable: string = getReadable(cardNum)
+  // console.log(new Date(expiryDateString));
 
-  
+  // Set expiry date from our two inputs
+  // console.log(form.values);
+
+  // confirmation modal;
+  const [modal, setModal] = useState(false);
+
+  // check if we have completed the form and can leave the page safely.
+  const debounced = debounce(() => {
+    form.setFieldValue('expiryDate', expiryDate);
+    if (form.validate().hasErrors === false) {
+      form.clearFieldError("expiryMonth");
+      form.clearFieldError("expiryYear");
+    }
+    else {
+      form.setFieldError("expiryMonth", "Expired Card");
+      form.setFieldError("expiryYear", "Expired Card?");
+    };
+  }, 100);
+  debounced();
+
+
+
   return (
     <Container mt={20}>
+      <Modal onClose={() => setModal(false)} closeOnEscape withCloseButton={false} centered opened={modal}>
+        <Paper>
+          <Center style={{ padding: '0em 0em 2em 0em' }}>
+            <Text>Confirm your booking?</Text>
+          </Center>
+          <Center>
+            <Group position="apart">
+              <Button color='red' onClick={() => setModal(false)}>Hold on!</Button>
+              <Button component={Link} to={"/SearchResults"} onClick={() => {
+                console.log("push booking");
+                // writeEncryptedJson(db, "testUser", "Test message");
+                let jsonObj = getJsonObj(form, hotelDetails);
+                writeEncryptedJson(db, "testUser", JSON.stringify(jsonObj), "booking/" + newBookingKey + "/");
+                let data = readEncryptedJson(db, "testUser", "booking");
+                console.log(data);
+              }}>Confirm</Button>
+            </Group>
+          </Center>
+        </Paper>
+      </Modal>
       <Title order={2}>Booking Data</Title>
       <Space h="md" />
       <Title order={3}>Summary</Title>
@@ -161,22 +241,18 @@ function BookingData() {
             <td className={classes.td}>{hotelPrice.toFixed(2)} SGD</td>
           </tr>
           <tr>
-            <th className={classes.th}>Supplier booking ID</th>
-            <td className={classes.td}>{supplierId}</td>
+            <th className={classes.th}>Booking ID</th>
+            <td className={classes.td}>{newBookingKey}</td>
           </tr>
           <tr>
             <th className={classes.th}>Supplier booking response</th>
             <td className={classes.td}>{supplierResponse}</td>
           </tr>
-          <tr>
-            <th className={classes.th}>Booking reference</th>
-            <td className={classes.td}>{bookingReference}</td>
-          </tr>
         </tbody>
       </Table>
       <Space h="lg" />
       <Title order={3}>Please fill in your personal information</Title>
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit((values) => { })}>
         <Grid>
           <Grid.Col xs={12} sm={6}>
             <TextInput label="First name" required {...form.getInputProps('firstName')} />
@@ -195,7 +271,7 @@ function BookingData() {
           </Grid.Col>
           <Grid.Col xs={12} sm={6}>
             <TextInput label="Credit Card Number" required {...form.getInputProps('cardNum')} />
-            <Text size="sm" style={{marginLeft:'12px',marginTop:'5px'}}>{cardNumReadable}</Text>
+            <Text size="sm" style={{ marginLeft: '12px', marginTop: '5px' }}>{cardNumReadable}</Text>
           </Grid.Col>
           <Grid.Col xs={8} sm={4}>
             <InputWrapper label="Expiry Date" required>
@@ -213,11 +289,20 @@ function BookingData() {
             <TextInput label="Billing Address" required {...form.getInputProps('address')} />
           </Grid.Col>
           <Grid.Col xs={12}>
-            <Button fullWidth type="submit">Submit</Button>
+            <Button fullWidth
+              type="submit" onClick={() => {
+                if (form.validate().hasErrors === false) {
+                  setModal(true);
+                }
+                else {
+                  console.log("error in form");
+                  console.log(form.validate());
+                }
+              }}>Submit</Button>
           </Grid.Col>
         </Grid>
       </form>
-    </Container>
+    </Container >
   );
 }
 

@@ -1,16 +1,19 @@
 import { ref, child, push, update, onValue, Database } from "firebase/database";
 
-export function writeEncryptedJson(db: Database, userId: string, encrypted: string) {
-    const newChildKey = push(child(ref(db), "data")).key;
-    const updates: { [key: string]: any} = {};
-    updates["/user-data/" + userId + "/" + newChildKey] = encrypted;
+export function writeEncryptedJson(db: Database, userId: string, encrypted: string, dataCategory: string) {
+    const updates: { [key: string]: any } = {};
+    updates["/user-data/" + userId + "/" + dataCategory] = encrypted;
     return update(ref(db), updates);
 }
 
-export function readEncryptedJson(db: Database, userId: string) {
-    const dataRef = ref(db, "/user-data/" + userId);
+export function readEncryptedJson(db: Database, userId: string, dataCategory: string) {
+    const dataRef = ref(db, "/user-data/" + userId + "/" + dataCategory);
+    var res = "";
     onValue(dataRef, (snapshot) => {
         const data = snapshot.val();
-        return data;
-    } )
+        res = data;
+    })
+    res = JSON.parse(res);
+    return res;
 }
+
