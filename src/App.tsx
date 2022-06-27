@@ -10,7 +10,7 @@ function App() {
     store.subscribe(
         debounce(() => {
             saveState(store.getState());
-        }, 800)
+        }, 5000)
     );
     return (
         <>

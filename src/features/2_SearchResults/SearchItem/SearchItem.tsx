@@ -136,7 +136,6 @@ function SearchItem() {
   const destId = useAppSelector(state => state.SearchBarReducer.locationId);
   let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
   const isLoading = useAppSelector(state => state.SearchBarReducer.isLoading);
-  let avePrice = useAppSelector(state =>state.SearchBarReducer.hotelData.avePrice);
   // console.log("HELP "+dest);
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
@@ -156,7 +155,7 @@ function SearchItem() {
   // sort code
   // create copy to sort
   var hotelDataLongSort = [...hotelDataLong];
-  hotelDataLongSort = sortResults(hotelDataLongSort, sortBy, avePrice);
+  hotelDataLongSort = sortResults(hotelDataLongSort, sortBy, 0);
   // assign the new sorted values
   hotelDataLong = hotelDataLongSort;
 
