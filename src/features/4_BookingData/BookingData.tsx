@@ -1,5 +1,7 @@
 import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, Space, Table, Text, TextInput, Title } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { Firebase } from '../../Firebase-Storage';
+import { writeEncryptedJson, readEncryptedJson } from "../../Firebase-Functions";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   th: {
@@ -11,6 +13,9 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 }));
 
 function BookingData() {
+    const db = Firebase();
+    writeEncryptedJson(db, "testUser", "Test message");
+    console.log(readEncryptedJson(db, "testUser"));
     const { classes } = useStyles();
     return (
       <Container mt={20}>
