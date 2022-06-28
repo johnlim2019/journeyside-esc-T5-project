@@ -2,7 +2,7 @@ import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, 
 import { useAppSelector } from "../../services/hooks";
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
-import { Firebase } from '../../services/Firebase-storage';
+import { Firebase } from '../../services/Firebase-Storage';
 import { writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Link } from "react-router-dom";
 import { ref, child, push } from "firebase/database";

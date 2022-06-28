@@ -2,7 +2,7 @@ import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Tabl
 import { useEffect, useState } from "react";
 import { FileDescription } from "tabler-icons-react";
 import { readEncryptedJson } from "../../services/Firebase-Functions";
-import { Firebase } from "../../services/Firebase-storage";
+import { Firebase } from "../../services/Firebase-Storage";
 
 interface LooseObject {
     [key: string]: any
