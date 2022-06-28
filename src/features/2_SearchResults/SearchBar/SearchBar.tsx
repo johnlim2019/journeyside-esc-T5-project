@@ -201,8 +201,9 @@ function SearchBar(): JSX.Element {
         let errorsObj = setErrorMessages(validation);
         setValidDestination(errorsObj['locationValid']);
         setValidDates(errorsObj["dateValid"]);
-    // eslint-disable-next-line
-    }, [dates,location]);
+        dispatch(query({ dispatchQuery }));
+        // eslint-disable-next-line
+    }, [dates,location,dispatchQuery]);
 
 
     // check the cache id and the queryId 

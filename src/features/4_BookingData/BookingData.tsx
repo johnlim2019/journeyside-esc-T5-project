@@ -3,7 +3,7 @@ import { useAppSelector } from "../../services/hooks";
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
 import { Firebase } from '../../services/Firebase-storage';
-import { writeEncryptedJson, readEncryptedJson } from "../../services/Firebase-Functions";
+import { writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Link } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
 import { debounce } from "debounce";
@@ -32,7 +32,7 @@ function getJsonObj(form: any, hotelDetails: any) {
   else {
     console.log('getJsonObj hotelDetails input is undefined')
   }
-  // console.log(jsonObj);
+  console.log(jsonObj);
   return jsonObj;
 }
 function getReadable(cardNum: any) {
@@ -291,6 +291,8 @@ function BookingData() {
               type="submit" onClick={() => {
                 if (form.validate().hasErrors === false) {
                   setModal(true);
+                  let jsonObj = getJsonObj(form, hotelDetails);
+                  console.log(jsonObj);
                 }
                 else {
                   console.log("error in form");
