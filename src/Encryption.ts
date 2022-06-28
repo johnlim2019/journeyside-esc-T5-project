@@ -11,14 +11,14 @@ export function generateKeys(db: Database) {
     return [publicKey, privateKey];
 }
 
-export function encryptJson(db: Database, jsonObj: JSON,  publicKey: Key) {
+export function encryptJson(jsonObj: JSON,  publicKey: Key) {
     const key = new NodeRSA();
     key.importKey(publicKey, "pkcs8-public-pem");
     const encrypted = key.encrypt(JSON.stringify(jsonObj), "base64");
     return encrypted;
 }
 
-export function decryptJson(db: Database, encrypted: string, privateKey: Key) {
+export function decryptJson(encrypted: string, privateKey: Key) {
     const key = new NodeRSA();
     key.importKey(privateKey, "pkcs1-pem");
     const deCryptString = key.decrypt(encrypted, "utf8");

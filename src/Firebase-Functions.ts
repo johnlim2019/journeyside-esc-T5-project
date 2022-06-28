@@ -1,28 +1,21 @@
-import { ref, child, push, update, Database, onValue } from "firebase/database";
+import { ref, child, push, update, Database, get } from "firebase/database";
 import { Key } from "node-rsa";
 import { encryptJson, decryptJson } from "./Encryption";
 
 export function writeEncryptedJson(db: Database, userId: string, unencrypted: any, publicKey: Key) {
     const newChildKey = push(child(ref(db), "user-data")).key;
     const updates: { [key: string]: any} = {};
-    const encrypted = encryptJson(db, unencrypted, publicKey)
+    const encrypted = encryptJson(unencrypted, publicKey)
     updates["/user-data/" + userId + "/booking/" + newChildKey] = encrypted;
     update(ref(db), updates);
     return newChildKey;
 }
 
-export function readEncryptedJson(db: Database, userId: string, newChildKey: string | null , privateKey: Key) {
+export async function readEncryptedJson(db: Database, userId: string, newChildKey: string, privateKey: Key) {
     const dataRef = ref(db, "/user-data/" + userId + "/booking/" + newChildKey);
-    onValue(dataRef, (snapshot) => {
-        const encryptedData = snapshot.val();
-        if (encryptedData) {
-            console.log(encryptedData);
-            const deCryptedData = decryptJson(db, encryptedData, privateKey);
-            console.log(deCryptedData);
-            return deCryptedData;
-        }
-    });
-    return null;
+    const encryptedData = await get(dataRef);
+    const deCryptedData = decryptJson(encryptedData.val(), privateKey);
+    return deCryptedData;
 }
 
 // export function writeKey(db: Database, RSAkey: any, keyType: string) {

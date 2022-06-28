@@ -39,22 +39,16 @@ function makeBooking() {
 function getBooking(newChildKey: string, privateKey: Key) {
     const db = Firebase();
     var decryptedJSON = readEncryptedJson(db, "testUser", newChildKey, privateKey);
-    if (decryptedJSON !== null) {
-
-        // DOES NOT REACH DUE TO EVENT LOOP
-        // maybe display decrypted json directly to BookingData when page is refreshed?
-        console.log(decryptedJSON);
-        return decryptedJSON;
-
-
-    } else {
-        setTimeout(getBooking, 3000);
-    }
+    return decryptedJSON;
+    // return new Promise((resolve) => {
+    //     setTimeout(() => {
+    //         resolve(readEncryptedJson(db, "testUser", newChildKey, privateKey));
+    //     }, 1000);
+    // });
 }
 
 export function userMakesBooking() {
     const [newChildKey, privateKey] = makeBooking();
-
-    // UNDEFINED
-    console.log(getBooking(newChildKey, privateKey));
+    var decrypted = getBooking(newChildKey, privateKey);
+    console.log(decrypted);
 }
