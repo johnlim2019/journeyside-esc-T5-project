@@ -6,7 +6,7 @@ import { Center, createStyles } from '@mantine/core';
 function SearchResults() {
     const useStyles = createStyles((theme) => ({
         searchBarStyle: {
-            position: 'sticky', top: 0, zIndex: 2, width: '100%',
+            position: 'sticky', top: 0, zIndex:1, width: '100%',
             // Media query with value from theme
             [`@media (max-width: ${theme.breakpoints.md}px)`]: {
                 position: 'inherit'
@@ -21,9 +21,9 @@ function SearchResults() {
             <Center>
                 <NavBar />
             </Center>
-            <div className={classes.searchBarStyle}>
-                <SearchBar />
-            </div>
+            <Center className={classes.searchBarStyle}>
+            <SearchBar />
+            </Center>
             <SearchWrapper />
         </>
 

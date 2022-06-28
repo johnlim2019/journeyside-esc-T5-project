@@ -4,7 +4,7 @@ import './SearchItem.css';
 import { useAppSelector, useAppDispatch } from '../../../services/hooks';
 import { useEffect, useState } from 'react';
 import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../../services/SearchBarSlice';
-import { Database, Star, StarHalf } from 'tabler-icons-react';
+import { Star, StarHalf } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 
 

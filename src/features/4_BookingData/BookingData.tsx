@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
 import { debounce } from "debounce";
 
-
+const USERNAME = "johnlim";
 const useStyles = createStyles((theme, _params, getRef) => ({
   th: {
     textAlign: 'left'
@@ -17,6 +17,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
     border: 'none'
   }
 }));
+
 function getJsonObj(form: any, hotelDetails: any) {
   let jsonObj = {};
   if (typeof form !== 'undefined') {
@@ -77,22 +78,19 @@ function BookingData() {
     }
   }, [db])
 
-
-
+  // set up our booking object attributes
   let hotelName = "";
   let hotelAddr = "";
   let hotelPrice = 0;
-
   if (typeof hotelObj !== 'undefined') {
     hotelName = hotelObj.name;
     hotelAddr = hotelObj.address;
     hotelPrice = hotelObj.converted_price;
   }
-
   const supplierId = "XXXXX";
   const supplierResponse = "XXXXX";
-
   const hotelDetails = {
+    'bookingCreateDate': new Date().getTime(),
     'bookingKey': newBookingKey,
     'location': locationName,
     'locationId': locationId,
@@ -101,6 +99,7 @@ function BookingData() {
     'adults': adults,
     'children': children,
     'rooms': rooms,
+    'nights':nightsNum,
     'hotelId': hotelId,
     'hotelName': hotelName,
     'hotelAddr': hotelAddr,
@@ -108,6 +107,9 @@ function BookingData() {
     'supplierId': supplierId
   }
 
+
+  // check if we have completed the form and can leave the page safely.
+  // form builder and validation.
   const form = useForm({
     initialValues: {
       firstName: "Tan",
@@ -123,6 +125,7 @@ function BookingData() {
       address: "8 Somapah Road"
     },
     validate: {
+      // regex validation
       email: (value) => (/^\S+@\S+\.\S+$/.test(value) ? null : 'Invalid email'),
       cardNum: (value) => (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(value) ? null : "invalid card"),
       phone: (value) => (/(?:[6,8,9][0-9]{7})/.test(value) ? null : "Invalid Phone Number"),
@@ -131,19 +134,14 @@ function BookingData() {
   });
 
 
+
+
+  // Set expiry date from our two inputs
   const expiryDateString = String(form.getInputProps("expiryMonth").value) + "/1/20" + String(form.getInputProps('expiryYear').value);
   const expiryDate = new Date(expiryDateString).getTime();
   const cardNum = form.getInputProps('cardNum').value;
   const cardNumReadable: string = getReadable(cardNum)
   // console.log(new Date(expiryDateString));
-
-  // Set expiry date from our two inputs
-  // console.log(form.values);
-
-  // confirmation modal;
-  const [modal, setModal] = useState(false);
-
-  // check if we have completed the form and can leave the page safely.
   const debounced = debounce(() => {
     form.setFieldValue('expiryDate', expiryDate);
     if (form.validate().hasErrors === false) {
@@ -156,7 +154,8 @@ function BookingData() {
     };
   }, 100);
   debounced();
-
+  // confirmation modal;
+  const [modal, setModal] = useState(false);
 
 
   return (
@@ -173,9 +172,8 @@ function BookingData() {
                 console.log("push booking");
                 // writeEncryptedJson(db, "testUser", "Test message");
                 let jsonObj = getJsonObj(form, hotelDetails);
-                writeEncryptedJson(db, "testUser", JSON.stringify(jsonObj), "booking/" + newBookingKey + "/");
-                let data = readEncryptedJson(db, "testUser", "booking");
-                console.log(data);
+                writeEncryptedJson(db, USERNAME, JSON.stringify(jsonObj), "booking/" + newBookingKey + "/");
+
               }}>Confirm</Button>
             </Group>
           </Center>

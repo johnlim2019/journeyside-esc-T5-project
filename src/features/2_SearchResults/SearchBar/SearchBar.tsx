@@ -17,6 +17,7 @@ const useStyles = createStyles((theme) => ({
     },
     searchbarcomponets: {
         size: 'md',
+        zIndex:5,
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             size: 'xs'
