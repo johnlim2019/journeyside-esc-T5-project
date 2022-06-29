@@ -1,8 +1,11 @@
 import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Table, Text } from "@mantine/core";
+import { wait } from "@testing-library/user-event/dist/utils";
 import { useEffect, useState } from "react";
-import { FileDescription } from "tabler-icons-react";
-import { readEncryptedJson } from "../../services/Firebase-Functions";
+import { FileDescription,CircleX, CircleCheck } from "tabler-icons-react";
+import { readEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
+
+const userId = "notjohnlim";
 
 interface LooseObject {
     [key: string]: any
@@ -20,6 +23,7 @@ interface bookingObject {
     'address': string,
     'bookingCreateDate': number,
     'bookingKey': string,
+    'cancellation': boolean,
     'location': string,
     'locationId': string,
     'checkIn': number,
@@ -53,6 +57,7 @@ function parseDataArr(data: object) {
     }
     return resultArr;
 }
+
 function getBookingDetails(data: bookingObject) {
     console.log(data);
     return [
@@ -62,12 +67,13 @@ function getBookingDetails(data: bookingObject) {
         data.email,
         data.specialReq,
         data.address,
-        data.bookingCreateDate,
+        new Date(data.bookingCreateDate).toLocaleDateString(),
         data.bookingKey,
+        data.cancellation,
         data.location,
         data.locationId,
-        data.checkIn,
-        data.checkOut,
+        new Date(data.checkIn).toLocaleDateString(),
+        new Date(data.checkOut).toLocaleDateString(),
         data.adults,
         data.children,
         data.rooms,
@@ -76,7 +82,20 @@ function getBookingDetails(data: bookingObject) {
         data.hotelName,
         data.hotelAddr,
         data.hotelPrice.toFixed(2),
-        data.supplierId,]
+        data.supplierId,
+    ]
+}
+function cancelHtml(input:any){
+    if (input === false){
+        return (
+            <CircleCheck color="green"></CircleCheck>
+        )
+    }   
+    else {
+        return (
+            <CircleX color="red"></CircleX>
+        )
+    }
 }
 
 const useStyles = createStyles((theme) => ({
@@ -113,10 +132,9 @@ function UserProfile() {
     // load styles css
     const { classes } = useStyles();
     // set up the firebase connection and prepare the object data
-    const userId = "notjohnlim";
     const db = Firebase();
     const [dataObj, setDataObj] = useState<object>({});
-    const [isLoading, setLoading] = useState<boolean>(false);
+    const [isLoading, setLoading] = useState<boolean>(true);
     const [modal, setModal] = useState<boolean>(false)
     const [currBooking, setCurrBooking] = useState<bookingObject>(
         {
@@ -132,6 +150,7 @@ function UserProfile() {
             'address': "",
             'bookingCreateDate': -1,
             'bookingKey': "",
+            'cancellation': false,
             'location': "",
             'locationId': "",
             'checkIn': -1,
@@ -147,16 +166,19 @@ function UserProfile() {
             'supplierId': ""
         }
     );
+    // let data2 = readOnceEncryptedJson(db, userId, "booking");
+    // setDataObj(data2);
+    // setLoading(false);
     useEffect(() => {
         try {
-            setLoading(true);
             let data = readEncryptedJson(db, userId, "booking");
             setDataObj(data);
             setLoading(false);
         } catch (error) {
-            // console.error(error);
+            console.error(error);
         }
-    }, [dataObj]);
+        wait(500);
+    });
 
     var data = {};
     var dataArr = []
@@ -170,19 +192,21 @@ function UserProfile() {
     const rows = dataArr.map((element) => (
         <tr key={element.name}>
             <td>{new Date(element.checkIn).toLocaleDateString()}</td>
+            <td>{new Date(element.checkOut).toLocaleDateString()}</td>
             <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
             <td>{element.hotelName}</td>
             <td>{element.hotelPrice.toFixed(2)}</td>
             <td>
                 <Button onClick={() => {
                     setCurrBooking(element);
-                    console.log(currBooking);
+                    // console.log(currBooking);
                     // check the if booking is filled
                     setModal(true);
                 }}
                 ><FileDescription></FileDescription>
                 </Button>
             </td>
+            <td className={classes.td}>{cancelHtml(element.cancellation)}</td>
         </tr>
     ));
 
@@ -195,7 +219,9 @@ function UserProfile() {
         specialReq,
         address,
         bookingCreateDate,
-        bookingKey, location,
+        bookingKey,
+        cancellation,
+        location,
         locationId,
         checkIn,
         checkOut,
@@ -215,7 +241,7 @@ function UserProfile() {
         <div className={classes.bookingWrapper}>
             <Modal onClose={() => setModal(false)} closeOnEscape withCloseButton={false} centered opened={modal}>
                 <Paper>
-                    <Table highlightOnHover striped>
+                    <Table highlightOnHover={true} striped>
                         <tbody>
                             <tr>
                                 <th className={classes.th}>Customer</th>
@@ -231,7 +257,7 @@ function UserProfile() {
                             </tr>
                             <tr>
                                 <th className={classes.th}>Placed On</th>
-                                <td className={classes.td}>{new Date(bookingCreateDate).toLocaleDateString()}</td>
+                                <td className={classes.td}>{bookingCreateDate}</td>
                             </tr>
                             <tr>
                                 <th className={classes.th}>Special Requests</th>
@@ -266,7 +292,7 @@ function UserProfile() {
                                 <th className={classes.th}>Dates</th>
                                 <td className={classes.td}>
                                     <Text size='sm'>
-                                        {new Date(checkIn).toLocaleDateString()} to {new Date(checkOut).toLocaleDateString()}
+                                        {checkIn} to {checkOut}
                                     </Text>
                                 </td>
                             </tr>
@@ -294,12 +320,22 @@ function UserProfile() {
                                 <th className={classes.th}>Supplier booking response</th>
                                 <td className={classes.td}>from the supplier API, see status of booking</td>
                             </tr>
-
+                            <tr>
+                                <th className={classes.th}>Status</th>
+                                <td className={classes.td}>{cancelHtml(currBooking.cancellation)}</td>
+                            </tr>
                         </tbody>
                     </Table>
                     <Center style={{ marginTop: '1em' }}>
                         <Group >
-                            <Button color='red' onClick={() => alert("Goto to supplier website to cancel")}>Cancel Booking</Button>
+                            <Button color='red' onClick={() => {
+                                let copyCurrBooking = { ...currBooking };
+                                copyCurrBooking.cancellation = true;
+                                setCurrBooking(copyCurrBooking);
+                                // push curr booking
+                                writeEncryptedJson(db, userId, JSON.stringify(copyCurrBooking), "booking/" + currBooking.bookingKey + "/");
+                                setModal(false);
+                            }}>Cancel Booking</Button>
                             <Button onClick={() => setModal(false)}>Return</Button>
                         </Group>
                     </Center>
@@ -321,10 +357,12 @@ function UserProfile() {
                     <thead>
                         <tr>
                             <th>Check In</th>
-                            <th>Transaction Dae</th>
+                            <th>Check Out</th>
+                            <th>Transaction Date</th>
                             <th>Hotel Name</th>
                             <th>Price</th>
                             <th>Details</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>{rows}</tbody>

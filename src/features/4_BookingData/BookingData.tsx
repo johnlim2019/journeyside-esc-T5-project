@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
 
 const USERNAME = "notjohnlim";
+
 const useStyles = createStyles((theme, _params, getRef) => ({
   th: {
     textAlign: 'left'
@@ -91,6 +92,7 @@ function BookingData() {
   const hotelDetails = {
     'bookingCreateDate': new Date().getTime(),
     'bookingKey': newBookingKey,
+    'cancellation':false,
     'location': locationName,
     'locationId': locationId,
     'checkIn': checkIn,
@@ -103,7 +105,7 @@ function BookingData() {
     'hotelName': hotelName,
     'hotelAddr': hotelAddr,
     'hotelPrice': hotelPrice,
-    'supplierId': supplierId
+    'supplierId': supplierId,
   }
 
 
@@ -124,12 +126,13 @@ function BookingData() {
     },
     validate: (values) => ({
       // regex validation
-      email: (/^\S+@\S+\.\S+$/.test(values.email) ? null : 'Invalid email'),
+      firstName: (values.firstName.length > 1 ?null: "Please Enter First Name"),
+      lastName: (values.lastName.length > 1 ?null: "Please Enter Last Name"),
+      email: (/^\S+@\w+\.\w+$/.test(values.email) ? null : 'Invalid email'),
       cardNum: (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(values.cardNum) ? null : "invalid card"),
       phone: (/(?:[6,8,9][0-9]{7})/.test(values.phone) ? null : "Invalid Phone Number"),
       expiryMonth: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
       expiryYear: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
-
     })
   });
 
