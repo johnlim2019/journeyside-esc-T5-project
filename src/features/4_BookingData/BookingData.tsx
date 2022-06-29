@@ -6,7 +6,6 @@ import { Firebase } from '../../services/Firebase-Storage';
 import { writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Link } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
-import { debounce } from "debounce";
 
 const USERNAME = "johnlim";
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -120,41 +119,24 @@ function BookingData() {
       cardNum: "4569403961014710",
       expiryMonth: 6,
       expiryYear: 24,
-      expiryDate: new Date().getTime(),
       cvv: 152,
       address: "8 Somapah Road"
     },
-    validate: {
+    validate: (values) => ({
       // regex validation
-      email: (value) => (/^\S+@\S+\.\S+$/.test(value) ? null : 'Invalid email'),
-      cardNum: (value) => (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(value) ? null : "invalid card"),
-      phone: (value) => (/(?:[6,8,9][0-9]{7})/.test(value) ? null : "Invalid Phone Number"),
-      expiryDate: (value) => (value > new Date().getTime() ? null : "Expired Card?")
-    }
+      email: (/^\S+@\S+\.\S+$/.test(values.email) ? null : 'Invalid email'),
+      cardNum: (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(values.cardNum) ? null : "invalid card"),
+      phone: (/(?:[6,8,9][0-9]{7})/.test(values.phone) ? null : "Invalid Phone Number"),
+      expiryMonth: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
+      expiryYear: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
+
+    })
   });
 
-
-
-
   // Set expiry date from our two inputs
-  const expiryDateString = String(form.getInputProps("expiryMonth").value) + "/1/20" + String(form.getInputProps('expiryYear').value);
-  const expiryDate = new Date(expiryDateString).getTime();
   const cardNum = form.getInputProps('cardNum').value;
   const cardNumReadable: string = getReadable(cardNum)
-  // console.log(new Date(expiryDateString));
-  const debounced = debounce(() => {
-    form.setFieldValue('expiryDate', expiryDate);
-    if (form.validate().hasErrors === false) {
-      form.clearFieldError("expiryMonth");
-      form.clearFieldError("expiryYear");
-    }
-    else {
-      form.setFieldError("expiryMonth", "Expired Card");
-      form.setFieldError("expiryYear", "Expired Card?");
-    };
-  }, 100);
-  debounced();
-  // confirmation modal;
+
   const [modal, setModal] = useState(false);
 
 
@@ -250,7 +232,7 @@ function BookingData() {
       </Table>
       <Space h="lg" />
       <Title order={3}>Please fill in your personal information</Title>
-      <form onSubmit={form.onSubmit((values) => { })}>
+      <form onSubmit={form.onSubmit((values) => {})}>
         <Grid>
           <Grid.Col xs={12} sm={6}>
             <TextInput label="First name" required {...form.getInputProps('firstName')} />
