@@ -113,7 +113,7 @@ function UserProfile() {
     // load styles css
     const { classes } = useStyles();
     // set up the firebase connection and prepare the object data
-    const userId = "johnlim";
+    const userId = "notjohnlim";
     const db = Firebase();
     const [dataObj, setDataObj] = useState<object>({});
     const [isLoading, setLoading] = useState<boolean>(false);
