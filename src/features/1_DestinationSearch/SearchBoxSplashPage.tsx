@@ -88,7 +88,7 @@ function getDefaultDates() {
     let date = new Date();
     date.setDate(date.getDate() + 7);
     let date2 = new Date();
-    date2.setDate(date.getDate() + 1);
+    date2.setDate(date2.getDate() + 8);
     return [date, date2];
 }
 function getMinDate() {
@@ -132,6 +132,9 @@ function SearchBarSplashPage(): JSX.Element {
             //console.log(response.data);
             const data = response.data as object[];
             dispatch(setDestinations({ dest: data }));
+        }).catch(errors => {
+            console.error(errors);
+            dispatch(setDestinations({ dest: [] }));
         });
     };
     const destApi = './destinations.json';

@@ -24,7 +24,6 @@
     "dayjs": "^1.11.2",
     "debounce": "^1.2.1",
     "firebase": "^9.8.4",
-    "node-rsa": "^1.1.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-list": "^0.8.17",
@@ -34,6 +33,7 @@
     "react-sticky": "^6.0.3",
     "tabler-icons-react": "^1.48.1",
     "typescript": "^4.7.2",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@types/debounce": "^1.2.1",
-    "@types/node-rsa": "^1.1.1",
-    "@types/react-sticky": "^6.0.4"
+    "@types/react-sticky": "^6.0.4",
+    "@types/uuid": "^8.3.4"
   }
 }

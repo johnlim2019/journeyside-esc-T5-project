@@ -10,6 +10,7 @@ Libraries to install
 * tabler-icons-react
 * axios
 * debounce 
+* firebase https://firebase.google.com/docs/database/web/read-and-write
 
 In the project directory, you can run:
 
