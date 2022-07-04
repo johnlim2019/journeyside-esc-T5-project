@@ -1,5 +1,5 @@
 //import { hotelData } from '../data/hotelData' // temporary import of json 
-import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, ThemeIcon, NativeSelect, createStyles, Pagination, Center, Space, LoadingOverlay } from '@mantine/core';
+import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, ThemeIcon, NativeSelect, createStyles, Pagination, Center, Space, LoadingOverlay, Modal, Loader, Overlay } from '@mantine/core';
 import './SearchItem.css';
 import { useAppSelector, useAppDispatch } from '../../../services/hooks';
 import { useEffect, useState } from 'react';
@@ -31,8 +31,8 @@ const useStyles = createStyles((theme) => ({
     color: 'gray'
   },
   resultsContainer: {
-    minHeight: '100%',
     width: 'auto',
+    position: 'relative',
     alignItems: 'center'
   }
 
@@ -59,7 +59,7 @@ function sortResults(hotelDataLongSort: any, sortBy: string, avePrice: any) {
   else if (sortBy === "Value") {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by value");
-      hotelDataLongSort.sort((a: any, b: any) => ( ((a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment)*5 + a.rating *0.9 + a.trustyou.score.kaligo_overall*1.2 > ((b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment)*5 + b.rating *0.9 + b.trustyou.score.kaligo_overall*1.2) ? 1 : -1);
+      hotelDataLongSort.sort((a: any, b: any) => (((a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment) * 5 + a.rating * 0.9 + a.trustyou.score.kaligo_overall * 1.2 > ((b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment) * 5 + b.rating * 0.9 + b.trustyou.score.kaligo_overall * 1.2) ? 1 : -1);
     }
   }
   else if (sortBy === "Sale") {
@@ -140,10 +140,10 @@ function SearchItem() {
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
   let header = dest;
-  if (dest.length === 0 || destId.length === 0){
+  if (dest.length === 0 || destId.length === 0) {
     header = NODEST;
   }
-  else if (hotelDataLong.length === 0){
+  else if (hotelDataLong.length === 0) {
     header = NOTFOUND + dest;
   }
   // set up pagination settings
@@ -202,19 +202,37 @@ function SearchItem() {
   const { classes } = useStyles();
 
   const numberItemsLs = ['10 items', '20 items', '30 items', '40 items', '50 items'];
+  useEffect(() => {
+    if (isLoading === true) {
+      document.body.style.overflow = "hidden";
+    }
+    else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isLoading]);
+
+
   return (
-    <div className={classes.resultsContainer}>
-      <Center style={{
-        position: 'absolute',
+    <div className={classes.resultsContainer} >
+      {isLoading && <Overlay color='white' style={{
+        position: 'fixed',
         height: '100%',
         width: "100%",
-        top: 0,
-        left: 0
+        zIndex: '10'
       }}>
-        <LoadingOverlay visible={isLoading} />
+      </Overlay>}
+      {isLoading && <Center style={{
+        position: 'fixed',
+        top: 0,
+        height: '100%',
+        width: "100%",
+        zIndex: '20'
+      }}>
+        <Loader style={{ zIndex: '100', opacity: '1' }} />
       </Center>
+      }
       <Center>
-        <Text style={{marginTop:"2rem",color:'gray'}}>
+        <Text style={{ marginTop: "2rem", color: 'gray' }}>
           {header}
         </Text>
       </Center>

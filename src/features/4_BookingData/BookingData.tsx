@@ -16,7 +16,23 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
   td: {
     border: 'none'
-  }
+  },
+  bookingWrapper: {
+    top: '35%',
+    width: '60em',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    // Media query with value from theme
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+      width: '50em',
+      alignItems: 'center'
+    },
+    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+      width: '100%',
+      alignItems: 'center'
+    },
+  },
+
 }));
 
 function getJsonObj(form: any, hotelDetails: any) {
@@ -185,129 +201,135 @@ function BookingData() {
           </Center>
         </Paper>
       </Modal>
-      <Title order={2}>Booking Data</Title>
-      <Space h="md" />
-      <Title order={3}>Summary</Title>
-      <Text>Please check your booking data.</Text>
-      <Space h="sm" />
-      <Table highlightOnHover>
-        <tbody>
-          <tr>
-            <th className={classes.th}>Destination ID</th>
-            <td className={classes.td}>{locationName} ({locationId})</td>
-          </tr>
-          <tr>
-            <th className={classes.th}>Hotel ID</th>
-            <td className={classes.td}>{hotelName}, {hotelAddr} ({hotelId})</td>
-          </tr>
-          <tr>
-            <th className={classes.th}>Number of Night</th>
-            <td className={classes.td}>
-              <Text size='sm'>
-                {nightsNum} Night(s)
-              </Text>
-            </td>
-          </tr>
-          <tr>
-            <th className={classes.th}>Check In</th>
-            <td className={classes.td}>
-              <Text size='sm'>
-                {new Date(checkIn).toLocaleDateString()}
-              </Text>
-            </td>
-          </tr>
-          <tr>
-            <th className={classes.th}>Check Out</th>
-            <td className={classes.td}>
-              <Text size='sm'>
-                {new Date(checkOut).toLocaleDateString()}
-              </Text>
-            </td>
-          </tr>
-          <tr>
-            <th className={classes.th}>Number Guests</th>
-            <td className={classes.td}>
-              <Text size='sm'>
-                Adults: {adults}, Children: {children}
-              </Text>
-            </td>
-          </tr>
-          <tr>
-            <th className={classes.th}>Rooms</th>
-            <td className={classes.td}>
-              <Text size='sm'>
-                {rooms} Room(s)
-              </Text>
-            </td>
-          </tr>
-          <tr>
-            <th className={classes.th}>Price</th>
-            <td className={classes.td}>{hotelPrice.toFixed(2)} SGD</td>
-          </tr>
-          <tr>
-            <th className={classes.th}>Booking ID</th>
-            <td className={classes.td}>{newBookingKey}</td>
-          </tr>
-          <tr>
-            <th className={classes.th}>Supplier booking response</th>
-            <td className={classes.td}>{supplierResponse}</td>
-          </tr>
-        </tbody>
-      </Table>
-      <Space h="lg" />
-      <Title order={3}>Please fill in your personal information</Title>
-      <form onSubmit={form.onSubmit((values) => { })}>
-        <Grid>
-          <Grid.Col xs={12} sm={6}>
-            <TextInput label="First name" required {...form.getInputProps('firstName')} />
-          </Grid.Col>
-          <Grid.Col xs={12} sm={6}>
-            <TextInput label="Last name" required {...form.getInputProps('lastName')} />
-          </Grid.Col>
-          <Grid.Col xs={12} sm={6}>
-            <TextInput label="Phone Number" required {...form.getInputProps('phone')} />
-          </Grid.Col>
-          <Grid.Col xs={12} sm={6}>
-            <TextInput label="Email" required {...form.getInputProps('email')} />
-          </Grid.Col>
-          <Grid.Col xs={12}>
-            <TextInput label="Special requests to hotel" />
-          </Grid.Col>
-          <Grid.Col xs={12} sm={6}>
-            <TextInput label="Credit Card Number" required {...form.getInputProps('cardNum')} />
-            <Text size="sm" style={{ marginLeft: '12px', marginTop: '5px' }}>{cardNumReadable}</Text>
-          </Grid.Col>
-          <Grid.Col xs={8} sm={4}>
-            <InputWrapper label="Expiry Date" required>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <NumberInput min={1} max={12} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryMonth')} placeholder="MM" />
-                <Text style={{ marginLeft: '1em', marginRight: '1em' }}> / </Text>
-                <NumberInput min={22} max={99} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryYear')} placeholder="YY" />
-              </Box>
-            </InputWrapper>
-          </Grid.Col>
-          <Grid.Col xs={4} sm={2}>
-            <NumberInput max={999} label="CVV/CVC" hideControls required {...form.getInputProps('cvv')} />
-          </Grid.Col>
-          <Grid.Col xs={12}>
-            <TextInput label="Billing Address" required {...form.getInputProps('address')} />
-          </Grid.Col>
-          <Grid.Col xs={12}>
-            <Button fullWidth
-              type="submit" onClick={() => {
-                if (form.validate().hasErrors === false) {
-                  setModal(true);
-                  let jsonObj = getJsonObj(form, hotelDetails);
-                  console.log(jsonObj);
-                }
-                else {
-                  console.log("error in form");
-                  console.log(form.validate());
-                }
-              }}>Submit</Button>
-          </Grid.Col>
-        </Grid>
-      </form>
+      <div className={classes.bookingWrapper}>
+        <Title order={2}>Booking Data</Title>
+        <Space h="md" />
+        <Title order={3}>Summary</Title>
+        <Text>Please check your booking data.</Text>
+        <Space h="sm" />
+        <Table highlightOnHover>
+          <tbody>
+            <tr>
+              <th className={classes.th}>Destination ID</th>
+              <td className={classes.td}>{locationName} ({locationId})</td>
+            </tr>
+            <tr>
+              <th className={classes.th}>Hotel ID</th>
+              <td className={classes.td}>{hotelName}, {hotelAddr} ({hotelId})</td>
+            </tr>
+            <tr>
+              <th className={classes.th}>Number of Night</th>
+              <td className={classes.td}>
+                <Text size='sm'>
+                  {nightsNum} Night(s)
+                </Text>
+              </td>
+            </tr>
+            <tr>
+              <th className={classes.th}>Check In</th>
+              <td className={classes.td}>
+                <Text size='sm'>
+                  {new Date(checkIn).toLocaleDateString()}
+                </Text>
+              </td>
+            </tr>
+            <tr>
+              <th className={classes.th}>Check Out</th>
+              <td className={classes.td}>
+                <Text size='sm'>
+                  {new Date(checkOut).toLocaleDateString()}
+                </Text>
+              </td>
+            </tr>
+            <tr>
+              <th className={classes.th}>Number Guests</th>
+              <td className={classes.td}>
+                <Text size='sm'>
+                  Adults: {adults}, Children: {children}
+                </Text>
+              </td>
+            </tr>
+            <tr>
+              <th className={classes.th}>Rooms</th>
+              <td className={classes.td}>
+                <Text size='sm'>
+                  {rooms} Room(s)
+                </Text>
+              </td>
+            </tr>
+            <tr>
+              <th className={classes.th}>Price</th>
+              <td className={classes.td}>{hotelPrice.toFixed(2)} SGD</td>
+            </tr>
+            <tr>
+              <th className={classes.th}>Booking ID</th>
+              <td className={classes.td}>{newBookingKey}</td>
+            </tr>
+            <tr>
+              <th className={classes.th}>Supplier booking response</th>
+              <td className={classes.td}>{supplierResponse}</td>
+            </tr>
+          </tbody>
+        </Table>
+        <Space h="lg" />
+        <Title order={3}>Please fill in your personal information</Title>
+        <form onSubmit={form.onSubmit((values) => { })}>
+          <Grid>
+            <Grid.Col xs={12} sm={6}>
+              <TextInput label="First name" required {...form.getInputProps('firstName')} />
+            </Grid.Col>
+            <Grid.Col xs={12} sm={6}>
+              <TextInput label="Last name" required {...form.getInputProps('lastName')} />
+            </Grid.Col>
+            <Grid.Col xs={12} sm={6}>
+              <TextInput label="Phone Number" required {...form.getInputProps('phone')} />
+            </Grid.Col>
+            <Grid.Col xs={12} sm={6}>
+              <TextInput label="Email" required {...form.getInputProps('email')} />
+            </Grid.Col>
+            <Grid.Col xs={12}>
+              <TextInput label="Special requests to hotel" />
+            </Grid.Col>
+            <Grid.Col xs={12} sm={6}>
+              <TextInput label="Credit Card Number" required {...form.getInputProps('cardNum')} />
+              <Text size="sm" style={{ marginLeft: '12px', marginTop: '5px' }}>{cardNumReadable}</Text>
+            </Grid.Col>
+            <Grid.Col xs={8} sm={4}>
+              <InputWrapper label="Expiry Date" required>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <NumberInput min={1} max={12} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryMonth')} placeholder="MM" />
+                  <Text style={{ marginLeft: '1em', marginRight: '1em' }}> / </Text>
+                  <NumberInput min={22} max={99} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryYear')} placeholder="YY" />
+                </Box>
+              </InputWrapper>
+            </Grid.Col>
+            <Grid.Col xs={4} sm={2}>
+              <NumberInput max={999} label="CVV/CVC" hideControls required {...form.getInputProps('cvv')} />
+            </Grid.Col>
+            <Grid.Col xs={12}>
+              <TextInput label="Billing Address" required {...form.getInputProps('address')} />
+            </Grid.Col>
+            <Grid.Col xs={12}>
+              <Center>
+                <Button
+                  type="submit" onClick={() => {
+                    if (form.validate().hasErrors === false) {
+                      setModal(true);
+                      let jsonObj = getJsonObj(form, hotelDetails);
+                      console.log(jsonObj);
+                    }
+                    else {
+                      console.log("error in form");
+                      console.log(form.validate());
+                    }
+                  }}>Submit</Button>
+              </Center>
+
+            </Grid.Col>
+          </Grid>
+        </form>
+      </div>
+
     </Container >
   );
 }

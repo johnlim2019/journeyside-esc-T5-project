@@ -132,7 +132,7 @@ function SearchBar(): JSX.Element {
             dispatch(setDestinations({ dest: [] }));
         });
     };
-    const destApi = './destinations.json';
+    const destApi = 'https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/destinations';
 
     // At the start of the render check if we have destination list read
     useEffect(() => {
@@ -229,7 +229,7 @@ function SearchBar(): JSX.Element {
                     <Grid columns={24} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={6} sm={4}>
                             <Paper>
-                                <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='bottom'>
+                                <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
                                     <Autocomplete
                                         className={classes.searchbarcomponets}
                                         label="Destination"

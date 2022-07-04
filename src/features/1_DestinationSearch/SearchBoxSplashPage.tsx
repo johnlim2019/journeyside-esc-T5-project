@@ -137,7 +137,7 @@ function SearchBarSplashPage(): JSX.Element {
             dispatch(setDestinations({ dest: [] }));
         });
     };
-    const destApi = './destinations.json';
+    const destApi = 'https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/destinations';
 
     // At the start of the render check if we have destination list read
     useEffect(() => {
@@ -188,7 +188,6 @@ function SearchBarSplashPage(): JSX.Element {
         setValidDates(errorsObj["dateValid"]);
         if (validation.length === 0) {
             setNextPage(NEXTPAGE);
-
         } else { setNextPage(STAYPAGE); }
         console.log("DEBOUNCE " + nextPage);
     // eslint-disable-next-line
