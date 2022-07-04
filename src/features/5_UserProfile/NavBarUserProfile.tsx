@@ -35,7 +35,7 @@ function NavBar() {
                 <Grid.Col span={10}>
                 </Grid.Col>
                 <Grid.Col span={2}>
-                    <Button variant='subtle' color='gray' component={Link} to="/UserProfile">User Profile</Button>
+                    <Button variant='subtle' color='gray' component={Link} to="/SearchResults">Search</Button>
                 </Grid.Col>
             </Grid>
         </Paper>

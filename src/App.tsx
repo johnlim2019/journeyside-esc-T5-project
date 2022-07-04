@@ -6,11 +6,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { store } from './services/store';
 import { debounce } from 'debounce';
 import { saveState } from './Browser-Storage';
+import UserProfileWrapper from './features/5_UserProfile/UserProfileWrapper';
 function App() {
     store.subscribe(
         debounce(() => {
             saveState(store.getState());
-        }, 800)
+        }, 5000)
     );
     return (
         <>
@@ -20,6 +21,8 @@ function App() {
                     <Route path='/SearchResults' element={<SearchResults />} />
                     <Route path="/RoomDetails" element={<RoomDetails/>}/>
                     <Route path='/BookingData' element={<BookingData/>}/>
+                    <Route path='/UserProfile' element={<UserProfileWrapper/>}/>
+
                 </Routes>
             </Router>
         </>

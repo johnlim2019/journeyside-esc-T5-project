@@ -13,8 +13,8 @@ function NavBarSplashPage() {
         },
         navbarContainer: {
             margin: 'auto',
-            width:'100%'
-            //border: '5px solid red'
+            width:'100%',
+            zIndex:2
         }
     }));
     const { classes } = useStyles();

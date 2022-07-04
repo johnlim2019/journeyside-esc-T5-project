@@ -17,6 +17,7 @@ const useStyles = createStyles((theme) => ({
     },
     searchbarcomponets: {
         size: 'md',
+        zIndex:5,
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             size: 'xs'
@@ -81,7 +82,7 @@ function getDefaultDates() {
     let date = new Date();
     date.setDate(date.getDate() + 7);
     let date2 = new Date();
-    date2.setDate(date.getDate() + 1);
+    date2.setDate(date2.getDate() + 8);
     return [date, date2];
 }
 function getMinDate() {
@@ -123,6 +124,9 @@ function SearchBar(): JSX.Element {
             //console.log(response.data);
             const data = response.data as object[];
             dispatch(setDestinations({ dest: data }));
+        }).catch(errors => {
+            console.error(errors);
+            dispatch(setDestinations({ dest: [] }));
         });
     };
     const destApi = './destinations.json';
@@ -187,7 +191,6 @@ function SearchBar(): JSX.Element {
             console.error(errors);
             dispatch(setLoading({ loading: false }));
             dispatch(compileHotelData({ hotels: [], prices: [], id: queryId }));
-
         });
     }
 
@@ -198,8 +201,9 @@ function SearchBar(): JSX.Element {
         let errorsObj = setErrorMessages(validation);
         setValidDestination(errorsObj['locationValid']);
         setValidDates(errorsObj["dateValid"]);
-    // eslint-disable-next-line
-    }, [dates,location]);
+        dispatch(query({ dispatchQuery }));
+        // eslint-disable-next-line
+    }, [dates,location,dispatchQuery]);
 
 
     // check the cache id and the queryId 
