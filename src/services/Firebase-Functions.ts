@@ -26,6 +26,7 @@ export async function readEncryptedJson(db: Database, userId: string, bookingKey
     const snapshot = await get(keyRef);
     const privateKey = snapshot.val();
     const deCryptedData = decryptJson(encryptedData.val(), privateKey);
+    console.log(deCryptedData);
     return deCryptedData;
 }
 

@@ -39,54 +39,40 @@ interface bookingObject {
     'hotelPrice': number,
     'supplierId': string
 }
-
-// function parseDataObj(data: object) {
-//     let bookingIterator = Object.entries(data);
-//     let resultObj: LooseObject = {};
-//     for (let [key, value] of bookingIterator) {
-//         console.log(key);
-//         resultObj[key] = JSON.parse(value);
-//     }
-//     return resultObj;
-// }
-
-// function parseDataArr(data: object) {
-//     let bookingIterator = Object.entries(data);
-//     let resultArr = [];
-//     for (let [key, value] of bookingIterator) {
-//         console.log(key);
-//         resultArr.push(JSON.parse(value));
-//     }
-//     return resultArr;
-// }
-
-function parseDataObj(data: object) {
-    console.log(data);
-    let bookingIterator = Object.entries(data);
-    let resultObj: LooseObject = {};
-    for (let [key, value] of bookingIterator) {
-        console.log(key);
-        value = readEncryptedJson(db, userId, key);
-        console.log(value);
-        resultObj[key] = value;
-    }
-    return resultObj;
+const defaultBooking = {
+    "firstName": "",
+    'lastName': "",
+    'phone': "",
+    'email': "",
+    'specialReq': "",
+    'cardNum': "",
+    'expiryMonth': -1,
+    'expiryYear': -1,
+    'cvv': -1,
+    'address': "",
+    'bookingCreateDate': -1,
+    'bookingKey': "",
+    'cancellation': false,
+    'location': "",
+    'locationId': "",
+    'checkIn': -1,
+    'checkOut': -1,
+    'adults': -1,
+    'children': -1,
+    'rooms': -1,
+    'nights': -1,
+    'hotelId': "",
+    'hotelName': "",
+    'hotelAddr': "",
+    'hotelPrice': -1,
+    'supplierId': ""
 }
 
-function parseDataArr(data: object) {
-    let bookingIterator = Object.entries(data);
-    let resultArr = [];
-    for (let [key, value] of bookingIterator) {
-        console.log(key);
-        value = readEncryptedJson(db, userId, key);
-        console.log(value);
-        resultArr.push(value);
-    }
-    return resultArr;
-}
+
+
+
 
 function getBookingDetails(data: bookingObject) {
-    console.log(data);
     return [
         data.firstName,
         data.lastName,
@@ -151,8 +137,12 @@ const useStyles = createStyles((theme) => ({
         textAlign: 'left'
     },
     td: {
-        border: 'none'
+        border: 'none',
+    },
+    element: {
+        zIndex: 5
     }
+
 }));
 function UserProfile() {
     // set up the style classes
@@ -162,84 +152,66 @@ function UserProfile() {
     const [dataObj, setDataObj] = useState<object>({});
     const [isLoading, setLoading] = useState<boolean>(true);
     const [modal, setModal] = useState<boolean>(false)
-    const [currBooking, setCurrBooking] = useState<bookingObject>(
-        {
-            "firstName": "",
-            'lastName': "",
-            'phone': "",
-            'email': "",
-            'specialReq': "",
-            'cardNum': "",
-            'expiryMonth': -1,
-            'expiryYear': -1,
-            'cvv': -1,
-            'address': "",
-            'bookingCreateDate': -1,
-            'bookingKey': "",
-            'cancellation': false,
-            'location': "",
-            'locationId': "",
-            'checkIn': -1,
-            'checkOut': -1,
-            'adults': -1,
-            'children': -1,
-            'rooms': -1,
-            'nights': -1,
-            'hotelId': "",
-            'hotelName': "",
-            'hotelAddr': "",
-            'hotelPrice': -1,
-            'supplierId': ""
+    const [currBooking, setCurrBooking] = useState<bookingObject>(defaultBooking);
+    const [data, setData] = useState({});
+    const [dataArr, setDataArr] = useState<any[]>([]);
+
+
+    function parseDataObj(data: object, resultObj: LooseObject) {
+        console.log(data);
+        let bookingIterator = Object.entries(data);
+        for (let [key, value] of bookingIterator) {
+            value = readEncryptedJson(db, userId, key).then(
+                (value) => {
+                    resultObj[key] = value;
+                    setData(resultObj);
+                }
+            ).catch(
+                () => { resultObj = {}; alert("No Service Sorry"); setLoading(false); }
+            );
         }
-    );
-    // let data2 = readOnceEncryptedJson(db, userId, "booking");
-    // setDataObj(data2);
-    // setLoading(false);
-    // var data = {};
-    // useEffect(() => {
-    //     try {
-    //         let data = readEncryptedBookings(db, userId, "booking/");
-    //         setDataObj(data);
-    //         setLoading(false);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    //     wait(500);
-    // });
-
-
-
-    var data = {};
-    var dataArr = []
-    if (typeof dataObj !== "undefined") {
-        console.log("test");
-        data = parseDataObj(dataObj);
-        dataArr = parseDataArr(dataObj);
     }
+    function parseDataArr(data: object) {
+        let bookingIterator = Object.entries(data);
+        let resultArr:any[] = []
+        for (let [key, value] of bookingIterator) {
+            value = readEncryptedJson(db, userId, key).then(
+                (value) => {
+                    console.log(value);
+                    resultArr.push(value);
+                    console.log(resultArr);
+                    setDataArr(resultArr);
+                    setLoading(false);
+                }
+            ).catch(
+                () => { setDataArr([]); alert("No Service Sorry"); setLoading(false); }
+            );
+        }
+    }
+
     // console.log(dataObj);
     useEffect(() => {
         readEncryptedBookings(db, userId, "booking/").then(async (result) => {
             setDataObj(result);
-            if (typeof dataObj !== "undefined") {
-                console.log("test");
-                data = parseDataObj(dataObj);
-                dataArr = parseDataArr(dataObj);
-                // setDataObj(data);
-                console.log(dataObj);
-                setLoading(false);
-            }
+            console.log(result);
         });
     }, [])
-    // console.log(data);
+
+    useEffect(() => {
+        parseDataObj(dataObj, data);
+        parseDataArr(dataObj)
+    }, [dataObj])
+    console.log(dataArr);
+    console.log(data)
 
     // setup table 
-    const rows = dataArr.map((element) => (
-        <tr key={element.name}>
+    var rows = dataArr.map((element) => (
+        <tr key={element.firstName}>
             <td>{new Date(element.checkIn).toLocaleDateString()}</td>
             <td>{new Date(element.checkOut).toLocaleDateString()}</td>
             <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
             <td>{element.hotelName}</td>
-            <td>{element.hotelPrice.toFixed(2)}</td>
+            <td>{element.hotelPrice.toFixed(2)} SGD</td>
             <td>
                 <Button onClick={() => {
                     setCurrBooking(element);
@@ -253,6 +225,31 @@ function UserProfile() {
             <td className={classes.td}>{cancelHtml(element.cancellation)}</td>
         </tr>
     ));
+
+    useEffect(() => {
+        rows = dataArr.map((element) => (
+            <tr key={element.firstName}>
+                <td>{new Date(element.checkIn).toLocaleDateString()}</td>
+                <td>{new Date(element.checkOut).toLocaleDateString()}</td>
+                <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
+                <td>{element.hotelName}</td>
+                <td>{element.hotelPrice}</td>
+                <td>
+                    <Button onClick={() => {
+                        setCurrBooking(element);
+                        // console.log(currBooking);
+                        // check the if booking is filled
+                        setModal(true);
+                    }}
+                    ><FileDescription></FileDescription>
+                    </Button>
+                </td>
+                <td className={classes.td}>{cancelHtml(element.cancellation)}</td>
+            </tr>
+        ));
+    })
+
+
 
     // set up details of current object 
     const [
@@ -377,7 +374,8 @@ function UserProfile() {
                                 copyCurrBooking.cancellation = true;
                                 setCurrBooking(copyCurrBooking);
                                 // push curr booking
-                                updateEncryptedJson(db, userId, copyCurrBooking, "booking/" + currBooking.bookingKey + "/");
+                                // updateEncryptedJson(db, userId, copyCurrBooking, copyCurrBooking["bookingKey"] + "/");
+                                alert("Go to Supplier website");
                                 setModal(false);
                             }}>Cancel Booking</Button>
                             <Button onClick={() => setModal(false)}>Return</Button>
@@ -400,13 +398,13 @@ function UserProfile() {
                 <Table highlightOnHover striped>
                     <thead>
                         <tr>
-                            <th>Check In</th>
-                            <th>Check Out</th>
-                            <th>Transaction Date</th>
-                            <th>Hotel Name</th>
-                            <th>Price</th>
-                            <th>Details</th>
-                            <th>Status</th>
+                            <th className={classes.element}>Check In</th>
+                            <th className={classes.element}>Check Out</th>
+                            <th className={classes.element}>Transaction Date</th>
+                            <th className={classes.element}>Hotel Name</th>
+                            <th className={classes.element}>Price</th>
+                            <th className={classes.element}>Details</th>
+                            <th className={classes.element}>Status</th>
                         </tr>
                     </thead>
                     <tbody>{rows}</tbody>

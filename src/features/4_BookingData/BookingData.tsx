@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { Firebase } from '../../services/Firebase-Storage';
 import { writeEncryptedJson, writeKey } from "../../services/Firebase-Functions";
 import { Link } from "react-router-dom";
-// import { userMakesBooking } from "./BookingExample";
 import { ref, child, push } from "firebase/database";
 import { generateKeys } from "../../services/Encryption";
 
@@ -162,7 +161,6 @@ function BookingData() {
                 let [publicKey, privateKey] =  generateKeys(db);
                 writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
                 writeEncryptedJson(db, USERNAME, jsonObj, newBookingKey + "/", publicKey);
-
               }}>Confirm</Button>
             </Group>
           </Center>
