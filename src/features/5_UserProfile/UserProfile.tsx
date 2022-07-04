@@ -1,7 +1,7 @@
 import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Table, Text } from "@mantine/core";
 import { wait } from "@testing-library/user-event/dist/utils";
 import { useEffect, useState } from "react";
-import { FileDescription,CircleX, CircleCheck } from "tabler-icons-react";
+import { FileDescription, CircleX, CircleCheck } from "tabler-icons-react";
 import { readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
 
@@ -112,12 +112,12 @@ function getBookingDetails(data: bookingObject) {
         data.supplierId,
     ]
 }
-function cancelHtml(input:any){
-    if (input === false){
+function cancelHtml(input: any) {
+    if (input === false) {
         return (
             <CircleCheck color="green"></CircleCheck>
         )
-    }   
+    }
     else {
         return (
             <CircleX color="red"></CircleX>
@@ -206,13 +206,8 @@ function UserProfile() {
     //     }
     //     wait(500);
     // });
-    
-    console.log(dataObj);
-    readEncryptedBookings(db, userId, "booking/")
-    .then(async (result) => setDataObj(result));
-    // setDataObj(data);
-    console.log(dataObj);
-    setLoading(false);
+
+
 
     var data = {};
     var dataArr = []
@@ -221,6 +216,20 @@ function UserProfile() {
         data = parseDataObj(dataObj);
         dataArr = parseDataArr(dataObj);
     }
+    // console.log(dataObj);
+    useEffect(() => {
+        readEncryptedBookings(db, userId, "booking/").then(async (result) => {
+            setDataObj(result);
+            if (typeof dataObj !== "undefined") {
+                console.log("test");
+                data = parseDataObj(dataObj);
+                dataArr = parseDataArr(dataObj);
+                // setDataObj(data);
+                console.log(dataObj);
+                setLoading(false);
+            }
+        });
+    }, [])
     // console.log(data);
 
     // setup table 
@@ -270,7 +279,7 @@ function UserProfile() {
         hotelPrice,
         supplierId,
     ] = getBookingDetails(currBooking);
-    
+
 
     return (
         <div className={classes.bookingWrapper}>
