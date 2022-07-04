@@ -2,10 +2,11 @@ import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Tabl
 import { wait } from "@testing-library/user-event/dist/utils";
 import { useEffect, useState } from "react";
 import { FileDescription,CircleX, CircleCheck } from "tabler-icons-react";
-import { readEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
+import { readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
 
-const userId = "notjohnlim";
+const userId = "integrationTest";
+const db = Firebase();
 
 interface LooseObject {
     [key: string]: any
@@ -39,21 +40,47 @@ interface bookingObject {
     'supplierId': string
 }
 
+// function parseDataObj(data: object) {
+//     let bookingIterator = Object.entries(data);
+//     let resultObj: LooseObject = {};
+//     for (let [key, value] of bookingIterator) {
+//         console.log(key);
+//         resultObj[key] = JSON.parse(value);
+//     }
+//     return resultObj;
+// }
+
+// function parseDataArr(data: object) {
+//     let bookingIterator = Object.entries(data);
+//     let resultArr = [];
+//     for (let [key, value] of bookingIterator) {
+//         console.log(key);
+//         resultArr.push(JSON.parse(value));
+//     }
+//     return resultArr;
+// }
+
 function parseDataObj(data: object) {
+    console.log(data);
     let bookingIterator = Object.entries(data);
     let resultObj: LooseObject = {};
     for (let [key, value] of bookingIterator) {
         console.log(key);
-        resultObj[key] = JSON.parse(value);
+        value = readEncryptedJson(db, userId, key);
+        console.log(value);
+        resultObj[key] = value;
     }
     return resultObj;
 }
+
 function parseDataArr(data: object) {
     let bookingIterator = Object.entries(data);
     let resultArr = [];
     for (let [key, value] of bookingIterator) {
         console.log(key);
-        resultArr.push(JSON.parse(value));
+        value = readEncryptedJson(db, userId, key);
+        console.log(value);
+        resultArr.push(value);
     }
     return resultArr;
 }
@@ -132,7 +159,6 @@ function UserProfile() {
     // load styles css
     const { classes } = useStyles();
     // set up the firebase connection and prepare the object data
-    const db = Firebase();
     const [dataObj, setDataObj] = useState<object>({});
     const [isLoading, setLoading] = useState<boolean>(true);
     const [modal, setModal] = useState<boolean>(false)
@@ -169,20 +195,29 @@ function UserProfile() {
     // let data2 = readOnceEncryptedJson(db, userId, "booking");
     // setDataObj(data2);
     // setLoading(false);
-    useEffect(() => {
-        try {
-            let data = readEncryptedJson(db, userId, "booking");
-            setDataObj(data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-        }
-        wait(500);
-    });
+    // var data = {};
+    // useEffect(() => {
+    //     try {
+    //         let data = readEncryptedBookings(db, userId, "booking/");
+    //         setDataObj(data);
+    //         setLoading(false);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    //     wait(500);
+    // });
+    
+    console.log(dataObj);
+    readEncryptedBookings(db, userId, "booking/")
+    .then(async (result) => setDataObj(result));
+    // setDataObj(data);
+    console.log(dataObj);
+    setLoading(false);
 
     var data = {};
     var dataArr = []
-    if (typeof dataObj !== 'undefined') {
+    if (typeof dataObj !== "undefined") {
+        console.log("test");
         data = parseDataObj(dataObj);
         dataArr = parseDataArr(dataObj);
     }
@@ -235,7 +270,7 @@ function UserProfile() {
         hotelPrice,
         supplierId,
     ] = getBookingDetails(currBooking);
-
+    
 
     return (
         <div className={classes.bookingWrapper}>
@@ -333,7 +368,7 @@ function UserProfile() {
                                 copyCurrBooking.cancellation = true;
                                 setCurrBooking(copyCurrBooking);
                                 // push curr booking
-                                writeEncryptedJson(db, userId, JSON.stringify(copyCurrBooking), "booking/" + currBooking.bookingKey + "/");
+                                updateEncryptedJson(db, userId, copyCurrBooking, "booking/" + currBooking.bookingKey + "/");
                                 setModal(false);
                             }}>Cancel Booking</Button>
                             <Button onClick={() => setModal(false)}>Return</Button>

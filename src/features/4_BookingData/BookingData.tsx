@@ -3,12 +3,13 @@ import { useAppSelector } from "../../services/hooks";
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
 import { Firebase } from '../../services/Firebase-Storage';
-import { writeEncryptedJson } from "../../services/Firebase-Functions";
+import { writeEncryptedJson, writeKey } from "../../services/Firebase-Functions";
 import { Link } from "react-router-dom";
-import { userMakesBooking } from "./BookingExample";
+// import { userMakesBooking } from "./BookingExample";
 import { ref, child, push } from "firebase/database";
+import { generateKeys } from "../../services/Encryption";
 
-const USERNAME = "notjohnlim";
+const USERNAME = "integrationTest";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   th: {
@@ -158,7 +159,9 @@ function BookingData() {
                 console.log("push booking");
                 // writeEncryptedJson(db, "testUser", "Test message");
                 let jsonObj = getJsonObj(form, hotelDetails);
-                writeEncryptedJson(db, USERNAME, JSON.stringify(jsonObj), "booking/" + newBookingKey + "/");
+                let [publicKey, privateKey] =  generateKeys(db);
+                writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
+                writeEncryptedJson(db, USERNAME, jsonObj, newBookingKey + "/", publicKey);
 
               }}>Confirm</Button>
             </Group>
