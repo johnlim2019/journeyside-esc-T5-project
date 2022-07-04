@@ -199,7 +199,7 @@ function UserProfile() {
 
     useEffect(() => {
         parseDataObj(dataObj, data);
-        parseDataArr(dataObj)
+        parseDataArr(dataObj);
     }, [dataObj])
     console.log(dataArr);
     console.log(data)
@@ -371,7 +371,7 @@ function UserProfile() {
                         <Group >
                             <Button color='red' onClick={() => {
                                 let copyCurrBooking = { ...currBooking };
-                                copyCurrBooking.cancellation = true;
+                                copyCurrBooking.cancellation = !copyCurrBooking.cancellation;
                                 setCurrBooking(copyCurrBooking);
                                 // push curr booking
                                 updateEncryptedJson(db, userId, copyCurrBooking, copyCurrBooking["bookingKey"] + "/");
