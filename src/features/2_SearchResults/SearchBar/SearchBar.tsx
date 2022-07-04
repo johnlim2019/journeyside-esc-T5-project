@@ -1,4 +1,4 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
 import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
@@ -16,8 +16,9 @@ const useStyles = createStyles((theme) => ({
         },
     },
     searchbarcomponets: {
+        width:'100%',
         size: 'md',
-        zIndex:5,
+        zIndex: 5,
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             size: 'xs'
@@ -25,6 +26,8 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
+const NODEST = "Please enter a destination."
+const NODATE = "Please enter a date."
 function validateQuery(queryObj: any) {
     // Error codes 
     // empty arr - correct
@@ -42,20 +45,20 @@ function validateQuery(queryObj: any) {
     if ((queryObj.checkIn === null) || (queryObj.checkOut === null)) {
         outcome.push(2);
     }
-    console.log("HELP"+outcome);
+    console.log("HELP" + outcome);
     return outcome;
 }
-function setErrorMessages(outcomes:number[]){
+function setErrorMessages(outcomes: number[]) {
     let output = {
-        "locationValid":true,
-        "dateValid":true
+        "locationValid": true,
+        "dateValid": true
     };
-    for (let i=0;i<outcomes.length;i++){
-        if (outcomes[i] === 1){
-            output['locationValid'] = false;   
+    for (let i = 0; i < outcomes.length; i++) {
+        if (outcomes[i] === 1) {
+            output['locationValid'] = false;
         }
-        if (outcomes[i] === 2){
-            output['dateValid'] = false;   
+        if (outcomes[i] === 2) {
+            output['dateValid'] = false;
         }
     }
     return output;
@@ -104,8 +107,8 @@ function SearchBar(): JSX.Element {
         date1, date2
     ]);
     // flags for inputs 
-    const [validDestination,setValidDestination] = useState(true);
-    const [validDate,setValidDates] = useState(true);
+    const [validDestination, setValidDestination] = useState(true);
+    const [validDate, setValidDates] = useState(true);
 
 
     let cacheId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId);
@@ -201,9 +204,8 @@ function SearchBar(): JSX.Element {
         let errorsObj = setErrorMessages(validation);
         setValidDestination(errorsObj['locationValid']);
         setValidDates(errorsObj["dateValid"]);
-        dispatch(query({ dispatchQuery }));
         // eslint-disable-next-line
-    }, [dates,location,dispatchQuery]);
+    }, [dates, location, dispatchQuery]);
 
 
     // check the cache id and the queryId 
@@ -227,19 +229,22 @@ function SearchBar(): JSX.Element {
                     <Grid columns={24} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={6} sm={4}>
                             <Paper>
-                                <Autocomplete
-                                    className={classes.searchbarcomponets}
-                                    label="Destination"
-                                    placeholder="Begin Your Adventure"
-                                    value={location}
-                                    onChange={setLocation}
-                                    data={autoCompleteList}
-                                    error = {!validDestination}
-                                />
+                                <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='bottom'>
+                                    <Autocomplete
+                                        className={classes.searchbarcomponets}
+                                        label="Destination"
+                                        placeholder="Begin Your Adventure"
+                                        value={location}
+                                        onChange={setLocation}
+                                        data={autoCompleteList}
+                                        error={!validDestination}
+                                    />
+                                </Tooltip>
                             </Paper>
                         </Grid.Col>
                         <Grid.Col md={6} sm={4}>
                             <Paper>
+                            <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
                                 <DateRangePicker
                                     className={classes.searchbarcomponets}
                                     label="Dates"
@@ -250,6 +255,7 @@ function SearchBar(): JSX.Element {
                                     onChange={setDates}
                                     error={!validDate}
                                 />
+                                </Tooltip>
                             </Paper>
                         </Grid.Col>
                         <Grid.Col span={2}>
@@ -294,6 +300,7 @@ function SearchBar(): JSX.Element {
                                     // console.log('HELP query ' + queryId)
                                     let validation = validateQuery(dispatchQuery);
                                     if (validation.length === 0) {
+                                        dispatch(query({ dispatchQuery }));// update the state with new search  
                                         // remove any invalid query flags
                                         setValidDestination(true);
                                         setValidDates(true);
@@ -312,7 +319,6 @@ function SearchBar(): JSX.Element {
                                         setValidDestination(errorsObj['locationValid']);
                                         setValidDates(errorsObj["dateValid"]);
                                     }
-                                    dispatch(query({ dispatchQuery }));// update the state with new search  
                                 }}>
                                     <PlaneDeparture />
                                 </Button>

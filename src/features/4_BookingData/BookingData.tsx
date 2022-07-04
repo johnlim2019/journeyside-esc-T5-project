@@ -1,4 +1,4 @@
-import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, Space, Table, Text, TextInput, Title, Modal, Paper, Center, Group } from "@mantine/core";
+import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, Space, Table, Text, TextInput, Title, Modal, Paper, Center, Group, LoadingOverlay } from "@mantine/core";
 import { useAppSelector } from "../../services/hooks";
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
@@ -23,12 +23,13 @@ function getJsonObj(form: any, hotelDetails: any) {
   // combine both the hotel details taken form the feature 3 and the form values
   let jsonObj = {};
   if (typeof form !== 'undefined') {
-    let form2 = {...form.values};
+    let form2 = { ...form.values };
+    console.log(form2);
     form2.cardNum = `${"x".repeat(12)}` + form2.cardNum.slice(-4);
     delete form2.cvv;
     delete form2.expiryMonth;
     delete form2.expiryYear;
-    jsonObj = { ...jsonObj, ...form2.values };
+    jsonObj = { ...jsonObj, ...form2 };
   }
   else {
     console.log("getJsonObj form input is undefined");
@@ -99,7 +100,7 @@ function BookingData() {
   const hotelDetails = {
     'bookingCreateDate': new Date().getTime(),
     'bookingKey': newBookingKey,
-    'cancellation':false,
+    'cancellation': false,
     'location': locationName,
     'locationId': locationId,
     'checkIn': checkIn,
@@ -107,7 +108,7 @@ function BookingData() {
     'adults': adults,
     'children': children,
     'rooms': rooms,
-    'nights':nightsNum,
+    'nights': nightsNum,
     'hotelId': hotelId,
     'hotelName': hotelName,
     'hotelAddr': hotelAddr,
@@ -133,8 +134,8 @@ function BookingData() {
     },
     validate: (values) => ({
       // regex validation
-      firstName: (values.firstName.length > 1 ?null: "Please Enter First Name"),
-      lastName: (values.lastName.length > 1 ?null: "Please Enter Last Name"),
+      firstName: (values.firstName.length > 1 ? null : "Please Enter First Name"),
+      lastName: (values.lastName.length > 1 ? null : "Please Enter Last Name"),
       email: (/^\S+@\w+\.\w+$/.test(values.email) ? null : 'Invalid email'),
       cardNum: (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(values.cardNum) ? null : "invalid card"),
       phone: (/(?:[6,8,9][0-9]{7})/.test(values.phone) ? null : "Invalid Phone Number"),
@@ -148,10 +149,20 @@ function BookingData() {
   const cardNumReadable: string = getReadable(cardNum)
 
   const [modal, setModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   return (
     <Container mt={20}>
+      <Center style={{
+        position: 'absolute',
+        height: '100%',
+        width: "100%",
+        top: 0,
+        left: 0
+      }}>
+        <LoadingOverlay visible={isLoading} />
+      </Center>
       <Modal onClose={() => setModal(false)} closeOnEscape withCloseButton={false} centered opened={modal}>
         <Paper>
           <Center style={{ padding: '0em 0em 2em 0em' }}>
@@ -163,10 +174,12 @@ function BookingData() {
               <Button component={Link} to={"/SearchResults"} onClick={() => {
                 console.log("push booking");
                 // writeEncryptedJson(db, "testUser", "Test message");
+                setIsLoading(true);
                 let jsonObj = getJsonObj(form, hotelDetails);
-                let [publicKey, privateKey] =  generateKeys(db);
+                let [publicKey, privateKey] = generateKeys(db);
                 writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
                 writeEncryptedJson(db, USERNAME, jsonObj, newBookingKey + "/", publicKey);
+                setIsLoading(false);
               }}>Confirm</Button>
             </Group>
           </Center>
@@ -243,7 +256,7 @@ function BookingData() {
       </Table>
       <Space h="lg" />
       <Title order={3}>Please fill in your personal information</Title>
-      <form onSubmit={form.onSubmit((values) => {})}>
+      <form onSubmit={form.onSubmit((values) => { })}>
         <Grid>
           <Grid.Col xs={12} sm={6}>
             <TextInput label="First name" required {...form.getInputProps('firstName')} />

@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 
 const NOTFOUND = "We could not find results for ";
-const NODEST = "Please enter a destination."
+const NODEST = "No Service Sorry"
 // set up themes for classes
 const useStyles = createStyles((theme) => ({
   cardContainer: {

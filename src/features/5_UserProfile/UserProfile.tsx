@@ -17,9 +17,6 @@ interface bookingObject {
     'email': string,
     'specialReq': string,
     'cardNum': string,
-    'expiryMonth': number,
-    'expiryYear': number,
-    'cvv': number,
     'address': string,
     'bookingCreateDate': number,
     'bookingKey': string,
@@ -45,9 +42,6 @@ const defaultBooking = {
     'email': "",
     'specialReq': "",
     'cardNum': "",
-    'expiryMonth': -1,
-    'expiryYear': -1,
-    'cvv': -1,
     'address': "",
     'bookingCreateDate': -1,
     'bookingKey': "",
@@ -95,6 +89,7 @@ function getBookingDetails(data: bookingObject) {
         data.hotelAddr,
         data.hotelPrice.toFixed(2),
         data.supplierId,
+        data.cardNum
     ]
 }
 function cancelHtml(input: any) {
@@ -275,6 +270,7 @@ function UserProfile() {
         hotelAddr,
         hotelPrice,
         supplierId,
+        cardNum
     ] = getBookingDetails(currBooking);
 
 
@@ -358,12 +354,16 @@ function UserProfile() {
                                 <td className={classes.td}>{hotelPrice} SGD</td>
                             </tr>
                             <tr>
+                                <th className={classes.th}>Card Used</th>
+                                <td className={classes.td}>{cardNum}</td>
+                            </tr>
+                            <tr>
                                 <th className={classes.th}>Supplier booking response</th>
                                 <td className={classes.td}>from the supplier API, see status of booking</td>
                             </tr>
                             <tr>
                                 <th className={classes.th}>Status</th>
-                                <td className={classes.td}>{cancelHtml(currBooking.cancellation)}</td>
+                                <td className={classes.td}>{cancelHtml(cancellation)}</td>
                             </tr>
                         </tbody>
                     </Table>
