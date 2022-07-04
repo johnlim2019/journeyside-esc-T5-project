@@ -22,10 +22,10 @@ export async function updateEncryptedJson(db: Database, userId: string, unencryp
 export async function readEncryptedJson(db: Database, userId: string, bookingKey: string) {
     const dataRef = ref(db, "/user-data/" + userId + "/booking/" + bookingKey);
     const encryptedData = await get(dataRef);
-    const keyRef = ref(db, "keys/private/" + userId + "/" + bookingKey);
-    const snapshot = await get(keyRef);
-    const privateKey = snapshot.val();
-    const deCryptedData = decryptJson(encryptedData.val(), privateKey);
+    // const keyRef = ref(db, "keys/private/" + userId + "/" + bookingKey);
+    // const snapshot = await get(keyRef);
+    const privateKey = readKey(db, "keys/private/" + userId + "/" + bookingKey);
+    const deCryptedData = decryptJson(encryptedData.val(), await privateKey);
     console.log(deCryptedData);
     return deCryptedData;
 }
@@ -33,7 +33,7 @@ export async function readEncryptedJson(db: Database, userId: string, bookingKey
 export async function readEncryptedBookings(db: Database, userId: string, dataPath: string) {
     const dataRef = ref(db, "/user-data/" + userId + "/" + dataPath);
     const encryptedData = await get(dataRef);
-    console.log(encryptedData.val());
+    // console.log(encryptedData.val());
     return encryptedData.val();
 }
 
@@ -45,9 +45,10 @@ export function writeKey(db: Database, RSAkey: Key, dataPath: string) {
 }
 
 export async function readKey(db: Database, dataPath: string) {
-    const keyRef = ref(db, "/keys/" + dataPath);
+    const keyRef = ref(db, dataPath);
     var key: any;
-    const snapshot = get(keyRef);
-        key = (await snapshot).val();
-        return key;
+    const snapshot = await get(keyRef);
+        // key = (await snapshot).val();
+    // console.log(snapshot.val());
+    return snapshot.val();
 }

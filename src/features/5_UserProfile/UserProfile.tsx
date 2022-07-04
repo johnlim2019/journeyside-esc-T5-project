@@ -1,6 +1,6 @@
 import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Table, Text } from "@mantine/core";
 import { wait } from "@testing-library/user-event/dist/utils";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FileDescription, CircleX, CircleCheck } from "tabler-icons-react";
 import { readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
@@ -374,9 +374,10 @@ function UserProfile() {
                                 copyCurrBooking.cancellation = true;
                                 setCurrBooking(copyCurrBooking);
                                 // push curr booking
-                                // updateEncryptedJson(db, userId, copyCurrBooking, copyCurrBooking["bookingKey"] + "/");
-                                alert("Go to Supplier website");
+                                updateEncryptedJson(db, userId, copyCurrBooking, copyCurrBooking["bookingKey"] + "/");
                                 setModal(false);
+                                // hard reload page to refresh modal
+                                window.location.reload();
                             }}>Cancel Booking</Button>
                             <Button onClick={() => setModal(false)}>Return</Button>
                         </Group>
