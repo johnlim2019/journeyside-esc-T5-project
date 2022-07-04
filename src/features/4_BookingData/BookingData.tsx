@@ -20,9 +20,15 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 }));
 
 function getJsonObj(form: any, hotelDetails: any) {
+  // combine both the hotel details taken form the feature 3 and the form values
   let jsonObj = {};
   if (typeof form !== 'undefined') {
-    jsonObj = { ...jsonObj, ...form.values };
+    let form2 = {...form.values};
+    form2.cardNum = `${"x".repeat(12)}` + form2.cardNum.slice(-4);
+    delete form2.cvv;
+    delete form2.expiryMonth;
+    delete form2.expiryYear;
+    jsonObj = { ...jsonObj, ...form2.values };
   }
   else {
     console.log("getJsonObj form input is undefined");

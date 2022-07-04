@@ -1,6 +1,5 @@
 import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Table, Text } from "@mantine/core";
-import { wait } from "@testing-library/user-event/dist/utils";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FileDescription, CircleX, CircleCheck } from "tabler-icons-react";
 import { readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
@@ -157,7 +156,8 @@ function UserProfile() {
     const [dataArr, setDataArr] = useState<any[]>([]);
 
 
-    function parseDataObj(data: object, resultObj: LooseObject) {
+    function parseDataObj(data: object, dataObj: LooseObject) {
+        let resultObj = dataObj;
         console.log(data);
         let bookingIterator = Object.entries(data);
         for (let [key, value] of bookingIterator) {
