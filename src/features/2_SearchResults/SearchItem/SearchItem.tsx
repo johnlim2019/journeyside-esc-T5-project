@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 
 
 const NOTFOUND = "We could not find results for ";
-const NODEST = "No Service Sorry"
 // set up themes for classes
 const useStyles = createStyles((theme) => ({
   cardContainer: {
@@ -140,10 +139,7 @@ function SearchItem() {
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
   let header = dest;
-  if (dest.length === 0 || destId.length === 0) {
-    header = NODEST;
-  }
-  else if (hotelDataLong.length === 0) {
+  if (hotelDataLong.length === 0) {
     header = NOTFOUND + dest;
   }
   // set up pagination settings

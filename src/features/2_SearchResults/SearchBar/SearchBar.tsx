@@ -97,7 +97,7 @@ function getMinDate() {
 function SearchBar(): JSX.Element {
     //get STORE values form input components
     const destinations = useAppSelector(state => state.SearchBarReducer.destinationsObjLs);
-    const autoCompleteList = useAppSelector(state => state.SearchBarReducer.autocompleteLs);
+    var autoCompleteList = useAppSelector(state => state.SearchBarReducer.autocompleteLs);
     const [date1, date2] = getDefaultDates();
     const [adults, setAdults] = useState(useAppSelector(state => state.SearchBarReducer.adults));
     const [children, setChildren] = useState(useAppSelector(state => state.SearchBarReducer.children));
@@ -125,11 +125,14 @@ function SearchBar(): JSX.Element {
         }).then((response) => {
             // do what u want with the response here
             //console.log(response.data);
+            dispatch(setLoading({ loading: false }));
             const data = response.data as object[];
             dispatch(setDestinations({ dest: data }));
         }).catch(errors => {
+            dispatch(setLoading({ loading: false }));
             console.error(errors);
             dispatch(setDestinations({ dest: [] }));
+            
         });
     };
     const destApi = 'https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/destinations';
@@ -137,6 +140,7 @@ function SearchBar(): JSX.Element {
     // At the start of the render check if we have destination list read
     useEffect(() => {
         if (autoCompleteList.length < 1) {
+            dispatch(setLoading({ loading: true }));
             fetchDestApi(destApi);
         }
         // eslint-disable-next-line
@@ -199,7 +203,6 @@ function SearchBar(): JSX.Element {
 
     // check validity upon changes
     useEffect(() => {
-        console.log("HELP DEBOUNCE");
         let validation = validateQuery(dispatchQuery);
         let errorsObj = setErrorMessages(validation);
         setValidDestination(errorsObj['locationValid']);

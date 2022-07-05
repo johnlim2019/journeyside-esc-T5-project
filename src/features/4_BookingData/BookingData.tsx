@@ -288,7 +288,7 @@ function BookingData() {
               <TextInput label="Email" required {...form.getInputProps('email')} />
             </Grid.Col>
             <Grid.Col xs={12}>
-              <TextInput label="Special requests to hotel" />
+              <TextInput label="Special requests to hotel" {...form.getInputProps('specialReq')} />
             </Grid.Col>
             <Grid.Col xs={12} sm={6}>
               <TextInput label="Credit Card Number" required {...form.getInputProps('cardNum')} />

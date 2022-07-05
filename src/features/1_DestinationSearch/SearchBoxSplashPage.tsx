@@ -1,4 +1,4 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image, Overlay, Loader } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import { query, setDestinations } from '../../services/SearchBarSlice';
@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { setLoading } from '../../services/RoomDetailSlice';
 
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
@@ -13,6 +14,7 @@ const useStyles = createStyles((theme) => ({
         width: '50em',
         marginLeft: 'auto',
         marginRight: 'auto',
+        position:'relative',
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             width: '50em',
@@ -109,6 +111,7 @@ function SearchBarSplashPage(): JSX.Element {
     const [dates, setDates] = useState<[Date | null, Date | null]>([
         date1, date2
     ]);
+    const [isLoading, setIsLoading] = useState(false);
     // flags for inputs 
     const [validDestination, setValidDestination] = useState(true);
     const [validDate, setValidDates] = useState(true);
@@ -132,8 +135,10 @@ function SearchBarSplashPage(): JSX.Element {
             //console.log(response.data);
             const data = response.data as object[];
             dispatch(setDestinations({ dest: data }));
+            setIsLoading(false);
         }).catch(errors => {
             console.error(errors);
+            setIsLoading(false);
             dispatch(setDestinations({ dest: [] }));
         });
     };
@@ -142,6 +147,7 @@ function SearchBarSplashPage(): JSX.Element {
     // At the start of the render check if we have destination list read
     useEffect(() => {
         if (autoCompleteList.length < 1) {
+            setIsLoading(true);
             fetchDestApi(destApi);
         }
         // eslint-disable-next-line
@@ -190,8 +196,8 @@ function SearchBarSplashPage(): JSX.Element {
             setNextPage(NEXTPAGE);
         } else { setNextPage(STAYPAGE); }
         console.log("DEBOUNCE " + nextPage);
-    // eslint-disable-next-line
-    }, [dates, location,nextPage]);
+        // eslint-disable-next-line
+    }, [dates, location, nextPage]);
 
 
     return (
@@ -200,6 +206,23 @@ function SearchBarSplashPage(): JSX.Element {
             <div>
                 <Center>
                     <Paper className={classes.searchbarwrapper} style={{ position: 'absolute' }} withBorder>
+                        {isLoading && <Overlay color='white' style={{
+                            position: 'fixed',
+                            height: '100%',
+                            width: "100%",
+                            zIndex: '10'
+                        }}>
+                        </Overlay>}
+                        {isLoading && <Center style={{
+                            position: 'fixed',
+                            top: 0,
+                            height: '100%',
+                            width: "100%",
+                            zIndex: '20'
+                        }}>
+                            <Loader style={{ zIndex: '100', opacity: '1' }} />
+                        </Center>
+                        }
                         <Grid columns={16} grow gutter='sm' align='center' p='sm' >
                             <Grid.Col md={8} sm={8} >
                                 <Paper>
