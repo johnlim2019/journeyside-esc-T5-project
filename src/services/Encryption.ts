@@ -1,6 +1,5 @@
 import { Database } from 'firebase/database';
 import NodeRSA, { Key } from 'node-rsa';
-// import { writeKey, readKey } from './Firebase-Functions';
 
 export function generateKeys(db: Database) {
     const NodeRSA = require("node-rsa");
@@ -22,8 +21,6 @@ export function decryptJson(encrypted: string, privateKey: Key) {
     const key = new NodeRSA();
     key.importKey(privateKey, "pkcs1-pem");
     const deCryptString = key.decrypt(encrypted, "utf8");
-    console.log(deCryptString);
     const deCryptObj = JSON.parse(deCryptString);
-    console.log(deCryptObj);
     return deCryptObj;
 }
