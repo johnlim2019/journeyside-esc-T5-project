@@ -61,10 +61,6 @@ const defaultBooking = {
     'supplierId': ""
 }
 
-
-
-
-
 function getBookingDetails(data: bookingObject) {
     return [
         data.firstName,
@@ -181,7 +177,7 @@ function UserProfile() {
                     setLoading(false);
                 }
             ).catch(
-                () => { setDataArr([]); alert("No Service Sorry"); setLoading(false); }
+                () => { console.log("hi"); setDataArr([]); alert("No Service Sorry"); setLoading(false); }
             );
         }
     }
@@ -191,12 +187,20 @@ function UserProfile() {
         readEncryptedBookings(db, userId, "booking/").then(async (result) => {
             setDataObj(result);
             console.log(result);
-        });
+        }).catch(
+            () => {console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
+        );;
     }, [])
 
     useEffect(() => {
-        parseDataObj(dataObj, data);
-        parseDataArr(dataObj);
+        try {
+            parseDataObj(dataObj, data);
+            parseDataArr(dataObj);
+        } catch (error) {
+            setLoading(false);
+            console.error(error);
+            alert("we could not find data, please logout");
+        }
     }, [dataObj])
     console.log(dataArr);
     console.log(data)
