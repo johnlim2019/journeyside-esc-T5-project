@@ -1,4 +1,4 @@
-import { ref, update, Database, get } from "firebase/database";
+import { ref, update, Database, get, remove } from "firebase/database";
 import { Key } from "node-rsa";
 import { encryptJson, decryptJson } from "./Encryption";
 
@@ -46,4 +46,13 @@ export async function readKey(db: Database, dataPath: string) {
     var key: any;
     const snapshot = await get(keyRef);
     return snapshot.val();
+}
+
+export function deleteBookings(db: Database, userId: string) {
+    const dataRef = ref(db, "/user-data/" + userId);
+    const publicRef = ref(db, "/keys/public/" + userId);
+    const privateRef = ref(db, "/keys/private/" + userId);
+    remove(dataRef);
+    remove(publicRef);
+    remove(privateRef);
 }

@@ -1,7 +1,7 @@
 import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Space, Table, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { FileDescription, CircleX, CircleCheck } from "tabler-icons-react";
-import { readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
+import { deleteBookings, readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
 import { useAppSelector } from "../../services/hooks";
 
@@ -414,7 +414,10 @@ function UserProfile() {
                 </Table>
                 <Space h='lg'></Space>
                 <Center>
-                    <Button color={'red'}>Delete My Data</Button>
+                    <Button color={'red'} onClick={() => {
+                        deleteBookings(db, userId);
+                        window.location.reload();
+                    }}>Delete My Data</Button>
                 </Center>
             </Paper>
         </div>
