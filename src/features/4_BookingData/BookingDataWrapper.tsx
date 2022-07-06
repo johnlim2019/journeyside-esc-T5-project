@@ -1,8 +1,8 @@
 import NavBarSplashPage from '../1_DestinationSearch/NavBarSplashPage';
-import UserProfile from './UserProfile';
+import BookingData from './BookingData';
 import { Center, createStyles } from '@mantine/core';
 
-function UserProfileWrapper() {
+function BookingDataWrapper() {
     const useStyles = createStyles((theme) => ({
         navbarStyle: {
              zIndex: 2, width: '100%',
@@ -16,9 +16,9 @@ function UserProfileWrapper() {
                 <NavBarSplashPage/>
             </Center>
             <div>
-                <UserProfile></UserProfile>
+                <BookingData></BookingData>
             </div>
         </>
 
     );
-} export default UserProfileWrapper;
+} export default BookingDataWrapper;

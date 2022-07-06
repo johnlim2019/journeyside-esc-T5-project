@@ -1,6 +1,6 @@
 import SearchWrapper from './SearchItem/SearchWrapper';
 import SearchBar from './SearchBar/SearchBar';
-import NavBar from './NavBar';
+import NavBarSplashPage from '../1_DestinationSearch/NavBarSplashPage';
 import { Center, createStyles } from '@mantine/core';
 
 function SearchResults() {
@@ -19,7 +19,7 @@ function SearchResults() {
     return (
         <>
             <Center>
-                <NavBar />
+                <NavBarSplashPage />
             </Center>
             <Center className={classes.searchBarStyle}>
             <SearchBar />

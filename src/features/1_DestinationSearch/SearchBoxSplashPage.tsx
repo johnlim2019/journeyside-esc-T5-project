@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { setLoading } from '../../services/RoomDetailSlice';
 
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
@@ -206,7 +205,7 @@ function SearchBarSplashPage(): JSX.Element {
             <div>
                 <Center>
                     <Paper className={classes.searchbarwrapper} style={{ position: 'absolute' }} withBorder>
-                        {isLoading && <Overlay color='white' style={{
+                        {/* {isLoading && <Overlay color='white' style={{
                             position: 'fixed',
                             height: '100%',
                             width: "100%",
@@ -222,7 +221,7 @@ function SearchBarSplashPage(): JSX.Element {
                         }}>
                             <Loader style={{ zIndex: '100', opacity: '1' }} />
                         </Center>
-                        }
+                        } */}
                         <Grid columns={16} grow gutter='sm' align='center' p='sm' >
                             <Grid.Col md={8} sm={8} >
                                 <Paper>
@@ -234,6 +233,7 @@ function SearchBarSplashPage(): JSX.Element {
                                         onChange={setLocation}
                                         data={autoCompleteList}
                                         error={!validDestination}
+                                        limit={10}
                                     />
                                 </Paper>
                             </Grid.Col>

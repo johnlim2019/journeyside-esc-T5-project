@@ -1,10 +1,10 @@
-import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Table, Text } from "@mantine/core";
+import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Space, Table, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { FileDescription, CircleX, CircleCheck } from "tabler-icons-react";
 import { readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
+import { useAppSelector } from "../../services/hooks";
 
-const userId = "integrationTest";
 const db = Firebase();
 
 interface LooseObject {
@@ -149,6 +149,8 @@ function UserProfile() {
     const [currBooking, setCurrBooking] = useState<bookingObject>(defaultBooking);
     const [data, setData] = useState({});
     const [dataArr, setDataArr] = useState<any[]>([]);
+    const userId = String(useAppSelector(state => state.SearchBarReducer.currentUser));
+
 
 
     function parseDataObj(data: object, dataObj: LooseObject) {
@@ -410,6 +412,10 @@ function UserProfile() {
                     </thead>
                     <tbody>{rows}</tbody>
                 </Table>
+                <Space h='lg'></Space>
+                <Center>
+                    <Button color={'red'}>Delete My Data</Button>
+                </Center>
             </Paper>
         </div>
     )

@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
 import { generateKeys } from "../../services/Encryption";
 
-const USERNAME = "integrationTest";
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   th: {
@@ -88,6 +87,7 @@ function BookingData() {
   const hotelId = useAppSelector(state => state.SearchBarReducer.selectHotelId);
   const hotelObj = useAppSelector(state => state.SearchBarReducer.selectHotelObj);
   const nightsNum = (checkOut - checkIn) / 86400000;
+  const USERNAME = useAppSelector(state => state.SearchBarReducer.currentUser);
 
 
   // setup our data to be pushed to firebase
@@ -166,6 +166,7 @@ function BookingData() {
 
   const [modal, setModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [loginModal, setLoginModal] = useState(false);
 
 
   return (
@@ -194,7 +195,7 @@ function BookingData() {
                 let jsonObj = getJsonObj(form, hotelDetails);
                 let [publicKey, privateKey] = generateKeys(db);
                 writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
-                writeEncryptedJson(db, USERNAME, jsonObj, newBookingKey + "/", publicKey);
+                writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey);
                 setIsLoading(false);
               }}>Confirm</Button>
             </Group>
@@ -206,6 +207,7 @@ function BookingData() {
         <Space h="md" />
         <Title order={3}>Summary</Title>
         <Text>Please check your booking data.</Text>
+        <Text>User: {USERNAME}</Text>
         <Space h="sm" />
         <Table highlightOnHover>
           <tbody>
@@ -313,14 +315,20 @@ function BookingData() {
               <Center>
                 <Button
                   type="submit" onClick={() => {
-                    if (form.validate().hasErrors === false) {
-                      setModal(true);
-                      let jsonObj = getJsonObj(form, hotelDetails);
-                      console.log(jsonObj);
+                    if (USERNAME === "") {
+                      alert("Pls Login To Place Booking");
+                      setLoginModal(true);
                     }
                     else {
-                      console.log("error in form");
-                      console.log(form.validate());
+                      if (form.validate().hasErrors === false) {
+                        setModal(true);
+                        let jsonObj = getJsonObj(form, hotelDetails);
+                        console.log(jsonObj);
+                      }
+                      else {
+                        console.log("error in form");
+                        console.log(form.validate());
+                      }
                     }
                   }}>Submit</Button>
               </Center>
