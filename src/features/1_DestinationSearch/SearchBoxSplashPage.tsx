@@ -1,4 +1,4 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image, Overlay, Loader } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image, Overlay, Loader, AutocompleteItem } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import { query, setDestinations } from '../../services/SearchBarSlice';
@@ -13,7 +13,7 @@ const useStyles = createStyles((theme) => ({
         width: '50em',
         marginLeft: 'auto',
         marginRight: 'auto',
-        position:'relative',
+        position: 'relative',
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             width: '50em',
@@ -101,7 +101,7 @@ function getMinDate() {
 function SearchBarSplashPage(): JSX.Element {
     //get STORE values form input components
     const destinations = useAppSelector(state => state.SearchBarReducer.destinationsObjLs);
-    const autoCompleteList = useAppSelector(state => state.SearchBarReducer.autocompleteLs);
+    var autoCompleteList = useAppSelector(state => state.SearchBarReducer.autocompleteLs);
     const [date1, date2] = getDefaultDates();
     const [adults, setAdults] = useState(useAppSelector(state => state.SearchBarReducer.adults));
     const [children, setChildren] = useState(useAppSelector(state => state.SearchBarReducer.children));
@@ -117,7 +117,6 @@ function SearchBarSplashPage(): JSX.Element {
     const STAYPAGE = "/";
     const NEXTPAGE = "/SearchResults";
     const [nextPage, setNextPage] = useState(STAYPAGE);
-
 
     // console.log("SEARCHBAR DATES");
     // console.log(dates[0]);
@@ -151,8 +150,6 @@ function SearchBarSplashPage(): JSX.Element {
         }
         // eslint-disable-next-line
     }, []);
-
-
 
     // load styles css
     const { classes } = useStyles();
@@ -205,7 +202,7 @@ function SearchBarSplashPage(): JSX.Element {
             <div>
                 <Center>
                     <Paper className={classes.searchbarwrapper} style={{ position: 'absolute' }} withBorder>
-                        {/* {isLoading && <Overlay color='white' style={{
+                        {isLoading && <Overlay color='white' style={{
                             position: 'fixed',
                             height: '100%',
                             width: "100%",
@@ -221,7 +218,7 @@ function SearchBarSplashPage(): JSX.Element {
                         }}>
                             <Loader style={{ zIndex: '100', opacity: '1' }} />
                         </Center>
-                        } */}
+                        }
                         <Grid columns={16} grow gutter='sm' align='center' p='sm' >
                             <Grid.Col md={8} sm={8} >
                                 <Paper>
@@ -233,8 +230,14 @@ function SearchBarSplashPage(): JSX.Element {
                                         onChange={setLocation}
                                         data={autoCompleteList}
                                         error={!validDestination}
-                                        limit={10}
-                                    />
+                                        filter={(value: string, item: AutocompleteItem) => {
+                                            if (!value.includes(" ")) {
+                                                return item.value.replace(",","").toLowerCase().trim().includes(value.toLowerCase().trim());
+                                            } else {
+                                                return item.value.replace(",","").toLowerCase().trim().startsWith(value.toLowerCase().trim());
+                                            }
+                                        }}
+                                        limit={8} />
                                 </Paper>
                             </Grid.Col>
                             <Grid.Col md={8} sm={8}>

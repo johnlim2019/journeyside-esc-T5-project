@@ -1,4 +1,4 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
 import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
@@ -103,9 +103,7 @@ function SearchBar(): JSX.Element {
     const [children, setChildren] = useState(useAppSelector(state => state.SearchBarReducer.children));
     const [rooms, setRoom] = useState(useAppSelector(state => state.SearchBarReducer.rooms));
     const [location, setLocation] = useState(useAppSelector(state => state.SearchBarReducer.location));
-    const [dates, setDates] = useState<[Date | null, Date | null]>([
-        date1, date2
-    ]);
+    const [dates, setDates] = useState<[Date | null, Date | null]>([date1, date2]);
     // flags for inputs 
     const [validDestination, setValidDestination] = useState(true);
     const [validDate, setValidDates] = useState(true);
@@ -241,6 +239,14 @@ function SearchBar(): JSX.Element {
                                         onChange={setLocation}
                                         data={autoCompleteList}
                                         error={!validDestination}
+                                        filter={(value:string,item:AutocompleteItem) =>  {                                            
+                                            if (!value.includes(" ")) {
+                                                return item.value.replace(",","").toLowerCase().trim().includes(value.toLowerCase().trim());
+                                            } else {
+                                                return item.value.replace(",","").toLowerCase().trim().startsWith(value.toLowerCase().trim());
+                                            }                                       
+                                        }}
+                                        limit={8}
                                     />
                                 </Tooltip>
                             </Paper>
