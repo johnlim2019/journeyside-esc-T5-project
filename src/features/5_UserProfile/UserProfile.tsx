@@ -1,5 +1,6 @@
 import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Space, Table, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FileDescription, CircleX, CircleCheck } from "tabler-icons-react";
 import { deleteBookings, readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
@@ -145,7 +146,7 @@ function UserProfile() {
     const [currBooking, setCurrBooking] = useState<bookingObject>(defaultBooking);
     const [data, setData] = useState({});
     const [dataArr, setDataArr] = useState<any[]>([]);
-    const userId = String(useAppSelector(state => state.SearchBarReducer.currentUser));
+    const userId = String(useAppSelector(state => state.UserDetailsReducer.userKey));
 
 
 
@@ -199,7 +200,7 @@ function UserProfile() {
         } catch (error) {
             setLoading(false);
             console.error(error);
-            alert("we could not find data, please logout");
+            alert("we could not find data");
         }
     }, [dataObj])
     console.log(dataArr);
@@ -278,7 +279,7 @@ function UserProfile() {
         supplierId,
         cardNum
     ] = getBookingDetails(currBooking);
-
+    const navigate = useNavigate();
 
     return (
         <div className={classes.bookingWrapper}>
@@ -420,7 +421,7 @@ function UserProfile() {
                 <Center>
                     <Button color={'red'} onClick={() => {
                         deleteBookings(db, userId);
-                        window.location.reload();
+                        navigate("/");
                     }}>Delete My Data</Button>
                 </Center>
             </Paper>

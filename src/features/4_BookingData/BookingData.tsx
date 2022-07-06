@@ -87,7 +87,7 @@ function BookingData() {
   const hotelId = useAppSelector(state => state.SearchBarReducer.selectHotelId);
   const hotelObj = useAppSelector(state => state.SearchBarReducer.selectHotelObj);
   const nightsNum = (checkOut - checkIn) / 86400000;
-  const USERNAME = useAppSelector(state => state.SearchBarReducer.currentUser);
+  const USERNAME = useAppSelector(state => state.UserDetailsReducer.userKey);
 
 
   // setup our data to be pushed to firebase

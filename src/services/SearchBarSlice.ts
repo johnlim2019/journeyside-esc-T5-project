@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 
 interface searchBarInterface {
-    currentUser: String,
     locationId: string,
     location: string,
     lng: number,
@@ -26,7 +25,6 @@ interface searchBarInterface {
     autocompleteLs: string[],
 }
 const initialState = {
-    currentUser: "",
     locationId: "",
     location: "",
     lng: 0,
@@ -156,15 +154,11 @@ export const searchBarSlice = createSlice({
             console.log("loading " + action.payload.loading);
             state.isLoading = action.payload.loading;
         },
-        setUser: (state, action) => {
-            console.log("User Login");
-            state.currentUser = action.payload.user;
-        }
     }
 });
 
 // export our actions, these need to be imported by the component so dispatch function in component can send data to STORE
-export const { query, pageItemsLoad, pageStartLoad, selectHotelId, setCategory, setDestinations, compileHotelData, setLoading, setUser } = searchBarSlice.actions;
+export const { query, pageItemsLoad, pageStartLoad, selectHotelId, setCategory, setDestinations, compileHotelData, setLoading } = searchBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const location = (state: RootState) => state.SearchBarReducer.location;

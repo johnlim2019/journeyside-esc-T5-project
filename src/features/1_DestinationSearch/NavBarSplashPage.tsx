@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin } from 'tabler-icons-react';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { setUser } from '../../services/SearchBarSlice';
+import { login, logout } from '../../services/UserDetailsSlice';
 
 function NavBarSplashPage() {
     const useStyles = createStyles((theme) => ({
         navbar: {
-            width: '50em',
+            width: '60em',
             padding: '1em',
             margin: 'auto',
             // Media query with value from theme
@@ -24,7 +24,7 @@ function NavBarSplashPage() {
         }
     }));
     const USERNAME = "integrationTest";
-    const currentUser = useAppSelector(state => state.SearchBarReducer.currentUser);
+    const currentUser = useAppSelector(state => state.UserDetailsReducer.userKey);
     const { classes } = useStyles();
     const [logIn, setLogIn] = useState(currentUser !== "" ? true : false);
     useEffect(() => {
@@ -42,7 +42,7 @@ function NavBarSplashPage() {
     } else {
         buttonLabel = LOGIN;
     }
-    const login = useForm({
+    const loginForm = useForm({
         initialValues: {
             userName: USERNAME,
             password: ""
@@ -63,14 +63,14 @@ function NavBarSplashPage() {
                 onClose={() => setLogInModal(false)}
                 title='Log In'
             >
-                <TextInput placeholder='User Name' {...login.getInputProps('userName')}></TextInput>
+                <TextInput placeholder='User Name' {...loginForm.getInputProps('userName')}></TextInput>
                 <Space h="lg"></Space>
-                <PasswordInput placeholder='Password' {...login.getInputProps('password')}></PasswordInput>
+                <PasswordInput placeholder='Password' {...loginForm.getInputProps('password')}></PasswordInput>
                 <Space h="lg"></Space>
                 <Group position={'apart'}>
                     <Button color={'pink'} onClick={() => {
-                        login.validate();
-                        if (login.validate().hasErrors === false) {
+                        loginForm.validate();
+                        if (loginForm.validate().hasErrors === false) {
                             setLogInModal(false);
                         }
                     }}>Create Account</Button>
@@ -78,7 +78,7 @@ function NavBarSplashPage() {
                         alert("do something to validate login cred");
                         setLogInModal(false);
                         setLogIn(true);
-                        dispatch(setUser({ user: login.values.userName }))
+                        dispatch(login({ userKey: loginForm.values.userName }))
                     }}>Log In</Button>
                 </Group>
             </Modal>
@@ -101,16 +101,19 @@ function NavBarSplashPage() {
                                 }}>Home</Button>
                             <Button variant='subtle' color='gray'
                                 onClick={() => {
+                                    navigate("/SearchResults")
+                                }}>Search Results</Button>                                
+                            <Button variant='subtle' color='gray'
+                                onClick={() => {
                                     if (logIn === false) {
                                         setLogInModal(true);
                                     } else {
                                         navigate("/UserProfile")
                                     }
                                 }}>{buttonLabel}</Button>
-
                             {logIn && <Button variant='subtle' color='pink'
                                 onClick={() => {
-                                    dispatch(setUser({ user: "" }));
+                                    dispatch(logout());
                                     setLogIn(false);
                                     navigate("/")
                                 }}>Log Out</Button>}

@@ -1,21 +1,27 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import SearchBarSlice from './SearchBarSlice';
 import RoomDetailSlice from './RoomDetailSlice';
-import { loadState } from '../Browser-Storage';
+import { loadSession, loadState } from '../Browser-Storage';
 import { hotelPricesApi } from "./fetchPricesApi";
+import UserDetailsSlice from './UserDetailsSlice';
 
+const SEARCHBARKEY = "SearchBarSlice";
+const USERDETAILSKEY = "UserDetailsReducer";
 
 const reducers = combineReducers({
     SearchBarReducer:SearchBarSlice,
     RoomDetailReducer:RoomDetailSlice,
+    UserDetailsReducer:UserDetailsSlice,
     [hotelPricesApi.reducerPath]: hotelPricesApi.reducer,
 })
 
 export const store = configureStore({
     devTools:true,
     reducer: reducers,
-    // restore the previous state
-    preloadedState: loadState(),
+    preloadedState: {
+        SearchBarReducer:loadState(SEARCHBARKEY),
+        UserDetailsReducer:loadSession(USERDETAILSKEY)
+    },
     // for prices api
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(hotelPricesApi.middleware),
