@@ -28,8 +28,8 @@ export async function readEncryptedJson(db: Database, userId: string, bookingKey
     return deCryptedData;
 }
 
-export async function readEncryptedBookings(db: Database, userId: string, bookingKey: string) {
-    const dataRef = ref(db, "/user-data/" + userId + "/" + bookingKey);
+export async function readEncryptedBookings(db: Database, userId: string, dataPath: string) {
+    const dataRef = ref(db, "/user-data/" + userId + "/" + dataPath);
     const encryptedData = await get(dataRef);
     return encryptedData.val();
 }
