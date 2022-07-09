@@ -1,4 +1,4 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem, Loader } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
 import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
@@ -107,6 +107,7 @@ function SearchBar(): JSX.Element {
     // flags for inputs 
     const [validDestination, setValidDestination] = useState(true);
     const [validDate, setValidDates] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     let cacheId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId);
@@ -123,11 +124,11 @@ function SearchBar(): JSX.Element {
         }).then((response) => {
             // do what u want with the response here
             //console.log(response.data);
-            dispatch(setLoading({ loading: false }));
+            setIsLoading(false);
             const data = response.data as object[];
             dispatch(setDestinations({ dest: data }));
         }).catch(errors => {
-            dispatch(setLoading({ loading: false }));
+            setIsLoading(false);
             console.error(errors);
             dispatch(setDestinations({ dest: [] }));
             
@@ -138,7 +139,7 @@ function SearchBar(): JSX.Element {
     // At the start of the render check if we have destination list read
     useEffect(() => {
         if (autoCompleteList.length < 1) {
-            dispatch(setLoading({ loading: true }));
+            setIsLoading(true);
             fetchDestApi(destApi);
         }
         // eslint-disable-next-line
@@ -247,6 +248,7 @@ function SearchBar(): JSX.Element {
                                             }                                       
                                         }}
                                         limit={8}
+                                        rightSection={isLoading&&<Loader size={'sm'}></Loader>}
                                     />
                                 </Tooltip>
                             </Paper>

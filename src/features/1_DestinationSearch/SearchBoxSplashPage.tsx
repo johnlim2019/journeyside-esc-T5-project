@@ -1,10 +1,10 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image, Overlay, Loader, AutocompleteItem } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image, Overlay, Loader, AutocompleteItem, Tooltip } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import { query, setDestinations } from '../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const useStyles = createStyles((theme) => ({
@@ -26,12 +26,24 @@ const useStyles = createStyles((theme) => ({
     },
     searchbarcomponets: {
         size: 'md',
+        width:'100%',
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             size: 'xs'
         },
     },
+    backgroundImage :{
+        position: 'relative', width: '45%', marginLeft: 'auto', marginRight: 'auto', marginTop: '5em',
+        // Media query with value from theme
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            width: '90%'
+        },
+    }
 }));
+
+const NODEST = "Please enter a destination."
+const NODATE = "Please enter a date."
+
 function validateQuery(queryObj: any) {
     // Error codes 
     // empty arr - correct
@@ -194,64 +206,55 @@ function SearchBarSplashPage(): JSX.Element {
         console.log("DEBOUNCE " + nextPage);
         // eslint-disable-next-line
     }, [dates, location, nextPage]);
+    const navigate = useNavigate();
 
 
     return (
         <>
-            <Image radius='lg' style={{ position: 'relative', width: '45%', marginLeft: 'auto', marginRight: 'auto', marginTop: '5em' }} src='./sandBeach.jpg' />
+            <Image radius='lg' className={classes.backgroundImage} src='./sandBeach.jpg' />
             <div>
                 <Center>
                     <Paper className={classes.searchbarwrapper} style={{ position: 'absolute' }} withBorder>
-                        {isLoading && <Overlay color='white' style={{
-                            position: 'fixed',
-                            height: '100%',
-                            width: "100%",
-                            zIndex: '10'
-                        }}>
-                        </Overlay>}
-                        {isLoading && <Center style={{
-                            position: 'fixed',
-                            top: 0,
-                            height: '100%',
-                            width: "100%",
-                            zIndex: '20'
-                        }}>
-                            <Loader style={{ zIndex: '100', opacity: '1' }} />
-                        </Center>
-                        }
+
                         <Grid columns={16} grow gutter='sm' align='center' p='sm' >
                             <Grid.Col md={8} sm={8} >
                                 <Paper>
-                                    <Autocomplete
-                                        className={classes.searchbarcomponets}
-                                        label="Destination"
-                                        placeholder="Begin Your Adventure"
-                                        value={location}
-                                        onChange={setLocation}
-                                        data={autoCompleteList}
-                                        error={!validDestination}
-                                        filter={(value: string, item: AutocompleteItem) => {
-                                            if (!value.includes(" ")) {
-                                                return item.value.replace(",","").toLowerCase().trim().includes(value.toLowerCase().trim());
-                                            } else {
-                                                return item.value.replace(",","").toLowerCase().trim().startsWith(value.toLowerCase().trim());
-                                            }
-                                        }}
-                                        limit={8} />
+                                    <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
+                                        <Autocomplete
+                                            className={classes.searchbarcomponets}
+                                            label="Destination"
+                                            placeholder="Begin Your Adventure"
+                                            value={location}
+                                            onChange={setLocation}
+                                            data={autoCompleteList}
+                                            error={!validDestination}
+                                            filter={(value: string, item: AutocompleteItem) => {
+                                                if (!value.includes(" ")) {
+                                                    return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
+                                                } else {
+                                                    return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
+                                                }
+                                            }}
+                                            limit={8}
+                                            rightSection={isLoading&&<Loader size={'sm'}></Loader>}
+                                        />
+                                    </Tooltip>
                                 </Paper>
                             </Grid.Col>
                             <Grid.Col md={8} sm={8}>
                                 <Paper>
-                                    <DateRangePicker
-                                        className={classes.searchbarcomponets}
-                                        label="Dates"
-                                        placeholder="Date range"
-                                        firstDayOfWeek="sunday"
-                                        minDate={minDate}
-                                        value={dates}
-                                        onChange={setDates}
-                                        error={!validDate}
-                                    />
+                                    <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
+                                        <DateRangePicker
+                                            className={classes.searchbarcomponets}
+                                            label="Dates"
+                                            placeholder="Date range"
+                                            firstDayOfWeek="sunday"
+                                            minDate={minDate}
+                                            value={dates}
+                                            onChange={setDates}
+                                            error={!validDate}
+                                        />
+                                    </Tooltip>
                                 </Paper>
                             </Grid.Col>
                             <Grid.Col span={2}>
@@ -291,10 +294,16 @@ function SearchBarSplashPage(): JSX.Element {
                             <Grid.Col span={2}>
                                 <Space className={classes.searchbarcomponets} h="xl" />
                                 <Center>
-                                    <Button component={Link} to={nextPage}
+                                    <Button 
                                         onClick={() => {
                                             //console.log("HELP querylocation "+dispatchQuery.location);
                                             dispatch(query({ dispatchQuery }));
+                                            if (!isLoading){
+                                                navigate("/");
+                                            }
+                                            else {
+                                                navigate(nextPage);
+                                            }
                                         }}>
                                         <PlaneDeparture />
                                     </Button>
