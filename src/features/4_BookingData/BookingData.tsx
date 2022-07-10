@@ -171,7 +171,7 @@ function BookingData() {
 
   return (
     <Container mt={20}>
-      <Center style={{
+      {isLoading && <Center style={{
         position: 'absolute',
         height: '100%',
         width: "100%",
@@ -179,8 +179,8 @@ function BookingData() {
         left: 0
       }}>
         <LoadingOverlay visible={isLoading} />
-      </Center>
-      <Modal onClose={() => setModal(false)} closeOnEscape withCloseButton={false} centered opened={modal}>
+      </Center>}
+      <Modal onClose={() => setModal(false)} closeOnEscape withCloseButton={false} centered={true} opened={modal}>
         <Paper>
           <Center style={{ padding: '0em 0em 2em 0em' }}>
             <Text>Confirm your booking?</Text>
@@ -196,7 +196,6 @@ function BookingData() {
                 let [publicKey, privateKey] = generateKeys(db);
                 writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
                 writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey);
-                setIsLoading(false);
               }}>Confirm</Button>
             </Group>
           </Center>

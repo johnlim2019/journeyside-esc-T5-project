@@ -1,29 +1,62 @@
 import SearchWrapper from './SearchItem/SearchWrapper';
 import SearchBar from './SearchBar/SearchBar';
 import NavBarSplashPage from '../1_DestinationSearch/NavBarSplashPage';
-import { Center, createStyles } from '@mantine/core';
+import { Button, Center, createStyles } from '@mantine/core';
+import { useEffect, useRef, useState } from 'react';
+import { ChevronUp } from 'tabler-icons-react';
+import { current } from '@reduxjs/toolkit';
 
 function SearchResults() {
     const useStyles = createStyles((theme) => ({
         searchBarStyle: {
-            position: 'sticky', top: 0, zIndex:1, width: '100%',
+            position: 'sticky', top: '0', zIndex: 1, width: '100%',
             // Media query with value from theme
-            [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
                 position: 'inherit'
             },
         },
-
+        navbar: {
+            position: 'inherit', top: 0, zIndex: 10, width: '100%',
+            [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+                position: 'sticky'
+            },
+        },
+        gototop: {
+            position: 'sticky', top: '90%', zIndex: 10, width: '100%',margin:"1em",
+        }
     }));
     // load styles css
     const { classes } = useStyles();
+
+    // get scroll postion
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return (
         <>
-            <Center>
+            <div className={classes.navbar}>
                 <NavBarSplashPage />
-            </Center>
+            </div>
             <Center className={classes.searchBarStyle}>
-            <SearchBar />
+                <SearchBar />
             </Center>
+            {(scrollPosition > 500) && <div className={classes.gototop}>
+                <Button variant="filled" color="blue" radius="xl" size='xs'
+                onClick={() => {
+                    window.scrollTo({top:0,behavior: 'smooth'});
+                }}
+                ><ChevronUp size={12}></ChevronUp></Button>
+            </div>}
             <SearchWrapper />
         </>
 

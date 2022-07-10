@@ -1,4 +1,4 @@
-import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Space, Table, Text } from "@mantine/core";
+import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Space, Table, Text, useMantineTheme } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FileDescription, CircleX, CircleCheck } from "tabler-icons-react";
@@ -152,7 +152,7 @@ function UserProfile() {
 
     function parseDataObj(data: object, dataObj: LooseObject) {
         let resultObj = dataObj;
-        console.log(data);
+        // console.log(data);
         let bookingIterator = Object.entries(data);
         for (let [key, value] of bookingIterator) {
             value = readEncryptedJson(db, userId, key).then(
@@ -167,13 +167,13 @@ function UserProfile() {
     }
     function parseDataArr(data: object) {
         let bookingIterator = Object.entries(data);
-        let resultArr:any[] = []
+        let resultArr: any[] = []
         for (let [key, value] of bookingIterator) {
             value = readEncryptedJson(db, userId, key).then(
                 (value) => {
-                    console.log(value);
+                    // console.log(value);
                     resultArr.push(value);
-                    console.log(resultArr);
+                    // console.log(resultArr);
                     setDataArr(resultArr);
                     setLoading(false);
                 }
@@ -182,14 +182,30 @@ function UserProfile() {
             );
         }
     }
+    const BREAKPOINT = useMantineTheme().breakpoints.sm;
+    // check window size
+    function getWindowSize() {
+        const { innerWidth, innerHeight } = window;
+        return { innerWidth, innerHeight };
+    }
+    const [windowSize, setWindowSize] = useState(getWindowSize());
+    useEffect(() => {
+        function handleWindowResize() {
+            setWindowSize(getWindowSize());
+        }
+        window.addEventListener('resize', handleWindowResize);
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
 
     // console.log(dataObj);
     useEffect(() => {
         readEncryptedBookings(db, userId, "booking/").then(async (result) => {
             setDataObj(result);
-            console.log(result);
+            // console.log(result);
         }).catch(
-            () => {console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
+            () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
         );;
     }, [])
 
@@ -203,16 +219,15 @@ function UserProfile() {
             alert("we could not find data");
         }
     }, [dataObj])
-    console.log(dataArr);
-    console.log(data)
+    // console.log(dataArr);
+    // console.log(data)
 
     // setup table 
-    var rows = dataArr.map((element) => (
-        <tr key={element.firstName}>
-            <td>{new Date(element.checkIn).toLocaleDateString()}</td>
-            <td>{new Date(element.checkOut).toLocaleDateString()}</td>
-            <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
+    var rowsWide = dataArr.map((element) => (
+        <tr key={element.bookingCreateDate}>
             <td>{element.hotelName}</td>
+            <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
+            <td>{new Date(element.checkIn).toLocaleDateString() + "-" + new Date(element.checkOut).toLocaleDateString()}</td>
             <td>{element.hotelPrice.toFixed(2)} SGD</td>
             <td>
                 <Button onClick={() => {
@@ -227,30 +242,25 @@ function UserProfile() {
             <td className={classes.td}>{cancelHtml(element.cancellation)}</td>
         </tr>
     ));
+    var rowsNarrow = dataArr.map((element) => (
+        <tr key={element.bookingCreateDate}>
+            <td>{element.hotelName}</td>
+            <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
+            <td>{new Date(element.checkIn).toLocaleDateString() + "-" + new Date(element.checkOut).toLocaleDateString()}</td>
+            <td>
+                <Button onClick={() => {
+                    setCurrBooking(element);
+                    // console.log(currBooking);
+                    // check the if booking is filled
+                    setModal(true);
+                }}
+                ><FileDescription></FileDescription>
+                </Button>
+            </td>
+            <td className={classes.td}>{cancelHtml(element.cancellation)}</td>
+        </tr>
 
-    useEffect(() => {
-        rows = dataArr.map((element) => (
-            <tr key={element.firstName}>
-                <td>{new Date(element.checkIn).toLocaleDateString()}</td>
-                <td>{new Date(element.checkOut).toLocaleDateString()}</td>
-                <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
-                <td>{element.hotelName}</td>
-                <td>{element.hotelPrice}</td>
-                <td>
-                    <Button onClick={() => {
-                        setCurrBooking(element);
-                        // console.log(currBooking);
-                        // check the if booking is filled
-                        setModal(true);
-                    }}
-                    ><FileDescription></FileDescription>
-                    </Button>
-                </td>
-                <td className={classes.td}>{cancelHtml(element.cancellation)}</td>
-            </tr>
-        ));
-    })
-
+    ));
 
 
     // set up details of current object 
@@ -283,6 +293,10 @@ function UserProfile() {
 
     return (
         <div className={classes.bookingWrapper}>
+            {/* <div>
+                <h2>Width: {windowSize.innerWidth}</h2>
+                <h2>mobile: {String(windowSize.innerWidth < BREAKPOINT)}</h2>
+            </div> */}
             <Modal onClose={() => setModal(false)} closeOnEscape withCloseButton={false} centered opened={modal}>
                 <Paper>
                     <Table highlightOnHover={true} striped>
@@ -392,7 +406,7 @@ function UserProfile() {
                 </Paper>
             </Modal>
 
-            <Center style={{
+            {isLoading && <Center style={{
                 position: 'absolute',
                 height: '100%',
                 width: "100%",
@@ -400,23 +414,36 @@ function UserProfile() {
                 left: 0
             }}>
                 <LoadingOverlay visible={isLoading} />
-            </Center>
+            </Center>}
             <Paper>
                 <Text>User: {userId}</Text>
-                <Table highlightOnHover striped>
-                    <thead>
-                        <tr>
-                            <th className={classes.element}>Check In</th>
-                            <th className={classes.element}>Check Out</th>
-                            <th className={classes.element}>Transaction Date</th>
-                            <th className={classes.element}>Hotel Name</th>
-                            <th className={classes.element}>Price</th>
-                            <th className={classes.element}>Details</th>
-                            <th className={classes.element}>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                </Table>
+                {!(windowSize.innerWidth < BREAKPOINT) &&
+                    <Table highlightOnHover striped>
+                        <thead>
+                            <tr>
+                                <th className={classes.element}>Hotel Name</th>
+                                <th className={classes.element}>Transaction Date</th>
+                                <th className={classes.element}>Dates</th>
+                                <th className={classes.element}>Price</th>
+                                <th className={classes.element}>Details</th>
+                                <th className={classes.element}>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>{rowsWide}</tbody>
+                    </Table>}
+                {(windowSize.innerWidth < BREAKPOINT) &&
+                    <Table highlightOnHover striped horizontalSpacing={'xs'} fontSize={'xs'}>
+                        <thead>
+                            <tr>
+                                <th className={classes.element}>Hotel Name</th>
+                                <th className={classes.element}>Transaction Date</th>
+                                <th className={classes.element}>Dates</th>
+                                <th className={classes.element}>Details</th>
+                                <th className={classes.element}>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>{rowsNarrow}</tbody>
+                    </Table>}
                 <Space h='lg'></Space>
                 <Center>
                     <Button color={'red'} onClick={() => {

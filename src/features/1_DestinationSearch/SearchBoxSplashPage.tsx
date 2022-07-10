@@ -1,44 +1,32 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Image, Overlay, Loader, AutocompleteItem, Tooltip } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Loader, AutocompleteItem, Tooltip } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import { query, setDestinations } from '../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
-        top: '35%',
         width: '50em',
         marginLeft: 'auto',
         marginRight: 'auto',
-        position: 'relative',
+        position: 'absolute',
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            width: '50em',
-            alignItems: 'center'
-        },
-        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-            width: '100%',
+            width: '80%',
             alignItems: 'center'
         },
     },
     searchbarcomponets: {
         size: 'md',
-        width:'100%',
+        width: '100%',        
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             size: 'xs'
         },
     },
-    backgroundImage :{
-        position: 'relative', width: '45%', marginLeft: 'auto', marginRight: 'auto', marginTop: '5em',
-        // Media query with value from theme
-        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            width: '90%'
-        },
-    }
 }));
 
 const NODEST = "Please enter a destination."
@@ -211,11 +199,9 @@ function SearchBarSplashPage(): JSX.Element {
 
     return (
         <>
-            <Image radius='lg' className={classes.backgroundImage} src='./sandBeach.jpg' />
             <div>
                 <Center>
                     <Paper className={classes.searchbarwrapper} style={{ position: 'absolute' }} withBorder>
-
                         <Grid columns={16} grow gutter='sm' align='center' p='sm' >
                             <Grid.Col md={8} sm={8} >
                                 <Paper>
@@ -236,7 +222,7 @@ function SearchBarSplashPage(): JSX.Element {
                                                 }
                                             }}
                                             limit={8}
-                                            rightSection={isLoading&&<Loader size={'sm'}></Loader>}
+                                            rightSection={isLoading && <Loader size={'sm'}></Loader>}
                                         />
                                     </Tooltip>
                                 </Paper>
@@ -294,11 +280,11 @@ function SearchBarSplashPage(): JSX.Element {
                             <Grid.Col span={2}>
                                 <Space className={classes.searchbarcomponets} h="xl" />
                                 <Center>
-                                    <Button 
+                                    <Button
                                         onClick={() => {
                                             //console.log("HELP querylocation "+dispatchQuery.location);
                                             dispatch(query({ dispatchQuery }));
-                                            if (isLoading){
+                                            if (isLoading) {
                                                 navigate("/");
                                             }
                                             else {

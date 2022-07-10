@@ -1,4 +1,4 @@
-import { Paper, Space, Center, Text, Grid, createStyles, Button, ThemeIcon, Modal, TextInput, PasswordInput, Group } from '@mantine/core';
+import { Stack, Paper, Space, Center, Text, Grid, createStyles, Button, ThemeIcon, Modal, TextInput, PasswordInput, Group, Burger, Drawer } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,14 +13,21 @@ function NavBarSplashPage() {
             padding: '1em',
             margin: 'auto',
             // Media query with value from theme
-            [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-                width: '100%',
+            [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+                display: 'none',
+            },
+        },
+        navbarMobile: {
+            display: 'none',
+            // Media query with value from theme
+            [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+                display: 'flex',
+                margin: 'auto',
+                padding: '1em'
             },
         },
         navbarContainer: {
-            margin: 'auto',
             width: '100%',
-            zIndex: 2
         }
     }));
     const USERNAME = "integrationTest";
@@ -56,8 +63,43 @@ function NavBarSplashPage() {
     const dispatch = useAppDispatch(); // to add things to store!!!                                               
     const navigate = useNavigate();
 
+    const [openNav, setOpenNav] = useState<boolean>(false);
+
     return (
         <>
+            <Drawer
+                opened={openNav}
+                onClose={() => setOpenNav(false)}
+                padding="sm"
+                size="sm"
+                overlayOpacity={0.55}
+                overlayBlur={3}
+            >
+                <Stack>
+                    <Button variant='subtle' color='gray'
+                        onClick={() => {
+                            navigate("/")
+                        }}>Home</Button>
+                    <Button variant='subtle' color='gray'
+                        onClick={() => {
+                            navigate("/SearchResults")
+                        }}>Search Results</Button>
+                    <Button variant='subtle' color='gray'
+                        onClick={() => {
+                            if (logIn === false) {
+                                setLogInModal(true);
+                            } else {
+                                navigate("/UserProfile")
+                            }
+                        }}>{buttonLabel}</Button>
+                    {logIn && <Button variant='subtle' color='pink'
+                        onClick={() => {
+                            dispatch(logout());
+                            setLogIn(false);
+                            navigate("/")
+                        }}>Log Out</Button>}
+                </Stack>
+            </Drawer>
             <Modal
                 opened={logInModal}
                 onClose={() => setLogInModal(false)}
@@ -82,6 +124,26 @@ function NavBarSplashPage() {
                     }}>Log In</Button>
                 </Group>
             </Modal>
+
+            <Paper withBorder className={classes.navbarContainer}>
+                <Grid columns={18} gutter='xs' p='sm' className={classes.navbarMobile} >
+                    <Grid.Col span={6}>
+                        <Center>
+                            <ThemeIcon variant='light'>
+                                <MapPin />
+                            </ThemeIcon>
+                            <Space w="md" />
+                            <Text style={{ paddingTop: 5, userSelect: 'none' }}>journeyside</Text>
+                        </Center>
+                    </Grid.Col>
+                    <Grid.Col span={10}>
+                    </Grid.Col>
+                    <Grid.Col span={2}>
+                        <Burger style={{ zIndex: '5' }} size='sm' opened={openNav} onClick={() => { setOpenNav(!openNav) }} ></Burger>
+                    </Grid.Col>
+                </Grid>
+            </Paper>
+
             <Paper withBorder className={classes.navbarContainer}>
                 <Grid columns={18} gutter='xs' p='sm' className={classes.navbar} >
                     <Grid.Col span={6}>
@@ -93,17 +155,17 @@ function NavBarSplashPage() {
                             <Text style={{ paddingTop: 5, userSelect: 'none' }}>journeyside</Text>
                         </Center>
                     </Grid.Col>
-                    <Grid.Col span={10}>
-                        <Group position='apart'>
-                            <Button variant='subtle' color='gray'
+                    <Grid.Col span={10} >
+                        <Group position='apart' >
+                            <Button variant='subtle' color='gray' style={{ zIndex: '5' }}
                                 onClick={() => {
                                     navigate("/")
                                 }}>Home</Button>
-                            <Button variant='subtle' color='gray'
+                            <Button variant='subtle' color='gray' style={{ zIndex: '5' }}
                                 onClick={() => {
                                     navigate("/SearchResults")
-                                }}>Search Results</Button>                                
-                            <Button variant='subtle' color='gray'
+                                }}>Search Results</Button>
+                            <Button variant='subtle' color='gray' style={{ zIndex: '5' }}
                                 onClick={() => {
                                     if (logIn === false) {
                                         setLogInModal(true);
@@ -111,7 +173,7 @@ function NavBarSplashPage() {
                                         navigate("/UserProfile")
                                     }
                                 }}>{buttonLabel}</Button>
-                            {logIn && <Button variant='subtle' color='pink'
+                            {logIn && <Button variant='subtle' color='pink' style={{ zIndex: '5' }}
                                 onClick={() => {
                                     dispatch(logout());
                                     setLogIn(false);
@@ -121,6 +183,7 @@ function NavBarSplashPage() {
                     </Grid.Col>
                 </Grid>
             </Paper>
+
         </>
 
     )
