@@ -1,6 +1,6 @@
 import SplashPage from './features/1_DestinationSearch/SplashPage';
 import SearchResults from './features/2_SearchResults/SearchResults';
-import RoomDetails from './features/3_RoomDetails/RoomDetails';
+import RoomWrapper from './features/3_RoomDetails/RoomWrapper';
 import BookingDataWrapper from './features/4_BookingData/BookingDataWrapper';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { store } from './services/store';
@@ -23,7 +23,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<SplashPage />} />
                     <Route path='/SearchResults' element={<SearchResults />} />
-                    <Route path="/RoomDetails" element={<RoomDetails/>}/>
+                    <Route path="/RoomDetails" element={<RoomWrapper/>}/>
                     <Route path='/BookingData' element={<BookingDataWrapper/>}/>
                     <Route path='/UserProfile' element={<UserProfileWrapper/>}/>
 

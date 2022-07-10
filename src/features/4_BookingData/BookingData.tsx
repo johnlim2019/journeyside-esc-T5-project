@@ -207,7 +207,6 @@ function BookingData() {
         <Space h="md" />
         <Title order={3}>Summary</Title>
         <Text>Please check your booking data.</Text>
-        <Text>User: {USERNAME}</Text>
         <Space h="sm" />
         <Table highlightOnHover>
           <tbody>
@@ -275,6 +274,8 @@ function BookingData() {
         </Table>
         <Space h="lg" />
         <Title order={3}>Please fill in your personal information</Title>
+        <Text>User: {USERNAME}</Text>
+        <Space h='md'></Space>
         <form onSubmit={form.onSubmit((values) => { })}>
           <Grid>
             <Grid.Col xs={12} sm={6}>

@@ -298,7 +298,7 @@ function SearchBarSplashPage(): JSX.Element {
                                         onClick={() => {
                                             //console.log("HELP querylocation "+dispatchQuery.location);
                                             dispatch(query({ dispatchQuery }));
-                                            if (!isLoading){
+                                            if (isLoading){
                                                 navigate("/");
                                             }
                                             else {
