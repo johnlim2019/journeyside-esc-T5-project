@@ -134,7 +134,7 @@ function SearchBar(): JSX.Element {
             
         });
     };
-    const destApi = 'https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/destinations';
+    const destApi = './destinations.json';
 
     // At the start of the render check if we have destination list read
     useEffect(() => {

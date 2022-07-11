@@ -140,7 +140,7 @@ function SearchBarSplashPage(): JSX.Element {
             dispatch(setDestinations({ dest: [] }));
         });
     };
-    const destApi = 'https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/destinations';
+    const destApi = './destinations.json';
 
     // At the start of the render check if we have destination list read
     useEffect(() => {
@@ -202,7 +202,7 @@ function SearchBarSplashPage(): JSX.Element {
             <div>
                 <Center>
                     <Paper className={classes.searchbarwrapper} style={{ position: 'absolute' }} withBorder>
-                        <Grid columns={16} grow gutter='sm' align='center' p='sm' >
+                        <Grid columns={16} grow gutter='sm' align='center' p='sm'>
                             <Grid.Col md={8} sm={8} >
                                 <Paper>
                                     <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
@@ -294,7 +294,6 @@ function SearchBarSplashPage(): JSX.Element {
                                         <PlaneDeparture />
                                     </Button>
                                 </Center>
-
                             </Grid.Col>
                         </Grid>
                     </Paper>

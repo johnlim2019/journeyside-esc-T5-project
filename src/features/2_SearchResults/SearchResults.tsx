@@ -4,7 +4,6 @@ import NavBarSplashPage from '../1_DestinationSearch/NavBarSplashPage';
 import { Button, Center, createStyles } from '@mantine/core';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronUp } from 'tabler-icons-react';
-import { current } from '@reduxjs/toolkit';
 
 function SearchResults() {
     const useStyles = createStyles((theme) => ({

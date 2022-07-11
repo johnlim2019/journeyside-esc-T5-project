@@ -3,7 +3,7 @@ import NavBarSplashPage from './NavBarSplashPage';
 import { Center, createStyles, Image } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
-function SplashPage() {
+const SplashPage = () => {
     const useStyles = createStyles((theme) => ({
         backgroundImage: {
             top: '20%',
@@ -53,9 +53,11 @@ function SplashPage() {
                 <Image className={classes.backgroundImage} radius='lg' src='./sandBeach.jpg' fit='cover' height={0.6 * windowSize.innerHeight} />
             </Center>
             <div className={classes.searchbar}>
-                <SearchBox />
+                <SearchBox/>
             </div>
         </div>
 
     );
-} export default SplashPage;
+} 
+SplashPage.displayName = "SplashPage"
+export default SplashPage;

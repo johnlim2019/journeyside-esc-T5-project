@@ -152,9 +152,9 @@ function BookingData() {
       // regex validation
       firstName: (values.firstName.length > 1 ? null : "Please Enter First Name"),
       lastName: (values.lastName.length > 1 ? null : "Please Enter Last Name"),
-      email: (/^\S+@\w+\.\w+$/.test(values.email) ? null : 'Invalid email'),
-      cardNum: (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(values.cardNum) ? null : "invalid card"),
-      phone: (/(?:[6,8,9][0-9]{7})/.test(values.phone) ? null : "Invalid Phone Number"),
+      email: (/^\S+@\w+\.\w{2,7}$/.test(values.email) ? null : 'Invalid email'),
+      cardNum: (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(values.cardNum) ? null : "Invalid Card"),
+      phone: (/(^[6,8,9]{1}[0-9]{7})$/.test(values.phone) ? null : "Invalid Phone Number"),
       expiryMonth: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
       expiryYear: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
     })
@@ -185,7 +185,7 @@ function BookingData() {
           <Center style={{ padding: '0em 0em 2em 0em' }}>
             <Text>Confirm your booking?</Text>
           </Center>
-          <Center>
+          <div className="confirmModal">
             <Group position="apart">
               <Button color='red' onClick={() => setModal(false)}>Hold on!</Button>
               <Button component={Link} to={"/SearchResults"} onClick={() => {
@@ -198,7 +198,7 @@ function BookingData() {
                 writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey);
               }}>Confirm</Button>
             </Group>
-          </Center>
+          </div>
         </Paper>
       </Modal>
       <div className={classes.bookingWrapper}>
@@ -278,41 +278,41 @@ function BookingData() {
         <form onSubmit={form.onSubmit((values) => { })}>
           <Grid>
             <Grid.Col xs={12} sm={6}>
-              <TextInput label="First name" required {...form.getInputProps('firstName')} />
+              <TextInput className="firstName" label="First name" required {...form.getInputProps('firstName')} />
             </Grid.Col>
             <Grid.Col xs={12} sm={6}>
-              <TextInput label="Last name" required {...form.getInputProps('lastName')} />
+              <TextInput className="lastName" label="Last name" required {...form.getInputProps('lastName')} />
             </Grid.Col>
             <Grid.Col xs={12} sm={6}>
-              <TextInput label="Phone Number" required {...form.getInputProps('phone')} />
+              <TextInput className="phone" label="Phone Number" required {...form.getInputProps('phone')} />
             </Grid.Col>
             <Grid.Col xs={12} sm={6}>
-              <TextInput label="Email" required {...form.getInputProps('email')} />
+              <TextInput className='email' label="Email" required {...form.getInputProps('email')} />
             </Grid.Col>
             <Grid.Col xs={12}>
-              <TextInput label="Special requests to hotel" {...form.getInputProps('specialReq')} />
+              <TextInput className="specialReq" label="Special requests to hotel" {...form.getInputProps('specialReq')} />
             </Grid.Col>
             <Grid.Col xs={12} sm={6}>
-              <TextInput label="Credit Card Number" required {...form.getInputProps('cardNum')} />
+              <TextInput className="cardNum" label="Credit Card Number" required {...form.getInputProps('cardNum')} />
               <Text size="sm" style={{ marginLeft: '12px', marginTop: '5px' }}>{cardNumReadable}</Text>
             </Grid.Col>
             <Grid.Col xs={8} sm={4}>
               <InputWrapper label="Expiry Date" required>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <NumberInput min={1} max={12} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryMonth')} placeholder="MM" />
+                  <NumberInput className="expiryMonth" min={1} max={12} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryMonth')} placeholder="MM" />
                   <Text style={{ marginLeft: '1em', marginRight: '1em' }}> / </Text>
-                  <NumberInput min={22} max={99} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryYear')} placeholder="YY" />
+                  <NumberInput className='expiryYear' min={0} max={99} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryYear')} placeholder="YY" />
                 </Box>
               </InputWrapper>
             </Grid.Col>
             <Grid.Col xs={4} sm={2}>
-              <NumberInput max={999} label="CVV/CVC" hideControls required {...form.getInputProps('cvv')} />
+              <NumberInput className="cvv" min={0} max={999} label="CVV/CVC" hideControls required {...form.getInputProps('cvv')} />
             </Grid.Col>
             <Grid.Col xs={12}>
-              <TextInput label="Billing Address" required {...form.getInputProps('address')} />
+              <TextInput className='address' label="Billing Address" required {...form.getInputProps('address')} />
             </Grid.Col>
             <Grid.Col xs={12}>
-              <Center>
+              <Center className="submitBtn">
                 <Button
                   type="submit" onClick={() => {
                     if (USERNAME === "") {
@@ -332,12 +332,10 @@ function BookingData() {
                     }
                   }}>Submit</Button>
               </Center>
-
             </Grid.Col>
           </Grid>
         </form>
       </div>
-
     </Container >
   );
 }
