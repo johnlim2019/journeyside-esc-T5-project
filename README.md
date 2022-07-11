@@ -12,11 +12,13 @@ Libraries to install
 * axios
 * debounce 
 * firebase https://firebase.google.com/docs/database/web/read-and-write
+* cypress
 
 In the project directory, you can run:
 
 ### `npm install`
 ### `npm start`
+### `npm run cypress:open`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

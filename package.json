@@ -42,7 +42,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && firebase deploy"
+    "deploy": "npm run build && firebase deploy",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +67,7 @@
     "@types/debounce": "^1.2.1",
     "@types/node-rsa": "^1.1.1",
     "@types/react-sticky": "^6.0.4",
-    "@types/uuid": "^8.3.4"
+    "@types/uuid": "^8.3.4",
+    "cypress": "^10.3.0"
   }
 }
