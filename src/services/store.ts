@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import SearchBarSlice from './SearchBarSlice';
 import RoomDetailSlice from './RoomDetailSlice';
 import { loadSession, loadState } from '../Browser-Storage';
-import { hotelPricesApi } from "./fetchPricesApi";
+// import { hotelPricesApi } from "./fetchPricesApi";
 import UserDetailsSlice from './UserDetailsSlice';
 
 const SEARCHBARKEY = "SearchBarSlice";
@@ -12,7 +12,7 @@ const reducers = combineReducers({
     SearchBarReducer:SearchBarSlice,
     RoomDetailReducer:RoomDetailSlice,
     UserDetailsReducer:UserDetailsSlice,
-    [hotelPricesApi.reducerPath]: hotelPricesApi.reducer,
+    // [hotelPricesApi.reducerPath]: hotelPricesApi.reducer,
 })
 
 export const store = configureStore({
