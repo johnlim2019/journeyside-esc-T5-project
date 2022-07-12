@@ -23,8 +23,8 @@ export const store = configureStore({
         UserDetailsReducer:loadSession(USERDETAILSKEY)
     },
     // for prices api
-    middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(hotelPricesApi.middleware),
+    // middleware: (getDefaultMiddleware) =>
+    // getDefaultMiddleware().concat(hotelPricesApi.middleware),
 })
 
 
