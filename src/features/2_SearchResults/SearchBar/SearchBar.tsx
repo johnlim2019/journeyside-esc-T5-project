@@ -98,7 +98,14 @@ function SearchBar(): JSX.Element {
     //get STORE values form input components
     const destinations = useAppSelector(state => state.SearchBarReducer.destinationsObjLs);
     var autoCompleteList = useAppSelector(state => state.SearchBarReducer.autocompleteLs);
-    const [date1, date2] = getDefaultDates();
+    const [default1, default2] = getDefaultDates();
+    const checkInDate = new Date(useAppSelector(state => state.SearchBarReducer.checkIn));
+    const checkOutDate = new Date(useAppSelector(state => state.SearchBarReducer.checkOut));
+    var [date1, date2] = [default1,default2];
+    if (default1.getTime() < checkInDate.getTime()){
+        date1 = checkInDate;
+        date2 = checkOutDate;
+    }
     const [adults, setAdults] = useState(useAppSelector(state => state.SearchBarReducer.adults));
     const [children, setChildren] = useState(useAppSelector(state => state.SearchBarReducer.children));
     const [rooms, setRoom] = useState(useAppSelector(state => state.SearchBarReducer.rooms));
@@ -203,9 +210,26 @@ function SearchBar(): JSX.Element {
     // check validity upon changes
     useEffect(() => {
         let validation = validateQuery(dispatchQuery);
-        let errorsObj = setErrorMessages(validation);
-        setValidDestination(errorsObj['locationValid']);
-        setValidDates(errorsObj["dateValid"]);
+        if (validation.length === 0) {
+            dispatch(query({ dispatchQuery }));// update the state with new search  
+            // remove any invalid query flags
+            setValidDestination(true);
+            setValidDates(true);
+            if (cacheId !== queryId) { // only reload the query state if it changes.
+                dispatch(setLoading({ loading: true }));
+                dispatch(pageStartLoad({ start: 1 }));
+                sendGetRequest(hotelApi, hotelPriceApi, queryId);
+            }
+            if (queryId === undefined || queryId.length === 0) {
+                dispatch(setLoading({ loading: false }));
+            }
+            //console.log("HELP querylocation "+dispatchQuery.location);
+        }
+        else {
+            let errorsObj = setErrorMessages(validation);
+            setValidDestination(errorsObj['locationValid']);
+            setValidDates(errorsObj["dateValid"]);
+        }
         // eslint-disable-next-line
     }, [dates, location, dispatchQuery]);
 

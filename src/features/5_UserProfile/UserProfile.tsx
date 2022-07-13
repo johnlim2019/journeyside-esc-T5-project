@@ -1,4 +1,5 @@
-import { Button, Center, createStyles, Group, LoadingOverlay, Modal, Paper, Space, Table, Text, useMantineTheme } from "@mantine/core";
+import { Button, Center, createStyles, Dialog, Group, Loader, LoadingOverlay, Modal, Paper, Space, Table, Text, Title, useMantineTheme } from "@mantine/core";
+import { wait } from "@testing-library/user-event/dist/utils";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FileDescription, CircleX, CircleCheck } from "tabler-icons-react";
@@ -142,12 +143,12 @@ function UserProfile() {
     // set up the firebase connection and prepare the object data
     const [dataObj, setDataObj] = useState<object>({});
     const [isLoading, setLoading] = useState<boolean>(true);
-    const [modal, setModal] = useState<boolean>(false)
+    const [modal, setModal] = useState<boolean>(false);
+    const [deleteModal, setDeleteModal] = useState<boolean>(false);
     const [currBooking, setCurrBooking] = useState<bookingObject>(defaultBooking);
     const [data, setData] = useState({});
     const [dataArr, setDataArr] = useState<any[]>([]);
-    const userId = String(useAppSelector(state => state.UserDetailsReducer.userKey));
-
+    const userId = (useAppSelector(state => state.UserDetailsReducer.userKey));
 
 
     function parseDataObj(data: object, dataObj: LooseObject) {
@@ -201,12 +202,17 @@ function UserProfile() {
 
     // console.log(dataObj);
     useEffect(() => {
+        if (userId === "") {
+            setTimeout(() => {
+                navigate("/");
+            }, 3000);
+        }
         readEncryptedBookings(db, userId, "booking/").then(async (result) => {
             setDataObj(result);
             // console.log(result);
         }).catch(
             () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
-        );;
+        );
     }, [])
 
     useEffect(() => {
@@ -216,15 +222,12 @@ function UserProfile() {
         } catch (error) {
             setLoading(false);
             console.error(error);
-            alert("we could not find data");
         }
     }, [dataObj])
-    // console.log(dataArr);
-    // console.log(data)
 
     // setup table 
     var rowsWide = dataArr.map((element) => (
-        <tr key={element.bookingCreateDate}>
+        <tr key={element.bookingKey}>
             <td>{element.hotelName}</td>
             <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
             <td>{new Date(element.checkIn).toLocaleDateString() + "-" + new Date(element.checkOut).toLocaleDateString()}</td>
@@ -246,7 +249,6 @@ function UserProfile() {
         <tr key={element.bookingCreateDate}>
             <td>{element.hotelName}</td>
             <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
-            <td>{new Date(element.checkIn).toLocaleDateString() + "-" + new Date(element.checkOut).toLocaleDateString()}</td>
             <td>
                 <Button onClick={() => {
                     setCurrBooking(element);
@@ -297,6 +299,25 @@ function UserProfile() {
                 <h2>Width: {windowSize.innerWidth}</h2>
                 <h2>mobile: {String(windowSize.innerWidth < BREAKPOINT)}</h2>
             </div> */}
+
+
+            <Modal onClose={() => setDeleteModal(false)} closeOnEscape withCloseButton={false} centered opened={deleteModal}>
+                <Paper>
+                    <Text>Are You Sure?</Text>
+                    <Text style={{ fontSize: 12, color: 'red' }}>You will not be able to recover any data once deleted.</Text>
+                    <Space h='sm'></Space>
+                    <Center>
+                        <Group>
+                            <Button color={'red'} onClick={() => {
+                                deleteBookings(db, userId);
+                                navigate("/");
+                            }}>Burn Baby Burn!</Button>
+                            <Button onClick={() => { setDeleteModal(false) }}>Aw Hell No!</Button>
+                        </Group>
+
+                    </Center>
+                </Paper>
+            </Modal>
             <Modal onClose={() => setModal(false)} closeOnEscape withCloseButton={false} centered opened={modal}>
                 <Paper>
                     <Table highlightOnHover={true} striped>
@@ -321,11 +342,6 @@ function UserProfile() {
                                 <th className={classes.th}>Special Requests</th>
                                 <td className={classes.td}>{specialReq}</td>
                             </tr>
-
-                            <tr>
-                                <th className={classes.th}>Price</th>
-                                <td className={classes.td}>{hotelPrice} SGD</td>
-                            </tr>
                             <tr>
                                 <th className={classes.th}>Destination</th>
                                 <td className={classes.td}>{location} ({locationId})</td>
@@ -339,7 +355,7 @@ function UserProfile() {
                                 <td className={classes.td}>{bookingKey}</td>
                             </tr>
                             <tr>
-                                <th className={classes.th}>Number of Night</th>
+                                <th className={classes.th}>Number of Nights</th>
                                 <td className={classes.td}>
                                     <Text size='sm'>
                                         {nights} Night(s)
@@ -437,18 +453,24 @@ function UserProfile() {
                             <tr>
                                 <th className={classes.element}>Hotel Name</th>
                                 <th className={classes.element}>Transaction Date</th>
-                                <th className={classes.element}>Dates</th>
                                 <th className={classes.element}>Details</th>
                                 <th className={classes.element}>Status</th>
                             </tr>
                         </thead>
                         <tbody>{rowsNarrow}</tbody>
                     </Table>}
+                {(userId === "") && <Paper>
+                    <Center>
+                        <Title>Not Logged In</Title>
+                    </Center>
+                    <Center>
+                        <Text>returning to home page...</Text>
+                    </Center>
+                </Paper>}
                 <Space h='lg'></Space>
                 <Center>
-                    <Button color={'red'} onClick={() => {
-                        deleteBookings(db, userId);
-                        navigate("/");
+                    <Button color={'red'} disabled={(userId === "")} onClick={() => {
+                        setDeleteModal(true);
                     }}>Delete My Data</Button>
                 </Center>
             </Paper>

@@ -166,7 +166,6 @@ function BookingData() {
 
   const [modal, setModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [loginModal, setLoginModal] = useState(false);
 
 
   return (
@@ -315,9 +314,9 @@ function BookingData() {
               <Center className="submitBtn">
                 <Button
                   type="submit" onClick={() => {
+                    form.validate();
                     if (USERNAME === "") {
                       alert("Pls Login To Place Booking");
-                      setLoginModal(true);
                     }
                     else {
                       if (form.validate().hasErrors === false) {

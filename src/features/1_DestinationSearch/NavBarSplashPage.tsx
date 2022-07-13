@@ -134,8 +134,8 @@ function NavBarSplashPage() {
                     <Button onClick={() => {
                         alert("do something to validate login cred");
                         setLogInModal(false);
-                        setLogIn(true);
-                        dispatch(login({ userKey: loginForm.values.userName }))
+                        setLogIn(true);                    
+                        dispatch(login({ userKey: loginForm.values.userName }));
                     }}>Log In</Button>
                 </Group>
             </Modal>
