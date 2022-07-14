@@ -8,7 +8,7 @@ import { setLoading, compileRoomData } from "../../services/RoomDetailSlice";
 import axios from "axios";
 
 const mapHeight = 360;
-function getMapDetails(obj:any){
+export function getMapDetails(obj:any){
   if (obj == null){
     console.error("null object does not have map details");
     return [0,0];
