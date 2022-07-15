@@ -1,4 +1,4 @@
-import { Title, Text, Loader, Space, Center, Container, Card } from "@mantine/core";
+import { Title, Text, Loader, Space, Center, Container, Card, List, ThemeIcon } from "@mantine/core";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import { useEffect, useRef, useState } from "react";
 import RoomType from "./RoomType";
@@ -6,8 +6,9 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { setLoading, compileRoomData } from "../../services/RoomDetailSlice";
 import axios from "axios";
+import { IconMapPin, IconMap } from "@tabler/icons";
 
-const mapHeight = 360;
+const mapHeight = 200;
 export function getMapDetails(obj:any){
   if (obj == null){
     console.error("null object does not have map details");
@@ -31,12 +32,15 @@ function RoomDetails() {
 
   // Call state manager for rooms list
   let roomsList = useAppSelector(state => state.RoomDetailReducer.roomsList);
+  let isLoading = useAppSelector(state => state.RoomDetailReducer.isLoading);
 
   useEffect(() => {
     const tempHotelId = 'diH7';
     const roomPriceApi = 'https://ascendahotels.mocklab.io/api/hotels/'+tempHotelId+'/prices/ean';
     dispatch(setLoading({ loading: true }));
     axios.get(roomPriceApi).then((response) => {
+      console.log(selectedHotelObj);
+      console.log(response.data.rooms);
       dispatch(compileRoomData({ data : response.data}));
       dispatch(setLoading({ loading: false }));
     }).catch(errors => {
@@ -64,14 +68,22 @@ function RoomDetails() {
 
   return (
     <Container mt={20}>
-      <Title order={2}>{selectedHotelObj.name}</Title><Space h="sm" />
-      <Card shadow="sm" p={0} sx={{overflow:"hidden"}}>
+      <Card shadow="sm" p={0} mb={20} sx={{overflow:"hidden"}}>
         <Wrapper apiKey={"AIzaSyD-rkaoiosPhv8ZlFaXDLESTXKLCMdYbPI"} render={render}/>
       </Card>
+      <Title order={2}>{selectedHotelObj.name}</Title><Space h="sm" />
+      <List center spacing="xs">
+        <List.Item icon={<ThemeIcon radius="xl"><IconMap size={16}/></ThemeIcon>}>
+          Address: {selectedHotelObj.address}
+        </List.Item>
+        <List.Item icon={<ThemeIcon radius="xl"><IconMapPin size={16}/></ThemeIcon>}>
+          Lat: {selectedHotelObj.latitude}, Lng: {selectedHotelObj.longitude}
+        </List.Item>
+      </List>
       
       <Space h="md" />
-      <Title order={3}>Rooms List</Title>
         {
+          isLoading ? <Center p="lg"><Loader/></Center> :
           roomsList.map((data, key) => {
             return <RoomType key={key} data={data} />
           })

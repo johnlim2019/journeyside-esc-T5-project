@@ -20,7 +20,7 @@ export const selectedHotelSlice = createSlice({
             state.roomsList = action.payload.data.rooms;
         },
         setLoading: (state,action) => {
-            console.log("loading "+action.payload.loading);
+            // console.log("loading "+action.payload.loading);
             state.isLoading = action.payload.loading;
         }
     }
