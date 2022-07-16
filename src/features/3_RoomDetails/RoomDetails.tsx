@@ -1,4 +1,4 @@
-import { Title, Text, Loader, Space, Center, Container, Card, List, ThemeIcon } from "@mantine/core";
+import { Title, Text, Loader, Space, Center, Container, Card, List, ThemeIcon, Divider } from "@mantine/core";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import { useEffect, useRef, useState } from "react";
 import RoomType from "./RoomType";
@@ -39,8 +39,6 @@ function RoomDetails() {
     const roomPriceApi = 'https://ascendahotels.mocklab.io/api/hotels/'+tempHotelId+'/prices/ean';
     dispatch(setLoading({ loading: true }));
     axios.get(roomPriceApi).then((response) => {
-      console.log(selectedHotelObj);
-      console.log(response.data.rooms);
       dispatch(compileRoomData({ data : response.data}));
       dispatch(setLoading({ loading: false }));
     }).catch(errors => {
@@ -82,10 +80,13 @@ function RoomDetails() {
       </List>
       
       <Space h="md" />
+      <Divider/>
+      <Space h="sm" />
+      <Title order={3}>Room Options</Title>
         {
           isLoading ? <Center p="lg"><Loader/></Center> :
-          roomsList.map((data, key) => {
-            return <RoomType key={key} data={data} />
+          Object.keys(roomsList).map((data:any, key) => {
+            return <RoomType key={key} data={roomsList[data]} />
           })
         }
         {/* <RoomType data={roomsList[0]} /> */}
