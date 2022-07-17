@@ -1,8 +1,12 @@
 import { Card, Image, Title, Text, Button, List, ThemeIcon, Grid, Divider, Space } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { IconCheck, IconCoffee, IconCoffeeOff } from "@tabler/icons";
+import { selectRoom } from '../../services/RoomDetailSlice';
+import { useAppDispatch } from "../../services/hooks";
 
 function RoomType(props:any) {
+
+  const dispatch = useAppDispatch();
   
   return (
     <Card shadow="md" mt={16} mb={16}>
@@ -47,7 +51,7 @@ function RoomType(props:any) {
                     <Text align="right" color="dimmed">per night per room</Text>
                 </Grid.Col>
                 <Grid.Col span={2}>
-                 <Button mt={8} fullWidth component={Link} to="/BookingData">Select</Button>
+                 <Button mt={8} fullWidth onClick={() => dispatch(selectRoom({ key: d.key }))} component={Link} to="/BookingData">Select</Button>
                 </Grid.Col>
               </Grid>
               <Space h="sm" />

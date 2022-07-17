@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState} from "./store";
 
 interface selectedHotel {
     isLoading:boolean,
     sortBy:string,
-    roomsList:any[]
+    roomsList:any[],
+    roomsListRaw:any[],
+    selectRoom:selectedRoom
 }
 interface selectedRoom {
     type:string,
@@ -19,7 +20,18 @@ interface selectedRoom {
 const initialState:selectedHotel = {
     isLoading:false,
     sortBy:"price",
-    roomsList:[]
+    roomsList:[],
+    roomsListRaw:[],
+    selectRoom:{
+        type:"",
+        description:"",
+        images:[],
+        key:"",
+        free_cancellation:false,
+        price:0,
+        points:0,
+        breakfastInfo:""
+    }
 }
 
 export const selectedHotelSlice = createSlice({
@@ -28,6 +40,10 @@ export const selectedHotelSlice = createSlice({
     reducers: {
         compileRoomData: (state,action) => {
             let compiled:any = {};
+
+            // Raw list of rooms before compilation
+            state.roomsListRaw = action.payload.data.rooms;
+
             action.payload.data.rooms.forEach((room:any) => {
                 if(compiled.hasOwnProperty(room.type)){
                     compiled[room.type].subtypes.push({
@@ -54,17 +70,35 @@ export const selectedHotelSlice = createSlice({
                 }
             })
 
+            // Room list compiled to be displayed
             state.roomsList = compiled;
         },
         setLoading: (state,action) => {
-            // console.log("loading "+action.payload.loading);
             state.isLoading = action.payload.loading;
         },
         selectRoom: (state,action) => {
-            
+            let selectedKey = action.payload.key;
+
+            // Find the room in the raw data with the selected key
+            for(let i = 0; i < state.roomsListRaw.length; i++){
+                if(state.roomsListRaw[i]["key"] === selectedKey){
+                    state.selectRoom = {
+                        type: state.roomsListRaw[i].type,
+                        key: selectedKey,
+                        description: state.roomsListRaw[i].description,
+                        images: state.roomsListRaw[i].images,
+                        free_cancellation: state.roomsListRaw[i].free_cancellation,
+                        price: state.roomsListRaw[i].price,
+                        points: state.roomsListRaw[i].points,
+                        breakfastInfo: state.roomsListRaw[i].breakfastInfo
+                    }
+
+                    break;
+                }
+            }
         }
     }
 });
 
-export const { compileRoomData, setLoading } = selectedHotelSlice.actions;
+export const { compileRoomData, setLoading, selectRoom } = selectedHotelSlice.actions;
 export default selectedHotelSlice.reducer;

@@ -86,6 +86,7 @@ function BookingData() {
   const rooms = useAppSelector(state => state.SearchBarReducer.rooms);
   const hotelId = useAppSelector(state => state.SearchBarReducer.selectHotelId);
   const hotelObj = useAppSelector(state => state.SearchBarReducer.selectHotelObj);
+  const roomObj = useAppSelector(state => state.RoomDetailReducer.selectRoom);
   const nightsNum = (checkOut - checkIn) / 86400000;
   const USERNAME = useAppSelector(state => state.UserDetailsReducer.userKey);
 
@@ -110,6 +111,9 @@ function BookingData() {
     hotelName = hotelObj.name;
     hotelAddr = hotelObj.address;
     hotelPrice = hotelObj.converted_price;
+  }
+  if (typeof roomObj !== 'undefined'){
+    hotelPrice = roomObj.price;
   }
   const supplierId = "XXXXX";
   const supplierResponse = "XXXXX";
@@ -252,13 +256,13 @@ function BookingData() {
               <th className={classes.th}>Rooms</th>
               <td className={classes.td}>
                 <Text size='sm'>
-                  {rooms} Room(s)
+                  {rooms} Room(s): {roomObj.description}
                 </Text>
               </td>
             </tr>
             <tr>
               <th className={classes.th}>Price</th>
-              <td className={classes.td}>{hotelPrice.toFixed(2)} SGD</td>
+              <td className={classes.td}>{(hotelPrice * parseInt(rooms)).toFixed(2)} SGD</td>
             </tr>
             <tr>
               <th className={classes.th}>Booking ID</th>
