@@ -1,4 +1,4 @@
-
+/// <reference types="cypress" />
 describe('UserProfile', () => {
     const BASE = 'http://localhost:3000/'
     const USER = "UserProfile"

@@ -34,7 +34,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
 
 }));
 
-function getJsonObj(form: any, hotelDetails: any) {
+export function getJsonObj(form: any, hotelDetails: any) {
   // combine both the hotel details taken form the feature 3 and the form values
   let jsonObj = {};
   if (typeof form !== 'undefined') {
@@ -58,7 +58,7 @@ function getJsonObj(form: any, hotelDetails: any) {
   console.log(jsonObj);
   return jsonObj;
 }
-function getReadable(cardNum: any) {
+export function getReadable(cardNum: any) {
   let cardNumReadable = "";
   cardNumReadable += cardNum[0];
   for (let i = 1; i < cardNum.length; i++) {

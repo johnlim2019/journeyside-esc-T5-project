@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 describe('BookingData', () => {
   const BASE = 'http://localhost:3000/'
   const SEARCHRESULT = "SearchResults"

@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('NavBarCheck', () => {
   const BASE = 'http://localhost:3000/'
   const SEARCHRESULT = "SearchResults"
