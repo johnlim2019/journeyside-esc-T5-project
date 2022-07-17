@@ -38,7 +38,7 @@ export function getJsonObj(form: any, hotelDetails: any) {
   // combine both the hotel details taken form the feature 3 and the form values
   let jsonObj = {};
   if (typeof form !== 'undefined') {
-    let form2 = { ...form.values };
+    let form2 = { ...form};
     console.log(form2);
     form2.cardNum = `${"x".repeat(12)}` + form2.cardNum.slice(-4);
     delete form2.cvv;
@@ -112,7 +112,7 @@ function BookingData() {
     hotelAddr = hotelObj.address;
     hotelPrice = hotelObj.converted_price;
   }
-  if (typeof roomObj !== 'undefined'){
+  if (typeof roomObj !== 'undefined') {
     hotelPrice = roomObj.price;
   }
   const supplierId = "XXXXX";
