@@ -38,7 +38,7 @@ export function getJsonObj(form: any, hotelDetails: any) {
   // combine both the hotel details taken form the feature 3 and the form values
   let jsonObj = {};
   if (typeof form !== 'undefined') {
-    let form2 = { ...form};
+    let form2 = { ...form.values};
     console.log(form2);
     form2.cardNum = `${"x".repeat(12)}` + form2.cardNum.slice(-4);
     delete form2.cvv;
@@ -107,13 +107,18 @@ function BookingData() {
   let hotelName = "";
   let hotelAddr = "";
   let hotelPrice = 0;
+  let hotelFreeCancel = false;
+  let hotelBreakfast = false;
+  let roomString = rooms + " "+ roomObj.description + " "+ (((roomObj.breakfastInfo) === "hotel_detail_breakfast_included") ? "with breakfast":"") + (((roomObj.breakfastInfo) === "hotel_detail_room_only") ? "room only":"") ;
   if (typeof hotelObj !== 'undefined') {
     hotelName = hotelObj.name;
     hotelAddr = hotelObj.address;
     hotelPrice = hotelObj.converted_price;
   }
   if (typeof roomObj !== 'undefined') {
-    hotelPrice = roomObj.price;
+    hotelPrice = Number((roomObj.price * parseInt(rooms)).toFixed(2));
+    hotelFreeCancel = roomObj.free_cancellation;
+    hotelBreakfast = ((roomObj.breakfastInfo) === "hotel_detail_breakfast_included");
   }
   const supplierId = "XXXXX";
   const supplierResponse = "XXXXX";
@@ -127,12 +132,14 @@ function BookingData() {
     'checkOut': checkOut,
     'adults': adults,
     'children': children,
-    'rooms': rooms,
+    'rooms': roomString,
     'nights': nightsNum,
     'hotelId': hotelId,
     'hotelName': hotelName,
     'hotelAddr': hotelAddr,
     'hotelPrice': hotelPrice,
+    'hotelFreeCancel':hotelFreeCancel,
+    'hotelBreakfast':hotelBreakfast,
     'supplierId': supplierId,
   }
 
@@ -256,13 +263,13 @@ function BookingData() {
               <th className={classes.th}>Rooms</th>
               <td className={classes.td}>
                 <Text size='sm'>
-                  {rooms} Room(s): {roomObj.description}
+                  {roomString}
                 </Text>
               </td>
             </tr>
             <tr>
               <th className={classes.th}>Price</th>
-              <td className={classes.td}>{(hotelPrice * parseInt(rooms)).toFixed(2)} SGD</td>
+              <td className={classes.td}>{hotelPrice} SGD</td>
             </tr>
             <tr>
               <th className={classes.th}>Booking ID</th>

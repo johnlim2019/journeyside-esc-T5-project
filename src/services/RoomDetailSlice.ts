@@ -90,9 +90,8 @@ export const selectedHotelSlice = createSlice({
                         free_cancellation: state.roomsListRaw[i].free_cancellation,
                         price: state.roomsListRaw[i].price,
                         points: state.roomsListRaw[i].points,
-                        breakfastInfo: state.roomsListRaw[i].breakfastInfo
+                        breakfastInfo: state.roomsListRaw[i].roomAdditionalInfo?.breakfastInfo
                     }
-
                     break;
                 }
             }
