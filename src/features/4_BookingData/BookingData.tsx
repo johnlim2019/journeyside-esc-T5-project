@@ -38,9 +38,10 @@ export function getJsonObj(form: any, hotelDetails: any) {
   // combine both the hotel details taken form the feature 3 and the form values
   let jsonObj = {};
   if (typeof form !== 'undefined') {
-    let form2 = { ...form.values};
-    console.log(form2);
-    form2.cardNum = `${"x".repeat(12)}` + form2.cardNum.slice(-4);
+    let form2 = { ...form};
+    let cardNum:string = form .cardNum;
+    console.log(cardNum);
+    form2.cardNum = `${"x".repeat(12)}` + cardNum.slice(-4);
     delete form2.cvv;
     delete form2.expiryMonth;
     delete form2.expiryYear;
@@ -332,7 +333,7 @@ function BookingData() {
                     else {
                       if (form.validate().hasErrors === false) {
                         setModal(true);
-                        let jsonObj = getJsonObj(form, hotelDetails);
+                        let jsonObj = getJsonObj(form.values, hotelDetails);
                         console.log(jsonObj);
                       }
                       else {
