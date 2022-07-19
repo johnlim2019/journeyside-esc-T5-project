@@ -31,7 +31,7 @@ describe('BookingData', () => {
     cy.wait(4500)
     cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
     cy.wait(1000)
-    cy.get('a.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').first().click()
+    cy.get('a').contains('Select').first().click()
 
   })
   it('check for invalid data', () => {
@@ -111,12 +111,13 @@ describe('BookingData', () => {
         cy.get('Button').contains('Log In').click()
       })
     })
+    // cy.pause()
     // press submit button 
     cy.get('.submitBtn').parent().within(() => {
-      cy.get('button').click()
+      cy.get('button').click();
     })
     cy.get('.confirmModal').parent().within(() => {
-      cy.get('a').first().click()
+      cy.get('a').first().click();
     })
     cy.url().should('eq', BASE + SEARCHRESULT)
     // log out at end of test

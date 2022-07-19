@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
         },
     },
     searchbarcomponets: {
-        width:'100%',
+        width: '100%',
         size: 'md',
         zIndex: 5,
         // Media query with value from theme
@@ -101,8 +101,8 @@ function SearchBar(): JSX.Element {
     const [default1, default2] = getDefaultDates();
     const checkInDate = new Date(useAppSelector(state => state.SearchBarReducer.checkIn));
     const checkOutDate = new Date(useAppSelector(state => state.SearchBarReducer.checkOut));
-    var [date1, date2] = [default1,default2];
-    if (default1.getTime() < checkInDate.getTime()){
+    var [date1, date2] = [default1, default2];
+    if (default1.getTime() < checkInDate.getTime()) {
         date1 = checkInDate;
         date2 = checkOutDate;
     }
@@ -138,7 +138,7 @@ function SearchBar(): JSX.Element {
             setIsLoading(false);
             console.error(errors);
             dispatch(setDestinations({ dest: [] }));
-            
+
         });
     };
     const destApi = './destinations.json';
@@ -254,44 +254,46 @@ function SearchBar(): JSX.Element {
                 <Paper shadow='sm' style={{ width: '100%' }}>
                     <Grid columns={24} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={6} sm={4}>
-                            <Paper>
-                                <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
-                                    <Autocomplete
-                                        className={classes.searchbarcomponets}
-                                        label="Destination"
-                                        placeholder="Begin Your Adventure"
-                                        value={location}
-                                        onChange={setLocation}
-                                        data={autoCompleteList}
-                                        error={!validDestination}
-                                        filter={(value:string,item:AutocompleteItem) =>  {                                            
-                                            if (!value.includes(" ")) {
-                                                return item.value.replace(",","").toLowerCase().trim().includes(value.toLowerCase().trim());
-                                            } else {
-                                                return item.value.replace(",","").toLowerCase().trim().startsWith(value.toLowerCase().trim());
-                                            }                                       
-                                        }}
-                                        limit={8}
-                                        rightSection={isLoading&&<Loader size={'sm'}></Loader>}
-                                    />
-                                </Tooltip>
-                            </Paper>
+                                <Paper>
+                                    <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
+                                        <Autocomplete
+                                            className={classes.searchbarcomponets}
+                                            label="Destination"
+                                            placeholder="Begin Your Adventure"
+                                            value={location}
+                                            onChange={setLocation}
+                                            data={autoCompleteList}
+                                            error={(!validDestination) ? "Invalid Destination" : false}
+                                            filter={(value: string, item: AutocompleteItem) => {
+                                                if (!value.includes(" ")) {
+                                                    return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
+                                                } else {
+                                                    return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
+                                                }
+                                            }}
+                                            limit={8}
+                                            rightSection={isLoading && <Loader size={'sm'}></Loader>}
+                                        />
+                                    </Tooltip>
+                                </Paper>
+                                {validDestination && <Space h='xl'></Space>}
                         </Grid.Col>
                         <Grid.Col md={6} sm={4}>
                             <Paper>
-                            <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
-                                <DateRangePicker
-                                    className={classes.searchbarcomponets}
-                                    label="Dates"
-                                    placeholder="Date range"
-                                    firstDayOfWeek="sunday"
-                                    minDate={minDate}
-                                    value={dates}
-                                    onChange={setDates}
-                                    error={!validDate}
-                                />
+                                <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
+                                    <DateRangePicker
+                                        className={classes.searchbarcomponets}
+                                        label="Dates"
+                                        placeholder="Date range"
+                                        firstDayOfWeek="sunday"
+                                        minDate={minDate}
+                                        value={dates}
+                                        onChange={setDates}
+                                        error={!validDate ? "Invalid Date" : false}
+                                    />
                                 </Tooltip>
                             </Paper>
+                            {validDate && <Space h='xl'></Space>}
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Paper>
@@ -303,6 +305,7 @@ function SearchBar(): JSX.Element {
                                     value={adults}
                                     onChange={(event) => setAdults(event.currentTarget.value)}
                                 />
+                                <Space h='xl'></Space>
                             </Paper>
                         </Grid.Col>
                         <Grid.Col span={2}>
@@ -314,6 +317,7 @@ function SearchBar(): JSX.Element {
                                     label="Kids"
                                     onChange={(event) => setChildren(event.currentTarget.value)}
                                 />
+                                <Space h='xl'></Space>
                             </Paper>
                         </Grid.Col>
                         <Grid.Col span={2}>
@@ -325,6 +329,7 @@ function SearchBar(): JSX.Element {
                                     value={rooms}
                                     onChange={(event) => setRoom(event.currentTarget.value)}
                                 />
+                                <Space h='xl'></Space>
                             </Paper>
                         </Grid.Col>
                         <Grid.Col span={2}>
@@ -358,7 +363,7 @@ function SearchBar(): JSX.Element {
                                     <PlaneDeparture />
                                 </Button>
                             </Center>
-
+                            <Space h='xl'></Space>
                         </Grid.Col>
                     </Grid>
                 </Paper>

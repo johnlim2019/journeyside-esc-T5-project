@@ -1,9 +1,12 @@
 /// <reference types="cypress" />
 
+import { doesNotMatch } from 'assert';
 import { getJsonObj, getReadable } from '../../src/features/4_BookingData/BookingData';
 
 // declare variables to be share between test
 let initialStateObj: any, form: any;
+const BASE = 'http://localhost:3000/'
+
 
 describe("Unit Test Feature 4", () => {
     // set up the objects that will be used for all test
@@ -65,7 +68,8 @@ describe("Unit Test Feature 4", () => {
             address: "8 Somapah Road"
         }
     })
-    it('test getJsonObj()', (initialState) => {
+    it('test getJsonObj()', () => {
+        cy.visit(BASE).then(()=>{
         // create hotel details 
         const hotelDetails = {
             'bookingCreateDate': 1656532146361,
@@ -84,15 +88,17 @@ describe("Unit Test Feature 4", () => {
             'hotelAddr': initialStateObj.selectHotelObj.address,
             'hotelPrice': initialStateObj.selectHotelObj.hotelPrice,
             'supplierId': initialStateObj.selectHotelObj.supplierId,
-        };
-        console.log(hotelDetails);
+        };        
+        console.log(typeof form.cardNum);
         let jsonObject = getJsonObj(form, hotelDetails);
         const answer = { "firstName": "Tan", "lastName": "Beng Seng", "phone": "98684420", "email": "bengseng@seng.com", "specialReq": "", "cardNum": "xxxxxxxxxxxx4710", "address": "8 Somapah Road", "bookingCreateDate": 1656532146361, "bookingKey": "-N5l-dLTOM10TdipkiyX", "cancellation": false, "location": "Singapore, Singapore (SIN-Changi)", "locationId": "WD0M", "checkIn": 1657136941016, "checkOut": 1657223341016, "adults": "4", "children": "2", "rooms": "1", "nights": 1, "hotelId": "cqqh", "hotelName": "Lloyd's Inn", "hotelAddr": "2 Lloyd Road", "hotelPrice": 296.388509902, "supplierId": "XXXXX" };
-        expect(JSON.stringify(jsonObject)).to.equal(JSON.stringify(answer));
+        expect(JSON.stringify(jsonObject)).to.eq(JSON.stringify(answer));
+        
+        })
     })
     it('test getReadable',()=>{
         const readable = getReadable("1234567890123456");
-        expect(readable).to.equal("1234-5678-9012-3456");
+        expect(readable).to.eq("1234-5678-9012-3456");
     })
 
 })
