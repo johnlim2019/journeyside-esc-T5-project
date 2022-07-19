@@ -254,29 +254,29 @@ function SearchBar(): JSX.Element {
                 <Paper shadow='sm' style={{ width: '100%' }}>
                     <Grid columns={24} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={6} sm={4}>
-                            <Paper>
-                                <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
-                                    <Autocomplete
-                                        className={classes.searchbarcomponets}
-                                        label="Destination"
-                                        placeholder="Begin Your Adventure"
-                                        value={location}
-                                        onChange={setLocation}
-                                        data={autoCompleteList}
-                                        error={(!validDestination) ? "Invalid Destination" : false}
-                                        filter={(value: string, item: AutocompleteItem) => {
-                                            if (!value.includes(" ")) {
-                                                return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
-                                            } else {
-                                                return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
-                                            }
-                                        }}
-                                        limit={8}
-                                        rightSection={isLoading && <Loader size={'sm'}></Loader>}
-                                    />
-                                </Tooltip>
-                            </Paper>
-                            {validDestination && <Space h='xl'></Space>}
+                                <Paper>
+                                    <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
+                                        <Autocomplete
+                                            className={classes.searchbarcomponets}
+                                            label="Destination"
+                                            placeholder="Begin Your Adventure"
+                                            value={location}
+                                            onChange={setLocation}
+                                            data={autoCompleteList}
+                                            error={(!validDestination) ? "Invalid Destination" : false}
+                                            filter={(value: string, item: AutocompleteItem) => {
+                                                if (!value.includes(" ")) {
+                                                    return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
+                                                } else {
+                                                    return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
+                                                }
+                                            }}
+                                            limit={8}
+                                            rightSection={isLoading && <Loader size={'sm'}></Loader>}
+                                        />
+                                    </Tooltip>
+                                </Paper>
+                                {validDestination && <Space h='xl'></Space>}
                         </Grid.Col>
                         <Grid.Col md={6} sm={4}>
                             <Paper>
@@ -361,7 +361,7 @@ function SearchBar(): JSX.Element {
                                     }
                                 }}>
                                     <PlaneDeparture />
-                                </Button>                            
+                                </Button>
                             </Center>
                             <Space h='xl'></Space>
                         </Grid.Col>
