@@ -2,8 +2,8 @@
 describe('UserProfile', () => {
     const BASE = 'http://localhost:3000/'
     const USER = "UserProfile"
-    const BookingKeyOne = "-N6N0uXGbHDWqJlYs2Wl"
-    const BookingKeyTwo = '-N6aqJ7W3GEkC3hpGMgH'
+    const BookingKeyOne = "-N7H56fvQlKzDFBC--yD"
+    const BookingKeyTwo = '-N7H5dIG_woeJrVEUn6a'
     it('not logged in show message and redirect to home', () => {
         // log out
         // cy.get('.FullNavBar').parent().within(() => {
@@ -49,14 +49,16 @@ describe('UserProfile', () => {
         cy.get('.mantine-1hpwlhz').contains('Contact Details').next().should('have.text', '98684420, bengseng@seng.com')
         cy.get('.mantine-1hpwlhz').contains('Billing Address').next().should('have.text', '8 Somapah Road')
         cy.get('.mantine-1hpwlhz').contains('Special Requests').next().should('have.text', 'google black pudding')
-        cy.get('.mantine-1hpwlhz').contains('Price').next().should('have.text', '416.14 SGD')
         cy.get('.mantine-1hpwlhz').contains('Destination').next().should('have.text', 'Singapore, Singapore (RsBU)')
         cy.get('.mantine-1hpwlhz').contains('Hotel').next().should('have.text', 'Sofitel Singapore City Centre, 9 Wallich Street (cKGT)')
         cy.get('.mantine-1hpwlhz').contains('Number of Nights').next().should('have.text', '1 Night(s)')
         cy.get('.mantine-1hpwlhz').contains('Dates').next().should('have.text', '07/07/2024 to 08/07/2024')
-        cy.get('.mantine-1hpwlhz').contains('Guests').next().should('have.text', 'Adults: 2, Children: 2')
-        cy.get('.mantine-1hpwlhz').contains('Rooms').next().should('have.text', '2 Room(s)')
+        cy.get('.mantine-1hpwlhz').contains('Guests').next().should('have.text', 'Adults: 2, Children: 0')
+        cy.get('.mantine-1hpwlhz').contains('Rooms').next().should('have.text', '1 Double or Twin PREMIER COURTYARD with breakfast')
         cy.get('.mantine-1hpwlhz').contains('Card Used').next().should('have.text', 'xxxxxxxxxxxx4710')
+        cy.get('.mantine-1hpwlhz').contains('Cancellation').next().should('have.text', 'Free Cancellation')
+        cy.get('.mantine-1hpwlhz').contains('Breakfast Included').next().should('have.text', 'Yes')
+
         cy.get('button').contains("Return").click()
         // cy.pause()
         // log out

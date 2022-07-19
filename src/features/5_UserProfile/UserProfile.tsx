@@ -35,6 +35,8 @@ interface bookingObject {
     'hotelName': string,
     'hotelAddr': string,
     'hotelPrice': number,
+    'hotelFreeCancel': boolean,
+    'hotelBreakfast': boolean,
     'supplierId': string
 }
 const defaultBooking = {
@@ -60,6 +62,8 @@ const defaultBooking = {
     'hotelName': "",
     'hotelAddr': "",
     'hotelPrice': -1,
+    'hotelFreeCancel': false,
+    'hotelBreakfast': false,
     'supplierId': ""
 }
 
@@ -86,6 +90,8 @@ function getBookingDetails(data: bookingObject) {
         data.hotelName,
         data.hotelAddr,
         data.hotelPrice.toFixed(2),
+        data.hotelFreeCancel,
+        data.hotelBreakfast,
         data.supplierId,
         data.cardNum
     ]
@@ -288,6 +294,8 @@ function UserProfile() {
         hotelName,
         hotelAddr,
         hotelPrice,
+        hotelFreeCancel,
+        hotelBreakfast,
         supplierId,
         cardNum
     ] = getBookingDetails(currBooking);
@@ -382,10 +390,18 @@ function UserProfile() {
                                 <th className={classes.th}>Rooms</th>
                                 <td className={classes.td}>
                                     <Text size='sm'>
-                                        {rooms} Room(s)
+                                        {rooms}
                                     </Text>
                                 </td>
                             </tr>
+                            <tr>
+                                <th className={classes.th}>Breakfast Included</th>
+                                <td className={classes.td}>{hotelBreakfast? "Yes": "No"}</td>
+                            </tr>
+                            <tr>
+                                <th className={classes.th}>Cancellation</th>
+                                <td className={classes.td}>{hotelFreeCancel? "Free Cancellation":"With Cancellation Fee"}</td>
+                            </tr>                            
                             <tr>
                                 <th className={classes.th}>Price</th>
                                 <td className={classes.td}>{hotelPrice} SGD</td>
@@ -402,6 +418,7 @@ function UserProfile() {
                                 <th className={classes.th}>Status</th>
                                 <td className={classes.td}>{cancelHtml(cancellation)}</td>
                             </tr>
+
                         </tbody>
                     </Table>
                     <Center style={{ marginTop: '1em' }}>

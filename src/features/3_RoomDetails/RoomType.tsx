@@ -50,7 +50,7 @@ function RoomType(props:any) {
                     <Text align="right">+{d.points} points</Text>
                     <Text align="right" color="dimmed">per night per room</Text>
                 </Grid.Col>
-                <Grid.Col span={2}>
+                <Grid.Col xs={4} md={2}>
                  <Button mt={8} fullWidth onClick={() => dispatch(selectRoom({ key: d.key }))} component={Link} to="/BookingData">Select</Button>
                 </Grid.Col>
               </Grid>
