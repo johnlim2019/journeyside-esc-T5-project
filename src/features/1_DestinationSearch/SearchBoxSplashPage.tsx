@@ -32,7 +32,7 @@ const useStyles = createStyles((theme) => ({
 const NODEST = "Please enter a destination."
 const NODATE = "Please enter a date."
 
-function validateQuery(queryObj: any) {
+export function validateQuery(queryObj: any) {
     // Error codes 
     // empty arr - correct
     // 1 - location error
@@ -52,7 +52,7 @@ function validateQuery(queryObj: any) {
     console.log("HELP" + outcome);
     return outcome;
 }
-function setErrorMessages(outcomes: number[]) {
+export function setErrorMessages(outcomes: number[]) {
     let output = {
         "locationValid": true,
         "dateValid": true
@@ -69,7 +69,7 @@ function setErrorMessages(outcomes: number[]) {
 }
 
 
-function getDestDetails(location: string, destinations: any) {
+export function getDestDetails(location: string, destinations: any) {
     // load the destination details
     let id = "";
     let dest = "";
@@ -85,20 +85,20 @@ function getDestDetails(location: string, destinations: any) {
     }
     return [id, dest, lng, lat];
 }
-function getDefaultDates() {
+export function getDefaultDates() {
     let date = new Date();
     date.setDate(date.getDate() + 7);
     let date2 = new Date();
     date2.setDate(date2.getDate() + 8);
     return [date, date2];
 }
-function getMinDate() {
+export function getMinDate() {
     let minDate = new Date();
     minDate.setDate(minDate.getDate() + 7);
     return minDate;
 }
 
-function SearchBarSplashPage(): JSX.Element {
+export function SearchBarSplashPage(): JSX.Element {
     //get STORE values form input components
     const destinations = useAppSelector(state => state.SearchBarReducer.destinationsObjLs);
     var autoCompleteList = useAppSelector(state => state.SearchBarReducer.autocompleteLs);
