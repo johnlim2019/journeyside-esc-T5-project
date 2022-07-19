@@ -4,7 +4,7 @@ import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
 import { Firebase } from '../../services/Firebase-Storage';
 import { writeEncryptedJson, writeKey } from "../../services/Firebase-Functions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
 import { generateKeys } from "../../services/Encryption";
 
@@ -177,6 +177,8 @@ function BookingData() {
 
   const [modal, setModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  // instead of using html links, we can use javascript to go to different pages.
+  const navigate = useNavigate();
 
 
   return (
@@ -207,6 +209,7 @@ function BookingData() {
                 writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
                 writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey); 
                 setIsLoading(false);
+                navigate("/");
               }}>Confirm</Button>
             </Group>
           </div>
