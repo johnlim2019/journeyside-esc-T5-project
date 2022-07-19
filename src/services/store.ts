@@ -7,7 +7,6 @@ import UserDetailsSlice from './UserDetailsSlice';
 
 const SEARCHBARKEY = "SearchBarSlice";
 const USERDETAILSKEY = "UserDetailsReducer";
-const ROOMKEY = "RoomDetailsSlice";
 
 const reducers = combineReducers({
     SearchBarReducer:SearchBarSlice,
@@ -21,7 +20,6 @@ export const store = configureStore({
     reducer: reducers,
     preloadedState: {
         SearchBarReducer:loadState(SEARCHBARKEY),
-        RoomDetailReducer:loadState(ROOMKEY),
         UserDetailsReducer:loadSession(USERDETAILSKEY)
     },
     // for prices api

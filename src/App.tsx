@@ -9,13 +9,11 @@ import { saveSession, saveState } from './Browser-Storage';
 import UserProfileWrapper from './features/5_UserProfile/UserProfileWrapper';
 const SEARCHBARKEY = "SearchBarSlice";
 const USERDETAILSKEY = "UserDetailsReducer";
-const ROOMKEY = "RoomDetailsSlice";
 
 function App() {
     store.subscribe(
         debounce(() => {
             saveState(store.getState().SearchBarReducer,SEARCHBARKEY);
-            saveState(store.getState().RoomDetailReducer,ROOMKEY)
             saveSession(store.getState().UserDetailsReducer,USERDETAILSKEY);
         }, 5000)
     );

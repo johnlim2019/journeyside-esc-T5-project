@@ -21,7 +21,7 @@ const useStyles = createStyles((theme) => ({
     },
     searchbarcomponets: {
         size: 'md',
-        width: '100%',
+        width: '100%',        
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             size: 'xs'
@@ -213,7 +213,7 @@ function SearchBarSplashPage(): JSX.Element {
                                             value={location}
                                             onChange={setLocation}
                                             data={autoCompleteList}
-                                            error={(!validDestination) ? "Invalid Destination" : false}
+                                            error={!validDestination}
                                             filter={(value: string, item: AutocompleteItem) => {
                                                 if (!value.includes(" ")) {
                                                     return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
@@ -226,7 +226,6 @@ function SearchBarSplashPage(): JSX.Element {
                                         />
                                     </Tooltip>
                                 </Paper>
-                                {validDestination && <Space h='xl'></Space>}
                             </Grid.Col>
                             <Grid.Col md={8} sm={8}>
                                 <Paper>
@@ -239,11 +238,10 @@ function SearchBarSplashPage(): JSX.Element {
                                             minDate={minDate}
                                             value={dates}
                                             onChange={setDates}
-                                            error={!validDate ? "Invalid Date" : false}
+                                            error={!validDate}
                                         />
                                     </Tooltip>
                                 </Paper>
-                                {validDate && <Space h='xl'></Space>}
                             </Grid.Col>
                             <Grid.Col span={2}>
                                 <Paper>
