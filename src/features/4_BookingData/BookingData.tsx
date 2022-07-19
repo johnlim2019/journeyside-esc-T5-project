@@ -39,9 +39,8 @@ export function getJsonObj(form: any, hotelDetails: any) {
   let jsonObj = {};
   if (typeof form !== 'undefined') {
     let form2 = { ...form};
-    let cardNum:string = form .cardNum;
-    console.log(cardNum);
-    form2.cardNum = `${"x".repeat(12)}` + cardNum.slice(-4);
+    console.log(form);
+    form2.cardNum = `${"x".repeat(12)}` + form2.cardNum.slice(-4);
     delete form2.cvv;
     delete form2.expiryMonth;
     delete form2.expiryYear;
@@ -199,14 +198,15 @@ function BookingData() {
           <div className="confirmModal">
             <Group position="apart">
               <Button color='red' onClick={() => setModal(false)}>Hold on!</Button>
-              <Button component={Link} to={"/SearchResults"} onClick={() => {
+              <Button onClick={() => {
                 console.log("push booking");
                 // writeEncryptedJson(db, "testUser", "Test message");
                 setIsLoading(true);
-                let jsonObj = getJsonObj(form, hotelDetails);
+                let jsonObj = getJsonObj(form.values, hotelDetails);
                 let [publicKey, privateKey] = generateKeys(db);
                 writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
-                writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey);
+                writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey); 
+                setIsLoading(false);
               }}>Confirm</Button>
             </Group>
           </div>
