@@ -89,10 +89,12 @@ describe("Unit Test Feature 4", () => {
         let jsonObject = getJsonObj(form, hotelDetails);
         const answer = { "firstName": "Tan", "lastName": "Beng Seng", "phone": "98684420", "email": "bengseng@seng.com", "specialReq": "", "cardNum": "xxxxxxxxxxxx4710", "address": "8 Somapah Road", "bookingCreateDate": 1656532146361, "bookingKey": "-N5l-dLTOM10TdipkiyX", "cancellation": false, "location": "Singapore, Singapore (SIN-Changi)", "locationId": "WD0M", "checkIn": 1657136941016, "checkOut": 1657223341016, "adults": "4", "children": "2", "rooms": "1", "nights": 1, "hotelId": "cqqh", "hotelName": "Lloyd's Inn", "hotelAddr": "2 Lloyd Road", "hotelPrice": 296.388509902, "supplierId": "XXXXX" };
         expect(JSON.stringify(jsonObject)).to.equal(JSON.stringify(answer));
+        cy.end();
     })
     it('test getReadable',()=>{
         const readable = getReadable("1234567890123456");
         expect(readable).to.equal("1234-5678-9012-3456");
+        cy.end();
     })
 
 })
