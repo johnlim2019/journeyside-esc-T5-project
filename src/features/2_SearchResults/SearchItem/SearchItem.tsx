@@ -1,6 +1,5 @@
 //import { hotelData } from '../data/hotelData' // temporary import of json 
 import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, ThemeIcon, NativeSelect, createStyles, Pagination, Center, Space, LoadingOverlay, Modal, Loader, Overlay } from '@mantine/core';
-import './SearchItem.css';
 import { useAppSelector, useAppDispatch } from '../../../services/hooks';
 import { useEffect, useState } from 'react';
 import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../../services/SearchBarSlice';
@@ -33,10 +32,15 @@ const useStyles = createStyles((theme) => ({
     width: 'auto',
     position: 'relative',
     alignItems: 'center'
-  }
-
+  },
+  cardMain: {
+    boxShadow: '0 10px 20px 0px #00000033',
+    '&:hover': {
+      boxShadow: '0 14px 28px 0px #00000033',
+    }
+  },
 }));
-function sortResults(hotelDataLongSort: any, sortBy: string, avePrice: any) {
+export function sortResults(hotelDataLongSort: any, sortBy: string, avePrice: any) {
   if (sortBy === "Rating") {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by rating");
@@ -70,8 +74,9 @@ function sortResults(hotelDataLongSort: any, sortBy: string, avePrice: any) {
   }
   return hotelDataLongSort;
 }
-function getCardValues(key: number, data: any) {
+export function getCardValues(data: any) {
   //console.log(data.image_details.prefix);
+  // get Card values. 
   let imageUrl = data.image_details.prefix + "1" + data.image_details.suffix;
   let ratingScore = data.rating;
   let reviewScore = data.trustyou.score.kaligo_overall;
@@ -100,7 +105,7 @@ function getCardValues(key: number, data: any) {
 }
 
 
-function isSale(price: number, maxPrice: number) {
+export function isSale(price: number, maxPrice: number) {
   console.log("price " + price);
   console.log("maxPrice " + maxPrice);
   let salePercent = (maxPrice - price) / maxPrice * 100;
@@ -266,7 +271,7 @@ function SearchItem() {
       <div className={classes.cardContainer}>
         {hotelDataLs.map((data, key) => {
           // Load card values
-          let [imageUrl, ratingScore, reviewScore, reviewColor, distance, price, ogPrice] = getCardValues(key, data);
+          let [imageUrl, ratingScore, reviewScore, reviewColor, distance, price, ogPrice] = getCardValues(data);
           function getStars(ratingScore: number) {
             // console.log("HELP "+ratingScore);
             if (ratingScore === 1) {
@@ -415,7 +420,7 @@ function SearchItem() {
           let starsComp = getStars(ratingScore);
           return (
             <>
-              <Card key={key} className="card-main" p="lg" style={{ marginBottom: '5em' }}>
+              <Card key={key} className={classes.cardMain} p="lg" style={{ marginBottom: '5em' }}>
                 <Card.Section>
                   <Image id='image' withPlaceholder={true} src={imageUrl} height={160} alt={data.name} />
                 </Card.Section>
