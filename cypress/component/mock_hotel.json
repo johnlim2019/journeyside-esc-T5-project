@@ -1,0 +1,110 @@
+[
+    {
+        "id": "050G",
+        "imageCount": 52,
+        "latitude": 1.318685,
+        "longitude": 103.847882,
+        "name": "The Forest by Wangz",
+        "address": "145A Moulmein Road",
+        "address1": "145A Moulmein Road",
+        "rating": 4.0,
+        "distance": 16.19843101972125,
+        "trustyou": {
+            "id": "dede9a48-2f7c-49ae-9bd0-942a40e245e7",
+            "score": {
+                "overall": 91,
+                "kaligo_overall": 4.6,
+                "solo": null,
+                "couple": null,
+                "family": null,
+                "business": null
+            }
+        },
+        "categories": {
+            "overall": {
+                "name": "Overall",
+                "score": 94,
+                "popularity": 4.0
+            },
+            "romantic_hotel": {
+                "name": "Romantic Hotel",
+                "score": 72,
+                "popularity": 8.61548461538461
+            },
+            "family_hotel": {
+                "name": "Family Hotel",
+                "score": 75,
+                "popularity": 11.2643140468227
+            },
+            "business_hotel": {
+                "name": "Business Hotel",
+                "score": 85,
+                "popularity": 23.8462538461538
+            }
+        },
+        "amenities_ratings": [
+            {
+                "name": "Food",
+                "score": 100
+            },
+            {
+                "name": "WiFi",
+                "score": 100
+            },
+            {
+                "name": "Service",
+                "score": 99
+            },
+            {
+                "name": "Amenities",
+                "score": 98
+            },
+            {
+                "name": "Location",
+                "score": 97
+            },
+            {
+                "name": "Comfort",
+                "score": 92
+            },
+            {
+                "name": "Breakfast",
+                "score": 80
+            },
+            {
+                "name": "Room",
+                "score": 79
+            }
+        ],
+        "description": "<p><b>Property Location</b> <br />The Forest by Wangz is in the heart of Singapore, walking distance from Tan Tock Seng Hospital and United Square Mall.  This 4-star aparthotel is close to National Orchid Garden and Chinatown Heritage Center.</p><p><b>Rooms</b> <br />Make yourself at home in one of the 38 individually furnished guestrooms, featuring kitchenettes with refrigerators and stovetops. Wired and wireless Internet access is complimentary, while 40-inch LED televisions and DVD players provide entertainment. Conveniences include safes and desks, as well as phones with free local calls.</p><p><b>Amenities</b> <br />Be sure to enjoy recreational amenities including an outdoor pool and a fitness center. Additional amenities include complimentary wireless Internet access, concierge services, and barbecue grills.</p><p><b>Dining</b> <br />A complimentary breakfast is included.</p><p><b>Business, Other Amenities</b> <br />Featured amenities include complimentary newspapers in the lobby, a 24-hour front desk, and luggage storage. Free self parking is available onsite.</p>",
+        "amenities": {
+            "airConditioning": true,
+            "clothingIron": true,
+            "continentalBreakfast": true,
+            "dataPorts": true,
+            "hairDryer": true,
+            "kitchen": true,
+            "outdoorPool": true,
+            "parkingGarage": true,
+            "safe": true,
+            "tVInRoom": true,
+            "voiceMail": true
+        },
+        "original_metadata": {
+            "name": null,
+            "city": "Singapore",
+            "state": null,
+            "country": "SG"
+        },
+        "image_details": {
+            "suffix": ".jpg",
+            "count": 52,
+            "prefix": "https://d2ey9sqrvkqdfs.cloudfront.net/050G/"
+        },
+        "hires_image_index": "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51",
+        "number_of_images": 54,
+        "default_image_index": 1,
+        "imgix_url": "https://kaligo-web-expedia.imgix.net",
+        "cloudflare_image_url": "https://www.kaligo.com/images/new"
+    }
+]

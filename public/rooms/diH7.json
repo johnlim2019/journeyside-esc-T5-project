@@ -1,0 +1,1048 @@
+{
+    "searchCompleted": null,
+    "completed": true,
+    "status": null,
+    "currency": null,
+    "rooms": [
+        {
+            "key": "0",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Premier Courtyard",
+            "type": "DBT.PE-1",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_room_only",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 54.84
+                        }
+                    ]
+                }
+            },
+            "description": "PREMIER COURTYARD",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_102.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_148.jpg"
+                }
+            ],
+            "amenities": [
+                "Wheelchair-accessible",
+                "Room size (sqm)",
+                "Internet access"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 371.87,
+            "coverted_max_cash_payment": 522.52,
+            "points": 1220,
+            "bonuses": 0,
+            "lowest_price": 371.87,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 522.52,
+            "chargeableRate": 0,
+            "market_rates": [
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 181,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13485694.-9978649.35.SGD.322487309&source=201-8&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 193,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.28177985.-9978635.21.SGD.427599336&source=201-10&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "expedia",
+                    "rate": 575.7595861509116
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 786,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13626915.-9978647.212.SGD.1478861249&source=201-19&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "key": "1",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Heritage Room",
+            "type": "DBT.ST-2",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_room_only",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 57.52
+                        }
+                    ]
+                }
+            },
+            "description": "HERITAGE ROOM",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_145.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_158.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_159.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_160.jpg"
+                }
+            ],
+            "amenities": [
+                "Internet access",
+                "Satellite TV ",
+                "Wheelchair-accessible",
+                "Room size (sqm)"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 390.01,
+            "coverted_max_cash_payment": 548.01,
+            "points": 1280,
+            "bonuses": 0,
+            "lowest_price": 390.01,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 548.01,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "2",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Premier Courtyard",
+            "type": "DBT.PE-1",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 60.2
+                        }
+                    ]
+                }
+            },
+            "description": "PREMIER COURTYARD",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_102.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_148.jpg"
+                }
+            ],
+            "amenities": [
+                "Wheelchair-accessible",
+                "Room size (sqm)",
+                "Internet access"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 408.13,
+            "coverted_max_cash_payment": 573.47,
+            "points": 1330,
+            "bonuses": 0,
+            "lowest_price": 408.13,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 573.47,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "3",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Heritage Room",
+            "type": "DBT.ST-2",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 61.54
+                        }
+                    ]
+                }
+            },
+            "description": "HERITAGE ROOM",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_145.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_158.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_159.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_160.jpg"
+                }
+            ],
+            "amenities": [
+                "Internet access",
+                "Satellite TV ",
+                "Wheelchair-accessible",
+                "Room size (sqm)"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 417.23,
+            "coverted_max_cash_payment": 586.26,
+            "points": 1350,
+            "bonuses": 0,
+            "lowest_price": 417.23,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 586.26,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "4",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Quay Room",
+            "type": "DBL.ST-3",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_room_only",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 68.22
+                        }
+                    ]
+                }
+            },
+            "description": "QUAY ROOM",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_110.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_111.jpg"
+                }
+            ],
+            "amenities": [
+                "Room size (sqm)",
+                "Living room",
+                "Wheelchair-accessible",
+                "Satellite TV ",
+                "DVD player",
+                "Internet access"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 462.56,
+            "coverted_max_cash_payment": 649.95,
+            "points": 1500,
+            "bonuses": 0,
+            "lowest_price": 462.56,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 649.95,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "5",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Marina Bay View  Room",
+            "type": "DBL.PE-2",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_room_only",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 70.89
+                        }
+                    ]
+                }
+            },
+            "description": "Marina Bay view  Room",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_161.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_162.jpg"
+                }
+            ],
+            "amenities": [
+                "DVD player",
+                "Living room",
+                "Wheelchair-accessible",
+                "Internet access",
+                "Room size (sqm)",
+                "Satellite TV "
+            ],
+            "price_type": "single",
+            "max_cash_payment": 480.7,
+            "coverted_max_cash_payment": 675.44,
+            "points": 1560,
+            "bonuses": 0,
+            "lowest_price": 480.7,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 675.44,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "6",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Quay Room",
+            "type": "DBL.ST-3",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 73.57
+                        }
+                    ]
+                }
+            },
+            "description": "QUAY ROOM",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_110.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_111.jpg"
+                }
+            ],
+            "amenities": [
+                "Room size (sqm)",
+                "Living room",
+                "Wheelchair-accessible",
+                "Satellite TV ",
+                "DVD player",
+                "Internet access"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 498.83,
+            "coverted_max_cash_payment": 700.91,
+            "points": 1620,
+            "bonuses": 0,
+            "lowest_price": 498.83,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 700.91,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "7",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Marina Bay View  Room",
+            "type": "DBL.PE-2",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 76.24
+                        }
+                    ]
+                }
+            },
+            "description": "Marina Bay view  Room",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_161.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_162.jpg"
+                }
+            ],
+            "amenities": [
+                "DVD player",
+                "Living room",
+                "Wheelchair-accessible",
+                "Internet access",
+                "Room size (sqm)",
+                "Satellite TV "
+            ],
+            "price_type": "single",
+            "max_cash_payment": 516.96,
+            "coverted_max_cash_payment": 726.39,
+            "points": 1690,
+            "bonuses": 0,
+            "lowest_price": 516.96,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 726.39,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "8",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Straits Club Courtyard",
+            "type": "DBL.CB",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_room_only",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 88.28
+                        }
+                    ]
+                }
+            },
+            "description": "STRAITS CLUB COURTYARD",
+            "images": [],
+            "amenities": [
+                "Living room",
+                "DVD player",
+                "Room size (sqm)",
+                "Wheelchair-accessible",
+                "Internet access",
+                "Satellite TV "
+            ],
+            "price_type": "single",
+            "max_cash_payment": 598.61,
+            "coverted_max_cash_payment": 841.12,
+            "points": 1960,
+            "bonuses": 0,
+            "lowest_price": 598.61,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 841.12,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "9",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Straits Club Courtyard",
+            "type": "DBL.CB",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 88.28
+                        }
+                    ]
+                }
+            },
+            "description": "STRAITS CLUB COURTYARD",
+            "images": [],
+            "amenities": [
+                "Living room",
+                "DVD player",
+                "Room size (sqm)",
+                "Wheelchair-accessible",
+                "Internet access",
+                "Satellite TV "
+            ],
+            "price_type": "single",
+            "max_cash_payment": 598.61,
+            "coverted_max_cash_payment": 841.12,
+            "points": 1960,
+            "bonuses": 0,
+            "lowest_price": 598.61,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 841.12,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "10",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Straits Club Heritage",
+            "type": "DBT.CB-3",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_room_only",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 89.62
+                        }
+                    ]
+                }
+            },
+            "description": "Straits Club Heritage",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_124.jpg"
+                }
+            ],
+            "amenities": [
+                "DVD player",
+                "Room size (sqm)",
+                "Living room",
+                "Internet access",
+                "Wheelchair-accessible",
+                "Satellite TV "
+            ],
+            "price_type": "single",
+            "max_cash_payment": 607.68,
+            "coverted_max_cash_payment": 853.86,
+            "points": 1970,
+            "bonuses": 0,
+            "lowest_price": 607.68,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 853.86,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "11",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Straits Club Heritage",
+            "type": "DBT.CB-3",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 89.62
+                        }
+                    ]
+                }
+            },
+            "description": "Straits Club Heritage",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_124.jpg"
+                }
+            ],
+            "amenities": [
+                "DVD player",
+                "Room size (sqm)",
+                "Living room",
+                "Internet access",
+                "Wheelchair-accessible",
+                "Satellite TV "
+            ],
+            "price_type": "single",
+            "max_cash_payment": 607.68,
+            "coverted_max_cash_payment": 853.86,
+            "points": 1970,
+            "bonuses": 0,
+            "lowest_price": 607.68,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 853.86,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "12",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Straits Club Quay",
+            "type": "DBT.CB-2",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_room_only",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 101.66
+                        }
+                    ]
+                }
+            },
+            "description": "Straits Club Quay",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_132.jpg"
+                }
+            ],
+            "amenities": [
+                "Wheelchair-accessible",
+                "Living room",
+                "Satellite TV ",
+                "Internet access",
+                "Room size (sqm)",
+                "DVD player"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 689.3,
+            "coverted_max_cash_payment": 968.55,
+            "points": 2240,
+            "bonuses": 0,
+            "lowest_price": 689.3,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 968.55,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "13",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Straits Club Quay",
+            "type": "DBT.CB-2",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 101.66
+                        }
+                    ]
+                }
+            },
+            "description": "Straits Club Quay",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_132.jpg"
+                }
+            ],
+            "amenities": [
+                "Wheelchair-accessible",
+                "Living room",
+                "Satellite TV ",
+                "Internet access",
+                "Room size (sqm)",
+                "DVD player"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 689.3,
+            "coverted_max_cash_payment": 968.55,
+            "points": 2240,
+            "bonuses": 0,
+            "lowest_price": 689.3,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 968.55,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "14",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Straits Club Marina Bay View  Room",
+            "type": "DBT.CB-KG",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_room_only",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 104.34
+                        }
+                    ]
+                }
+            },
+            "description": "Straits Club Marina Bay view  Room",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_149.jpg"
+                }
+            ],
+            "amenities": [
+                "Internet access",
+                "Satellite TV ",
+                "Living room",
+                "Room size (sqm)",
+                "DVD player",
+                "Wheelchair-accessible"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 707.44,
+            "coverted_max_cash_payment": 994.03,
+            "points": 2290,
+            "bonuses": 0,
+            "lowest_price": 707.44,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 994.03,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "15",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Straits Club Marina Bay View  Room",
+            "type": "DBT.CB-KG",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 104.34
+                        }
+                    ]
+                }
+            },
+            "description": "Straits Club Marina Bay view  Room",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_149.jpg"
+                }
+            ],
+            "amenities": [
+                "Internet access",
+                "Satellite TV ",
+                "Living room",
+                "Room size (sqm)",
+                "DVD player",
+                "Wheelchair-accessible"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 707.44,
+            "coverted_max_cash_payment": 994.03,
+            "points": 2290,
+            "bonuses": 0,
+            "lowest_price": 707.44,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 994.03,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "16",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Straits Club Courtyard",
+            "type": "DBT.CB",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 119.72
+                        }
+                    ]
+                }
+            },
+            "description": "STRAITS CLUB COURTYARD",
+            "images": [],
+            "amenities": [
+                "Satellite TV ",
+                "Internet access",
+                "Wheelchair-accessible",
+                "Living room",
+                "DVD player",
+                "Room size (sqm)"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 811.74,
+            "coverted_max_cash_payment": 1140.59,
+            "points": 2640,
+            "bonuses": 0,
+            "lowest_price": 811.74,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 1140.59,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "17",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Collyer",
+            "type": "SUI.ST",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 201.23
+                        }
+                    ]
+                }
+            },
+            "description": "COLLYER",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_150.jpg"
+                }
+            ],
+            "amenities": [
+                "Wheelchair-accessible",
+                "Living room",
+                "Internet access",
+                "Satellite TV ",
+                "Room size (sqm)"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 1364.43,
+            "coverted_max_cash_payment": 1917.18,
+            "points": 4440,
+            "bonuses": 0,
+            "lowest_price": 1364.43,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 1917.18,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "18",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Palladian",
+            "type": "SUI.ST-1",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 226.71
+                        }
+                    ]
+                }
+            },
+            "description": "PALLADIAN",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_153.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_154.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_155.jpg"
+                }
+            ],
+            "amenities": [
+                "Wheelchair-accessible",
+                "Internet access",
+                "Living room",
+                "Room size (sqm)",
+                "Satellite TV "
+            ],
+            "price_type": "single",
+            "max_cash_payment": 1537.13,
+            "coverted_max_cash_payment": 2159.84,
+            "points": 4990,
+            "bonuses": 0,
+            "lowest_price": 1537.13,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 2159.84,
+            "chargeableRate": 0,
+            "market_rates": []
+        },
+        {
+            "key": "19",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Loft",
+            "type": "SUI.ST-2",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_breakfast_included",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 264.91
+                        }
+                    ]
+                }
+            },
+            "description": "LOFT",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_082.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_086.jpg"
+                }
+            ],
+            "amenities": [
+                "Room size (sqm)",
+                "Internet access",
+                "Wheelchair-accessible",
+                "Living room",
+                "Satellite TV "
+            ],
+            "price_type": "single",
+            "max_cash_payment": 1796.21,
+            "coverted_max_cash_payment": 2523.88,
+            "points": 5850,
+            "bonuses": 0,
+            "lowest_price": 1796.21,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 2523.88,
+            "chargeableRate": 0,
+            "market_rates": []
+        }
+    ]
+}

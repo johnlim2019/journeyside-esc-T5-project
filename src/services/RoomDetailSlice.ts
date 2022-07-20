@@ -49,7 +49,7 @@ export const selectedHotelSlice = createSlice({
                     compiled[room.type].subtypes.push({
                         key: room.key,
                         free_cancellation: room.free_cancellation,
-                        price: room.price,
+                        price: room.lowest_converted_price,
                         points: room.points,
                         breakfastInfo: room.roomAdditionalInfo?.breakfastInfo
                     })
@@ -61,7 +61,7 @@ export const selectedHotelSlice = createSlice({
                             {
                                 key: room.key,
                                 free_cancellation: room.free_cancellation,
-                                price: room.price,
+                                price: room.lowest_converted_price,
                                 points: room.points,
                                 breakfastInfo: room.roomAdditionalInfo?.breakfastInfo
                             }
@@ -88,7 +88,7 @@ export const selectedHotelSlice = createSlice({
                         description: state.roomsListRaw[i].description,
                         images: state.roomsListRaw[i].images,
                         free_cancellation: state.roomsListRaw[i].free_cancellation,
-                        price: state.roomsListRaw[i].price,
+                        price: state.roomsListRaw[i].lowest_converted_price,
                         points: state.roomsListRaw[i].points,
                         breakfastInfo: state.roomsListRaw[i].roomAdditionalInfo?.breakfastInfo
                     }

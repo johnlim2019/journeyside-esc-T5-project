@@ -35,8 +35,8 @@ function RoomDetails() {
   let isLoading = useAppSelector(state => state.RoomDetailReducer.isLoading);
 
   useEffect(() => {
-    const tempHotelId = 'diH7';
-    const roomPriceApi = 'https://ascendahotels.mocklab.io/api/hotels/'+tempHotelId+'/prices/ean';
+    const roomPriceApi = './rooms/diH7.json';
+    // const roomPriceApi = 'https://hotelapi.loyalty.dev/api/hotels/'+selectedHotelId+'/price?destination_id=RsBU&checkin=2022-07-31&checkout=2022-08-01&lang=en_US&currency=SGD&partner_id=16&country_code=SG&guests=2';
     dispatch(setLoading({ loading: true }));
     axios.get(roomPriceApi).then((response) => {
       dispatch(compileRoomData({ data : response.data}));
