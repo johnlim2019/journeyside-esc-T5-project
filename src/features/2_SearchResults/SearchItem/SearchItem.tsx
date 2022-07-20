@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 const NOTFOUND = "We could not find results for ";
+const NOSERVICE = "Sorry Service is down";
 // set up themes for classes
 const useStyles = createStyles((theme) => ({
   cardContainer: {
@@ -288,8 +289,11 @@ function SearchItem() {
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
   let header = dest
-  if (queryId !== destId) {
+  if (hotelDataLong.length < 1) {
     header = NOTFOUND + dest;
+  }
+  if (destId === "No"){
+    header = NOSERVICE;
   }
   // set up pagination settings
   const dispatch = useAppDispatch(); // to add things to store!!!

@@ -41,7 +41,7 @@ const initialState = {
     sortByCat: "Reviews",
     isLoading: false,
     hotelData: {
-        locationId: "NO",
+        locationId: "No",
         hotels: [],
     },
     destinationsObjLs: [],
