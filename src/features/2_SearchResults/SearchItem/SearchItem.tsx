@@ -390,27 +390,31 @@ function SearchItem() {
         {/* <Pagination total={numPages} size="xs" radius="xs" withEdges /> */}
         <Center>
           <Group>
-            <NativeSelect
-              data={numberItemsLs}
-              value={numberItemsDirty}
-              onChange={(event) => setNumberItemsDirty(event.currentTarget.value)}
-              label="Show"
-              radius="md"
-              size="xs"
-              style={{ width: '5em' }}
-            />
-            <NativeSelect
-              data={['Reviews', 'Rating', 'Price', 'Value', "Sale"]}
-              value={sortBy}
-              onChange={(event) => {
-                setSortBy(event.currentTarget.value);
-                dispatch(setCategory({ category: event.currentTarget.value }));
-              }}
-              label="Sort By: "
-              radius="md"
-              size="xs"
-              style={{ width: '5em' }}
-            />
+            <div className='numberItems'>
+              <NativeSelect
+                data={numberItemsLs}
+                value={numberItemsDirty}
+                onChange={(event) => setNumberItemsDirty(event.currentTarget.value)}
+                label="Show"
+                radius="md"
+                size="xs"
+                style={{ width: '5em' }}
+              />
+            </div>
+            <div className='category'>
+              <NativeSelect
+                data={['Reviews', 'Rating', 'Price', 'Value', "Sale"]}
+                value={sortBy}
+                onChange={(event) => {
+                  setSortBy(event.currentTarget.value);
+                  dispatch(setCategory({ category: event.currentTarget.value }));
+                }}
+                label="Sort By: "
+                radius="md"
+                size="xs"
+                style={{ width: '5em' }}
+              />
+            </div>
           </Group>
         </Center>
 
@@ -453,29 +457,31 @@ function SearchItem() {
             </>
           );
         })}
-        <Paper className={classes.cardContainer} style={{ marginBottom: "2em" }}>
-          <Group position='center' spacing='xl'>
-            {hidden && <Pagination total={numPages} size="xs" radius="xs" withEdges page={activePage} onChange={
-              (value) => {
-                setPage(value);
-                dispatch(pageStartLoad({ start: value }));
-              }
-            } style={{ marginTop: '1.75em' }} />}
-            <NativeSelect
-              data={numberItemsLs}
-              value={numberItemsDirty}
-              onChange={(event) => {
-                setNumberItemsDirty(event.currentTarget.value);
-                dispatch(pageItemsLoad({
-                  items: event.currentTarget.value.slice(0, 3).trim()
-                }))
-              }}
-              label="Show"
-              radius="md"
-              size="xs"
-            />
-          </Group>
-        </Paper>
+        <div className='pagination'>
+          <Paper className={classes.cardContainer} style={{ marginBottom: "2em" }}>
+            <Group position='center' spacing='xl'>
+              {hidden && <Pagination total={numPages} size="xs" radius="xs" withEdges page={activePage} onChange={
+                (value) => {
+                  setPage(value);
+                  dispatch(pageStartLoad({ start: value }));
+                }
+              } style={{ marginTop: '1.75em' }} />}
+              <NativeSelect
+                data={numberItemsLs}
+                value={numberItemsDirty}
+                onChange={(event) => {
+                  setNumberItemsDirty(event.currentTarget.value);
+                  dispatch(pageItemsLoad({
+                    items: event.currentTarget.value.slice(0, 3).trim()
+                  }))
+                }}
+                label="Show"
+                radius="md"
+                size="xs"
+              />
+            </Group>
+          </Paper>
+        </div>
       </div>
     </div>
   );

@@ -254,7 +254,7 @@ function SearchBar(): JSX.Element {
                 <Paper shadow='sm' style={{ width: '100%' }}>
                     <Grid columns={24} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={6} sm={4}>
-                            <div className='destination'>
+                            <div className='Destination Input'>
                                 <Paper>
                                     <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
                                         <Autocomplete
@@ -339,33 +339,35 @@ function SearchBar(): JSX.Element {
                         <Grid.Col span={1}>
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
-                                <Button fullWidth onClick={() => {
-                                    // console.log("HELP cache " + cacheId)
-                                    // console.log('HELP query ' + queryId)
-                                    let validation = validateQuery(dispatchQuery);
-                                    if (validation.length === 0) {
-                                        dispatch(query({ dispatchQuery }));// update the state with new search  
-                                        // remove any invalid query flags
-                                        setValidDestination(true);
-                                        setValidDates(true);
-                                        if (cacheId !== queryId) { // only reload the query state if it changes.
-                                            dispatch(setLoading({ loading: true }));
-                                            dispatch(pageStartLoad({ start: 1 }));
-                                            sendGetRequest(hotelApi, hotelPriceApi, queryId);
+                                <div className='searchBtn'>
+                                    <Button fullWidth onClick={() => {
+                                        // console.log("HELP cache " + cacheId)
+                                        // console.log('HELP query ' + queryId)
+                                        let validation = validateQuery(dispatchQuery);
+                                        if (validation.length === 0) {
+                                            dispatch(query({ dispatchQuery }));// update the state with new search  
+                                            // remove any invalid query flags
+                                            setValidDestination(true);
+                                            setValidDates(true);
+                                            if (cacheId !== queryId) { // only reload the query state if it changes.
+                                                dispatch(setLoading({ loading: true }));
+                                                dispatch(pageStartLoad({ start: 1 }));
+                                                sendGetRequest(hotelApi, hotelPriceApi, queryId);
+                                            }
+                                            if (queryId === undefined || queryId.length === 0) {
+                                                dispatch(setLoading({ loading: false }));
+                                            }
+                                            //console.log("HELP querylocation "+dispatchQuery.location);
                                         }
-                                        if (queryId === undefined || queryId.length === 0) {
-                                            dispatch(setLoading({ loading: false }));
+                                        else {
+                                            let errorsObj = setErrorMessages(validation);
+                                            setValidDestination(errorsObj['locationValid']);
+                                            setValidDates(errorsObj["dateValid"]);
                                         }
-                                        //console.log("HELP querylocation "+dispatchQuery.location);
-                                    }
-                                    else {
-                                        let errorsObj = setErrorMessages(validation);
-                                        setValidDestination(errorsObj['locationValid']);
-                                        setValidDates(errorsObj["dateValid"]);
-                                    }
-                                }}>
-                                    <PlaneDeparture />
-                                </Button>
+                                    }}>
+                                        <PlaneDeparture />
+                                    </Button>
+                                </div>
                             </Center>
                             <Space h='xl'></Space>
                         </Grid.Col>

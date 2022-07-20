@@ -17,7 +17,7 @@ function App() {
             saveState(store.getState().SearchBarReducer,SEARCHBARKEY);
             saveState(store.getState().RoomDetailReducer,ROOMKEY)
             saveSession(store.getState().UserDetailsReducer,USERDETAILSKEY);
-        }, 5000)
+        }, 1000)
     );
     return (
         <>
