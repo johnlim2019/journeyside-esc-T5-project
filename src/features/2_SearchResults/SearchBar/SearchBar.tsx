@@ -1,7 +1,7 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem, Loader } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
-import { pageStartLoad, query, setDestinations, compileHotelData, setLoading, setHotelData } from '../../../services/SearchBarSlice';
+import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
@@ -185,12 +185,25 @@ function SearchBar(): JSX.Element {
 
 
     // api caller
+    // https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=EzoR&checkin=2022-08-18&checkout=2022-08-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
+
     // set the api url for axios import function 
     const hotelApi = "./" + queryId + ".json";
+
+    // const hotelApi = "?destination_id=" + queryId
     const hotelPriceApi = "./prices/" + queryId + ".json";
+    // const hotelPriceApi = "/prices?destination_id=" + queryId + "&checkin=2022-08-18&checkout=2022-08-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1"
+
     function sendGetRequest(hotelApi: string, hotelPriceApi: string, queryId: string) {
-        const hotelApiCall = axios.get(hotelApi);
-        const hotelPriceApiCall = axios.get(hotelPriceApi);
+        // axios.defaults.withCredentials = true;
+        const hotelApiCall = axios({
+            url: hotelApi,
+            method: 'GET',
+        });
+        const hotelPriceApiCall = axios({
+            url: hotelPriceApi,
+            method: 'GET',
+        });
         axios.all([hotelApiCall, hotelPriceApiCall]).then(axios.spread((...responses) => {
             const hotelsData = responses[0].data;
             const hotelPrice = responses[1].data.hotels;
@@ -201,9 +214,16 @@ function SearchBar(): JSX.Element {
             dispatch(setLoading({ loading: false }));
         })
         ).catch(errors => {
-            console.error(errors);
+            console.log(hotelApi);
+            console.log(hotelPriceApi);
+            console.error(errors.response.status);
             dispatch(setLoading({ loading: false }));
-            dispatch(compileHotelData({ hotels: [], prices: [], id: "No" }));
+            if (errors.response.status === 404) {
+                console.error(errors.response.status);
+                dispatch(compileHotelData({ hotels: [], prices: [], id: "No" }));
+            } else {
+                dispatch(compileHotelData({ hotels: [], prices: [], id: queryId }));
+            }
         });
     }
 
@@ -254,130 +274,129 @@ function SearchBar(): JSX.Element {
                 <Paper shadow='sm' style={{ width: '100%' }}>
                     <Grid columns={24} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={6} sm={4}>
-                            <div className = "destinationInput">
+                            <div className="DestinationInput">
                                 <Paper>
                                     <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
-                                        <div className = "Autocomplete">
-                                        <Autocomplete
-                                            className={classes.searchbarcomponets}
-                                            label="Destination"
-                                            placeholder="Begin Your Adventure"
-                                            value={location}
-                                            onChange={setLocation}
-                                            data={autoCompleteList}
-                                            error={(!validDestination) ? "Invalid Destination" : false}
-                                            filter={(value: string, item: AutocompleteItem) => {
-                                                if (!value.includes(" ")) {
-                                                    return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
-                                                } else {
-                                                    return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
-                                                }
-                                            }}
-                                            limit={8}
-                                            rightSection={isLoading && <Loader size={'sm'}></Loader>}
-                                        />
+                                        <div className="Autocomplete">
+                                            <Autocomplete
+                                                className={classes.searchbarcomponets}
+                                                label="Destination"
+                                                placeholder="Begin Your Adventure"
+                                                value={location}
+                                                onChange={setLocation}
+                                                data={autoCompleteList}
+                                                error={(!validDestination) ? "Invalid Destination" : false}
+                                                filter={(value: string, item: AutocompleteItem) => {
+                                                    if (!value.includes(" ")) {
+                                                        return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
+                                                    } else {
+                                                        return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
+                                                    }
+                                                }}
+                                                limit={8}
+                                                rightSection={isLoading && <Loader size={'sm'}></Loader>}
+                                            />
                                         </div>
                                     </Tooltip>
                                 </Paper>
-                                </div>
                                 {validDestination && <Space h='xl'></Space>}
                             </div>
                         </Grid.Col>
                         <Grid.Col md={6} sm={4}>
                             <div className='Date'>
-                            <Paper>
-                                <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
-                                    <DateRangePicker
-                                        className={classes.searchbarcomponets}
-                                        label="Dates"
-                                        placeholder="Date range"
-                                        firstDayOfWeek="sunday"
-                                        minDate={minDate}
-                                        value={dates}
-                                        onChange={setDates}
-                                        error={!validDate ? "Invalid Date" : false}
-                                    />
-                                </Tooltip>
-                            </Paper>
+                                <Paper>
+                                    <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
+                                        <div className='dateInput'>
+                                            <DateRangePicker
+                                                className={classes.searchbarcomponets}
+                                                label="Dates"
+                                                placeholder="Date range"
+                                                firstDayOfWeek="sunday"
+                                                minDate={minDate}
+                                                value={dates}
+                                                onChange={setDates}
+                                                error={!validDate ? "Invalid Date" : false}
+                                            />
+                                        </div>
+                                    </Tooltip>
+                                </Paper>
+                                {validDate && <Space h='xl'></Space>}
                             </div>
-                            {validDate && <Space h='xl'></Space>}
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <div className='Adults'>
-                            <Paper>
-                                <NativeSelect
-                                    className={classes.searchbarcomponets}
-                                    data={['1', '2', '3', '4', '5']}
-                                    placeholder="2"
-                                    label="Adults"
-                                    value={adults}
-                                    onChange={(event) => setAdults(event.currentTarget.value)}
-                                />
-                                <Space h='xl'></Space>
-                            </Paper>
+                                <Paper>
+                                    <NativeSelect
+                                        className={classes.searchbarcomponets}
+                                        data={['1', '2', '3', '4', '5']}
+                                        placeholder="2"
+                                        label="Adults"
+                                        value={adults}
+                                        onChange={(event) => setAdults(event.currentTarget.value)}
+                                    />
+                                    <Space h='xl'></Space>
+                                </Paper>
                             </div>
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <div className='Kids'>
-                            <Paper>
-                                <NativeSelect
-                                    className={classes.searchbarcomponets}
-                                    data={['0', '1', '2', '3', '4']}
-                                    value={children}
-                                    label="Kids"
-                                    onChange={(event) => setChildren(event.currentTarget.value)}
-                                />
-                                <Space h='xl'></Space>
-                            </Paper>
+                                <Paper>
+                                    <NativeSelect
+                                        className={classes.searchbarcomponets}
+                                        data={['0', '1', '2', '3', '4']}
+                                        value={children}
+                                        label="Kids"
+                                        onChange={(event) => setChildren(event.currentTarget.value)}
+                                    />
+                                    <Space h='xl'></Space>
+                                </Paper>
                             </div>
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <div className='Rooms'>
-                            <Paper>
-                                <NativeSelect
-                                    className={classes.searchbarcomponets}
-                                    data={['1', '2', '3']}
-                                    label='Rooms'
-                                    value={rooms}
-                                    onChange={(event) => setRoom(event.currentTarget.value)}
-                                />
-                                <Space h='xl'></Space>
-                            </Paper>
+                                <Paper>
+                                    <NativeSelect
+                                        className={classes.searchbarcomponets}
+                                        data={['1', '2', '3']}
+                                        label='Rooms'
+                                        value={rooms}
+                                        onChange={(event) => setRoom(event.currentTarget.value)}
+                                    />
+                                    <Space h='xl'></Space>
+                                </Paper>
                             </div>
                         </Grid.Col>
                         <Grid.Col span={1}>
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
                                 <div className='SearchButton'>
-                                <Button onClick={() => {
-                                    // console.log("HELP cache " + cacheId)
-                                    // console.log('HELP query ' + queryId)
-                                    let validation = validateQuery(dispatchQuery);
-                                    if (validation.length === 0) {
-                                        dispatch(query({ dispatchQuery }));// update the state with new search  
-                                        // remove any invalid query flags
-                                        setValidDestination(true);
-                                        setValidDates(true);
-                                        if (cacheId !== queryId) { // only reload the query state if it changes.
-                                            dispatch(setLoading({ loading: true }));
-                                            dispatch(pageStartLoad({ start: 1 }));
-                                            sendGetRequest(hotelApi, hotelPriceApi, queryId);
+                                    <Button fullWidth onClick={() => {
+                                        // console.log("HELP cache " + cacheId)
+                                        // console.log('HELP query ' + queryId)
+                                        let validation = validateQuery(dispatchQuery);
+                                        if (validation.length === 0) {
+                                            dispatch(query({ dispatchQuery }));// update the state with new search  
+                                            // remove any invalid query flags
+                                            setValidDestination(true);
+                                            setValidDates(true);
+                                            if (cacheId !== queryId) { // only reload the query state if it changes.
+                                                dispatch(setLoading({ loading: true }));
+                                                dispatch(pageStartLoad({ start: 1 }));
+                                                sendGetRequest(hotelApi, hotelPriceApi, queryId);
+                                            }
+                                            if (queryId === undefined || queryId.length === 0) {
+                                                dispatch(setLoading({ loading: false }));
+                                            }
+                                            //console.log("HELP querylocation "+dispatchQuery.location);
                                         }
                                         else {
                                             let errorsObj = setErrorMessages(validation);
                                             setValidDestination(errorsObj['locationValid']);
                                             setValidDates(errorsObj["dateValid"]);
                                         }
-                                        //console.log("HELP querylocation "+dispatchQuery.location);
-                                    }
-                                    else {
-                                        let errorsObj = setErrorMessages(validation);
-                                        setValidDestination(errorsObj['locationValid']);
-                                        setValidDates(errorsObj["dateValid"]);
-                                    }
-                                }}>
-                                    <PlaneDeparture />
-                                </Button>
+                                    }}>
+                                        <PlaneDeparture />
+                                    </Button>
                                 </div>
                             </Center>
                             <Space h='xl'></Space>
@@ -391,6 +410,4 @@ function SearchBar(): JSX.Element {
 
     );
 } export default SearchBar;
-
-
 

@@ -292,9 +292,6 @@ function SearchItem() {
   if (hotelDataLong.length < 1) {
     header = NOTFOUND + dest;
   }
-  if (destId === "No"){
-    header = NOSERVICE;
-  }
   // set up pagination settings
   const dispatch = useAppDispatch(); // to add things to store!!!
 

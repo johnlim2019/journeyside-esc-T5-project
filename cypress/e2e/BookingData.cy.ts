@@ -11,7 +11,7 @@ describe('BookingData', () => {
     // cy.get('.FullNavBar').parent().within(() => {
     //   cy.get('Button').contains('Log Out').click()
     // })
-
+    cy.reload(true)
     cy.wait(1000)
     cy.get('input').first().focus().type(LOCATION)
     cy.get('.mantine-DateRangePicker-wrapper.mantine-12sbrde').parent().within(() => {
@@ -21,14 +21,14 @@ describe('BookingData', () => {
     cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-calendarHeaderLevel.mantine-1xk0qjw').click()
     cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-yearPickerControl.mantine-v8o1j6').contains('2024').click()
     cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-monthPickerControl.mantine-13qbqe7').contains('Jul').click()
-    cy.get('button').contains('7').click()    
-    cy.get('button').contains('8').click()    
+    cy.get('button').contains('7').click()
+    cy.get('button').contains('8').click()
     // cy.pause()
     cy.get('.mantine-Grid-root.mantine-pafeaw').parent().within(() => {
       cy.get('Button').last().click()
     })
 
-    cy.wait(4500)
+    cy.wait(1000)
     cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
     cy.wait(1000)
     cy.get('a').contains('Select').first().click()
@@ -38,7 +38,7 @@ describe('BookingData', () => {
     cy.get('.firstName').parent().within(() => {
       cy.get('input').type('{selectAll}{backspace}{enter}')
       cy.get('div').contains('Please Enter First Name').should('be.exist')
-      })
+    })
     cy.get('.lastName').parent().within(() => {
       cy.get('input').type('{selectAll}{backspace}{enter}')
       cy.get('div').contains('Please Enter Last Name').should('be.exist')
@@ -70,6 +70,15 @@ describe('BookingData', () => {
     })
     cy.get('.address').parent().within(() => {
       cy.get('input').focus()
+    })
+    // press submit button 
+    cy.get('.submitBtn').parent().within(() => {
+      cy.get('button').click()
+    })
+    // cy.pause()
+    cy.on('window:alert', (t) => {
+      //assertions
+      expect(t).to.contains('Pls Login');
     })
   })
   it('check submission successful', () => {
@@ -117,16 +126,16 @@ describe('BookingData', () => {
       cy.get('button').click();
     })
     cy.get('.confirmModal').parent().within(() => {
-      cy.get('a').first().click();
+      cy.get('button').contains('Confirm').first().click();
     })
-    cy.url().should('eq', BASE + SEARCHRESULT)
+    cy.url().should('eq', BASE)
     // log out at end of test
     cy.get('.FullNavBar').parent().within(() => {
       cy.get('Button').contains('Log Out').click()
     })
     cy.get('.FullNavBar').parent().within(() => {
       cy.get('Button').contains('User Profile').should('not.exist')
-    })  
+    })
   })
   it('check submission cheangemind', () => {
     cy.get('.firstName').parent().within(() => {
@@ -159,14 +168,6 @@ describe('BookingData', () => {
     cy.get('.address').parent().within(() => {
       cy.get('input').focus()
     })
-    // login 
-    cy.get('.FullNavBar').parent().within(() => {
-      cy.get('Button').contains('Log in').click()
-    }).then(() => {
-      cy.get('.LogInModal').parent().within(() => {
-        cy.get('Button').contains('Log In').click()
-      })
-    })
     // press submit button 
     cy.get('.submitBtn').parent().within(() => {
       cy.get('button').click()
@@ -175,51 +176,5 @@ describe('BookingData', () => {
       cy.get('button').first().click()
     })
     cy.url().should('eq', BASE + BOOKING)
-    // log out 
-    cy.get('.FullNavBar').parent().within(() => {
-      cy.get('Button').contains('Log Out').click()
-    })
-    cy.url().should('eq', BASE)
-  })
-  it('check alert if not logged in', () => {
-    cy.get('.firstName').parent().within(() => {
-      cy.get('input').focus()
-    })
-    cy.get('.lastName').parent().within(() => {
-      cy.get('input').focus()
-    })
-    cy.get('.phone').parent().within(() => {
-      cy.get('input').focus()
-    })
-    cy.get('.email').parent().within(() => {
-      cy.get('input').focus()
-    })
-    cy.get('.specialReq').parent().within(() => {
-      cy.get('input').type('google black pudding')
-    })
-    cy.get('.cardNum').parent().within(() => {
-      cy.get('input').focus()
-    })
-    cy.get('.expiryMonth').parent().within(() => {
-      cy.get('input').first().focus()
-    })
-    cy.get('.expiryYear').parent().within(() => {
-      cy.get('input').first().focus()
-    })
-    cy.get('.cvv').parent().within(() => {
-      cy.get('input').focus()
-    })
-    cy.get('.address').parent().within(() => {
-      cy.get('input').focus()
-    })
-    // press submit button 
-    cy.get('.submitBtn').parent().within(() => {
-      cy.get('button').click()
-    })
-    // cy.pause()
-    cy.on('window:alert',(t)=>{
-      //assertions
-      expect(t).to.contains('Pls Login');
-    })
   })
 })

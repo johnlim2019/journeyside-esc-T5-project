@@ -37,8 +37,8 @@ describe('BookingData', () => {
       cy.get('Button').last().click()
     })
   })
-  it.only('check if the search query are passed on correctly',()=>{
-    cy.wait(3000)
+  it('check if the search query are passed on correctly',()=>{
+    cy.wait(1000)
     cy.get('div').contains('Destination').parent().within(() => {
       cy.get('input').should('have.value',"Singapore, Singapore")
     })    
@@ -63,14 +63,14 @@ describe('BookingData', () => {
     cy.get('.loaderSpinner').should('be.exist')
     cy.wait(1000)
     cy.get('.notification').contains("Singapore, Singapore")
-    cy.get('.searchBtn').parent().within(() => {
+    cy.get('.SearchButton').parent().within(() => {
       cy.get('Button').click();
     })
     cy.get('.loaderSpinner').should('not.exist');
 
   })
   it('change the search value', () => {
-    cy.get('.Destination Input').parent().within(() => {
+    cy.get('.DestinationInput').parent().within(() => {
       cy.get('input').type('{selectAll}{backspace}Kuala Lumpur, Malaysia');
     })
     cy.get('.loaderSpinner').should('be.exist')
@@ -103,7 +103,7 @@ describe('BookingData', () => {
     // cy.pause()
   })
   it ('no search results show notification',() => {
-    cy.get('.Destination Input').parent().within(() => {
+    cy.get('.DestinationInput').parent().within(() => {
       cy.get('input').type('{selectAll}{backspace}Seoul South Korea{enter}');
     })
     cy.get('.loaderSpinner').should('be.exist')

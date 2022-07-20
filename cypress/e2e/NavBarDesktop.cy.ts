@@ -40,7 +40,7 @@ describe('NavBarCheck', () => {
     })
     cy.get('.FullNavBar').parent().within(() => {
       cy.get('Button').get('Button').contains('User Profile').click()
-    }).then(()=>{
+    }).then(() => {
       cy.url().should('eq', BASE + USER)
     })
     // complete log in test, log out
@@ -48,9 +48,13 @@ describe('NavBarCheck', () => {
       cy.get('Button').contains('Log Out').click()
     })
   })
-  it('check UserProfile does not exist when not logged in', () => {    
+  it('check UserProfile does not exist when not logged in', () => {
+    cy.get('.FullNavBar').parent().within(() => {
+      cy.get('Button').contains('Log Out').click()
+    })
     cy.get('.FullNavBar').parent().within(() => {
       cy.get('Button').contains('User Profile').should('not.exist')
-    })  })
+    })
+  })
 
 })
