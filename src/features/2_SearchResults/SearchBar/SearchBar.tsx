@@ -254,8 +254,10 @@ function SearchBar(): JSX.Element {
                 <Paper shadow='sm' style={{ width: '100%' }}>
                     <Grid columns={24} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={6} sm={4}>
+                            <div className = "destinationInput">
                                 <Paper>
                                     <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
+                                        <div className = "Autocomplete">
                                         <Autocomplete
                                             className={classes.searchbarcomponets}
                                             label="Destination"
@@ -274,11 +276,14 @@ function SearchBar(): JSX.Element {
                                             limit={8}
                                             rightSection={isLoading && <Loader size={'sm'}></Loader>}
                                         />
+                                        </div>
                                     </Tooltip>
                                 </Paper>
+                                </div>
                                 {validDestination && <Space h='xl'></Space>}
                         </Grid.Col>
                         <Grid.Col md={6} sm={4}>
+                            <div className='Date'>
                             <Paper>
                                 <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
                                     <DateRangePicker
@@ -293,9 +298,11 @@ function SearchBar(): JSX.Element {
                                     />
                                 </Tooltip>
                             </Paper>
+                            </div>
                             {validDate && <Space h='xl'></Space>}
                         </Grid.Col>
                         <Grid.Col span={2}>
+                            <div className='Adults'>
                             <Paper>
                                 <NativeSelect
                                     className={classes.searchbarcomponets}
@@ -307,8 +314,10 @@ function SearchBar(): JSX.Element {
                                 />
                                 <Space h='xl'></Space>
                             </Paper>
+                            </div>
                         </Grid.Col>
                         <Grid.Col span={2}>
+                            <div className='Kids'>
                             <Paper>
                                 <NativeSelect
                                     className={classes.searchbarcomponets}
@@ -319,8 +328,10 @@ function SearchBar(): JSX.Element {
                                 />
                                 <Space h='xl'></Space>
                             </Paper>
+                            </div>
                         </Grid.Col>
                         <Grid.Col span={2}>
+                            <div className='Rooms'>
                             <Paper>
                                 <NativeSelect
                                     className={classes.searchbarcomponets}
@@ -331,10 +342,12 @@ function SearchBar(): JSX.Element {
                                 />
                                 <Space h='xl'></Space>
                             </Paper>
+                            </div>
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
+                                <div className='SearchButton'>
                                 <Button onClick={() => {
                                     // console.log("HELP cache " + cacheId)
                                     // console.log('HELP query ' + queryId)
@@ -362,6 +375,7 @@ function SearchBar(): JSX.Element {
                                 }}>
                                     <PlaneDeparture />
                                 </Button>
+                                </div>
                             </Center>
                             <Space h='xl'></Space>
                         </Grid.Col>
