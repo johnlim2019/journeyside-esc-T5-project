@@ -41,7 +41,7 @@ const initialState = {
     sortByCat: "Reviews",
     isLoading: false,
     hotelData: {
-        locationId: "",
+        locationId: "NO",
         hotels: [],
     },
     destinationsObjLs: [],
@@ -150,6 +150,9 @@ export const searchBarSlice = createSlice({
             state.hotelData.hotels = list;
             console.log(state.hotelData.hotels);
         },
+        setHotelData :(state,action)=>{
+            state.hotelData.hotels = action.payload.hotels;
+        },
         setLoading: (state, action) => {
             console.log("loading " + action.payload.loading);
             state.isLoading = action.payload.loading;
@@ -158,7 +161,7 @@ export const searchBarSlice = createSlice({
 });
 
 // export our actions, these need to be imported by the component so dispatch function in component can send data to STORE
-export const { query, pageItemsLoad, pageStartLoad, selectHotelId, setCategory, setDestinations, compileHotelData, setLoading } = searchBarSlice.actions;
+export const { setHotelData, query, pageItemsLoad, pageStartLoad, selectHotelId, setCategory, setDestinations, compileHotelData, setLoading } = searchBarSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const location = (state: RootState) => state.SearchBarReducer.location;

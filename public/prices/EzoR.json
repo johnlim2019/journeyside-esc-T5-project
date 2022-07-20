@@ -1,0 +1,4108 @@
+{
+    "searchCompleted": null,
+    "completed": true,
+    "status": null,
+    "currency": "SGD",
+    "hotels": [
+        {
+            "id": "LHAc",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 409.32,
+            "coverted_max_cash_payment": 575.14,
+            "points": 14375,
+            "bonuses": 0,
+            "lowest_price": 409.32,
+            "price": 575.14,
+            "converted_price": 575.14,
+            "lowest_converted_price": 575.14,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 503.43835933719765
+                }
+            ]
+        },
+        {
+            "id": "XPQv",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 32.06,
+            "coverted_max_cash_payment": 45.05,
+            "points": 1125,
+            "bonuses": 0,
+            "lowest_price": 32.06,
+            "price": 45.05,
+            "converted_price": 45.05,
+            "lowest_converted_price": 45.05,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 39.21673674705179
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 266,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614818.-9981966.45.SGD.918292624&source=201-8&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 484,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471312.-9981964.115.SGD.2088453128&source=201-10&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "dCK5",
+            "searchRank": 0.67,
+            "price_type": "multi",
+            "max_cash_payment": 83.43,
+            "coverted_max_cash_payment": 117.23,
+            "points": 2925,
+            "bonuses": 0,
+            "lowest_price": 83.43,
+            "price": 117.23,
+            "converted_price": 117.23,
+            "lowest_converted_price": 117.23,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 117.22867598733541
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 133,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614732.-9981966.4.SGD.1480380158&source=201-2&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 171,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633443.-9981985.14.SGD.1554099434&source=201-12&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 259,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.75398268.-9981983.85.SGD.865634001&source=201-19&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "gusl",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 103.09,
+            "coverted_max_cash_payment": 144.85,
+            "points": 3600,
+            "bonuses": 0,
+            "lowest_price": 103.09,
+            "price": 144.85,
+            "converted_price": 144.85,
+            "lowest_converted_price": 144.85,
+            "market_rates": [
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 126,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.14365212.-9981966.0.SGD.923906479&source=201-0&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "expedia",
+                    "rate": 126.71319669828488
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 165,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.56992550.-9981973.12.SGD.1142320531&source=201-8&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "OdaU",
+            "searchRank": 0.89,
+            "price_type": "multi",
+            "max_cash_payment": 73.32,
+            "coverted_max_cash_payment": 103.02,
+            "points": 2575,
+            "bonuses": 0,
+            "lowest_price": 73.32,
+            "price": 103.02,
+            "converted_price": 103.02,
+            "lowest_converted_price": 103.02,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 94.73279797514266
+                }
+            ]
+        },
+        {
+            "id": "XiKO",
+            "searchRank": 0.96,
+            "price_type": "multi",
+            "max_cash_payment": 42.7,
+            "coverted_max_cash_payment": 60.0,
+            "points": 1500,
+            "bonuses": 0,
+            "lowest_price": 42.7,
+            "price": 60.0,
+            "converted_price": 60.0,
+            "lowest_converted_price": 60.0,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 51.14615613015712
+                }
+            ]
+        },
+        {
+            "id": "7enV",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 99.7,
+            "coverted_max_cash_payment": 140.09,
+            "points": 3500,
+            "bonuses": 0,
+            "lowest_price": 99.7,
+            "price": 140.09,
+            "converted_price": 140.09,
+            "lowest_converted_price": 140.09,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 123.46738294387104
+                }
+            ]
+        },
+        {
+            "id": "XHqZ",
+            "searchRank": 0.34,
+            "price_type": "multi",
+            "max_cash_payment": 201.41,
+            "coverted_max_cash_payment": 283.0,
+            "points": 7075,
+            "bonuses": 0,
+            "lowest_price": 201.41,
+            "price": 283.0,
+            "converted_price": 283.0,
+            "lowest_converted_price": 283.0,
+            "market_rates": [
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 283,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614831.-9981966.50.SGD.1624877383&source=201-10&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "M4AM",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 39.09,
+            "coverted_max_cash_payment": 54.93,
+            "points": 1350,
+            "bonuses": 0,
+            "lowest_price": 39.09,
+            "price": 54.93,
+            "converted_price": 54.93,
+            "lowest_converted_price": 54.93,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 48.32187662956328
+                }
+            ]
+        },
+        {
+            "id": "CPTs",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 1071.07,
+            "coverted_max_cash_payment": 1504.98,
+            "points": 37625,
+            "bonuses": 0,
+            "lowest_price": 1071.07,
+            "price": 1504.98,
+            "converted_price": 1504.98,
+            "lowest_converted_price": 1504.98,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 1306.1238854611963
+                }
+            ]
+        },
+        {
+            "id": "0tYS",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 33.6,
+            "coverted_max_cash_payment": 47.21,
+            "points": 1175,
+            "bonuses": 0,
+            "lowest_price": 33.6,
+            "price": 47.21,
+            "converted_price": 47.21,
+            "lowest_converted_price": 47.21,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 41.549226284855656
+                }
+            ]
+        },
+        {
+            "id": "HiJM",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 71.09,
+            "coverted_max_cash_payment": 99.89,
+            "points": 2475,
+            "bonuses": 0,
+            "lowest_price": 71.09,
+            "price": 99.89,
+            "converted_price": 99.89,
+            "lowest_converted_price": 99.89,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 88.36763074246102
+                }
+            ]
+        },
+        {
+            "id": "nFON",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 119.11,
+            "coverted_max_cash_payment": 167.36,
+            "points": 4175,
+            "bonuses": 0,
+            "lowest_price": 119.11,
+            "price": 167.36,
+            "converted_price": 167.36,
+            "lowest_converted_price": 167.36,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 147.2840682846997
+                }
+            ]
+        },
+        {
+            "id": "Rfyb",
+            "searchRank": 0.91,
+            "price_type": "multi",
+            "max_cash_payment": 174.54,
+            "coverted_max_cash_payment": 245.25,
+            "points": 6125,
+            "bonuses": 0,
+            "lowest_price": 174.54,
+            "price": 245.25,
+            "converted_price": 245.25,
+            "lowest_converted_price": 245.25,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 220.92610242704956
+                }
+            ]
+        },
+        {
+            "id": "Ee8z",
+            "searchRank": 0.86,
+            "price_type": "multi",
+            "max_cash_payment": 97.74,
+            "coverted_max_cash_payment": 137.34,
+            "points": 3425,
+            "bonuses": 0,
+            "lowest_price": 97.74,
+            "price": 137.34,
+            "converted_price": 137.34,
+            "lowest_converted_price": 137.34,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 130.21193100499067
+                }
+            ]
+        },
+        {
+            "id": "yqjD",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 65.62,
+            "coverted_max_cash_payment": 92.2,
+            "points": 2300,
+            "bonuses": 0,
+            "lowest_price": 65.62,
+            "price": 92.2,
+            "converted_price": 92.2,
+            "lowest_converted_price": 92.2,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 80.28822421091148
+                }
+            ]
+        },
+        {
+            "id": "O7eG",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 44.9,
+            "coverted_max_cash_payment": 63.09,
+            "points": 1575,
+            "bonuses": 0,
+            "lowest_price": 44.9,
+            "price": 63.09,
+            "converted_price": 63.09,
+            "lowest_converted_price": 63.09,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 54.9259132727429
+                }
+            ]
+        },
+        {
+            "id": "4ubu",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 83.68,
+            "coverted_max_cash_payment": 117.58,
+            "points": 2925,
+            "bonuses": 0,
+            "lowest_price": 83.68,
+            "price": 117.58,
+            "converted_price": 117.58,
+            "lowest_converted_price": 117.58,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 105.17279632808406
+                }
+            ]
+        },
+        {
+            "id": "o8Xf",
+            "searchRank": 0.49,
+            "price_type": "multi",
+            "max_cash_payment": 92.52,
+            "coverted_max_cash_payment": 130.0,
+            "points": 3250,
+            "bonuses": 0,
+            "lowest_price": 92.52,
+            "price": 130.0,
+            "converted_price": 130.0,
+            "lowest_converted_price": 130.0,
+            "market_rates": [
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 130,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614727.-9981966.2.SGD.897917742&source=201-1&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 339,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471219.-9981964.68.SGD.158943567&source=201-16&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "DjqQ",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 56.62,
+            "coverted_max_cash_payment": 79.56,
+            "points": 1975,
+            "bonuses": 0,
+            "lowest_price": 56.62,
+            "price": 79.56,
+            "converted_price": 79.56,
+            "lowest_converted_price": 79.56,
+            "market_rates": []
+        },
+        {
+            "id": "00Zj",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 33.93,
+            "coverted_max_cash_payment": 47.68,
+            "points": 1175,
+            "bonuses": 0,
+            "lowest_price": 33.93,
+            "price": 47.68,
+            "converted_price": 47.68,
+            "lowest_converted_price": 47.68,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 42.645215344787594
+                }
+            ]
+        },
+        {
+            "id": "9hbe",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 95.35,
+            "coverted_max_cash_payment": 133.98,
+            "points": 3350,
+            "bonuses": 0,
+            "lowest_price": 95.35,
+            "price": 133.98,
+            "converted_price": 133.98,
+            "lowest_converted_price": 133.98,
+            "market_rates": []
+        },
+        {
+            "id": "bDIj",
+            "searchRank": 3,
+            "price_type": "multi",
+            "max_cash_payment": 0,
+            "coverted_max_cash_payment": 272.8,
+            "points": 6800,
+            "bonuses": 0,
+            "lowest_price": 0,
+            "price": 272.8,
+            "converted_price": 272.8,
+            "lowest_converted_price": 0,
+            "market_rates": [
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 153,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.56992563.-9981973.17.SGD.1901260786&source=201-7&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 200,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633487.-9981985.46.SGD.1006605967&source=201-12&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 217,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614846.-9981966.58.SGD.224470087&source=201-14&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "expedia",
+                    "rate": 242.01686625984237
+                }
+            ]
+        },
+        {
+            "id": "4Q5F",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 37.35,
+            "coverted_max_cash_payment": 52.48,
+            "points": 1300,
+            "bonuses": 0,
+            "lowest_price": 37.35,
+            "price": 52.48,
+            "converted_price": 52.48,
+            "lowest_converted_price": 52.48,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 46.1861030768754
+                }
+            ]
+        },
+        {
+            "id": "25KZ",
+            "searchRank": 0.96,
+            "price_type": "multi",
+            "max_cash_payment": 145.55,
+            "coverted_max_cash_payment": 204.51,
+            "points": 5100,
+            "bonuses": 0,
+            "lowest_price": 145.55,
+            "price": 204.51,
+            "converted_price": 204.51,
+            "lowest_converted_price": 204.51,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 174.86645962632014
+                }
+            ]
+        },
+        {
+            "id": "f1we",
+            "searchRank": 0.89,
+            "price_type": "multi",
+            "max_cash_payment": 93.28,
+            "coverted_max_cash_payment": 131.07,
+            "points": 3275,
+            "bonuses": 0,
+            "lowest_price": 93.28,
+            "price": 131.07,
+            "converted_price": 131.07,
+            "lowest_converted_price": 131.07,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 120.50259202533722
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 186,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.56992597.-9981973.38.SGD.753035222&source=201-7&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 189,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633479.-9981985.40.SGD.426462510&source=201-9&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 641,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.17556125.-9981966.165.SGD.728475607&source=201-17&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "nW03",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 32.17,
+            "coverted_max_cash_payment": 45.2,
+            "points": 1125,
+            "bonuses": 0,
+            "lowest_price": 32.17,
+            "price": 45.2,
+            "converted_price": 45.2,
+            "lowest_converted_price": 45.2,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 39.77878241881176
+                }
+            ]
+        },
+        {
+            "id": "rRVP",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 40.07,
+            "coverted_max_cash_payment": 56.3,
+            "points": 1400,
+            "bonuses": 0,
+            "lowest_price": 40.07,
+            "price": 56.3,
+            "converted_price": 56.3,
+            "lowest_converted_price": 56.3,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 50.37334333148716
+                }
+            ]
+        },
+        {
+            "id": "OxyX",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 99.6,
+            "coverted_max_cash_payment": 139.95,
+            "points": 3475,
+            "bonuses": 0,
+            "lowest_price": 99.6,
+            "price": 139.95,
+            "converted_price": 139.95,
+            "lowest_converted_price": 139.95,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 123.15825782440308
+                }
+            ]
+        },
+        {
+            "id": "o79H",
+            "searchRank": 3,
+            "price_type": "multi",
+            "max_cash_payment": 0,
+            "coverted_max_cash_payment": 202.27,
+            "points": 5050,
+            "bonuses": 0,
+            "lowest_price": 0,
+            "price": 202.27,
+            "converted_price": 202.27,
+            "lowest_converted_price": 0,
+            "market_rates": [
+                {
+                    "supplier": "hrs.com",
+                    "rate": 139,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633433.-9981985.8.SGD.584007636&source=201-3&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Marriott.com",
+                    "rate": 143,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.58086198.-9981960.5.SGD.1577890847&source=201-5&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 153,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614758.-9981966.17.SGD.1290989962&source=201-8&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "expedia",
+                    "rate": 183.15663328477967
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 395,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471252.-9981964.86.SGD.1117666006&source=201-18&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "tIo1",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 53.9,
+            "coverted_max_cash_payment": 75.74,
+            "points": 1875,
+            "bonuses": 0,
+            "lowest_price": 53.9,
+            "price": 75.74,
+            "converted_price": 75.74,
+            "lowest_converted_price": 75.74,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 67.72650344707618
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 248,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471238.-9981964.78.SGD.1965849649&source=201-11&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 287,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.33731519.-9981972.103.SGD.1827452042&source=201-13&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "D0hr",
+            "searchRank": 0.95,
+            "price_type": "multi",
+            "max_cash_payment": 59.18,
+            "coverted_max_cash_payment": 83.15,
+            "points": 2075,
+            "bonuses": 0,
+            "lowest_price": 59.18,
+            "price": 83.15,
+            "converted_price": 83.15,
+            "lowest_converted_price": 83.15,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 71.64677200760197
+                }
+            ]
+        },
+        {
+            "id": "46Vb",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 127.68,
+            "coverted_max_cash_payment": 179.4,
+            "points": 4475,
+            "bonuses": 0,
+            "lowest_price": 127.68,
+            "price": 179.4,
+            "converted_price": 179.4,
+            "lowest_converted_price": 179.4,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 157.8786291973751
+                }
+            ]
+        },
+        {
+            "id": "1yet",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 31.66,
+            "coverted_max_cash_payment": 44.49,
+            "points": 1100,
+            "bonuses": 0,
+            "lowest_price": 31.66,
+            "price": 44.49,
+            "converted_price": 44.49,
+            "lowest_converted_price": 44.49,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 39.77878241881176
+                }
+            ]
+        },
+        {
+            "id": "X4bX",
+            "searchRank": 0.96,
+            "price_type": "multi",
+            "max_cash_payment": 82.13,
+            "coverted_max_cash_payment": 115.4,
+            "points": 2875,
+            "bonuses": 0,
+            "lowest_price": 82.13,
+            "price": 115.4,
+            "converted_price": 115.4,
+            "lowest_converted_price": 115.4,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 98.20342999826046
+                }
+            ]
+        },
+        {
+            "id": "Kcs8",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 38.0,
+            "coverted_max_cash_payment": 53.39,
+            "points": 1325,
+            "bonuses": 0,
+            "lowest_price": 38.0,
+            "price": 53.39,
+            "converted_price": 53.39,
+            "lowest_converted_price": 53.39,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 47.75983095780331
+                }
+            ]
+        },
+        {
+            "id": "0CO1",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 53.84,
+            "coverted_max_cash_payment": 75.65,
+            "points": 1875,
+            "bonuses": 0,
+            "lowest_price": 53.84,
+            "price": 75.65,
+            "converted_price": 75.65,
+            "lowest_converted_price": 75.65,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 65.98416186462028
+                }
+            ]
+        },
+        {
+            "id": "FHIL",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 60.21,
+            "coverted_max_cash_payment": 84.6,
+            "points": 2100,
+            "bonuses": 0,
+            "lowest_price": 60.21,
+            "price": 84.6,
+            "converted_price": 84.6,
+            "lowest_converted_price": 84.6,
+            "market_rates": []
+        },
+        {
+            "id": "XWyA",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 34.49,
+            "coverted_max_cash_payment": 48.46,
+            "points": 1200,
+            "bonuses": 0,
+            "lowest_price": 34.49,
+            "price": 48.46,
+            "converted_price": 48.46,
+            "lowest_converted_price": 48.46,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 42.884084755285585
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 328,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633509.-9981985.63.SGD.470136455&source=201-7&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "zo5f",
+            "searchRank": 0.78,
+            "price_type": "multi",
+            "max_cash_payment": 40.46,
+            "coverted_max_cash_payment": 56.85,
+            "points": 1400,
+            "bonuses": 0,
+            "lowest_price": 40.46,
+            "price": 56.85,
+            "converted_price": 56.85,
+            "lowest_converted_price": 56.85,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 56.8509196985208
+                }
+            ]
+        },
+        {
+            "id": "v4s7",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 58.23,
+            "coverted_max_cash_payment": 81.82,
+            "points": 2025,
+            "bonuses": 0,
+            "lowest_price": 58.23,
+            "price": 81.82,
+            "converted_price": 81.82,
+            "lowest_converted_price": 81.82,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 71.99805055245194
+                }
+            ]
+        },
+        {
+            "id": "IwNG",
+            "searchRank": 0.95,
+            "price_type": "multi",
+            "max_cash_payment": 79.91,
+            "coverted_max_cash_payment": 112.28,
+            "points": 2800,
+            "bonuses": 0,
+            "lowest_price": 79.91,
+            "price": 112.28,
+            "converted_price": 112.28,
+            "lowest_converted_price": 112.28,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 96.74211125168453
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 130,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633426.-9981985.2.SGD.967692864&source=201-0&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 400,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471254.-9981964.88.SGD.67159042&source=201-15&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "kIaM",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 144.61,
+            "coverted_max_cash_payment": 203.19,
+            "points": 5075,
+            "bonuses": 0,
+            "lowest_price": 144.61,
+            "price": 203.19,
+            "converted_price": 203.19,
+            "lowest_converted_price": 203.19,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 180.7538880380058
+                }
+            ]
+        },
+        {
+            "id": "upoN",
+            "searchRank": 0.95,
+            "price_type": "multi",
+            "max_cash_payment": 82.27,
+            "coverted_max_cash_payment": 115.6,
+            "points": 2875,
+            "bonuses": 0,
+            "lowest_price": 82.27,
+            "price": 115.6,
+            "converted_price": 115.6,
+            "lowest_converted_price": 115.6,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 99.5804418940724
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 244,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633474.-9981985.37.SGD.1871733507&source=201-14&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "3qK5",
+            "searchRank": 0.51,
+            "price_type": "multi",
+            "max_cash_payment": 56.18,
+            "coverted_max_cash_payment": 78.94,
+            "points": 1950,
+            "bonuses": 0,
+            "lowest_price": 56.18,
+            "price": 78.94,
+            "converted_price": 78.94,
+            "lowest_converted_price": 78.94,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 78.93931459868755
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 150,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.19433019.-9981964.15.SGD.48410487&source=201-1&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 304,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.19435927.-9981966.114.SGD.1173223031&source=201-6&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "Dik8",
+            "searchRank": 0.12,
+            "price_type": "multi",
+            "max_cash_payment": 114.58,
+            "coverted_max_cash_payment": 161.0,
+            "points": 4025,
+            "bonuses": 0,
+            "lowest_price": 114.58,
+            "price": 161.0,
+            "converted_price": 161.0,
+            "lowest_converted_price": 161.0,
+            "market_rates": [
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 161,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614766.-9981966.22.SGD.305561997&source=201-2&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 164,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633456.-9981985.24.SGD.791657883&source=201-4&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 411,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471260.-9981964.91.SGD.1156443705&source=201-14&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "J1gz",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 34.85,
+            "coverted_max_cash_payment": 48.97,
+            "points": 1200,
+            "bonuses": 0,
+            "lowest_price": 34.85,
+            "price": 48.97,
+            "converted_price": 48.97,
+            "lowest_converted_price": 48.97,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 43.08080074040157
+                }
+            ]
+        },
+        {
+            "id": "FCcw",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 64.11,
+            "coverted_max_cash_payment": 90.08,
+            "points": 2250,
+            "bonuses": 0,
+            "lowest_price": 64.11,
+            "price": 90.08,
+            "converted_price": 90.08,
+            "lowest_converted_price": 90.08,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 79.27654200174354
+                }
+            ]
+        },
+        {
+            "id": "ZKE4",
+            "searchRank": 0.96,
+            "price_type": "multi",
+            "max_cash_payment": 41.29,
+            "coverted_max_cash_payment": 58.02,
+            "points": 1450,
+            "bonuses": 0,
+            "lowest_price": 41.29,
+            "price": 58.02,
+            "converted_price": 58.02,
+            "lowest_converted_price": 58.02,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 49.7691442343452
+                }
+            ]
+        },
+        {
+            "id": "yZMN",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 70.16,
+            "coverted_max_cash_payment": 98.58,
+            "points": 2450,
+            "bonuses": 0,
+            "lowest_price": 70.16,
+            "price": 98.58,
+            "converted_price": 98.58,
+            "lowest_converted_price": 98.58,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 85.83842521954116
+                }
+            ]
+        },
+        {
+            "id": "KpHi",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 166.63,
+            "coverted_max_cash_payment": 234.13,
+            "points": 5850,
+            "bonuses": 0,
+            "lowest_price": 166.63,
+            "price": 234.13,
+            "converted_price": 234.13,
+            "lowest_converted_price": 234.13,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 204.1911925503965
+                }
+            ]
+        },
+        {
+            "id": "Ktty",
+            "searchRank": 0.08,
+            "price_type": "multi",
+            "max_cash_payment": 224.89,
+            "coverted_max_cash_payment": 316.0,
+            "points": 7900,
+            "bonuses": 0,
+            "lowest_price": 224.89,
+            "price": 316.0,
+            "converted_price": 316.0,
+            "lowest_converted_price": 316.0,
+            "market_rates": [
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 316,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.21153255.-9981964.61.SGD.670246080&source=201-8&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 529,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.21155255.-9981966.129.SGD.200992889&source=201-10&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "SC0d",
+            "searchRank": 0.31,
+            "price_type": "multi",
+            "max_cash_payment": 219.12,
+            "coverted_max_cash_payment": 307.89,
+            "points": 7675,
+            "bonuses": 0,
+            "lowest_price": 219.12,
+            "price": 307.89,
+            "converted_price": 307.89,
+            "lowest_converted_price": 307.89,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 307.8886189901107
+                }
+            ]
+        },
+        {
+            "id": "vJIh",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 84.17,
+            "coverted_max_cash_payment": 118.27,
+            "points": 2950,
+            "bonuses": 0,
+            "lowest_price": 84.17,
+            "price": 118.27,
+            "converted_price": 118.27,
+            "lowest_converted_price": 118.27,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 104.09085840994614
+                }
+            ]
+        },
+        {
+            "id": "MFt2",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 54.73,
+            "coverted_max_cash_payment": 76.9,
+            "points": 1900,
+            "bonuses": 0,
+            "lowest_price": 54.73,
+            "price": 76.9,
+            "converted_price": 76.9,
+            "lowest_converted_price": 76.9,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 67.68435002169419
+                }
+            ]
+        },
+        {
+            "id": "e9v4",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 57.46,
+            "coverted_max_cash_payment": 80.74,
+            "points": 2000,
+            "bonuses": 0,
+            "lowest_price": 57.46,
+            "price": 80.74,
+            "converted_price": 80.74,
+            "lowest_converted_price": 80.74,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 71.070675194048
+                }
+            ]
+        },
+        {
+            "id": "qYfW",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 99.26,
+            "coverted_max_cash_payment": 139.47,
+            "points": 3475,
+            "bonuses": 0,
+            "lowest_price": 99.26,
+            "price": 139.47,
+            "converted_price": 139.47,
+            "lowest_converted_price": 139.47,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 124.74603684712497
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 205,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614775.-9981966.25.SGD.785766074&source=201-9&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 423,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471269.-9981964.95.SGD.2071879808&source=201-13&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "mSfj",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 43.41,
+            "coverted_max_cash_payment": 61.0,
+            "points": 1525,
+            "bonuses": 0,
+            "lowest_price": 43.41,
+            "price": 61.0,
+            "converted_price": 61.0,
+            "lowest_converted_price": 61.0,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 53.689412794870975
+                }
+            ]
+        },
+        {
+            "id": "WR5J",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 43.79,
+            "coverted_max_cash_payment": 61.53,
+            "points": 1525,
+            "bonuses": 0,
+            "lowest_price": 43.79,
+            "price": 61.53,
+            "converted_price": 61.53,
+            "lowest_converted_price": 61.53,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 53.47864566796099
+                }
+            ]
+        },
+        {
+            "id": "ztcw",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 43.73,
+            "coverted_max_cash_payment": 61.45,
+            "points": 1525,
+            "bonuses": 0,
+            "lowest_price": 43.73,
+            "price": 61.45,
+            "converted_price": 61.45,
+            "lowest_converted_price": 61.45,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 54.9680666981249
+                }
+            ]
+        },
+        {
+            "id": "MLzS",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 37.65,
+            "coverted_max_cash_payment": 52.9,
+            "points": 1300,
+            "bonuses": 0,
+            "lowest_price": 37.65,
+            "price": 52.9,
+            "converted_price": 52.9,
+            "lowest_converted_price": 52.9,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 46.55143276351938
+                }
+            ]
+        },
+        {
+            "id": "m9I9",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 42.89,
+            "coverted_max_cash_payment": 60.27,
+            "points": 1500,
+            "bonuses": 0,
+            "lowest_price": 42.89,
+            "price": 60.27,
+            "converted_price": 60.27,
+            "lowest_converted_price": 60.27,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 53.04306027234701
+                }
+            ]
+        },
+        {
+            "id": "Iawg",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 32.55,
+            "coverted_max_cash_payment": 45.74,
+            "points": 1125,
+            "bonuses": 0,
+            "lowest_price": 32.55,
+            "price": 45.74,
+            "converted_price": 45.74,
+            "lowest_converted_price": 45.74,
+            "market_rates": []
+        },
+        {
+            "id": "uaA7",
+            "searchRank": 0.88,
+            "price_type": "multi",
+            "max_cash_payment": 53.41,
+            "coverted_max_cash_payment": 75.05,
+            "points": 1875,
+            "bonuses": 0,
+            "lowest_price": 53.41,
+            "price": 75.05,
+            "converted_price": 75.05,
+            "lowest_converted_price": 75.05,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 69.79202129079407
+                }
+            ]
+        },
+        {
+            "id": "06sd",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 62.8,
+            "coverted_max_cash_payment": 88.24,
+            "points": 2200,
+            "bonuses": 0,
+            "lowest_price": 62.8,
+            "price": 88.24,
+            "converted_price": 88.24,
+            "lowest_converted_price": 88.24,
+            "market_rates": []
+        },
+        {
+            "id": "RyWC",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 53.12,
+            "coverted_max_cash_payment": 74.64,
+            "points": 1850,
+            "bonuses": 0,
+            "lowest_price": 53.12,
+            "price": 74.64,
+            "converted_price": 74.64,
+            "lowest_converted_price": 74.64,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 65.6890878869463
+                }
+            ]
+        },
+        {
+            "id": "XgFk",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 32.16,
+            "coverted_max_cash_payment": 45.19,
+            "points": 1125,
+            "bonuses": 0,
+            "lowest_price": 32.16,
+            "price": 45.19,
+            "converted_price": 45.19,
+            "lowest_converted_price": 45.19,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 40.42513494133572
+                }
+            ]
+        },
+        {
+            "id": "GMqK",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 55.28,
+            "coverted_max_cash_payment": 77.67,
+            "points": 1925,
+            "bonuses": 0,
+            "lowest_price": 55.28,
+            "price": 77.67,
+            "converted_price": 77.67,
+            "lowest_converted_price": 77.67,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 69.48289617132609
+                }
+            ]
+        },
+        {
+            "id": "TlhA",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 43.99,
+            "coverted_max_cash_payment": 61.81,
+            "points": 1525,
+            "bonuses": 0,
+            "lowest_price": 43.99,
+            "price": 61.81,
+            "converted_price": 61.81,
+            "lowest_converted_price": 61.81,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 55.291242959386885
+                }
+            ]
+        },
+        {
+            "id": "LdKa",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 43.37,
+            "coverted_max_cash_payment": 60.94,
+            "points": 1500,
+            "bonuses": 0,
+            "lowest_price": 43.37,
+            "price": 60.94,
+            "converted_price": 60.94,
+            "lowest_converted_price": 60.94,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 53.05711141414101
+                }
+            ]
+        },
+        {
+            "id": "aQUB",
+            "searchRank": 0.14,
+            "price_type": "multi",
+            "max_cash_payment": 539.46,
+            "coverted_max_cash_payment": 758.0,
+            "points": 18950,
+            "bonuses": 0,
+            "lowest_price": 539.46,
+            "price": 758.0,
+            "converted_price": 758.0,
+            "lowest_converted_price": 758.0,
+            "market_rates": [
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 758,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.53940625.-9981973.203.SGD.2146901082&source=201-20&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "XMt0",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 46.84,
+            "coverted_max_cash_payment": 65.82,
+            "points": 1625,
+            "bonuses": 0,
+            "lowest_price": 46.84,
+            "price": 65.82,
+            "converted_price": 65.82,
+            "lowest_converted_price": 65.82,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 57.31460737772277
+                }
+            ]
+        },
+        {
+            "id": "wJEJ",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 33.56,
+            "coverted_max_cash_payment": 47.16,
+            "points": 1175,
+            "bonuses": 0,
+            "lowest_price": 33.56,
+            "price": 47.16,
+            "converted_price": 47.16,
+            "lowest_converted_price": 47.16,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 42.16747652379162
+                }
+            ]
+        },
+        {
+            "id": "K3da",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 123.29,
+            "coverted_max_cash_payment": 173.24,
+            "points": 4325,
+            "bonuses": 0,
+            "lowest_price": 123.29,
+            "price": 173.24,
+            "converted_price": 173.24,
+            "lowest_converted_price": 173.24,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 150.8390071585815
+                }
+            ]
+        },
+        {
+            "id": "w6Yr",
+            "searchRank": 0.79,
+            "price_type": "multi",
+            "max_cash_payment": 62.89,
+            "coverted_max_cash_payment": 88.37,
+            "points": 2200,
+            "bonuses": 0,
+            "lowest_price": 62.89,
+            "price": 88.37,
+            "converted_price": 88.37,
+            "lowest_converted_price": 88.37,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 88.36763074246102
+                }
+            ]
+        },
+        {
+            "id": "Efdc",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 70.93,
+            "coverted_max_cash_payment": 99.66,
+            "points": 2475,
+            "bonuses": 0,
+            "lowest_price": 70.93,
+            "price": 99.66,
+            "converted_price": 99.66,
+            "lowest_converted_price": 99.66,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 86.76580057794511
+                }
+            ]
+        },
+        {
+            "id": "KfOf",
+            "searchRank": 0.76,
+            "price_type": "multi",
+            "max_cash_payment": 70.8,
+            "coverted_max_cash_payment": 99.48,
+            "points": 2475,
+            "bonuses": 0,
+            "lowest_price": 70.8,
+            "price": 99.48,
+            "converted_price": 99.48,
+            "lowest_converted_price": 99.48,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 99.4820839015144
+                }
+            ]
+        },
+        {
+            "id": "um2m",
+            "searchRank": 0.91,
+            "price_type": "multi",
+            "max_cash_payment": 89.27,
+            "coverted_max_cash_payment": 125.43,
+            "points": 3125,
+            "bonuses": 0,
+            "lowest_price": 89.27,
+            "price": 125.43,
+            "converted_price": 125.43,
+            "lowest_converted_price": 125.43,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 113.5753791208956
+                }
+            ]
+        },
+        {
+            "id": "ClzS",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 54.28,
+            "coverted_max_cash_payment": 76.27,
+            "points": 1900,
+            "bonuses": 0,
+            "lowest_price": 54.28,
+            "price": 76.27,
+            "converted_price": 76.27,
+            "lowest_converted_price": 76.27,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 68.21829340986615
+                }
+            ]
+        },
+        {
+            "id": "VarP",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 75.56,
+            "coverted_max_cash_payment": 106.17,
+            "points": 2650,
+            "bonuses": 0,
+            "lowest_price": 75.56,
+            "price": 106.17,
+            "converted_price": 106.17,
+            "lowest_converted_price": 106.17,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 93.44009293009474
+                }
+            ]
+        },
+        {
+            "id": "UEbn",
+            "searchRank": 0.96,
+            "price_type": "multi",
+            "max_cash_payment": 84.73,
+            "coverted_max_cash_payment": 119.06,
+            "points": 2975,
+            "bonuses": 0,
+            "lowest_price": 84.73,
+            "price": 119.06,
+            "converted_price": 119.06,
+            "lowest_converted_price": 119.06,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 102.19395426775624
+                }
+            ]
+        },
+        {
+            "id": "H9FS",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 55.28,
+            "coverted_max_cash_payment": 77.67,
+            "points": 1925,
+            "bonuses": 0,
+            "lowest_price": 55.28,
+            "price": 77.67,
+            "converted_price": 77.67,
+            "lowest_converted_price": 77.67,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 69.48289617132609
+                }
+            ]
+        },
+        {
+            "id": "G6Yo",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 34.71,
+            "coverted_max_cash_payment": 48.77,
+            "points": 1200,
+            "bonuses": 0,
+            "lowest_price": 34.71,
+            "price": 48.77,
+            "converted_price": 48.77,
+            "lowest_converted_price": 48.77,
+            "market_rates": []
+        },
+        {
+            "id": "HpJT",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 56.28,
+            "coverted_max_cash_payment": 79.08,
+            "points": 1975,
+            "bonuses": 0,
+            "lowest_price": 56.28,
+            "price": 79.08,
+            "converted_price": 79.08,
+            "lowest_converted_price": 79.08,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 69.59530530567808
+                }
+            ]
+        },
+        {
+            "id": "V8fD",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 67.29,
+            "coverted_max_cash_payment": 94.55,
+            "points": 2350,
+            "bonuses": 0,
+            "lowest_price": 67.29,
+            "price": 94.55,
+            "converted_price": 94.55,
+            "lowest_converted_price": 94.55,
+            "market_rates": []
+        },
+        {
+            "id": "NnY3",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 46.23,
+            "coverted_max_cash_payment": 64.96,
+            "points": 1600,
+            "bonuses": 0,
+            "lowest_price": 46.23,
+            "price": 64.96,
+            "converted_price": 64.96,
+            "lowest_converted_price": 64.96,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 58.101471318186725
+                }
+            ]
+        },
+        {
+            "id": "Jtus",
+            "searchRank": 0.97,
+            "price_type": "multi",
+            "max_cash_payment": 61.62,
+            "coverted_max_cash_payment": 86.58,
+            "points": 2150,
+            "bonuses": 0,
+            "lowest_price": 61.62,
+            "price": 86.58,
+            "converted_price": 86.58,
+            "lowest_converted_price": 86.58,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 73.09403961238388
+                }
+            ]
+        },
+        {
+            "id": "0U4S",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 108.55,
+            "coverted_max_cash_payment": 152.53,
+            "points": 3800,
+            "bonuses": 0,
+            "lowest_price": 108.55,
+            "price": 152.53,
+            "converted_price": 152.53,
+            "lowest_converted_price": 152.53,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 136.4225356779383
+                }
+            ]
+        },
+        {
+            "id": "C5TI",
+            "searchRank": 0.9,
+            "price_type": "multi",
+            "max_cash_payment": 41.52,
+            "coverted_max_cash_payment": 58.34,
+            "points": 1450,
+            "bonuses": 0,
+            "lowest_price": 41.52,
+            "price": 58.34,
+            "converted_price": 58.34,
+            "lowest_converted_price": 58.34,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 53.05711141414101
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 126,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.54267994.-9981980.0.SGD.1263288789&source=201-0&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 376,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.16349464.-9981966.161.SGD.981626170&source=201-11&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "nyH0",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 37.71,
+            "coverted_max_cash_payment": 52.99,
+            "points": 1325,
+            "bonuses": 0,
+            "lowest_price": 37.71,
+            "price": 52.99,
+            "converted_price": 52.99,
+            "lowest_converted_price": 52.99,
+            "market_rates": []
+        },
+        {
+            "id": "E14O",
+            "searchRank": 0.53,
+            "price_type": "multi",
+            "max_cash_payment": 133.56,
+            "coverted_max_cash_payment": 187.67,
+            "points": 4675,
+            "bonuses": 0,
+            "lowest_price": 133.56,
+            "price": 187.67,
+            "converted_price": 187.67,
+            "lowest_converted_price": 187.67,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 187.66704980065342
+                }
+            ]
+        },
+        {
+            "id": "29Kz",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 60.91,
+            "coverted_max_cash_payment": 85.59,
+            "points": 2125,
+            "bonuses": 0,
+            "lowest_price": 60.91,
+            "price": 85.59,
+            "converted_price": 85.59,
+            "lowest_converted_price": 85.59,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 74.5272560753718
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 427,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.29962092.-9981966.193.SGD.791993161&source=201-6&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 590,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.29966007.-9981964.149.SGD.1708642956&source=201-7&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "HQ1k",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 159.82,
+            "coverted_max_cash_payment": 224.57,
+            "points": 5600,
+            "bonuses": 0,
+            "lowest_price": 159.82,
+            "price": 224.57,
+            "converted_price": 224.57,
+            "lowest_converted_price": 224.57,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 200.84702080342467
+                }
+            ]
+        },
+        {
+            "id": "6HXc",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 131.91,
+            "coverted_max_cash_payment": 185.35,
+            "points": 4625,
+            "bonuses": 0,
+            "lowest_price": 131.91,
+            "price": 185.35,
+            "converted_price": 185.35,
+            "lowest_converted_price": 185.35,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 163.1197050865368
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 195,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.20243226.-9981964.44.SGD.412415340&source=201-5&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 451,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.20243882.-9981966.104.SGD.1152616581&source=201-13&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "t7jE",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 32.55,
+            "coverted_max_cash_payment": 45.74,
+            "points": 1125,
+            "bonuses": 0,
+            "lowest_price": 32.55,
+            "price": 45.74,
+            "converted_price": 45.74,
+            "lowest_converted_price": 45.74,
+            "market_rates": []
+        },
+        {
+            "id": "vASf",
+            "searchRank": 0.89,
+            "price_type": "multi",
+            "max_cash_payment": 48.23,
+            "coverted_max_cash_payment": 67.77,
+            "points": 1675,
+            "bonuses": 0,
+            "lowest_price": 48.23,
+            "price": 67.77,
+            "converted_price": 67.77,
+            "lowest_converted_price": 67.77,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 62.31681385638649
+                }
+            ]
+        },
+        {
+            "id": "H9ew",
+            "searchRank": 0.96,
+            "price_type": "multi",
+            "max_cash_payment": 147.3,
+            "coverted_max_cash_payment": 206.97,
+            "points": 5175,
+            "bonuses": 0,
+            "lowest_price": 147.3,
+            "price": 206.97,
+            "converted_price": 206.97,
+            "lowest_converted_price": 206.97,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 177.67668798512
+                }
+            ]
+        },
+        {
+            "id": "n4g3",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 83.11,
+            "coverted_max_cash_payment": 116.78,
+            "points": 2900,
+            "bonuses": 0,
+            "lowest_price": 83.11,
+            "price": 116.78,
+            "converted_price": 116.78,
+            "lowest_converted_price": 116.78,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 101.84267572290626
+                }
+            ]
+        },
+        {
+            "id": "b2wO",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 44.95,
+            "coverted_max_cash_payment": 63.16,
+            "points": 1575,
+            "bonuses": 0,
+            "lowest_price": 44.95,
+            "price": 63.16,
+            "converted_price": 63.16,
+            "lowest_converted_price": 63.16,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 55.586316937060865
+                }
+            ]
+        },
+        {
+            "id": "8aCs",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 54.22,
+            "coverted_max_cash_payment": 76.19,
+            "points": 1900,
+            "bonuses": 0,
+            "lowest_price": 54.22,
+            "price": 76.19,
+            "converted_price": 76.19,
+            "lowest_converted_price": 76.19,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 66.33544040947027
+                }
+            ]
+        },
+        {
+            "id": "gEmN",
+            "searchRank": 0.4,
+            "price_type": "multi",
+            "max_cash_payment": 104.62,
+            "coverted_max_cash_payment": 147.0,
+            "points": 3675,
+            "bonuses": 0,
+            "lowest_price": 104.62,
+            "price": 147.0,
+            "converted_price": 147.0,
+            "lowest_converted_price": 147.0,
+            "market_rates": [
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 147,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.18345060.-9981964.13.SGD.98854764&source=201-1&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 193,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633453.-9981985.21.SGD.1724350235&source=201-6&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 332,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.18346349.-9981966.132.SGD.928597619&source=201-12&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "ujSN",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 79.8,
+            "coverted_max_cash_payment": 112.13,
+            "points": 2800,
+            "bonuses": 0,
+            "lowest_price": 79.8,
+            "price": 112.13,
+            "converted_price": 112.13,
+            "lowest_converted_price": 112.13,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 100.00197614789236
+                }
+            ]
+        },
+        {
+            "id": "AfBh",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 30.65,
+            "coverted_max_cash_payment": 43.07,
+            "points": 1075,
+            "bonuses": 0,
+            "lowest_price": 30.65,
+            "price": 43.07,
+            "converted_price": 43.07,
+            "lowest_converted_price": 43.07,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 37.89592941841587
+                }
+            ]
+        },
+        {
+            "id": "Yf8F",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 35.35,
+            "coverted_max_cash_payment": 49.67,
+            "points": 1225,
+            "bonuses": 0,
+            "lowest_price": 35.35,
+            "price": 49.67,
+            "converted_price": 49.67,
+            "lowest_converted_price": 49.67,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 43.72715326292553
+                }
+            ]
+        },
+        {
+            "id": "TxiJ",
+            "searchRank": 0.89,
+            "price_type": "multi",
+            "max_cash_payment": 78.95,
+            "coverted_max_cash_payment": 110.93,
+            "points": 2750,
+            "bonuses": 0,
+            "lowest_price": 78.95,
+            "price": 110.93,
+            "converted_price": 110.93,
+            "lowest_converted_price": 110.93,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 101.99723828264025
+                }
+            ]
+        },
+        {
+            "id": "9HPb",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 58.43,
+            "coverted_max_cash_payment": 82.1,
+            "points": 2050,
+            "bonuses": 0,
+            "lowest_price": 58.43,
+            "price": 82.1,
+            "converted_price": 82.1,
+            "lowest_converted_price": 82.1,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 72.25097110474393
+                }
+            ]
+        },
+        {
+            "id": "TwKj",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 104.02,
+            "coverted_max_cash_payment": 146.16,
+            "points": 3650,
+            "bonuses": 0,
+            "lowest_price": 104.02,
+            "price": 146.16,
+            "converted_price": 146.16,
+            "lowest_converted_price": 146.16,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 130.73182325136864
+                }
+            ]
+        },
+        {
+            "id": "YLME",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 136.61,
+            "coverted_max_cash_payment": 191.95,
+            "points": 4800,
+            "bonuses": 0,
+            "lowest_price": 136.61,
+            "price": 191.95,
+            "converted_price": 191.95,
+            "lowest_converted_price": 191.95,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 168.9228266474585
+                }
+            ]
+        },
+        {
+            "id": "WnyZ",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 82.23,
+            "coverted_max_cash_payment": 115.54,
+            "points": 2875,
+            "bonuses": 0,
+            "lowest_price": 82.23,
+            "price": 115.54,
+            "converted_price": 115.54,
+            "lowest_converted_price": 115.54,
+            "market_rates": []
+        },
+        {
+            "id": "y7LF",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 81.95,
+            "coverted_max_cash_payment": 115.15,
+            "points": 2875,
+            "bonuses": 0,
+            "lowest_price": 81.95,
+            "price": 115.15,
+            "converted_price": 115.15,
+            "lowest_converted_price": 115.15,
+            "market_rates": []
+        },
+        {
+            "id": "Bmgm",
+            "searchRank": 0.82,
+            "price_type": "multi",
+            "max_cash_payment": 33.84,
+            "coverted_max_cash_payment": 47.55,
+            "points": 1175,
+            "bonuses": 0,
+            "lowest_price": 33.84,
+            "price": 47.55,
+            "converted_price": 47.55,
+            "lowest_converted_price": 47.55,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 47.36639898757133
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 178,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.23837838.-9981964.33.SGD.492413995&source=201-6&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 367,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.23839694.-9981966.77.SGD.310702879&source=201-11&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "DSP2",
+            "searchRank": 0.82,
+            "price_type": "multi",
+            "max_cash_payment": 54.62,
+            "coverted_max_cash_payment": 76.75,
+            "points": 1900,
+            "bonuses": 0,
+            "lowest_price": 54.62,
+            "price": 76.75,
+            "converted_price": 76.75,
+            "lowest_converted_price": 76.75,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 76.74733647882367
+                }
+            ]
+        },
+        {
+            "id": "3HTN",
+            "searchRank": 0.96,
+            "price_type": "multi",
+            "max_cash_payment": 43.43,
+            "coverted_max_cash_payment": 61.02,
+            "points": 1525,
+            "bonuses": 0,
+            "lowest_price": 43.43,
+            "price": 61.02,
+            "converted_price": 61.02,
+            "lowest_converted_price": 61.02,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 52.382656608029045
+                }
+            ]
+        },
+        {
+            "id": "s8Ek",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 91.37,
+            "coverted_max_cash_payment": 128.39,
+            "points": 3200,
+            "bonuses": 0,
+            "lowest_price": 91.37,
+            "price": 128.39,
+            "converted_price": 128.39,
+            "lowest_converted_price": 128.39,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 112.98523116554763
+                }
+            ]
+        },
+        {
+            "id": "qAqp",
+            "searchRank": 0.88,
+            "price_type": "multi",
+            "max_cash_payment": 144.76,
+            "coverted_max_cash_payment": 203.4,
+            "points": 5075,
+            "bonuses": 0,
+            "lowest_price": 144.76,
+            "price": 203.4,
+            "converted_price": 203.4,
+            "lowest_converted_price": 203.4,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 189.14241968902334
+                }
+            ]
+        },
+        {
+            "id": "1BFH",
+            "searchRank": 0.95,
+            "price_type": "multi",
+            "max_cash_payment": 53.26,
+            "coverted_max_cash_payment": 74.84,
+            "points": 1850,
+            "bonuses": 0,
+            "lowest_price": 53.26,
+            "price": 74.84,
+            "converted_price": 74.84,
+            "lowest_converted_price": 74.84,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 64.45258740907437
+                }
+            ]
+        },
+        {
+            "id": "qj0U",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 129.06,
+            "coverted_max_cash_payment": 181.34,
+            "points": 4525,
+            "bonuses": 0,
+            "lowest_price": 129.06,
+            "price": 181.34,
+            "converted_price": 181.34,
+            "lowest_converted_price": 181.34,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 157.8926803391691
+                }
+            ]
+        },
+        {
+            "id": "KFTa",
+            "searchRank": 0.89,
+            "price_type": "multi",
+            "max_cash_payment": 53.59,
+            "coverted_max_cash_payment": 75.3,
+            "points": 1875,
+            "bonuses": 0,
+            "lowest_price": 53.59,
+            "price": 75.3,
+            "converted_price": 75.3,
+            "lowest_converted_price": 75.3,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 69.60935644747208
+                }
+            ]
+        },
+        {
+            "id": "90YZ",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 70.38,
+            "coverted_max_cash_payment": 98.89,
+            "points": 2450,
+            "bonuses": 0,
+            "lowest_price": 70.38,
+            "price": 98.89,
+            "converted_price": 98.89,
+            "lowest_converted_price": 98.89,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 87.0327722720311
+                }
+            ]
+        },
+        {
+            "id": "pmjL",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 86.68,
+            "coverted_max_cash_payment": 121.8,
+            "points": 3025,
+            "bonuses": 0,
+            "lowest_price": 86.68,
+            "price": 121.8,
+            "converted_price": 121.8,
+            "lowest_converted_price": 121.8,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 108.95255347066987
+                }
+            ]
+        },
+        {
+            "id": "mIgR",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 38.45,
+            "coverted_max_cash_payment": 54.03,
+            "points": 1350,
+            "bonuses": 0,
+            "lowest_price": 38.45,
+            "price": 54.03,
+            "converted_price": 54.03,
+            "lowest_converted_price": 54.03,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 48.30782548776928
+                }
+            ]
+        },
+        {
+            "id": "OKbb",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 93.57,
+            "coverted_max_cash_payment": 131.48,
+            "points": 3275,
+            "bonuses": 0,
+            "lowest_price": 93.57,
+            "price": 131.48,
+            "converted_price": 131.48,
+            "lowest_converted_price": 131.48,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 115.38797641232149
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 150,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633444.-9981985.15.SGD.1959485880&source=201-4&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 445,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.33731518.-9981972.102.SGD.896360080&source=201-14&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 590,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.56035501.-9981973.149.SGD.721475014&source=201-15&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "3pbu",
+            "searchRank": 0.91,
+            "price_type": "multi",
+            "max_cash_payment": 113.67,
+            "coverted_max_cash_payment": 159.72,
+            "points": 3975,
+            "bonuses": 0,
+            "lowest_price": 113.67,
+            "price": 159.72,
+            "converted_price": 159.72,
+            "lowest_converted_price": 159.72,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 144.61435134383984
+                }
+            ]
+        },
+        {
+            "id": "YRdX",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 76.89,
+            "coverted_max_cash_payment": 108.04,
+            "points": 2700,
+            "bonuses": 0,
+            "lowest_price": 76.89,
+            "price": 108.04,
+            "converted_price": 108.04,
+            "lowest_converted_price": 108.04,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 96.64375325912656
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 199,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614772.-9981966.23.SGD.1126843627&source=201-10&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 417,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471266.-9981964.93.SGD.290450995&source=201-17&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "94YR",
+            "searchRank": 0.91,
+            "price_type": "multi",
+            "max_cash_payment": 86.83,
+            "coverted_max_cash_payment": 122.01,
+            "points": 3050,
+            "bonuses": 0,
+            "lowest_price": 86.83,
+            "price": 122.01,
+            "converted_price": 122.01,
+            "lowest_converted_price": 122.01,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 110.47007678442178
+                }
+            ]
+        },
+        {
+            "id": "aanr",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 46.63,
+            "coverted_max_cash_payment": 65.52,
+            "points": 1625,
+            "bonuses": 0,
+            "lowest_price": 46.63,
+            "price": 65.52,
+            "converted_price": 65.52,
+            "lowest_converted_price": 65.52,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 58.621363564564696
+                }
+            ]
+        },
+        {
+            "id": "ZeIL",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 63.89,
+            "coverted_max_cash_payment": 89.77,
+            "points": 2225,
+            "bonuses": 0,
+            "lowest_price": 63.89,
+            "price": 89.77,
+            "converted_price": 89.77,
+            "lowest_converted_price": 89.77,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 78.1665018000176
+                }
+            ]
+        },
+        {
+            "id": "kc9B",
+            "searchRank": 0.96,
+            "price_type": "multi",
+            "max_cash_payment": 38.89,
+            "coverted_max_cash_payment": 54.64,
+            "points": 1350,
+            "bonuses": 0,
+            "lowest_price": 38.89,
+            "price": 54.64,
+            "converted_price": 54.64,
+            "lowest_converted_price": 54.64,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 46.902711308369355
+                }
+            ]
+        },
+        {
+            "id": "HxpO",
+            "searchRank": 0.68,
+            "price_type": "multi",
+            "max_cash_payment": 79.55,
+            "coverted_max_cash_payment": 111.78,
+            "points": 2775,
+            "bonuses": 0,
+            "lowest_price": 79.55,
+            "price": 111.78,
+            "converted_price": 111.78,
+            "lowest_converted_price": 111.78,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 111.7768329712637
+                }
+            ]
+        },
+        {
+            "id": "C1nO",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 195.35,
+            "coverted_max_cash_payment": 274.49,
+            "points": 6850,
+            "bonuses": 0,
+            "lowest_price": 195.35,
+            "price": 274.49,
+            "converted_price": 274.49,
+            "lowest_converted_price": 274.49,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 241.56722972243438
+                }
+            ]
+        },
+        {
+            "id": "ffdd",
+            "searchRank": 0.21,
+            "price_type": "multi",
+            "max_cash_payment": 236.99,
+            "coverted_max_cash_payment": 333.0,
+            "points": 8325,
+            "bonuses": 0,
+            "lowest_price": 236.99,
+            "price": 333.0,
+            "converted_price": 333.0,
+            "lowest_converted_price": 333.0,
+            "market_rates": [
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 333,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.15504372.-9981966.66.SGD.1108474336&source=201-8&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 501,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.15451300.-9981964.120.SGD.322895459&source=201-9&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "QQ22",
+            "searchRank": 0.77,
+            "price_type": "multi",
+            "max_cash_payment": 32.03,
+            "coverted_max_cash_payment": 45.01,
+            "points": 1125,
+            "bonuses": 0,
+            "lowest_price": 32.03,
+            "price": 45.01,
+            "converted_price": 45.01,
+            "lowest_converted_price": 45.01,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 45.005807166179466
+                }
+            ]
+        },
+        {
+            "id": "77gC",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 95.87,
+            "coverted_max_cash_payment": 134.71,
+            "points": 3350,
+            "bonuses": 0,
+            "lowest_price": 95.87,
+            "price": 134.71,
+            "converted_price": 134.71,
+            "lowest_converted_price": 134.71,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 119.49090981616928
+                }
+            ]
+        },
+        {
+            "id": "8vxF",
+            "searchRank": 0.71,
+            "price_type": "multi",
+            "max_cash_payment": 60.32,
+            "coverted_max_cash_payment": 84.76,
+            "points": 2100,
+            "bonuses": 0,
+            "lowest_price": 60.32,
+            "price": 84.76,
+            "converted_price": 84.76,
+            "lowest_converted_price": 84.76,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 84.75648730140323
+                }
+            ]
+        },
+        {
+            "id": "6q3h",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 146.49,
+            "coverted_max_cash_payment": 205.84,
+            "points": 5125,
+            "bonuses": 0,
+            "lowest_price": 146.49,
+            "price": 205.84,
+            "converted_price": 205.84,
+            "lowest_converted_price": 205.84,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 184.09805978497764
+                }
+            ]
+        },
+        {
+            "id": "TdIg",
+            "searchRank": 0.85,
+            "price_type": "multi",
+            "max_cash_payment": 53.76,
+            "coverted_max_cash_payment": 75.54,
+            "points": 1875,
+            "bonuses": 0,
+            "lowest_price": 53.76,
+            "price": 75.54,
+            "converted_price": 75.54,
+            "lowest_converted_price": 75.54,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 72.61630079138791
+                }
+            ]
+        },
+        {
+            "id": "nkoo",
+            "searchRank": 0.85,
+            "price_type": "multi",
+            "max_cash_payment": 73.48,
+            "coverted_max_cash_payment": 103.25,
+            "points": 2575,
+            "bonuses": 0,
+            "lowest_price": 73.48,
+            "price": 103.25,
+            "converted_price": 103.25,
+            "lowest_converted_price": 103.25,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 99.4118281925444
+                }
+            ]
+        },
+        {
+            "id": "xPZu",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 47.12,
+            "coverted_max_cash_payment": 66.21,
+            "points": 1650,
+            "bonuses": 0,
+            "lowest_price": 47.12,
+            "price": 66.21,
+            "converted_price": 66.21,
+            "lowest_converted_price": 66.21,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 58.90238640044468
+                }
+            ]
+        },
+        {
+            "id": "lPfr",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 44.15,
+            "coverted_max_cash_payment": 62.04,
+            "points": 1550,
+            "bonuses": 0,
+            "lowest_price": 44.15,
+            "price": 62.04,
+            "converted_price": 62.04,
+            "lowest_converted_price": 62.04,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 54.01258905613296
+                }
+            ]
+        },
+        {
+            "id": "tsTl",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 285.77,
+            "coverted_max_cash_payment": 401.54,
+            "points": 10025,
+            "bonuses": 0,
+            "lowest_price": 285.77,
+            "price": 401.54,
+            "converted_price": 401.54,
+            "lowest_converted_price": 401.54,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 355.269069119476
+                }
+            ]
+        },
+        {
+            "id": "4Ne0",
+            "searchRank": 0.81,
+            "price_type": "multi",
+            "max_cash_payment": 46.97,
+            "coverted_max_cash_payment": 66.0,
+            "points": 1650,
+            "bonuses": 0,
+            "lowest_price": 46.97,
+            "price": 66.0,
+            "converted_price": 66.0,
+            "lowest_converted_price": 66.0,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 65.99821300641428
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 206,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633493.-9981985.50.SGD.1708464251&source=201-9&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 350,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.15504385.-9981966.72.SGD.781358613&source=201-13&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 518,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.15451313.-9981964.126.SGD.2125599919&source=201-17&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "EcOU",
+            "searchRank": 0.96,
+            "price_type": "multi",
+            "max_cash_payment": 41.29,
+            "coverted_max_cash_payment": 58.02,
+            "points": 1450,
+            "bonuses": 0,
+            "lowest_price": 41.29,
+            "price": 58.02,
+            "converted_price": 58.02,
+            "lowest_converted_price": 58.02,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 49.7691442343452
+                }
+            ]
+        },
+        {
+            "id": "7TgK",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 54.71,
+            "coverted_max_cash_payment": 76.87,
+            "points": 1900,
+            "bonuses": 0,
+            "lowest_price": 54.71,
+            "price": 76.87,
+            "converted_price": 76.87,
+            "lowest_converted_price": 76.87,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 67.64219659631219
+                }
+            ]
+        },
+        {
+            "id": "LzDe",
+            "searchRank": 0.79,
+            "price_type": "multi",
+            "max_cash_payment": 31.73,
+            "coverted_max_cash_payment": 44.58,
+            "points": 1100,
+            "bonuses": 0,
+            "lowest_price": 31.73,
+            "price": 44.58,
+            "converted_price": 44.58,
+            "lowest_converted_price": 44.58,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 44.58427291235949
+                }
+            ]
+        },
+        {
+            "id": "c9Fa",
+            "searchRank": 0.91,
+            "price_type": "multi",
+            "max_cash_payment": 111.83,
+            "coverted_max_cash_payment": 157.13,
+            "points": 3925,
+            "bonuses": 0,
+            "lowest_price": 111.83,
+            "price": 157.13,
+            "converted_price": 157.13,
+            "lowest_converted_price": 157.13,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 142.099196962714
+                }
+            ]
+        },
+        {
+            "id": "MZ5G",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 115.16,
+            "coverted_max_cash_payment": 161.81,
+            "points": 4025,
+            "bonuses": 0,
+            "lowest_price": 115.16,
+            "price": 161.81,
+            "converted_price": 161.81,
+            "lowest_converted_price": 161.81,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 140.90484991022407
+                }
+            ]
+        },
+        {
+            "id": "Uc0b",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 130.94,
+            "coverted_max_cash_payment": 183.99,
+            "points": 4600,
+            "bonuses": 0,
+            "lowest_price": 130.94,
+            "price": 183.99,
+            "converted_price": 183.99,
+            "lowest_converted_price": 183.99,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 161.91130689225287
+                }
+            ]
+        },
+        {
+            "id": "HMei",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 178.8,
+            "coverted_max_cash_payment": 251.23,
+            "points": 6275,
+            "bonuses": 0,
+            "lowest_price": 178.8,
+            "price": 251.23,
+            "converted_price": 251.23,
+            "lowest_converted_price": 251.23,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 219.9284713596756
+                }
+            ]
+        },
+        {
+            "id": "Jh5t",
+            "searchRank": 0.97,
+            "price_type": "multi",
+            "max_cash_payment": 37.13,
+            "coverted_max_cash_payment": 52.17,
+            "points": 1300,
+            "bonuses": 0,
+            "lowest_price": 37.13,
+            "price": 52.17,
+            "converted_price": 52.17,
+            "lowest_converted_price": 52.17,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 43.951971531629525
+                }
+            ]
+        },
+        {
+            "id": "o6fu",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 45.96,
+            "coverted_max_cash_payment": 64.58,
+            "points": 1600,
+            "bonuses": 0,
+            "lowest_price": 45.96,
+            "price": 64.58,
+            "converted_price": 64.58,
+            "lowest_converted_price": 64.58,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 56.8368685567268
+                }
+            ]
+        },
+        {
+            "id": "GJO6",
+            "searchRank": 0.91,
+            "price_type": "multi",
+            "max_cash_payment": 89.46,
+            "coverted_max_cash_payment": 125.7,
+            "points": 3125,
+            "bonuses": 0,
+            "lowest_price": 89.46,
+            "price": 125.7,
+            "converted_price": 125.7,
+            "lowest_converted_price": 125.7,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 113.81424853139359
+                }
+            ]
+        },
+        {
+            "id": "nxfe",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 63.1,
+            "coverted_max_cash_payment": 88.66,
+            "points": 2200,
+            "bonuses": 0,
+            "lowest_price": 63.1,
+            "price": 88.66,
+            "converted_price": 88.66,
+            "lowest_converted_price": 88.66,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 78.02599038207761
+                }
+            ]
+        },
+        {
+            "id": "Y0cj",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 115.57,
+            "coverted_max_cash_payment": 162.39,
+            "points": 4050,
+            "bonuses": 0,
+            "lowest_price": 115.57,
+            "price": 162.39,
+            "converted_price": 162.39,
+            "lowest_converted_price": 162.39,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 145.26070386636383
+                }
+            ]
+        },
+        {
+            "id": "q4OH",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 266.35,
+            "coverted_max_cash_payment": 374.25,
+            "points": 9350,
+            "bonuses": 0,
+            "lowest_price": 266.35,
+            "price": 374.25,
+            "converted_price": 374.25,
+            "lowest_converted_price": 374.25,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 334.7403509584431
+                }
+            ]
+        },
+        {
+            "id": "52GG",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 106.12,
+            "coverted_max_cash_payment": 149.11,
+            "points": 3725,
+            "bonuses": 0,
+            "lowest_price": 106.12,
+            "price": 149.11,
+            "converted_price": 149.11,
+            "lowest_converted_price": 149.11,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 131.2236132141586
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 158,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614762.-9981966.20.SGD.1199653295&source=201-6&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 177,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633445.-9981985.16.SGD.1647330942&source=201-8&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 406,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471256.-9981964.90.SGD.956361397&source=201-19&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "ZZIh",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 52.8,
+            "coverted_max_cash_payment": 74.19,
+            "points": 1850,
+            "bonuses": 0,
+            "lowest_price": 52.8,
+            "price": 74.19,
+            "converted_price": 74.19,
+            "lowest_converted_price": 74.19,
+            "market_rates": []
+        },
+        {
+            "id": "3cDl",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 41.29,
+            "coverted_max_cash_payment": 58.02,
+            "points": 1450,
+            "bonuses": 0,
+            "lowest_price": 41.29,
+            "price": 58.02,
+            "converted_price": 58.02,
+            "lowest_converted_price": 58.02,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 50.51385474942715
+                }
+            ]
+        },
+        {
+            "id": "xaqT",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 429.67,
+            "coverted_max_cash_payment": 603.74,
+            "points": 15075,
+            "bonuses": 0,
+            "lowest_price": 429.67,
+            "price": 603.74,
+            "converted_price": 603.74,
+            "lowest_converted_price": 603.74,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 539.9994302851836
+                }
+            ]
+        },
+        {
+            "id": "S75c",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 34.13,
+            "coverted_max_cash_payment": 47.96,
+            "points": 1175,
+            "bonuses": 0,
+            "lowest_price": 34.13,
+            "price": 47.96,
+            "converted_price": 47.96,
+            "lowest_converted_price": 47.96,
+            "market_rates": []
+        },
+        {
+            "id": "r3PO",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 65.34,
+            "coverted_max_cash_payment": 91.81,
+            "points": 2275,
+            "bonuses": 0,
+            "lowest_price": 65.34,
+            "price": 91.81,
+            "converted_price": 91.81,
+            "lowest_converted_price": 91.81,
+            "market_rates": []
+        },
+        {
+            "id": "Cwjx",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 89.87,
+            "coverted_max_cash_payment": 126.28,
+            "points": 3150,
+            "bonuses": 0,
+            "lowest_price": 89.87,
+            "price": 126.28,
+            "converted_price": 126.28,
+            "lowest_converted_price": 126.28,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 112.94307774016563
+                }
+            ]
+        },
+        {
+            "id": "39E7",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 33.62,
+            "coverted_max_cash_payment": 47.24,
+            "points": 1175,
+            "bonuses": 0,
+            "lowest_price": 33.62,
+            "price": 47.24,
+            "converted_price": 47.24,
+            "lowest_converted_price": 47.24,
+            "market_rates": []
+        },
+        {
+            "id": "rSo0",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 42.96,
+            "coverted_max_cash_payment": 60.36,
+            "points": 1500,
+            "bonuses": 0,
+            "lowest_price": 42.96,
+            "price": 60.36,
+            "converted_price": 60.36,
+            "lowest_converted_price": 60.36,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 53.998537914338954
+                }
+            ]
+        },
+        {
+            "id": "AXRF",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 33.93,
+            "coverted_max_cash_payment": 47.68,
+            "points": 1175,
+            "bonuses": 0,
+            "lowest_price": 33.93,
+            "price": 47.68,
+            "converted_price": 47.68,
+            "lowest_converted_price": 47.68,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 42.645215344787594
+                }
+            ]
+        },
+        {
+            "id": "sSFr",
+            "searchRank": 0.91,
+            "price_type": "multi",
+            "max_cash_payment": 289.12,
+            "coverted_max_cash_payment": 406.25,
+            "points": 10150,
+            "bonuses": 0,
+            "lowest_price": 289.12,
+            "price": 406.25,
+            "converted_price": 406.25,
+            "lowest_converted_price": 406.25,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 367.8588921668993
+                }
+            ]
+        },
+        {
+            "id": "8y73",
+            "searchRank": 0.71,
+            "price_type": "multi",
+            "max_cash_payment": 50.88,
+            "coverted_max_cash_payment": 71.49,
+            "points": 1775,
+            "bonuses": 0,
+            "lowest_price": 50.88,
+            "price": 71.49,
+            "converted_price": 71.49,
+            "lowest_converted_price": 71.49,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 71.49220944786798
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 430,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.50106004.-9981987.195.SGD.670327309&source=201-15&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "uoCQ",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 116.21,
+            "coverted_max_cash_payment": 163.29,
+            "points": 4075,
+            "bonuses": 0,
+            "lowest_price": 116.21,
+            "price": 163.29,
+            "converted_price": 163.29,
+            "lowest_converted_price": 163.29,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 143.6869759854359
+                }
+            ]
+        },
+        {
+            "id": "3AnZ",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 63.54,
+            "coverted_max_cash_payment": 89.28,
+            "points": 2225,
+            "bonuses": 0,
+            "lowest_price": 63.54,
+            "price": 89.28,
+            "converted_price": 89.28,
+            "lowest_converted_price": 89.28,
+            "market_rates": []
+        },
+        {
+            "id": "Oo6F",
+            "searchRank": 0.65,
+            "price_type": "multi",
+            "max_cash_payment": 67.01,
+            "coverted_max_cash_payment": 94.16,
+            "points": 2350,
+            "bonuses": 0,
+            "lowest_price": 67.01,
+            "price": 94.16,
+            "converted_price": 94.16,
+            "lowest_converted_price": 94.16,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 94.15670116158871
+                }
+            ]
+        },
+        {
+            "id": "xGhr",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 50.96,
+            "coverted_max_cash_payment": 71.6,
+            "points": 1775,
+            "bonuses": 0,
+            "lowest_price": 50.96,
+            "price": 71.6,
+            "converted_price": 71.6,
+            "lowest_converted_price": 71.6,
+            "market_rates": []
+        },
+        {
+            "id": "irhV",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 51.22,
+            "coverted_max_cash_payment": 71.97,
+            "points": 1775,
+            "bonuses": 0,
+            "lowest_price": 51.22,
+            "price": 71.97,
+            "converted_price": 71.97,
+            "lowest_converted_price": 71.97,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 62.66809240123647
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 378,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.23897478.-9981966.81.SGD.339894508&source=201-4&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 820,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.38382966.-9981964.223.SGD.2132293329&source=201-5&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "B1kF",
+            "searchRank": 0.91,
+            "price_type": "multi",
+            "max_cash_payment": 105.24,
+            "coverted_max_cash_payment": 147.87,
+            "points": 3675,
+            "bonuses": 0,
+            "lowest_price": 105.24,
+            "price": 147.87,
+            "converted_price": 147.87,
+            "lowest_converted_price": 147.87,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 133.90738129681245
+                },
+                {
+                    "supplier": "Marriott.com",
+                    "rate": 137,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.58086195.-9981960.3.SGD.1122172196&source=201-1&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 214,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633499.-9981985.55.SGD.1194570942&source=201-11&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "BKpe",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 33.55,
+            "coverted_max_cash_payment": 47.14,
+            "points": 1175,
+            "bonuses": 0,
+            "lowest_price": 33.55,
+            "price": 47.14,
+            "converted_price": 47.14,
+            "lowest_converted_price": 47.14,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 41.05743632206568
+                }
+            ]
+        },
+        {
+            "id": "EGQh",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 103.55,
+            "coverted_max_cash_payment": 145.5,
+            "points": 3625,
+            "bonuses": 0,
+            "lowest_price": 103.55,
+            "price": 145.5,
+            "converted_price": 145.5,
+            "lowest_converted_price": 145.5,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 128.0340040269208
+                }
+            ]
+        },
+        {
+            "id": "CizQ",
+            "searchRank": 0.8,
+            "price_type": "multi",
+            "max_cash_payment": 30.42,
+            "coverted_max_cash_payment": 42.74,
+            "points": 1050,
+            "bonuses": 0,
+            "lowest_price": 30.42,
+            "price": 42.74,
+            "converted_price": 42.74,
+            "lowest_converted_price": 42.74,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 42.743573337345595
+                }
+            ]
+        },
+        {
+            "id": "TOEw",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 240.74,
+            "coverted_max_cash_payment": 338.27,
+            "points": 8450,
+            "bonuses": 0,
+            "lowest_price": 240.74,
+            "price": 338.27,
+            "converted_price": 338.27,
+            "lowest_converted_price": 338.27,
+            "market_rates": []
+        },
+        {
+            "id": "50aB",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 224.52,
+            "coverted_max_cash_payment": 315.48,
+            "points": 7875,
+            "bonuses": 0,
+            "lowest_price": 224.52,
+            "price": 315.48,
+            "converted_price": 315.48,
+            "lowest_converted_price": 315.48,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 277.63651070763035
+                }
+            ]
+        },
+        {
+            "id": "dIZj",
+            "searchRank": 0.65,
+            "price_type": "multi",
+            "max_cash_payment": 52.69,
+            "coverted_max_cash_payment": 74.04,
+            "points": 1850,
+            "bonuses": 0,
+            "lowest_price": 52.69,
+            "price": 74.04,
+            "converted_price": 74.04,
+            "lowest_converted_price": 74.04,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 74.03546611258183
+                }
+            ]
+        },
+        {
+            "id": "Gdi5",
+            "searchRank": 0.87,
+            "price_type": "multi",
+            "max_cash_payment": 76.4,
+            "coverted_max_cash_payment": 107.35,
+            "points": 2675,
+            "bonuses": 0,
+            "lowest_price": 76.4,
+            "price": 107.35,
+            "converted_price": 107.35,
+            "lowest_converted_price": 107.35,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 101.36493690191028
+                }
+            ]
+        },
+        {
+            "id": "sMuB",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 68.26,
+            "coverted_max_cash_payment": 95.91,
+            "points": 2375,
+            "bonuses": 0,
+            "lowest_price": 68.26,
+            "price": 95.91,
+            "converted_price": 95.91,
+            "lowest_converted_price": 95.91,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 84.41925989834725
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 136,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.56992537.-9981973.6.SGD.2031222629&source=201-1&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 579,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.17925457.-9981966.145.SGD.1267671419&source=201-9&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "mUnr",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 34.61,
+            "coverted_max_cash_payment": 48.63,
+            "points": 1200,
+            "bonuses": 0,
+            "lowest_price": 34.61,
+            "price": 48.63,
+            "converted_price": 48.63,
+            "lowest_converted_price": 48.63,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 43.50233499422155
+                }
+            ]
+        },
+        {
+            "id": "874Q",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 33.05,
+            "coverted_max_cash_payment": 46.44,
+            "points": 1150,
+            "bonuses": 0,
+            "lowest_price": 33.05,
+            "price": 46.44,
+            "converted_price": 46.44,
+            "lowest_converted_price": 46.44,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 40.8607203369497
+                }
+            ]
+        },
+        {
+            "id": "7ohO",
+            "searchRank": 0.38,
+            "price_type": "multi",
+            "max_cash_payment": 172.23,
+            "coverted_max_cash_payment": 242.0,
+            "points": 6050,
+            "bonuses": 0,
+            "lowest_price": 172.23,
+            "price": 242.0,
+            "converted_price": 242.0,
+            "lowest_converted_price": 242.0,
+            "market_rates": [
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 242,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.55297767.-9981987.74.SGD.1376902221&source=201-15&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 418,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.56623900.-9981973.188.SGD.1802254213&source=201-17&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "8BDY",
+            "searchRank": 0.74,
+            "price_type": "multi",
+            "max_cash_payment": 58.43,
+            "coverted_max_cash_payment": 82.1,
+            "points": 2050,
+            "bonuses": 0,
+            "lowest_price": 58.43,
+            "price": 82.1,
+            "converted_price": 82.1,
+            "lowest_converted_price": 82.1,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 82.10082150233737
+                }
+            ]
+        },
+        {
+            "id": "XSi7",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 233.68,
+            "coverted_max_cash_payment": 328.35,
+            "points": 8200,
+            "bonuses": 0,
+            "lowest_price": 233.68,
+            "price": 328.35,
+            "converted_price": 328.35,
+            "lowest_converted_price": 328.35,
+            "market_rates": []
+        },
+        {
+            "id": "8qNb",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 39.52,
+            "coverted_max_cash_payment": 55.53,
+            "points": 1375,
+            "bonuses": 0,
+            "lowest_price": 39.52,
+            "price": 55.53,
+            "converted_price": 55.53,
+            "lowest_converted_price": 55.53,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 48.364030054945275
+                }
+            ]
+        },
+        {
+            "id": "YBB1",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 97.98,
+            "coverted_max_cash_payment": 137.67,
+            "points": 3425,
+            "bonuses": 0,
+            "lowest_price": 97.98,
+            "price": 137.67,
+            "converted_price": 137.67,
+            "lowest_converted_price": 137.67,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 123.13015554081507
+                }
+            ]
+        },
+        {
+            "id": "ZFjX",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 57.44,
+            "coverted_max_cash_payment": 80.71,
+            "points": 2000,
+            "bonuses": 0,
+            "lowest_price": 57.44,
+            "price": 80.71,
+            "converted_price": 80.71,
+            "lowest_converted_price": 80.71,
+            "market_rates": []
+        },
+        {
+            "id": "nZwI",
+            "searchRank": 0.89,
+            "price_type": "multi",
+            "max_cash_payment": 88.6,
+            "coverted_max_cash_payment": 124.49,
+            "points": 3100,
+            "bonuses": 0,
+            "lowest_price": 88.6,
+            "price": 124.49,
+            "converted_price": 124.49,
+            "lowest_converted_price": 124.49,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 114.47465219571156
+                }
+            ]
+        },
+        {
+            "id": "rytX",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 300.21,
+            "coverted_max_cash_payment": 421.83,
+            "points": 10525,
+            "bonuses": 0,
+            "lowest_price": 300.21,
+            "price": 421.83,
+            "converted_price": 421.83,
+            "lowest_converted_price": 421.83,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 367.87294330869327
+                }
+            ]
+        },
+        {
+            "id": "X21r",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 84.28,
+            "coverted_max_cash_payment": 118.42,
+            "points": 2950,
+            "bonuses": 0,
+            "lowest_price": 84.28,
+            "price": 118.42,
+            "converted_price": 118.42,
+            "lowest_converted_price": 118.42,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 104.21731868609213
+                }
+            ]
+        },
+        {
+            "id": "W2uZ",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 42.59,
+            "coverted_max_cash_payment": 59.84,
+            "points": 1475,
+            "bonuses": 0,
+            "lowest_price": 42.59,
+            "price": 59.84,
+            "converted_price": 59.84,
+            "lowest_converted_price": 59.84,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 52.087582630355065
+                }
+            ]
+        },
+        {
+            "id": "l3b5",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 50.29,
+            "coverted_max_cash_payment": 70.66,
+            "points": 1750,
+            "bonuses": 0,
+            "lowest_price": 50.29,
+            "price": 70.66,
+            "converted_price": 70.66,
+            "lowest_converted_price": 70.66,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 62.527580983296474
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 326,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.16075031.-9981964.128.SGD.743326021&source=201-9&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 363,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.16076507.-9981966.152.SGD.961169991&source=201-10&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "ejin",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 89.38,
+            "coverted_max_cash_payment": 125.59,
+            "points": 3125,
+            "bonuses": 0,
+            "lowest_price": 89.38,
+            "price": 125.59,
+            "converted_price": 125.59,
+            "lowest_converted_price": 125.59,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 110.52628135159777
+                }
+            ]
+        },
+        {
+            "id": "y5sM",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 256.72,
+            "coverted_max_cash_payment": 360.72,
+            "points": 9000,
+            "bonuses": 0,
+            "lowest_price": 256.72,
+            "price": 360.72,
+            "converted_price": 360.72,
+            "lowest_converted_price": 360.72,
+            "market_rates": []
+        },
+        {
+            "id": "DWtB",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 49.54,
+            "coverted_max_cash_payment": 69.61,
+            "points": 1725,
+            "bonuses": 0,
+            "lowest_price": 49.54,
+            "price": 69.61,
+            "converted_price": 69.61,
+            "lowest_converted_price": 69.61,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 61.26297822183655
+                }
+            ]
+        },
+        {
+            "id": "S1AP",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 99.88,
+            "coverted_max_cash_payment": 140.34,
+            "points": 3500,
+            "bonuses": 0,
+            "lowest_price": 99.88,
+            "price": 140.34,
+            "converted_price": 140.34,
+            "lowest_converted_price": 140.34,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 125.53290078758893
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 188,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614761.-9981966.19.SGD.1094057488&source=201-10&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 265,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471255.-9981964.89.SGD.1641022846&source=201-13&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "8yed",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 62.09,
+            "coverted_max_cash_payment": 87.24,
+            "points": 2175,
+            "bonuses": 0,
+            "lowest_price": 62.09,
+            "price": 87.24,
+            "converted_price": 87.24,
+            "lowest_converted_price": 87.24,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 78.02599038207761
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 160,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.31633438.-9981985.10.SGD.253088968&source=201-7&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 165,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13614747.-9981966.12.SGD.1207011497&source=201-9&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 372,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13471240.-9981964.79.SGD.244208123&source=201-19&a_aid=245162&brandID=561392"
+                }
+            ]
+        },
+        {
+            "id": "YUso",
+            "searchRank": 0.91,
+            "price_type": "multi",
+            "max_cash_payment": 151.16,
+            "coverted_max_cash_payment": 212.4,
+            "points": 5300,
+            "bonuses": 0,
+            "lowest_price": 151.16,
+            "price": 212.4,
+            "converted_price": 212.4,
+            "lowest_converted_price": 212.4,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 192.31797773446715
+                }
+            ]
+        },
+        {
+            "id": "geVM",
+            "searchRank": 0.94,
+            "price_type": "multi",
+            "max_cash_payment": 240.84,
+            "coverted_max_cash_payment": 338.41,
+            "points": 8450,
+            "bonuses": 0,
+            "lowest_price": 240.84,
+            "price": 338.41,
+            "converted_price": 338.41,
+            "lowest_converted_price": 338.41,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 294.6524434201634
+                }
+            ]
+        },
+        {
+            "id": "11iG",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 76.37,
+            "coverted_max_cash_payment": 107.31,
+            "points": 2675,
+            "bonuses": 0,
+            "lowest_price": 76.37,
+            "price": 107.31,
+            "converted_price": 107.31,
+            "lowest_converted_price": 107.31,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 94.43772399746867
+                }
+            ]
+        },
+        {
+            "id": "jcc6",
+            "searchRank": 0.93,
+            "price_type": "multi",
+            "max_cash_payment": 73.8,
+            "coverted_max_cash_payment": 103.7,
+            "points": 2575,
+            "bonuses": 0,
+            "lowest_price": 73.8,
+            "price": 103.7,
+            "converted_price": 103.7,
+            "lowest_converted_price": 103.7,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 91.26216595202486
+                }
+            ]
+        },
+        {
+            "id": "MgQM",
+            "searchRank": 0.92,
+            "price_type": "multi",
+            "max_cash_payment": 42.5,
+            "coverted_max_cash_payment": 59.72,
+            "points": 1475,
+            "bonuses": 0,
+            "lowest_price": 42.5,
+            "price": 59.72,
+            "converted_price": 59.72,
+            "lowest_converted_price": 59.72,
+            "market_rates": [
+                {
+                    "supplier": "expedia",
+                    "rate": 53.42244110078499
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "hotels": [
+    {
+        "id": "050G",
+        "searchRank": 0.93,
+        "price_type": "multi",
+        "max_cash_payment": 127.82,
+        "coverted_max_cash_payment": 179.6,
+        "points": 4475,
+        "bonuses": 0,
+        "lowest_price": 127.82,
+        "price": 179.6,
+        "converted_price": 179.6,
+        "lowest_converted_price": 179.6,
+        "market_rates": [
+            {
+                "supplier": "expedia",
+                "rate": 158.0472428989031
+            }
+        ]
+    }]
+}

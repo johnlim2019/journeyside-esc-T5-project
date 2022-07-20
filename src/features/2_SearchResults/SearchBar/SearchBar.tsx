@@ -1,7 +1,7 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem, Loader } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
-import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
+import { pageStartLoad, query, setDestinations, compileHotelData, setLoading, setHotelData } from '../../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
@@ -187,7 +187,7 @@ function SearchBar(): JSX.Element {
     // api caller
     // set the api url for axios import function 
     const hotelApi = "./" + queryId + ".json";
-    const hotelPriceApi = "https://ascendahotels.mocklab.io/api/destinations/" + queryId + "/prices";
+    const hotelPriceApi = "./prices/" + queryId + ".json";
     function sendGetRequest(hotelApi: string, hotelPriceApi: string, queryId: string) {
         const hotelApiCall = axios.get(hotelApi);
         const hotelPriceApiCall = axios.get(hotelPriceApi);
@@ -203,7 +203,7 @@ function SearchBar(): JSX.Element {
         ).catch(errors => {
             console.error(errors);
             dispatch(setLoading({ loading: false }));
-            dispatch(compileHotelData({ hotels: [], prices: [], id: queryId }));
+            dispatch(compileHotelData({ hotels: [], prices: [], id: "No" }));
         });
     }
 
@@ -281,6 +281,7 @@ function SearchBar(): JSX.Element {
                                 </Paper>
                                 </div>
                                 {validDestination && <Space h='xl'></Space>}
+                            </div>
                         </Grid.Col>
                         <Grid.Col md={6} sm={4}>
                             <div className='Date'>
@@ -344,7 +345,7 @@ function SearchBar(): JSX.Element {
                             </Paper>
                             </div>
                         </Grid.Col>
-                        <Grid.Col span={2}>
+                        <Grid.Col span={1}>
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
                                 <div className='SearchButton'>
@@ -362,8 +363,10 @@ function SearchBar(): JSX.Element {
                                             dispatch(pageStartLoad({ start: 1 }));
                                             sendGetRequest(hotelApi, hotelPriceApi, queryId);
                                         }
-                                        if (queryId === undefined || queryId.length === 0) {
-                                            dispatch(setLoading({ loading: false }));
+                                        else {
+                                            let errorsObj = setErrorMessages(validation);
+                                            setValidDestination(errorsObj['locationValid']);
+                                            setValidDates(errorsObj["dateValid"]);
                                         }
                                         //console.log("HELP querylocation "+dispatchQuery.location);
                                     }
@@ -388,4 +391,6 @@ function SearchBar(): JSX.Element {
 
     );
 } export default SearchBar;
+
+
 

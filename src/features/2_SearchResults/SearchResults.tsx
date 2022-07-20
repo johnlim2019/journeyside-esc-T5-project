@@ -1,11 +1,12 @@
 import SearchWrapper from './SearchItem/SearchWrapper';
 import SearchBar from './SearchBar/SearchBar';
 import NavBarSplashPage from '../1_DestinationSearch/NavBarSplashPage';
-import { Button, Center, createStyles } from '@mantine/core';
+import { Button, Center, createStyles, ThemeIcon } from '@mantine/core';
 import { useEffect, useRef, useState } from 'react';
 import { ChevronUp } from 'tabler-icons-react';
 
 function SearchResults() {
+
     const useStyles = createStyles((theme) => ({
         searchBarStyle: {
             position: 'sticky', top: '0', zIndex: 1, width: '100%',
@@ -50,11 +51,13 @@ function SearchResults() {
                 <SearchBar />
             </Center>
             {(scrollPosition > 500) && <div className={classes.gototop}>
-                <Button variant="filled" color="blue" radius="xl" size='xs'
+                <ThemeIcon variant="filled" color="blue" radius="xl" size='xl'
+                style={{cursor:'pointer'}}
                 onClick={() => {
+                    
                     window.scrollTo({top:0,behavior: 'smooth'});
                 }}
-                ><ChevronUp size={12}></ChevronUp></Button>
+                ><ChevronUp></ChevronUp></ThemeIcon>
             </div>}
             <SearchWrapper />
         </>
