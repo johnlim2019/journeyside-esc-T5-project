@@ -1,35 +1,76 @@
 /// <reference types="cypress" />
+import { store } from '../../src/services/store';
 
-// import your function from .tsx file
-import { getMapDetails } from '../../src/features/3_RoomDetails/RoomDetails';
+const BASE = 'http://localhost:3000/';
+const LOCATION = "Singapore, Singapore";
 
-describe('Unit Tests', () => {
-  
-  // Control test
-  it('Control Test',() => {
-    expect(true).to.eq(true);
-  })
-  
-  // Function call
-  it('Test Get Map Details with valid coordinates in selected hotel',() => {
-    // SUTD Coordinates: 1.3414522580647132, 103.96334485260385
-    const sutd = {
-      longitude: 1.341,
-      latitude: 103.963
-    }
+let numberOfHotels = 0;
 
-    const result = getMapDetails(sutd);
+before(() => {
+    cy.visit(BASE);
+    cy.get('input').first().focus().type(LOCATION)
+    cy.get('.mantine-DateRangePicker-wrapper.mantine-12sbrde').parent().within(() => {
+        cy.get('input').click()
+    })
+    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-calendarHeaderLevel.mantine-1xk0qjw').click()
+    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-calendarHeaderLevel.mantine-1xk0qjw').click()
+    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-yearPickerControl.mantine-v8o1j6').contains('2024').click()
+    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-monthPickerControl.mantine-13qbqe7').contains('Jul').click()
+    cy.get('button').contains('7').click()    
+    cy.get('button').contains('8').click()    
+    cy.get('.mantine-Grid-root.mantine-pafeaw').parent().within(() => {
+        cy.get('Button').last().click()
+    })
 
-    expect(result[0]).to.eq(1.341);
-    expect(result[1]).to.eq(103.963);
-  })
+    // Hotel Search loaded
+    cy.wait(3000)
 
-  it('Test Get Map Details with null selected hotel',() => {
-    expect(getMapDetails(null)[0]).to.eq(0);
-    expect(getMapDetails(null)[1]).to.eq(0);
-  })
+    cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').then(($el) => {
+        numberOfHotels = $el.length;
+        cy.log("Number of hotels: "+numberOfHotels);
+    })
 })
 
-describe('System Tests', () => {
+describe('Room Details System Test', () => {
+    let selectedHotel:any = null;
+    let hotelRooms:any = null;
+    let numberOfRooms = 0;
 
+    before(() => {
+        cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
+        cy.wait(1000)
+
+        // Room Details Page Loaded
+    });
+
+
+    it('Selected Hotel State Check', () => {
+        selectedHotel = store.getState().SearchBarReducer.selectHotelObj;
+        cy.log(JSON.stringify(selectedHotel));
+        expect(selectedHotel).to.not.equal(null);
+    })
+
+    it('Hotel name displayed', () => {
+        cy.get('h2').first().should('have.text', selectedHotel.name);
+    })
+
+    it('Hotel address and coordinates displayed', () => {
+        cy.get('#hotel-address').should('have.text', 'Address: '+selectedHotel.address);
+        cy.get('#hotel-coordinates').should('have.text', 'Lat: '+selectedHotel.latitude+', Lng: '+selectedHotel.longitude);
+    })
+
+    it('Selected Hotel Room List State Check', () => {
+        hotelRooms = store.getState().RoomDetailReducer;
+        numberOfRooms = Object.keys(hotelRooms.roomsList).length;
+        cy.log('Number of rooms: '+ numberOfRooms);
+        expect(numberOfRooms).above(0);
+    })
+
+    it('All room types displayed', () => {
+        cy.get('.mantine-Paper-root.mantine-Card-root.mantine-h0tete').should('have.length', numberOfRooms)
+    })
+
+    // it('Go Back', () => {
+    //     cy.go('back');
+    // })
 })

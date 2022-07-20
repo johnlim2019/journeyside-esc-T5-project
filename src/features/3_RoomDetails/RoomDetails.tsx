@@ -71,10 +71,10 @@ function RoomDetails() {
       </Card>
       <Title order={2}>{selectedHotelObj.name}</Title><Space h="sm" />
       <List center spacing="xs">
-        <List.Item icon={<ThemeIcon radius="xl"><IconMap size={16}/></ThemeIcon>}>
+        <List.Item id="hotel-address" icon={<ThemeIcon radius="xl"><IconMap size={16}/></ThemeIcon>}>
           Address: {selectedHotelObj.address}
         </List.Item>
-        <List.Item icon={<ThemeIcon radius="xl"><IconMapPin size={16}/></ThemeIcon>}>
+        <List.Item id="hotel-coordinates" icon={<ThemeIcon radius="xl"><IconMapPin size={16}/></ThemeIcon>}>
           Lat: {selectedHotelObj.latitude}, Lng: {selectedHotelObj.longitude}
         </List.Item>
       </List>

@@ -1,0 +1,78 @@
+{
+    "searchCompleted": null,
+    "completed": true,
+    "status": null,
+    "currency": null,
+    "rooms": [
+        {
+            "key": "0",
+            "roomDescription": null,
+            "roomNormalizedDescription": "Premier Courtyard",
+            "type": "DBT.PE-1",
+            "free_cancellation": true,
+            "roomAdditionalInfo": {
+                "breakfastInfo": "hotel_detail_room_only",
+                "displayFields": {
+                    "special_check_in_instructions": null,
+                    "check_in_instructions": null,
+                    "know_before_you_go": null,
+                    "fees_optional": null,
+                    "fees_mandatory": null,
+                    "kaligo_service_fee": 0,
+                    "hotel_fees": [],
+                    "surcharges": [
+                        {
+                            "type": "TaxAndServiceFee",
+                            "amount": 54.84
+                        }
+                    ]
+                }
+            },
+            "description": "PREMIER COURTYARD",
+            "images": [
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_102.jpg"
+                },
+                {
+                    "url": "https://photos.hotelbeds.com/giata/bigger/07/074316/074316a_hb_ro_148.jpg"
+                }
+            ],
+            "amenities": [
+                "Wheelchair-accessible",
+                "Room size (sqm)",
+                "Internet access"
+            ],
+            "price_type": "single",
+            "max_cash_payment": 371.87,
+            "coverted_max_cash_payment": 522.52,
+            "points": 1220,
+            "bonuses": 0,
+            "lowest_price": 371.87,
+            "price": 0,
+            "converted_price": 0,
+            "lowest_converted_price": 522.52,
+            "chargeableRate": 0,
+            "market_rates": [
+                {
+                    "supplier": "Hotels.com",
+                    "rate": 181,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13485694.-9978649.35.SGD.322487309&source=201-8&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "hrs.com",
+                    "rate": 193,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.28177985.-9978635.21.SGD.427599336&source=201-10&a_aid=245162&brandID=561392"
+                },
+                {
+                    "supplier": "expedia",
+                    "rate": 575.7595861509116
+                },
+                {
+                    "supplier": "Expedia.com.sg",
+                    "rate": 786,
+                    "booking_url": "http://sandbox.hotelscombined.com/ProviderRedirect.ashx?key=0.13626915.-9978647.212.SGD.1478861249&source=201-19&a_aid=245162&brandID=561392"
+                }
+            ]
+        }
+    ]
+}
