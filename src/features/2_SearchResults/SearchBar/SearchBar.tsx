@@ -1,7 +1,7 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem, Loader } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
-import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
+import { pageStartLoad, query, setDestinations, compileHotelData, setLoading, setHotelData } from '../../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../../services/hooks';
 import { PlaneDeparture } from 'tabler-icons-react';
 import axios from 'axios';
@@ -187,7 +187,7 @@ function SearchBar(): JSX.Element {
     // api caller
     // set the api url for axios import function 
     const hotelApi = "./" + queryId + ".json";
-    const hotelPriceApi = "https://ascendahotels.mocklab.io/api/destinations/" + queryId + "/prices";
+    const hotelPriceApi = "./prices/" + queryId + ".json";
     function sendGetRequest(hotelApi: string, hotelPriceApi: string, queryId: string) {
         const hotelApiCall = axios.get(hotelApi);
         const hotelPriceApiCall = axios.get(hotelPriceApi);
@@ -203,7 +203,7 @@ function SearchBar(): JSX.Element {
         ).catch(errors => {
             console.error(errors);
             dispatch(setLoading({ loading: false }));
-            dispatch(compileHotelData({ hotels: [], prices: [], id: queryId }));
+            dispatch(compileHotelData({ hotels: [], prices: [], id: "No" }));
         });
     }
 
@@ -254,6 +254,7 @@ function SearchBar(): JSX.Element {
                 <Paper shadow='sm' style={{ width: '100%' }}>
                     <Grid columns={24} grow gutter='sm' align='center' p='sm' >
                         <Grid.Col md={6} sm={4}>
+                            <div className='destination'>
                                 <Paper>
                                     <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
                                         <Autocomplete
@@ -277,23 +278,26 @@ function SearchBar(): JSX.Element {
                                     </Tooltip>
                                 </Paper>
                                 {validDestination && <Space h='xl'></Space>}
+                            </div>
                         </Grid.Col>
                         <Grid.Col md={6} sm={4}>
-                            <Paper>
-                                <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
-                                    <DateRangePicker
-                                        className={classes.searchbarcomponets}
-                                        label="Dates"
-                                        placeholder="Date range"
-                                        firstDayOfWeek="sunday"
-                                        minDate={minDate}
-                                        value={dates}
-                                        onChange={setDates}
-                                        error={!validDate ? "Invalid Date" : false}
-                                    />
-                                </Tooltip>
-                            </Paper>
-                            {validDate && <Space h='xl'></Space>}
+                            <div className='dates'>
+                                <Paper>
+                                    <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
+                                        <DateRangePicker
+                                            className={classes.searchbarcomponets}
+                                            label="Dates"
+                                            placeholder="Date range"
+                                            firstDayOfWeek="sunday"
+                                            minDate={minDate}
+                                            value={dates}
+                                            onChange={setDates}
+                                            error={!validDate ? "Invalid Date" : false}
+                                        />
+                                    </Tooltip>
+                                </Paper>
+                                {validDate && <Space h='xl'></Space>}
+                            </div>
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Paper>
@@ -332,10 +336,10 @@ function SearchBar(): JSX.Element {
                                 <Space h='xl'></Space>
                             </Paper>
                         </Grid.Col>
-                        <Grid.Col span={2}>
+                        <Grid.Col span={1}>
                             <Space className={classes.searchbarcomponets} h="xl" />
                             <Center>
-                                <Button onClick={() => {
+                                <Button fullWidth onClick={() => {
                                     // console.log("HELP cache " + cacheId)
                                     // console.log('HELP query ' + queryId)
                                     let validation = validateQuery(dispatchQuery);

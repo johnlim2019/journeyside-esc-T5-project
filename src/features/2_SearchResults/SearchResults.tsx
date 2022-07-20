@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ChevronUp } from 'tabler-icons-react';
 
 function SearchResults() {
+
     const useStyles = createStyles((theme) => ({
         searchBarStyle: {
             position: 'sticky', top: '0', zIndex: 1, width: '100%',

@@ -10,7 +10,7 @@
         "rating": 5.0,
         "distance": 11307.098879372821,
         "coverted_max_cash_payment":550,
-        "converted_price":425,
+        "converted_price":500,
         "trustyou": {
             "id": null,
             "score": {
@@ -136,10 +136,10 @@
         "name": "MedHighMed",
         "address": "Fraser Residence KL, 10 Jalan Cendana Off Jalan Sultan Ismail",
         "address1": "Fraser Residence KL, 10 Jalan Cendana Off Jalan Sultan Ismail",
-        "rating": 5.0,
+        "rating": 4.0,
         "distance": 11307.098879372821,
         "coverted_max_cash_payment":437.5,
-        "converted_price":500,
+        "converted_price":400,
         "trustyou": {
             "id": null,
             "score": {
@@ -310,8 +310,8 @@
         "address1": "Fraser Residence KL, 10 Jalan Cendana Off Jalan Sultan Ismail",
         "rating": 4.0,
         "distance": 11307.098879372821,
-        "coverted_max_cash_payment":337.5,
-        "converted_price":425,
+        "coverted_max_cash_payment":425,
+        "converted_price":337.5,
         "trustyou": {
             "id": null,
             "score": {
@@ -437,7 +437,7 @@
         "name": "HighHighLow",
         "address": "Fraser Residence KL, 10 Jalan Cendana Off Jalan Sultan Ismail",
         "address1": "Fraser Residence KL, 10 Jalan Cendana Off Jalan Sultan Ismail",
-        "rating": 5.0,
+        "rating": 4.0,
         "distance": 11307.098879372821,
         "coverted_max_cash_payment":570,
         "converted_price":500,
@@ -568,8 +568,8 @@
         "address1": "Fraser Residence KL, 10 Jalan Cendana Off Jalan Sultan Ismail",
         "rating": 3.0,
         "distance": 11307.098879372821,
-        "coverted_max_cash_payment":550,
-        "converted_price":425,
+        "coverted_max_cash_payment":312.5,
+        "converted_price":281.25,
         "trustyou": {
             "id": null,
             "score": {
@@ -660,7 +660,7 @@
             "id": null,
             "score": {
                 "overall": null,
-                "kaligo_overall": 4.0,
+                "kaligo_overall": 0.0,
                 "solo": null,
                 "couple": null,
                 "family": null,
@@ -913,7 +913,7 @@
         "rating": 3.0,
         "distance": 11307.098879372821,
         "coverted_max_cash_payment":375,
-        "converted_price":312.5,
+        "converted_price":320,
         "trustyou": {
             "id": null,
             "score": {

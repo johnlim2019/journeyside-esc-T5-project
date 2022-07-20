@@ -40,7 +40,7 @@ const useStyles = createStyles((theme) => ({
     }
   },
 }));
-export function sortResults(hotelDataLongSort: any, sortBy: string, avePrice: any) {
+export function sortResults(hotelDataLongSort: any, sortBy: string) {
   if (sortBy === "Rating") {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by rating");
@@ -62,7 +62,7 @@ export function sortResults(hotelDataLongSort: any, sortBy: string, avePrice: an
   else if (sortBy === "Value") {
     if (hotelDataLongSort.length > 0) {
       console.log("sort by value");
-      hotelDataLongSort.sort((a: any, b: any) => (((a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment) * 5 + a.rating * 0.9 + a.trustyou.score.kaligo_overall * 1.2 > ((b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment) * 5 + b.rating * 0.9 + b.trustyou.score.kaligo_overall * 1.2) ? 1 : -1);
+      hotelDataLongSort.sort((a: any, b: any) => (((a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment) * 5 + a.rating * 0.8 + a.trustyou.score.kaligo_overall * 1.2 < ((b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment) * 5 + b.rating * 0.8 + b.trustyou.score.kaligo_overall * 1.2) ? 1 : -1);
     }
   }
   else if (sortBy === "Sale") {
@@ -110,16 +110,16 @@ export function isSale(price: number, maxPrice: number) {
   console.log("maxPrice " + maxPrice);
   let salePercent = (maxPrice - price) / maxPrice * 100;
   let colour = 'gray';
-  if (salePercent <= 5 && salePercent > 1) {
+  if (salePercent < 5 && salePercent > 0) {
     colour = 'yellow';
   }
-  else if (salePercent > 5 && salePercent <= 10) {
+  else if (salePercent >= 5 && salePercent < 10) {
     colour = 'orange';
   }
-  else if (salePercent > 10 && salePercent <= 20) {
+  else if (salePercent >= 10 && salePercent < 20) {
     colour = 'pink';
   }
-  else if (salePercent > 20) {
+  else if (salePercent >= 20) {
     colour = 'red';
   }
   else {
@@ -134,17 +134,161 @@ export function isSale(price: number, maxPrice: number) {
     </Badge>
   );
 }
+export function getStars(ratingScore: number) {
+  // console.log("HELP "+ratingScore);
+  if (ratingScore === 1) {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+      </Group>
+    )
+  }
+  else if (ratingScore === 1.5) {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <StarHalf />
+        </ThemeIcon>
+      </Group>)
+  }
+  else if (ratingScore === 2) {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+      </Group>)
+  }
+  else if (ratingScore === 2.5) {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <StarHalf />
+        </ThemeIcon>
+      </Group>)
+  }
+  else if (ratingScore === 3) {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+      </Group>)
+  }
+  else if (ratingScore === 3.5) {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <StarHalf />
+        </ThemeIcon>
+      </Group>)
+  }
+  else if (ratingScore === 4) {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+      </Group>)
+  }
+  else if (ratingScore === 4.5) {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <StarHalf />
+        </ThemeIcon>
+      </Group>)
+  }
+  else if (ratingScore === 5) {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+        <ThemeIcon color='yellow'>
+          <Star />
+        </ThemeIcon>
+      </Group>)
+  }
+  else {
+    return (
+      <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
+
+      </Group>
+    )
+  }
+}
 
 function SearchItem() {
   const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
-  const destId = useAppSelector(state => state.SearchBarReducer.locationId);
+  const queryId = useAppSelector(state => state.SearchBarReducer.locationId); // to load things from store !!!
+  const destId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId); // This shows whether the search bar API GET request is successful? NO means there was a catch
   let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
   const isLoading = useAppSelector(state => state.SearchBarReducer.isLoading);
   // console.log("HELP "+dest);
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
-  let header = dest;
-  if (hotelDataLong.length === 0) {
+  let header = dest
+  if (queryId !== destId) {
     header = NOTFOUND + dest;
   }
   // set up pagination settings
@@ -156,7 +300,7 @@ function SearchItem() {
   // sort code
   // create copy to sort
   var hotelDataLongSort = [...hotelDataLong];
-  hotelDataLongSort = sortResults(hotelDataLongSort, sortBy, 0);
+  hotelDataLongSort = sortResults(hotelDataLongSort, sortBy);
   // assign the new sorted values
   hotelDataLong = hotelDataLongSort;
 
@@ -229,13 +373,16 @@ function SearchItem() {
         width: "100%",
         zIndex: '20'
       }}>
+        <div className='loaderSpinner'></div>
         <Loader style={{ zIndex: '100', opacity: '1' }} />
       </Center>
       }
       <Center>
-        <Text style={{ marginTop: "2rem", color: 'gray' }}>
-          {header}
-        </Text>
+        <div className='notification'>
+          <Text style={{ marginTop: "2rem", color: 'gray' }}>
+            {header}
+          </Text>
+        </div>
       </Center>
 
 
@@ -272,149 +419,7 @@ function SearchItem() {
         {hotelDataLs.map((data, key) => {
           // Load card values
           let [imageUrl, ratingScore, reviewScore, reviewColor, distance, price, ogPrice] = getCardValues(data);
-          function getStars(ratingScore: number) {
-            // console.log("HELP "+ratingScore);
-            if (ratingScore === 1) {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                </Group>
-              )
-            }
-            else if (ratingScore === 1.5) {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <StarHalf />
-                  </ThemeIcon>
-                </Group>)
-            }
-            else if (ratingScore === 2) {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                </Group>)
-            }
-            else if (ratingScore === 2.5) {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <StarHalf />
-                  </ThemeIcon>
-                </Group>)
-            }
-            else if (ratingScore === 3) {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                </Group>)
-            }
-            else if (ratingScore === 3.5) {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <StarHalf />
-                  </ThemeIcon>
-                </Group>)
-            }
-            else if (ratingScore === 4) {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                </Group>)
-            }
-            else if (ratingScore === 4.5) {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <StarHalf />
-                  </ThemeIcon>
-                </Group>)
-            }
-            else if (ratingScore === 5) {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                  <ThemeIcon color='yellow'>
-                    <Star />
-                  </ThemeIcon>
-                </Group>)
-            }
-            else {
-              return (
-                <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
 
-                </Group>
-              )
-            }
-          }
           let salesComp = isSale(price, ogPrice);
 
           let starsComp = getStars(ratingScore);
