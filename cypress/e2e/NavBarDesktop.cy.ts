@@ -41,6 +41,7 @@ describe('NavBarCheck', () => {
     cy.get('.FullNavBar').parent().within(() => {
       cy.get('Button').get('Button').contains('User Profile').click()
     }).then(() => {
+      cy.wait(2000)
       cy.url().should('eq', BASE + USER)
     })
     // complete log in test, log out

@@ -18,11 +18,9 @@ describe('BookingData', () => {
       cy.get('input').click()
     })
     cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-calendarHeaderLevel.mantine-1xk0qjw').click()
-    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-calendarHeaderLevel.mantine-1xk0qjw').click()
-    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-yearPickerControl.mantine-v8o1j6').contains('2024').click()
-    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-monthPickerControl.mantine-13qbqe7').contains('Jul').click()
-    cy.get('button').contains('7').click()
-    cy.get('button').contains('8').click()
+    cy.get('button').contains('Dec').click()
+    cy.get('button').contains('17').click()
+    cy.get('button').contains('18').click()
     cy.get('div').contains('Adults').parent().within(() => {
       cy.get('select').select(2)
     })
@@ -43,7 +41,7 @@ describe('BookingData', () => {
       cy.get('input').should('have.value',"Singapore, Singapore")
     })    
     cy.get('div').contains('Dates').parent().within(() => {
-      cy.get('input').should('have.value',"July 7, 2024 – July 8, 2024")
+      cy.get('input').should('have.value',"December 17, 2022 – December 18, 2022")
     })
     cy.get('div').contains('Adults').parent().within(() => {
       cy.get('select').should('have.value',2)
@@ -63,6 +61,13 @@ describe('BookingData', () => {
     cy.get('.loaderSpinner').should('be.exist')
     cy.wait(4000)
     cy.get('.notification').contains("Singapore, Singapore")
+    cy.get('div').contains('The Ritz-Carlton, Millenia Singapore')
+    cy.get('div').contains('Shangri-La Hotel Singapore')
+    cy.get('div').contains('AMOY')
+    cy.get('div').contains('The Fullerton Hotel Singapore')
+    cy.get('div').contains('Fairmont Singapore')
+    cy.get('div').contains('The St. Regis Singapore')
+    cy.get('div').contains('The Westin Singapore')    
     cy.get('.SearchButton').parent().within(() => {
       cy.get('Button').click();
     })
@@ -85,8 +90,9 @@ describe('BookingData', () => {
     cy.get('div').contains("Sort By:").parent().within(() => {
       cy.get('select').select('Price')
     })
+    cy.wait(3000)
     cy.get('.pagination').parent().within(() => {
-      cy.get('button').contains("12").click()
+      cy.get('button').contains("2").click()
     })
     cy.wait(1000); // wait for the cache to register 
     cy.reload()
@@ -98,7 +104,7 @@ describe('BookingData', () => {
       cy.get('select').should('have.value', 'Price')
     })
     cy.get('.pagination').parent().within(() => {
-      cy.get('button').contains("12").should('have.css', 'background-color', 'rgb(34, 139, 230)')
+      cy.get('button').contains("2").should('have.css', 'background-color', 'rgb(34, 139, 230)')
     })
     // cy.pause()
   })

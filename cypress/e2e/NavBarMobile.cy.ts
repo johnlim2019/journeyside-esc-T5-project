@@ -51,6 +51,7 @@ describe('NavBarCheck', () => {
     cy.get('.NavBarDrawer').parent().within(() => {
       cy.get('Button').get('Button').contains('User Profile').click()
     }).then(() => {
+      cy.wait(2000)
       cy.url().should('eq', BASE + USER)
     })
     cy.get('.NarrowNavBar').parent().within(() => {
@@ -60,6 +61,7 @@ describe('NavBarCheck', () => {
     cy.get('.NavBarDrawer').parent().within(() => {
       cy.get('Button').contains('Log Out').click()
     })
+    cy.wait(1000)
   })
   it('check UserProfile does not exist when not logged in', () => {
     cy.get('.FullNavBar').parent().within(() => {

@@ -11,6 +11,7 @@ describe('UserProfile', () => {
         // })
         // cy.clearLocalStorage()
         cy.visit(BASE + USER);
+        cy.reload(true);
         // check alert when cannot find user
         cy.on('window:alert', (t) => {
             //assertions
@@ -92,11 +93,9 @@ describe('UserProfile', () => {
         // wait for refresh
         cy.wait(2800);
         cy.get('.icon.icon-tabler.icon-tabler-circle-x').should('have.length', 1);
-        cy.get('.icon.icon-tabler.icon-tabler-circle-check').should('have.length', 2);
         cy.get('.mantine-Button-filled.mantine-Button-root.mantine-1grzg0q').eq(0).click();
         cy.get('button').contains("Cancel Booking").click();
-        cy.wait(2800);
-        cy.get('.icon.icon-tabler.icon-tabler-circle-check').should('have.length', 3);
+        cy.wait(2800);  
         // log out
         cy.get('.FullNavBar').parent().within(() => {
             cy.get('Button').contains('Log Out').click();

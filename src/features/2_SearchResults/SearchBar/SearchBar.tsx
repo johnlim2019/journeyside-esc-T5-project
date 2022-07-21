@@ -35,10 +35,10 @@ export function validateQuery(queryObj: any) {
     // 2 - invalid date 
 
     let outcome = [];
-    console.log("HELP " + queryObj.id);
-    console.log("HELP " + queryObj.location);
-    console.log("HELP " + queryObj.checkIn);
-    console.log("HELP " + queryObj.checkOut);
+    // console.log("HELP " + queryObj.id);
+    // console.log("HELP " + queryObj.location);
+    // console.log("HELP " + queryObj.checkIn);
+    // console.log("HELP " + queryObj.checkOut);
     if ((queryObj.location.length === 0) || (queryObj.id.length === 0)) {
         outcome.push(1);
     }
@@ -99,14 +99,24 @@ export function getUrlDates(date: Date) {
 }
 export function validateHotelApiData(data: any[]) {
     try {
-        let hotel_0 = data[0];
-        // check hotel address, name and id and price
-        let hotelName: string = hotel_0.name;
-        let hotelAddr: string = hotel_0.address;
-        if (typeof hotelName === 'undefined' || typeof hotelAddr === 'undefined'){
-            throw new Error();  
+        for (let i = 0; i < data.length; i++) {
+            let hotel_0 = data[i];
+            // check hotel address, name and id and price
+            let hotelName: string = hotel_0.name;
+            let hotelAddr: string = hotel_0.address;
+            let long: number = hotel_0.longitude;
+            let lat: number = hotel_0.latitude;
+            let id:string = hotel_0.id;
+            let distance:number = hotel_0.distance;
+            let rating:number = hotel_0.rating; 
+            let review:number = hotel_0.trustyou.score.kaligo_overall;           
+            if (typeof hotelName === 'undefined' || typeof hotelAddr === 'undefined' || typeof long === 'undefined' || typeof lat === 'undefined' || typeof id === 'undefined' || typeof distance === 'undefined' || typeof rating === 'undefined' || typeof review === 'undefined') {
+                console.log(i);
+                console.log(hotel_0);
+                throw new Error();
+            }
         }
-        console.log(data);
+        // console.log(data);
         return true;
     } catch (error) {
         return false;
@@ -115,18 +125,22 @@ export function validateHotelApiData(data: any[]) {
 
 export function validatePriceApiData(data: any) {
     try {
-        console.log(data)
+        // console.log(data)
         let hotels = data.hotels;
-        console.log(hotels);    
-        let hotel_0 = hotels[0]
-        console.log(hotel_0);
-        // check hotel address, name and id and price
-        let id: string = hotel_0.id;
-        let hotelMax: string = hotel_0.coverted_max_cash_payment;
-        let hotelPrice: number = hotel_0.converted_price;
-        if (typeof id === 'undefined' || typeof hotelMax === 'undefined' || typeof hotelPrice === 'undefined'){
-            throw new Error();
+        // console.log(hotels);
+        for (let i = 0; i < hotels.length; i++) {
+            let hotel_0 = hotels[i]
+            // console.log(hotel_0);
+            // check hotel address, name and id and price
+            let id: string = hotel_0.id;
+            let hotelMax: string = hotel_0.coverted_max_cash_payment;
+            let hotelPrice: number = hotel_0.converted_price;
+            if (typeof id === 'undefined' || typeof hotelMax === 'undefined' || typeof hotelPrice === 'undefined') {
+                console.error(hotel_0);
+                throw new Error();
+            }
         }
+
         return true;
     } catch (error) {
         return false;

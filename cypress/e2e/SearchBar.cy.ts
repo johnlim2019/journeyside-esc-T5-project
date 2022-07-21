@@ -7,14 +7,13 @@ describe('Feature 1 E2E Test', () => {
     cy.visit('http://localhost:3000/SearchResults')
   })
   it('Search Button Click Test',() => {
-    cy.get('.SearchButton').click()
+    cy.get('.SearchButton').click()    
   })
   it('Autocomplete Test',()=>{
     const $input = cy.get('.DestinationInput').within(()=>{cy.get('input').focus().clear().type('Singapore')})
     $input.type('{downarrow}')
     $input.type('{enter}')
     cy.get('.DestinationInput').get('input').should("contain.value", "Singapore, Singapore")
-    cy.get('.SearchButton').children().click()
   })
   it('Invalid Entry Test',()=>{
     cy.reload(true)

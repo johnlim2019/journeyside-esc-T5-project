@@ -1,27 +1,29 @@
 /// <reference types="cypress" />
-import { validate } from '../../src/Browser-Storage';
+import { validateCache } from '../../src/Browser-Storage';
 import workingCache from '../../public/workingCache.json'
-function shuffle(string:string) {
-  var a = string.split(""),
-      n = a.length;
+import { validateHotelApiData, validatePriceApiData } from '../../src/features/2_SearchResults/SearchBar/SearchBar'
+import hotelData from '../../public/RsBU.json';
+import hotelPrice from '../../public/prices/RsBU.json';
+import hotelDataCorrupt from '../../public/corrupted_samples/RsBU_corrupted.json'
+import hotelPriceCorrupt from '../../public/corrupted_samples/prices_corrupted.json'
+import corruptedCache from '../../public/corruptedCache.json'
 
-  for(var i = n - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i];
-      a[i] = a[j];
-      a[j] = tmp;
-  } 
-  return a.join("");
-}
 const WorkingString = JSON.stringify(workingCache);
+const corruptedString = JSON.stringify(corruptedCache);
 describe('check for corrupt data', () => {
-  it('check valid', () => {
-    console.log(validate(WorkingString));
-    assert.equal(validate(WorkingString),true);
+  it('check cache valid', () => {
+    console.log(validateCache(WorkingString));
+    assert.equal(validateCache(WorkingString), true);
   })
-  it('check invalid', () => {
-    const notWorkingString = shuffle(WorkingString);
-    assert.equal(validate(notWorkingString),false);
-    
+  it('check cache invalid', () => {    
+    assert.equal(validateCache(corruptedString), false);
+  })
+  it('check valid hotel and price api data', () => {
+    assert.equal(validateHotelApiData(hotelData), true);
+    assert.equal(validatePriceApiData(hotelPrice), true);
+  })
+  it('check invalid hotel and price api data', () => {
+    assert.equal(validatePriceApiData(hotelPriceCorrupt), false);
+    assert.equal(validateHotelApiData(hotelDataCorrupt), false);
   })
 })
