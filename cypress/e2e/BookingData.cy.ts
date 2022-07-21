@@ -30,7 +30,7 @@ describe('BookingData', () => {
     cy.wait(4000)
     cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
     cy.wait(1000)
-    cy.get('a').contains('Select').first().click()
+    cy.get('a[href="/BookingData"]').first().click()
 
   })
   it('check for invalid data and pls login notification', () => {
