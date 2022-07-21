@@ -23,7 +23,7 @@ before(() => {
     })
 
     // Hotel Search loaded
-    cy.wait(3000)
+    cy.wait(4500)
 
     cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').then(($el) => {
         numberOfHotels = $el.length;
@@ -31,46 +31,28 @@ before(() => {
     })
 })
 
-describe('Room Details System Test', () => {
-    let selectedHotel:any = null;
-    let hotelRooms:any = null;
-    let numberOfRooms = 0;
+const testIndex = [1,2,3];
 
-    before(() => {
-        cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
-        cy.wait(1000)
+testIndex.forEach((index) => {
+    describe('Room Details System Test '+index, () => {
 
-        // Room Details Page Loaded
-    });
-
-
-    it('Selected Hotel State Check', () => {
-        selectedHotel = store.getState().SearchBarReducer.selectHotelObj;
-        cy.log(JSON.stringify(selectedHotel));
-        expect(selectedHotel).to.not.equal(null);
+        before(() => {
+            cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').eq(index).click();
+            cy.wait(4500);
+        });
+    
+        it('Check Google Maps embed loads', () => {
+            cy.get('.gm-style > iframe').should('exist');
+        });
+    
+        it('Check valid room select buttons', () => {
+            cy.get('[href="/BookingData"]').should('have.length.above',0);
+        })
+    
+        it('Go Back', () => {
+            cy.go('back');
+            cy.url().should('contain', '/SearchResults')
+        })
     })
-
-    it('Hotel name displayed', () => {
-        cy.get('h2').first().should('have.text', selectedHotel.name);
-    })
-
-    it('Hotel address and coordinates displayed', () => {
-        cy.get('#hotel-address').should('have.text', 'Address: '+selectedHotel.address);
-        cy.get('#hotel-coordinates').should('have.text', 'Lat: '+selectedHotel.latitude+', Lng: '+selectedHotel.longitude);
-    })
-
-    it('Selected Hotel Room List State Check', () => {
-        hotelRooms = store.getState().RoomDetailReducer;
-        numberOfRooms = Object.keys(hotelRooms.roomsList).length;
-        cy.log('Number of rooms: '+ numberOfRooms);
-        expect(numberOfRooms).above(0);
-    })
-
-    it('All room types displayed', () => {
-        cy.get('.mantine-Paper-root.mantine-Card-root.mantine-h0tete').should('have.length', numberOfRooms)
-    })
-
-    // it('Go Back', () => {
-    //     cy.go('back');
-    // })
 })
+
