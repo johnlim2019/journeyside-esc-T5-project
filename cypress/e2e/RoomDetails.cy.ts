@@ -1,5 +1,4 @@
 /// <reference types="cypress" />
-import { store } from '../../src/services/store';
 
 const BASE = 'http://localhost:3000/';
 const LOCATION = "Singapore, Singapore";

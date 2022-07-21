@@ -38,11 +38,11 @@ describe('Room Details System Test', () => {
 
     before(() => {
         // poll up to three times
-        for(let i = 0; i < 10; i++){
+        for(let i = 0; i < 3; i++){
             cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
             // Room Details Page Loaded
     
-            cy.wait(1000)
+            cy.wait(4500)
             selectedHotel = store.getState().SearchBarReducer.selectHotelObj;
             if(selectedHotel != null){
                 break;
