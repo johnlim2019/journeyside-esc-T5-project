@@ -2,7 +2,7 @@ import { Button, Center, createStyles, Dialog, Group, Loader, LoadingOverlay, Mo
 import { wait } from "@testing-library/user-event/dist/utils";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FileDescription, CircleX, CircleCheck } from "tabler-icons-react";
+import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons";
 import { deleteBookings, readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
 import { useAppSelector } from "../../services/hooks";
@@ -99,12 +99,12 @@ function getBookingDetails(data: bookingObject) {
 function cancelHtml(input: any) {
     if (input === false) {
         return (
-            <CircleCheck color="green"></CircleCheck>
+            <IconCircleCheck color="green"></IconCircleCheck>
         )
     }
     else {
         return (
-            <CircleX color="red"></CircleX>
+            <IconCircleX color="red"></IconCircleX>
         )
     }
 }
@@ -245,7 +245,7 @@ function UserProfile() {
                     // check the if booking is filled
                     setModal(true);
                 }}
-                ><FileDescription></FileDescription>
+                ><IconFileDescription></IconFileDescription>
                 </Button>
             </td>
             <td className={classes.td}>{cancelHtml(element.cancellation)}</td>
@@ -262,7 +262,7 @@ function UserProfile() {
                     // check the if booking is filled
                     setModal(true);
                 }}
-                ><FileDescription></FileDescription>
+                ><IconFileDescription></IconFileDescription>
                 </Button>
             </td>
             <td className={classes.td}>{cancelHtml(element.cancellation)}</td>

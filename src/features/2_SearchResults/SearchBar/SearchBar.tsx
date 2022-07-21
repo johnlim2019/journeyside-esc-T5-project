@@ -3,7 +3,7 @@ import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
 import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../../services/hooks';
-import { PlaneDeparture } from 'tabler-icons-react';
+import { IconPlaneDeparture } from '@tabler/icons';
 import axios from 'axios';
 const useStyles = createStyles((theme) => ({
     searchbarwrapper: {
@@ -451,7 +451,7 @@ function SearchBar(): JSX.Element {
                                             setValidDates(errorsObj["dateValid"]);
                                         }
                                     }}>
-                                        <PlaneDeparture />
+                                        <IconPlaneDeparture />
                                     </Button>
                                 </div>
                             </Center>

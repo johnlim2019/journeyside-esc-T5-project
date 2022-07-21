@@ -1,14 +1,14 @@
 //import { hotelData } from '../data/hotelData' // temporary import of json 
-import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, ThemeIcon, NativeSelect, createStyles, Pagination, Center, Space, LoadingOverlay, Modal, Loader, Overlay } from '@mantine/core';
+import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, ThemeIcon, NativeSelect, createStyles, Pagination, Center, Space, Loader, Overlay } from '@mantine/core';
 import { useAppSelector, useAppDispatch } from '../../../services/hooks';
 import { useEffect, useState } from 'react';
 import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../../services/SearchBarSlice';
-import { Star, StarHalf } from 'tabler-icons-react';
+import { IconStar, IconStarHalf } from '@tabler/icons';
 import { Link } from 'react-router-dom';
 
 
 const NOTFOUND = "We could not find results for ";
-const NOSERVICE = "Sorry Service is down";
+// const NOSERVICE = "Sorry Service is down";
 // set up themes for classes
 const useStyles = createStyles((theme) => ({
   cardContainer: {
@@ -141,7 +141,7 @@ export function getStars(ratingScore: number) {
     return (
       <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
       </Group>
     )
@@ -150,10 +150,10 @@ export function getStars(ratingScore: number) {
     return (
       <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <StarHalf />
+          <IconStarHalf />
         </ThemeIcon>
       </Group>)
   }
@@ -161,10 +161,10 @@ export function getStars(ratingScore: number) {
     return (
       <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
       </Group>)
   }
@@ -172,13 +172,13 @@ export function getStars(ratingScore: number) {
     return (
       <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <StarHalf />
+          <IconStarHalf />
         </ThemeIcon>
       </Group>)
   }
@@ -186,13 +186,13 @@ export function getStars(ratingScore: number) {
     return (
       <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
       </Group>)
   }
@@ -200,16 +200,16 @@ export function getStars(ratingScore: number) {
     return (
       <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <StarHalf />
+          <IconStarHalf />
         </ThemeIcon>
       </Group>)
   }
@@ -217,16 +217,16 @@ export function getStars(ratingScore: number) {
     return (
       <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
       </Group>)
   }
@@ -234,19 +234,19 @@ export function getStars(ratingScore: number) {
     return (
       <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <StarHalf />
+          <IconStarHalf />
         </ThemeIcon>
       </Group>)
   }
@@ -254,19 +254,19 @@ export function getStars(ratingScore: number) {
     return (
       <Group position="left" spacing={5} style={{ marginBottom: 5, marginTop: '0.5em' }}>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
         <ThemeIcon color='yellow'>
-          <Star />
+          <IconStar />
         </ThemeIcon>
       </Group>)
   }

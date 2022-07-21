@@ -2,7 +2,6 @@ import { Stack, Paper, Space, Center, Text, Grid, createStyles, Button, ThemeIco
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin } from 'tabler-icons-react';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { login, logout } from '../../services/UserDetailsSlice';
 

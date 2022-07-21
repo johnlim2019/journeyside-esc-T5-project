@@ -3,7 +3,7 @@ import { DateRangePicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import { query, setDestinations } from '../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { PlaneDeparture } from 'tabler-icons-react';
+import { IconPlaneDeparture } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -305,7 +305,7 @@ export function SearchBarSplashPage(): JSX.Element {
                                                 navigate(nextPage);
                                             }
                                         }}>
-                                        <PlaneDeparture />
+                                        <IconPlaneDeparture />
                                     </Button>
                                 </Center>
                             </Grid.Col>

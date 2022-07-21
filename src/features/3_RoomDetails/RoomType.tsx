@@ -1,6 +1,6 @@
 import { Card, Image, Title, Text, Button, List, ThemeIcon, Grid, Divider, Space } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { IconCheck, IconCoffee, IconCoffeeOff } from "@tabler/icons";
+import { IconCheck, IconCoffee, IconCoffeeOff, IconX } from "@tabler/icons";
 import { selectRoom } from '../../services/RoomDetailSlice';
 import { useAppDispatch } from "../../services/hooks";
 
@@ -38,7 +38,7 @@ function RoomType(props: any) {
                       <List.Item icon={<ThemeIcon color="teal" radius="xl"><IconCheck size={16} /></ThemeIcon>}>
                         Free Cancelation
                       </List.Item> :
-                      <List.Item icon={<ThemeIcon color="yellow" radius="xl"><IconCheck size={16} /></ThemeIcon>}>
+                      <List.Item icon={<ThemeIcon color="yellow" radius="xl"><IconX size={16} /></ThemeIcon>}>
                         No Free Cancelation
                       </List.Item>
                   }

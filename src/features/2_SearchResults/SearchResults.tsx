@@ -3,7 +3,7 @@ import SearchBar from './SearchBar/SearchBar';
 import NavBarSplashPage from '../1_DestinationSearch/NavBarSplashPage';
 import { Button, Center, createStyles, ThemeIcon } from '@mantine/core';
 import { useEffect, useRef, useState } from 'react';
-import { ChevronUp } from 'tabler-icons-react';
+import { IconChevronUp } from '@tabler/icons';
 
 function SearchResults() {
 
@@ -57,7 +57,7 @@ function SearchResults() {
                     
                     window.scrollTo({top:0,behavior: 'smooth'});
                 }}
-                ><ChevronUp></ChevronUp></ThemeIcon>
+                ><IconChevronUp/></ThemeIcon>
             </div>}
             <SearchWrapper />
         </>
