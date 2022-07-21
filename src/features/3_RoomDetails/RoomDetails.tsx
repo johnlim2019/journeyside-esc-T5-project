@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { setLoading, compileRoomData } from "../../services/RoomDetailSlice";
 import axios from "axios";
 import { IconMapPin, IconMap } from "@tabler/icons";
+import { getUrlDates } from "../2_SearchResults/SearchBar/SearchBar";
+// import { selectHotelId } from "../../services/SearchBarSlice";
 
 const mapHeight = 200;
 export function getMapDetails(obj:any){
@@ -23,6 +25,14 @@ export function getMapDetails(obj:any){
 function RoomDetails() {
   // Load details 
   const selectedHotelId = useAppSelector(state => state.SearchBarReducer.selectHotelId); // to load things from store !!!
+  const locationId = useAppSelector(state => state.SearchBarReducer.locationId); // to load things from store !!!
+  const checkInObj = new Date(useAppSelector(state => state.SearchBarReducer.checkIn));
+  console.log(checkInObj.toLocaleDateString());
+  const checkIn = getUrlDates(checkInObj);
+  console.log(checkIn);
+  const checkOutObj = new Date (useAppSelector(state => state.SearchBarReducer.checkOut));
+  const checkOut = getUrlDates(checkOutObj);
+  const rooms = useAppSelector(state => state.SearchBarReducer.rooms);
   const selectedHotelObj = useAppSelector(state => state.SearchBarReducer.selectHotelObj);
   // console.log(selectedHotelObj);
   // console.log(selectedHotelId);
@@ -35,7 +45,9 @@ function RoomDetails() {
   let isLoading = useAppSelector(state => state.RoomDetailReducer.isLoading);
 
   useEffect(() => {
-    const roomPriceApi = './rooms/diH7.json';
+    // const roomPriceApi = './rooms/diH7.json';
+    const roomPriceApi = "https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/hotels/"+selectedHotelId+"/price?destination_id="+locationId+"&checkin="+checkIn+"&checkout="+checkOut+"&lang=en_US&currency=SGD&country_code=SG&guests="+2+"&partner_id=1";
+    console.log(roomPriceApi);
     // const roomPriceApi = 'https://hotelapi.loyalty.dev/api/hotels/'+selectedHotelId+'/price?destination_id=RsBU&checkin=2022-07-31&checkout=2022-08-01&lang=en_US&currency=SGD&partner_id=16&country_code=SG&guests=2';
     dispatch(setLoading({ loading: true }));
     axios.get(roomPriceApi).then((response) => {
@@ -44,6 +56,7 @@ function RoomDetails() {
     }).catch(errors => {
       console.error(errors);
       dispatch(setLoading({ loading: false }));
+
     });;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

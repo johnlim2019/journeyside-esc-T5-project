@@ -27,8 +27,7 @@ describe('BookingData', () => {
     cy.get('.mantine-Grid-root.mantine-pafeaw').parent().within(() => {
       cy.get('Button').last().click()
     })
-
-    cy.wait(1000)
+    cy.wait(4000)
     cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
     cy.wait(1000)
     cy.get('a').contains('Select').first().click()

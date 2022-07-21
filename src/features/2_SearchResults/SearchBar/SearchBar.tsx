@@ -28,7 +28,7 @@ const useStyles = createStyles((theme) => ({
 
 const NODEST = "Please enter a destination."
 const NODATE = "Please enter a date."
-function validateQuery(queryObj: any) {
+export function validateQuery(queryObj: any) {
     // Error codes 
     // empty arr - correct
     // 1 - location error
@@ -48,7 +48,7 @@ function validateQuery(queryObj: any) {
     console.log("HELP" + outcome);
     return outcome;
 }
-function setErrorMessages(outcomes: number[]) {
+export function setErrorMessages(outcomes: number[]) {
     let output = {
         "locationValid": true,
         "dateValid": true
@@ -65,7 +65,7 @@ function setErrorMessages(outcomes: number[]) {
 }
 
 
-function getDestDetails(location: string, destinations: any) {
+export function getDestDetails(location: string, destinations: any) {
     // load the destination details
     let id = "";
     let dest = "";
@@ -81,18 +81,58 @@ function getDestDetails(location: string, destinations: any) {
     }
     return [id, dest, lng, lat];
 }
-function getDefaultDates() {
+export function getDefaultDates() {
     let date = new Date();
     date.setDate(date.getDate() + 7);
     let date2 = new Date();
     date2.setDate(date2.getDate() + 8);
     return [date, date2];
 }
-function getMinDate() {
+export function getMinDate() {
     let minDate = new Date();
     minDate.setDate(minDate.getDate() + 7);
     return minDate;
 }
+
+export function getUrlDates(date: Date) {
+    return date.getFullYear() + "-" + Number(date.getMonth() + 1) + "-" + date.getDate();
+}
+export function validateHotelApiData(data: any[]) {
+    try {
+        let hotel_0 = data[0];
+        // check hotel address, name and id and price
+        let hotelName: string = hotel_0.name;
+        let hotelAddr: string = hotel_0.address;
+        if (typeof hotelName === 'undefined' || typeof hotelAddr === 'undefined'){
+            throw new Error();  
+        }
+        console.log(data);
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+export function validatePriceApiData(data: any) {
+    try {
+        console.log(data)
+        let hotels = data.hotels;
+        console.log(hotels);    
+        let hotel_0 = hotels[0]
+        console.log(hotel_0);
+        // check hotel address, name and id and price
+        let id: string = hotel_0.id;
+        let hotelMax: string = hotel_0.coverted_max_cash_payment;
+        let hotelPrice: number = hotel_0.converted_price;
+        if (typeof id === 'undefined' || typeof hotelMax === 'undefined' || typeof hotelPrice === 'undefined'){
+            throw new Error();
+        }
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
 
 function SearchBar(): JSX.Element {
     //get STORE values form input components
@@ -106,6 +146,8 @@ function SearchBar(): JSX.Element {
         date1 = checkInDate;
         date2 = checkOutDate;
     }
+    var checkIn = getUrlDates(checkInDate);
+    var checkOut = getUrlDates(checkOutDate);
     const [adults, setAdults] = useState(useAppSelector(state => state.SearchBarReducer.adults));
     const [children, setChildren] = useState(useAppSelector(state => state.SearchBarReducer.children));
     const [rooms, setRoom] = useState(useAppSelector(state => state.SearchBarReducer.rooms));
@@ -188,12 +230,12 @@ function SearchBar(): JSX.Element {
     // https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=EzoR&checkin=2022-08-18&checkout=2022-08-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
 
     // set the api url for axios import function 
-    const hotelApi = "./" + queryId + ".json";
+    const hotelApi = "https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/hotels/" + queryId;
 
     // const hotelApi = "?destination_id=" + queryId
-    const hotelPriceApi = "./prices/" + queryId + ".json";
-    // const hotelPriceApi = "/prices?destination_id=" + queryId + "&checkin=2022-08-18&checkout=2022-08-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1"
-
+    // const hotelPriceApi = "./prices/" + queryId + ".json";
+    const hotelPriceApi = "https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/hotels-all/prices?destination_id=" + queryId + "&checkin=" + checkIn + "&checkout=" + checkOut + "&lang=en_US&currency=SGD&country_code=SG&guests=" + 2 + "&partner_id=1";
+    // https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/hotels-all/prices?destination_id=vJQX&checkin=2022-08-18&checkout=2022-08-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
     function sendGetRequest(hotelApi: string, hotelPriceApi: string, queryId: string) {
         // axios.defaults.withCredentials = true;
         const hotelApiCall = axios({
@@ -206,24 +248,25 @@ function SearchBar(): JSX.Element {
         });
         axios.all([hotelApiCall, hotelPriceApiCall]).then(axios.spread((...responses) => {
             const hotelsData = responses[0].data;
-            const hotelPrice = responses[1].data.hotels;
+            const hotelPrice = responses[1].data;
+            if (!validateHotelApiData(hotelsData)) {
+                throw new Error("Corrupted hotel Api data!");
+            }
+            if (!validatePriceApiData(hotelPrice)) {
+                throw new Error("Corrupted Price data");
+            }
             console.log("API CALL");
             console.log(hotelsData);
             console.log(hotelPrice);
-            dispatch(compileHotelData({ hotels: hotelsData, prices: hotelPrice, id: queryId }));
+            dispatch(compileHotelData({ hotels: hotelsData, prices: hotelPrice.hotels, id: queryId }));
             dispatch(setLoading({ loading: false }));
         })
         ).catch(errors => {
+            console.error(errors);
             console.log(hotelApi);
             console.log(hotelPriceApi);
-            console.error(errors.response.status);
             dispatch(setLoading({ loading: false }));
-            if (errors.response.status === 404) {
-                console.error(errors.response.status);
-                dispatch(compileHotelData({ hotels: [], prices: [], id: "No" }));
-            } else {
-                dispatch(compileHotelData({ hotels: [], prices: [], id: queryId }));
-            }
+            dispatch(compileHotelData({ hotels: [], prices: [], id: queryId }));
         });
     }
 

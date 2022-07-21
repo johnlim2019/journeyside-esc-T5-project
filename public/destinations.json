@@ -149212,5 +149212,13 @@
         "lng": -101.288788,
         "type": "city",
         "state": "Kansas"
+    },
+    {
+        "id": 882279,
+        "term": "not real place",
+        "uid": "iamnotreal",
+        "lat": 39.250525,
+        "lng": -101.288788,
+        "type": "city"
     }
 ]

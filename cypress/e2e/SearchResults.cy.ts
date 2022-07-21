@@ -38,7 +38,7 @@ describe('BookingData', () => {
     })
   })
   it('check if the search query are passed on correctly',()=>{
-    cy.wait(1000)
+    cy.wait(4000)
     cy.get('div').contains('Destination').parent().within(() => {
       cy.get('input').should('have.value',"Singapore, Singapore")
     })    
@@ -61,7 +61,7 @@ describe('BookingData', () => {
   })
   it('check results load success and use cache for repeated destination, ', () => {
     cy.get('.loaderSpinner').should('be.exist')
-    cy.wait(1000)
+    cy.wait(4000)
     cy.get('.notification').contains("Singapore, Singapore")
     cy.get('.SearchButton').parent().within(() => {
       cy.get('Button').click();
@@ -74,7 +74,7 @@ describe('BookingData', () => {
       cy.get('input').type('{selectAll}{backspace}Kuala Lumpur, Malaysia');
     })
     cy.get('.loaderSpinner').should('be.exist')
-    cy.wait(1000)
+    cy.wait(4000)
     // cy.pause()
     cy.get('.notification').contains("Kuala Lumpur, Malaysia")
   })
@@ -104,11 +104,11 @@ describe('BookingData', () => {
   })
   it ('no search results show notification',() => {
     cy.get('.DestinationInput').parent().within(() => {
-      cy.get('input').type('{selectAll}{backspace}Seoul South Korea{enter}');
+      cy.get('input').type('{selectAll}{backspace}not real{enter}');
     })
     cy.get('.loaderSpinner').should('be.exist')
-    cy.wait(1000)
+    cy.wait(4000)
     // cy.pause()
-    cy.get('.notification').contains("We could not find results for Seoul, South Korea (GMP-Gimpo Intl.)")
+    cy.get('.notification').contains("We could not find results for not real place")
   })
 })
