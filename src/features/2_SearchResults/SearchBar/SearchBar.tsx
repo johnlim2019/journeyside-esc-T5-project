@@ -140,7 +140,6 @@ export function validatePriceApiData(data: any) {
                 throw new Error();
             }
         }
-
         return true;
     } catch (error) {
         return false;
@@ -270,8 +269,8 @@ function SearchBar(): JSX.Element {
                 throw new Error("Corrupted Price data");
             }
             console.log("API CALL");
-            console.log(hotelsData);
-            console.log(hotelPrice);
+            // console.log(hotelsData);
+            // console.log(hotelPrice);
             dispatch(compileHotelData({ hotels: hotelsData, prices: hotelPrice.hotels, id: queryId }));
             dispatch(setLoading({ loading: false }));
         })
