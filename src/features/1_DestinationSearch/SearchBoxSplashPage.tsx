@@ -15,7 +15,7 @@ const useStyles = createStyles((theme) => ({
         position: 'absolute',
         // Media query with value from theme
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            width: '80%',
+            width: '90%',
             alignItems: 'center'
         },
     },
@@ -201,7 +201,7 @@ export function SearchBarSplashPage(): JSX.Element {
         <>
             <div>
                 <Center>
-                    <Paper className={classes.searchbarwrapper} style={{ position: 'absolute' }} withBorder>
+                    <Paper className={classes.searchbarwrapper} style={{ position: 'absolute', padding:'1em' }} withBorder>
                         <Grid columns={16} grow gutter='sm' align='center' p='sm'>
                             <Grid.Col md={8} sm={8}>
                                 <div className="destinationInput">
