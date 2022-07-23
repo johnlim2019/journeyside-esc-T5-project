@@ -24,10 +24,20 @@ describe('NavBarCheck', () => {
     })
     cy.url().should('eq', BASE + SEARCHRESULT)
     cy.get('.NarrowNavBar').parent().within(() => {
+      cy.get('button').contains('journeyside').click()
+    })
+    cy.url().should('eq', BASE)
+    cy.get('.NarrowNavBar').parent().within(() => {
       cy.get('#Burger').click()
     })
     cy.get('.NavBarDrawer').parent().within(() => {
-      cy.get('Button').contains('Home').click()
+      cy.get('button').contains('Search Results').click()
+    })
+    cy.get('.NarrowNavBar').parent().within(() => {
+      cy.get('#Burger').click()
+    })
+    cy.get('.NavBarDrawer').parent().within(() => {
+      cy.get('button').contains('Home').click()
     })
     cy.url().should('eq', BASE)
   })

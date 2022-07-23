@@ -7,23 +7,31 @@ describe('BookingData', () => {
   const LOCATION = "Singapore, Singapore"
   beforeEach(() => {
     cy.visit(BASE)
-    cy.reload(true)
     // log out
     // cy.get('.FullNavBar').parent().within(() => {
     //   cy.get('Button').contains('Log Out').click()
     // })
-    cy.wait(1000)
+
+    cy.reload(true)
+    cy.wait(100)
     cy.get('input').first().focus().type(LOCATION)
     cy.get('.mantine-DateRangePicker-wrapper.mantine-12sbrde').parent().within(() => {
       cy.get('input').click()
     })
     cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-calendarHeaderLevel.mantine-1xk0qjw').click()
-    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-calendarHeaderLevel.mantine-1xk0qjw').click()
-    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-yearPickerControl.mantine-v8o1j6').contains('2024').click()
-    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-monthPickerControl.mantine-13qbqe7').contains('Jul').click()
-    cy.get('button').contains('7').click()
-    cy.get('button').contains('8').click()
-    // cy.pause()
+    cy.get('button').contains('Dec').click()
+    cy.get('button').contains('17').click()
+    cy.get('button').contains('18').click()
+    cy.get('div').contains('Adults').parent().within(() => {
+      cy.get('select').select(2)
+    })
+    cy.get('div').contains('Kids').parent().within(() => {
+      cy.get('select').select(2)
+    })
+    cy.get('div').contains('Rooms').parent().within(() => {
+      cy.get('select').select(1)
+    })
+    cy.wait(1000)
     cy.get('.mantine-Grid-root.mantine-pafeaw').parent().within(() => {
       cy.get('Button').last().click()
     })

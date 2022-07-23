@@ -19,7 +19,7 @@ describe('NavBarCheck', () => {
     })
     cy.url().should('eq', BASE + SEARCHRESULT)
     cy.get('.FullNavBar').parent().within(() => {
-      cy.get('Button').contains('Home').click()
+      cy.get('Button').contains('journeyside').click()
     })
     cy.url().should('eq', BASE)
   })
