@@ -11,15 +11,16 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-
   <React.StrictMode>
-    <Provider store={store}>
+    <head>
       <meta property='og:title' content='Journeyside' />
       <meta property='og:description' content='SUTD ESC Project by Lawrence, Yongjie, John, Shaun, Jon-Taylor' />
       <meta property='og:image' content='./logoLarge.png' />
       <meta property='og:type' content='website' />
       <meta property='og:locale' content='en_GB' />
       <meta property="og:url" content="https://journeyside.web.app/" />
+    </head>
+    <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>
