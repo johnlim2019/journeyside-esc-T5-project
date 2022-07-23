@@ -1,25 +1,25 @@
 import SearchBox from './SearchBoxSplashPage';
 import NavBarSplashPage from './NavBarSplashPage';
-import { Center, createStyles, Image, ThemeIcon, useMantineTheme } from '@mantine/core';
+import { Center, createStyles, Image } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
 const SplashPage = () => {
     const useStyles = createStyles((theme) => ({
         backgroundImage: {
-            top: '13em',
+            top: '20%',
             width: '45%',
             marginLeft: 'auto',
             marginRight: 'auto',
             position: 'fixed',
             // Media query with value from theme
             [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-                top: '13em',
-                width: '95%',
+                top: '20%',
+                width: '90%',
 
             },
             [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-                top: '7.5em',
-                width: '100%',
+                top: '15%',
+                width: '90%',
             },
         },
         searchbar: {
@@ -31,20 +31,33 @@ const SplashPage = () => {
         }
     }));
     const { classes } = useStyles();
- 
+    const [windowSize, setWindowSize] = useState(getWindowSize());
 
+    useEffect(() => {
+        function handleWindowResize() {
+            setWindowSize(getWindowSize());
+        }
+        window.addEventListener('resize', handleWindowResize);
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, []);
+    function getWindowSize() {
+        const { innerWidth, innerHeight } = window;
+        return { innerWidth, innerHeight };
+    }
     return (
-        <div style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <div>
             <NavBarSplashPage />
             <Center>
-                <Image className={classes.backgroundImage} radius='lg' src='./sandBeach.jpg' fit='cover' height={'35em'} />
+                <Image className={classes.backgroundImage} radius='lg' src='./sandBeach.jpg' fit='cover' height={0.6 * windowSize.innerHeight} />
             </Center>
             <div className={classes.searchbar}>
-                <SearchBox />
+                <SearchBox/>
             </div>
         </div>
 
     );
-}
+} 
 SplashPage.displayName = "SplashPage"
 export default SplashPage;
