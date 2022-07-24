@@ -3,12 +3,13 @@ import { RootState } from "./store";
 
 interface userKey {
     userKey:string,
-    login : boolean
-
+    login : boolean,
+    sessionKey: string
 }
 const initialState:userKey = {
     userKey: "",
-    login:false
+    login:false,
+    sessionKey: ""
 }
 
 export const userKeySlice = createSlice({
@@ -18,10 +19,12 @@ export const userKeySlice = createSlice({
         login: (state,action) => {
             state.userKey = action.payload.userKey;
             state.login = true;
+            state.sessionKey = action.payload.sessionKey;
         },
         logout: (state) => {
             state.userKey = "";
             state.login = false;
+            state.sessionKey = "";
         },
 
     }

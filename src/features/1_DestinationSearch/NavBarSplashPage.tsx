@@ -1,5 +1,6 @@
 import { Stack, Paper, Space, Center, Text, Grid, createStyles, Button, ThemeIcon, Modal, TextInput, PasswordInput, Group, Burger, Drawer, useMantineTheme } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
@@ -127,14 +128,36 @@ function NavBarSplashPage() {
                     <Button color={'pink'} onClick={() => {
                         loginForm.validate();
                         if (loginForm.validate().hasErrors === false) {
-                            setLogInModal(false);
+                            const registerUserApi = async (api: string) => {
+                                await axios.post(api, { "username": loginForm.values.userName, "password": loginForm.values.password }
+                                ).then((response) => {
+                                    const data = response.data as object[];
+                                    console.log(data);
+                                }).catch(errors => {
+                                    console.error(errors);
+                                });
+                            };
+                            const userApi = 'http://localhost:3000/api/users/register';
+                            registerUserApi(userApi);
                         }
                     }}>Create Account</Button>
                     <Button onClick={() => {
-                        alert("do something to validate login cred");
-                        setLogInModal(false);
-                        setLogIn(true);
-                        dispatch(login({ userKey: loginForm.values.userName }));
+                        const loginUserApi = async (api: string) => {
+                            await axios.post(api, { "username": loginForm.values.userName, "password": loginForm.values.password }
+                            ).then((response) => {
+                                const data = response.data;
+                                const accessToken = data["token"];
+                                console.log(data);
+                                console.log(accessToken);
+                                setLogInModal(false);
+                                setLogIn(true);
+                                dispatch(login({ userKey: loginForm.values.userName, sessionKey: accessToken}));
+                            }).catch(errors => {
+                                console.error(errors);
+                            });
+                        };
+                        const userApi = 'http://localhost:3000/api/users/login';
+                        loginUserApi(userApi);
                     }}>Log In</Button>
                 </Group>
             </Modal>
