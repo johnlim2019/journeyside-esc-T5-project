@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
 import { generateKeys } from "../../services/Encryption";
 import axios from "axios";
-import { uuid} from "uuidv4";
+import { uuid } from "uuidv4";
 
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -40,7 +40,7 @@ export function getJsonObj(form: any, hotelDetails: any) {
   // combine both the hotel details taken form the feature 3 and the form values
   let jsonObj = {};
   if (typeof form !== 'undefined') {
-    let form2 = { ...form};
+    let form2 = { ...form };
     console.log(form);
     form2.cardNum = `${"x".repeat(12)}` + form2.cardNum.slice(-4);
     delete form2.cvv;
@@ -107,13 +107,13 @@ function BookingData() {
   // }, [db])
 
   // set up our booking object attributes
-  
+
   let hotelName = "";
   let hotelAddr = "";
   let hotelPrice = 0;
   let hotelFreeCancel = false;
   let hotelBreakfast = false;
-  let roomString = rooms + " "+ roomObj.description + " "+ (((roomObj.breakfastInfo) === "hotel_detail_breakfast_included") ? "with breakfast":"") + (((roomObj.breakfastInfo) === "hotel_detail_room_only") ? "room only":"") ;
+  let roomString = "("+rooms + ") " + roomObj.description + " " + (((roomObj.breakfastInfo) === "hotel_detail_breakfast_included") ? "with breakfast" : "") + (((roomObj.breakfastInfo) === "hotel_detail_room_only") ? "room only" : "");
   if (typeof hotelObj !== 'undefined') {
     hotelName = hotelObj.name;
     hotelAddr = hotelObj.address;
@@ -142,18 +142,31 @@ function BookingData() {
     'hotelName': hotelName,
     'hotelAddr': hotelAddr,
     'hotelPrice': hotelPrice,
-    'hotelFreeCancel':hotelFreeCancel,
-    'hotelBreakfast':hotelBreakfast,
+    'hotelFreeCancel': hotelFreeCancel,
+    'hotelBreakfast': hotelBreakfast,
     'supplierId': supplierId,
-    'supplierResponse':supplierResponse
+    'supplierResponse': supplierResponse
   }
 
 
   // check if we have completed the form and can leave the page safely.
   // form builder and validation.
-  const form = useForm({
+  interface FormValues {
+    salutation: string,
+    firstName: string,
+    lastName: string,
+    phone: string,
+    email: string,
+    specialReq: string,
+    cardNum: string,
+    expiryMonth: number,
+    expiryYear: number,
+    cvv: number,
+    address: string
+  }
+  const form = useForm<FormValues>({
     initialValues: {
-      salutation:"I identify as a pencil",
+      salutation: "I identify as a pencil",
       firstName: "Tan",
       lastName: "Beng Seng",
       phone: "98684420",
@@ -167,7 +180,7 @@ function BookingData() {
     },
     validate: (values) => ({
       // regex validation
-      salutation: (values.firstName.length > 1 ? null : "Salutation is missing"),
+      salutation: (values.firstName.length > 1 ? null : "Salutation is"),
       firstName: (values.firstName.length > 1 ? null : "Please Enter First Name"),
       lastName: (values.lastName.length > 1 ? null : "Please Enter Last Name"),
       email: (/^\S+@\w+\.\w{2,7}$/.test(values.email) ? null : 'Invalid email'),
@@ -216,15 +229,15 @@ function BookingData() {
                 // let [publicKey, privateKey] = generateKeys(db);
                 // writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
                 // writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey); 
-                let jsonObj = getJsonObj(form,hotelDetails);
+                let jsonObj = getJsonObj(form, hotelDetails);
                 const postBookingApi = async (api: string) => {
-                await axios.post(api, jsonObj, {headers:{'Authorization': accessToken}}
-                ).then((response) => {
+                  await axios.post(api, jsonObj, { headers: { 'Authorization': accessToken } }
+                  ).then((response) => {
                     const data = response.data as object[];
                     console.log(data);
-                }).catch(errors => {
+                  }).catch(errors => {
                     console.error(errors);
-                });
+                  });
                 };
                 const bookingApi = 'http://localhost:3000/api/bookings';
                 postBookingApi(bookingApi);
@@ -298,10 +311,6 @@ function BookingData() {
             <tr>
               <th className={classes.th}>Booking ID</th>
               <td className={classes.td}>{newBookingKey}</td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Supplier booking response</th>
-              <td className={classes.td}>{supplierResponse}</td>
             </tr>
           </tbody>
         </Table>
