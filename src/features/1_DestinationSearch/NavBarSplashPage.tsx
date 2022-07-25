@@ -77,7 +77,7 @@ function NavBarSplashPage() {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
-
+    const [loginErr, setLogInErr] = useState<String>("");
 
     return (
         <>
@@ -136,6 +136,7 @@ function NavBarSplashPage() {
                                     console.log(data);
                                 }).catch(errors => {
                                     console.error(errors);
+                                    setLogInErr("*User already exits");
                                 });
                             };
                             const userApi = 'http://localhost:3000/api/users/register';
@@ -155,12 +156,14 @@ function NavBarSplashPage() {
                                 dispatch(login({ userKey: loginForm.values.userName, sessionKey: accessToken}));
                             }).catch(errors => {
                                 console.error(errors);
+                                setLogInErr("*Password or Username is Invalid");
                             });
                         };
                         const userApi = 'http://localhost:3000/api/users/login';
                         loginUserApi(userApi);
                     }}>Log In</Button>
                 </Group>
+                <Text color={'red'}>{loginErr}</Text>
             </Modal>
 
             {(windowSize.innerWidth < BREAKPOINT) && <div className="NarrowNavBar">
