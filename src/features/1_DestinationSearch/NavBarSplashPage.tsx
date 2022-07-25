@@ -26,7 +26,8 @@ function NavBarSplashPage() {
             width: '100%',
         }
     }));
-    const USERNAME = "integrationTest";
+    const USERNAME = "mongoDbIntegrationTest";
+    const DEFAULTPASSWORD = "abcdef@1";
     const currentUser = useAppSelector(state => state.UserDetailsReducer.userKey);
     const { classes } = useStyles();
     const [logIn, setLogIn] = useState(currentUser !== "" ? true : false);
@@ -47,7 +48,7 @@ function NavBarSplashPage() {
     const loginForm = useForm({
         initialValues: {
             userName: USERNAME,
-            password: ""
+            password: DEFAULTPASSWORD
         },
         validate: (values) => ({
             // regex validation
