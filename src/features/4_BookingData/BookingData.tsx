@@ -135,7 +135,7 @@ function BookingData() {
   };
   const hotelDetails = {
     'bookingCreateDate': new Date().getTime(),
-    'bookingKey': newBookingKey,
+    'booking_reference': newBookingKey,
     'cancellation': false,
     'location': locationName,
     'locationId': locationId,
@@ -234,11 +234,12 @@ function BookingData() {
                 // writeEncryptedJson(db, "testUser", "Test message");
                 setIsLoading(true);
                 let jsonObj = getJsonObj(form.values, hotelDetails);
+                console.log(jsonObj);
                 // let [publicKey, privateKey] = generateKeys(db);
                 // writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
                 // writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey); 
                 const postBookingApi = async (api: string) => {
-                  await axios.post(api, jsonObj, { headers: { 'Authorization': accessToken } }
+                  await axios.post(api, jsonObj, { headers: { 'Authorization': accessToken} }
                   ).then((response) => {
                     const data = response.data as object[];
                     console.log(data);

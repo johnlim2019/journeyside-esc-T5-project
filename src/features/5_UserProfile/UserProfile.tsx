@@ -7,6 +7,7 @@ import { deleteBookings, readEncryptedBookings, readEncryptedJson, updateEncrypt
 import { Firebase } from "../../services/Firebase-Storage";
 import { useAppSelector } from "../../services/hooks";
 import axios from "axios";
+import { getJsonObj } from "../4_BookingData/BookingData";
 
 const db = Firebase();
 
@@ -22,7 +23,7 @@ interface bookingObject {
     'cardNum': string,
     'address': string,
     'bookingCreateDate': number,
-    'bookingKey': string,
+    'booking_reference': string,
     'cancellation': boolean,
     'location': string,
     'locationId': string,
@@ -49,7 +50,7 @@ const defaultBooking = {
     'cardNum': "",
     'address': "",
     'bookingCreateDate': -1,
-    'bookingKey': "",
+    'booking_reference': "",
     'cancellation': false,
     'location': "",
     'locationId': "",
@@ -77,7 +78,7 @@ function getBookingDetails(data: bookingObject) {
         data.specialReq,
         data.address,
         new Date(data.bookingCreateDate).toLocaleDateString(),
-        data.bookingKey,
+        data.booking_reference,
         data.cancellation,
         data.location,
         data.locationId,
@@ -156,6 +157,7 @@ function UserProfile() {
     const [data, setData] = useState({});
     const [dataArr, setDataArr] = useState<any[]>([]);
     const userId = (useAppSelector(state => state.UserDetailsReducer.userKey));
+    const accessToken = useAppSelector(state => state.UserDetailsReducer.sessionKey);
 
 
     function parseDataObj(data: object, dataObj: LooseObject) {
@@ -164,31 +166,31 @@ function UserProfile() {
         let bookingIterator = Object.entries(data);
         for (let [key, value] of bookingIterator) {
             console.log(value);
-            value = readEncryptedJson(db, userId, key).then(
-                (value) => {
-                    resultObj[key] = value;
-                    setData(resultObj);
-                }
-            ).catch(
-                () => { resultObj = {}; alert("No Service Sorry"); setLoading(false); }
-            );
+            // value = readEncryptedJson(db, userId, key).then(
+            //     (value) => {
+            resultObj[key] = value;
+            setData(resultObj);
+            //     }
+            // ).catch(
+                // () => { resultObj = {}; alert("No Service Sorry"); setLoading(false); }
+            // );
         }
     }
     function parseDataArr(data: object) {
         let bookingIterator = Object.entries(data);
         let resultArr: any[] = []
         for (let [key, value] of bookingIterator) {
-            value = readEncryptedJson(db, userId, key).then(
-                (value) => {
+            // value = readEncryptedJson(db, userId, key).then(
+            //     (value) => {
                     // console.log(value);
-                    resultArr.push(value);
-                    // console.log(resultArr);
-                    setDataArr(resultArr);
-                    setLoading(false);
-                }
-            ).catch(
-                () => { console.log("hi"); setDataArr([]); alert("No Service Sorry"); setLoading(false); }
-            );
+            resultArr.push(value);
+            console.log(resultArr);
+            setDataArr(resultArr);
+            setLoading(false);
+            //     }
+            // ).catch(
+            //     () => { console.log("hi"); setDataArr([]); alert("No Service Sorry"); setLoading(false); }
+            // );
         }
     }
     const BREAKPOINT = useMantineTheme().breakpoints.sm;
@@ -220,9 +222,13 @@ function UserProfile() {
         //     // console.log(result);
         // }
         const getBookingsApi = async (api: string) => {
-            await axios.get(api
+            await axios.get(api, { headers: { 'Authorization': accessToken} }
             ).then((response) => {
-                setDataObj(response.data);
+                let responseData = response.data;
+                console.log(responseData);
+                let bookingsArr = responseData["bookings"];
+                console.log(bookingsArr);
+                setDataObj(bookingsArr);
             }).catch(
                 () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
             );
@@ -249,11 +255,11 @@ function UserProfile() {
 
     // setup table 
     var rowsWide = dataArr.map((element) => (
-        <tr key={element.bookingKey}>
+        <tr key={element.booking_reference}>
             <td>{element.hotelName}</td>
             <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
             <td>{new Date(element.checkIn).toLocaleDateString() + "-" + new Date(element.checkOut).toLocaleDateString()}</td>
-            <td>{element.hotelPrice.toFixed(2)} SGD</td>
+            <td>{element.hotelPrice} SGD</td>
             <td>
                 <Button onClick={() => {
                     setCurrBooking(element);
@@ -296,7 +302,7 @@ function UserProfile() {
         specialReq,
         address,
         bookingCreateDate,
-        bookingKey,
+        booking_reference,
         cancellation,
         location,
         locationId,
@@ -333,7 +339,23 @@ function UserProfile() {
                     <Center>
                         <Group>
                             <Button color={'red'} onClick={() => {
-                                deleteBookings(db, userId);
+                                // deleteBookings(db, userId);
+                                
+                                
+                                // FIX
+                                const deleteBookingsApi = async (api: string) => {
+                                    await axios.delete(api,  { headers: { 'Authorization': accessToken} }
+                                    ).then((response) => {
+                                        console.log(response.data);
+                                        setDataObj(response.data);
+                                    }).catch(
+                                        () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
+                                    );
+                                };
+                                const userApi = 'http://localhost:3000/api/bookings/:booking_reference';
+                                deleteBookingsApi(userApi);
+
+
                                 navigate("/");
                             }}>Burn Baby Burn!</Button>
                             <Button onClick={() => { setDeleteModal(false) }}>Aw Hell No!</Button>
@@ -376,7 +398,7 @@ function UserProfile() {
                             </tr>
                             <tr>
                                 <th className={classes.th}>Booking ID</th>
-                                <td className={classes.td}>{bookingKey}</td>
+                                <td className={classes.td}>{booking_reference}</td>
                             </tr>
                             <tr>
                                 <th className={classes.th}>Number of Nights</th>
@@ -443,8 +465,25 @@ function UserProfile() {
                                 let copyCurrBooking = { ...currBooking };
                                 copyCurrBooking.cancellation = !copyCurrBooking.cancellation;
                                 setCurrBooking(copyCurrBooking);
+                                // let jsonObj = getJsonObj(copyCurrBooking);
                                 // push curr booking
-                                updateEncryptedJson(db, userId, copyCurrBooking, copyCurrBooking["bookingKey"] + "/");
+                                // updateEncryptedJson(db, userId, copyCurrBooking, copyCurrBooking["bookingKey"] + "/");
+
+                                // FIX
+
+                                const updateBookingsApi = async (api: string) => {
+                                    await axios.delete(api,  { headers: { 'Authorization': accessToken} }
+                                    ).then((response) => {
+                                        console.log(response.data);
+                                        setDataObj(response.data);
+                                    }).catch(
+                                        () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
+                                    );
+                                };
+                                const userApi = 'http://localhost:3000/api/bookings/:booking_reference';
+                                updateBookingsApi(userApi);
+
+                                
                                 setModal(false);
                                 // hard reload page to refresh modal
                                 window.location.reload();
