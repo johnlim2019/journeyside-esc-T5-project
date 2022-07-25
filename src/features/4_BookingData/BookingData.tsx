@@ -124,8 +124,15 @@ function BookingData() {
     hotelFreeCancel = roomObj.free_cancellation;
     hotelBreakfast = ((roomObj.breakfastInfo) === "hotel_detail_breakfast_included");
   }
-  const supplierId = "XXXXX";
-  const supplierResponse = "XXXXX";
+  // these are constants hard coded in place of the third party services
+  const supplierId = "alas poor yorick";
+  const supplierBookingId = "i knew him horatio";
+  const supplierResponse = {
+    "cost": "a man of infinite jest",
+    "down_stream_booking_reference": "and most excellent fancy",
+    "booking_terms_and_conditions": "he had borne me upon his back a thousand times",
+    "hotel_terms_and_conditions": "and here hung the lips that I kiised i know not how oft?"
+  };
   const hotelDetails = {
     'bookingCreateDate': new Date().getTime(),
     'bookingKey': newBookingKey,
@@ -145,6 +152,8 @@ function BookingData() {
     'hotelFreeCancel': hotelFreeCancel,
     'hotelBreakfast': hotelBreakfast,
     'supplierId': supplierId,
+    'supplierBookingId':supplierBookingId,
+    'supplierResponse' : supplierResponse
   }
 
 
