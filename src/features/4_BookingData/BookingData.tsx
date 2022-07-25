@@ -7,6 +7,7 @@ import { writeEncryptedJson, writeKey } from "../../services/Firebase-Functions"
 import { Link, useNavigate } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
 import { generateKeys } from "../../services/Encryption";
+import axios from "axios";
 
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -179,6 +180,7 @@ function BookingData() {
   const [isLoading, setIsLoading] = useState(false);
   // instead of using html links, we can use javascript to go to different pages.
   const navigate = useNavigate();
+  const accessToken = useAppSelector(state => state.UserDetailsReducer.sessionKey);
 
 
   return (
@@ -204,10 +206,56 @@ function BookingData() {
                 console.log("push booking");
                 // writeEncryptedJson(db, "testUser", "Test message");
                 setIsLoading(true);
-                let jsonObj = getJsonObj(form.values, hotelDetails);
-                let [publicKey, privateKey] = generateKeys(db);
-                writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
-                writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey); 
+                // let jsonObj = getJsonObj(form.values, hotelDetails);
+                // let [publicKey, privateKey] = generateKeys(db);
+                // writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
+                // writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey); 
+                let jsonObj = {
+                  "payee_information": {
+                      "payment_id": "123",
+                      "payee_id": "321"
+                  },
+                  "guest_information": {
+                      "salutation": "Mr",
+                      "first_name": "John",
+                      "last_name": "Doe"
+                  },
+                  "destination_id": "RsBU",
+                  "hotel_id": "diH7",
+                  "price": "1000 SGD",
+                  "supplier_booking_id": "1233",
+                  "booking_reference": "3",
+                  "supplier_booking_response": {
+                      "cost": "500 SGD",
+                      "down_stream_booking_reference": "1",
+                      "booking_terms_and_conditions": "https://google.com",
+                      "hotel_terms_and_conditions": "https:/yahoo.com"
+                  },
+                  "booking_display_information": {
+                      "number_of_nights": 3,
+                      "start_date": "2022-08-19",
+                      "end_date": "2022-08-22",
+                      "adults": 2,
+                      "children": 0,
+                      "message_to_hotel": "Need an extra bed",
+                      "room_types": [
+                          "double room",
+                          "queen sized bed",
+                          "no toilet"
+                      ]
+                  }
+                };
+                const postBookingApi = async (api: string) => {
+                await axios.post(api, jsonObj, {headers:{'Authorization': accessToken}}
+                ).then((response) => {
+                    const data = response.data as object[];
+                    console.log(data);
+                }).catch(errors => {
+                    console.error(errors);
+                });
+                };
+                const bookingApi = 'http://localhost:3000/api/bookings';
+                postBookingApi(bookingApi);
                 setIsLoading(false);
                 navigate("/");
               }}>Confirm</Button>

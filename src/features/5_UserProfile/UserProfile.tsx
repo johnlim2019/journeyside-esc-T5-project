@@ -6,6 +6,7 @@ import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons
 import { deleteBookings, readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
 import { Firebase } from "../../services/Firebase-Storage";
 import { useAppSelector } from "../../services/hooks";
+import axios from "axios";
 
 const db = Firebase();
 
@@ -162,6 +163,7 @@ function UserProfile() {
         // console.log(data);
         let bookingIterator = Object.entries(data);
         for (let [key, value] of bookingIterator) {
+            console.log(value);
             value = readEncryptedJson(db, userId, key).then(
                 (value) => {
                     resultObj[key] = value;
@@ -213,12 +215,26 @@ function UserProfile() {
                 navigate("/");
             }, 3000);
         }
-        readEncryptedBookings(db, userId, "booking/").then(async (result) => {
-            setDataObj(result);
-            // console.log(result);
-        }).catch(
-            () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
-        );
+        // readEncryptedBookings(db, userId, "booking/").then(async (result) => {
+        //     setDataObj(result);
+        //     // console.log(result);
+        // }
+        const getBookingsApi = async (api: string) => {
+            await axios.get(api
+            ).then((response) => {
+                setDataObj(response.data);
+            }).catch(
+                () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
+            );
+        };
+        const userApi = 'http://localhost:3000/api/bookings';
+        getBookingsApi(userApi);
+        // readEncryptedBookings(db, userId, "booking/").then(async (result) => {
+            // setDataObj(result);
+        //     // console.log(result);
+        // }).catch(
+        //     () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
+        // );
     }, [])
 
     useEffect(() => {
