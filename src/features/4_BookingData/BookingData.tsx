@@ -38,7 +38,7 @@ export function getJsonObj(form: any, hotelDetails: any) {
   // combine both the hotel details taken form the feature 3 and the form values
   let jsonObj = {};
   if (typeof form !== 'undefined') {
-    let form2 = { ...form};
+    let form2 = { ...form };
     console.log(form);
     form2.cardNum = `${"x".repeat(12)}` + form2.cardNum.slice(-4);
     delete form2.cvv;
@@ -58,6 +58,7 @@ export function getJsonObj(form: any, hotelDetails: any) {
   console.log(jsonObj);
   return jsonObj;
 }
+
 export function getReadable(cardNum: any) {
   let cardNumReadable = "";
   cardNumReadable += cardNum[0];
@@ -109,7 +110,7 @@ function BookingData() {
   let hotelPrice = 0;
   let hotelFreeCancel = false;
   let hotelBreakfast = false;
-  let roomString = rooms + " "+ roomObj.description + " "+ (((roomObj.breakfastInfo) === "hotel_detail_breakfast_included") ? "with breakfast":"") + (((roomObj.breakfastInfo) === "hotel_detail_room_only") ? "room only":"") ;
+  let roomString = rooms + " " + roomObj.description + " " + (((roomObj.breakfastInfo) === "hotel_detail_breakfast_included") ? "with breakfast" : "") + (((roomObj.breakfastInfo) === "hotel_detail_room_only") ? "room only" : "");
   if (typeof hotelObj !== 'undefined') {
     hotelName = hotelObj.name;
     hotelAddr = hotelObj.address;
@@ -120,8 +121,16 @@ function BookingData() {
     hotelFreeCancel = roomObj.free_cancellation;
     hotelBreakfast = ((roomObj.breakfastInfo) === "hotel_detail_breakfast_included");
   }
-  const supplierId = "XXXXX";
-  const supplierResponse = "XXXXX";
+  // the following constants are to be taken form a third party end point 
+  // not available to us, so we use hard coded test values 
+  const supplierId = "Kaligo";
+  const supplierResponse = {
+    'cost': "500 SGD",
+    'down_stream_booking_reference': "1",
+    'booking_terms_and_conditions': 'https://google.com',
+    'hotel_terms_and_conditions': 'https://yahoo.com'
+  };
+  const supplierBookingID = "Alas Poor Yorick! I knew him Horatio, a fellow of infinite jest, of most excellent fancy";
   const hotelDetails = {
     'bookingCreateDate': new Date().getTime(),
     'bookingKey': newBookingKey,
@@ -138,16 +147,30 @@ function BookingData() {
     'hotelName': hotelName,
     'hotelAddr': hotelAddr,
     'hotelPrice': hotelPrice,
-    'hotelFreeCancel':hotelFreeCancel,
-    'hotelBreakfast':hotelBreakfast,
+    'hotelFreeCancel': hotelFreeCancel,
+    'hotelBreakfast': hotelBreakfast,
     'supplierId': supplierId,
   }
 
 
   // check if we have completed the form and can leave the page safely.
   // form builder and validation.
-  const form = useForm({
+  interface FormValues {
+    salutation: string,
+    firstName: string,
+    lastName: string,
+    phone: string,
+    email: string,
+    specialReq: string,
+    cardNum: string,
+    expiryMonth: number,
+    expiryYear: number,
+    cvv: number,
+    address: string
+  }
+  const form = useForm<FormValues>({
     initialValues: {
+      salutation: "I identify as a pencil",
       firstName: "Tan",
       lastName: "Beng Seng",
       phone: "98684420",
@@ -161,6 +184,7 @@ function BookingData() {
     },
     validate: (values) => ({
       // regex validation
+      salutation: (values.firstName.length > 1 ? null : "Salutation is"),
       firstName: (values.firstName.length > 1 ? null : "Please Enter First Name"),
       lastName: (values.lastName.length > 1 ? null : "Please Enter Last Name"),
       email: (/^\S+@\w+\.\w{2,7}$/.test(values.email) ? null : 'Invalid email'),
@@ -207,7 +231,7 @@ function BookingData() {
                 let jsonObj = getJsonObj(form.values, hotelDetails);
                 let [publicKey, privateKey] = generateKeys(db);
                 writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
-                writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey); 
+                writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey);
                 setIsLoading(false);
                 navigate("/");
               }}>Confirm</Button>
@@ -279,10 +303,6 @@ function BookingData() {
               <th className={classes.th}>Booking ID</th>
               <td className={classes.td}>{newBookingKey}</td>
             </tr>
-            <tr>
-              <th className={classes.th}>Supplier booking response</th>
-              <td className={classes.td}>{supplierResponse}</td>
-            </tr>
           </tbody>
         </Table>
         <Space h="lg" />
@@ -291,10 +311,13 @@ function BookingData() {
         <Space h='md'></Space>
         <form onSubmit={form.onSubmit((values) => { })}>
           <Grid>
-            <Grid.Col xs={12} sm={6}>
+            <Grid.Col xs={4} sm={4}>
+              <TextInput className="salutation" label="Salutation" required {...form.getInputProps('salutation')} />
+            </Grid.Col>
+            <Grid.Col xs={8} sm={4}>
               <TextInput className="firstName" label="First name" required {...form.getInputProps('firstName')} />
             </Grid.Col>
-            <Grid.Col xs={12} sm={6}>
+            <Grid.Col xs={8} sm={4}>
               <TextInput className="lastName" label="Last name" required {...form.getInputProps('lastName')} />
             </Grid.Col>
             <Grid.Col xs={12} sm={6}>
