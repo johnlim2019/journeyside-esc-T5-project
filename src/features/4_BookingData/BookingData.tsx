@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
 import { generateKeys } from "../../services/Encryption";
 import axios from "axios";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -95,7 +95,7 @@ function BookingData() {
 
   // setup our data to be pushed to firebase
   // setup our uuid for the booking
-  const newBookingKey = uuid();
+  const newBookingKey = uuidv4();
   // const db = Firebase();
   // const [newBookingKey, setBookingKey] = useState<null | string>(null);
   // useEffect(() => {
@@ -145,7 +145,6 @@ function BookingData() {
     'hotelFreeCancel': hotelFreeCancel,
     'hotelBreakfast': hotelBreakfast,
     'supplierId': supplierId,
-    'supplierResponse': supplierResponse
   }
 
 
@@ -225,11 +224,10 @@ function BookingData() {
                 console.log("push booking");
                 // writeEncryptedJson(db, "testUser", "Test message");
                 setIsLoading(true);
-                // let jsonObj = getJsonObj(form.values, hotelDetails);
+                let jsonObj = getJsonObj(form.values, hotelDetails);
                 // let [publicKey, privateKey] = generateKeys(db);
                 // writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
                 // writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey); 
-                let jsonObj = getJsonObj(form, hotelDetails);
                 const postBookingApi = async (api: string) => {
                   await axios.post(api, jsonObj, { headers: { 'Authorization': accessToken } }
                   ).then((response) => {
