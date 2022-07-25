@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ref, child, push } from "firebase/database";
 import { generateKeys } from "../../services/Encryption";
 import axios from "axios";
+import { uuid} from "uuidv4";
 
 
 const useStyles = createStyles((theme, _params, getRef) => ({
@@ -94,17 +95,19 @@ function BookingData() {
 
   // setup our data to be pushed to firebase
   // setup our uuid for the booking
-  const db = Firebase();
-  const [newBookingKey, setBookingKey] = useState<null | string>(null);
-  useEffect(() => {
-    try {
-      setBookingKey(push(child(ref(db), "data")).key);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [db])
+  const newBookingKey = uuid();
+  // const db = Firebase();
+  // const [newBookingKey, setBookingKey] = useState<null | string>(null);
+  // useEffect(() => {
+  //   try {
+  //     setBookingKey(push(child(ref(db), "data")).key);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [db])
 
   // set up our booking object attributes
+  
   let hotelName = "";
   let hotelAddr = "";
   let hotelPrice = 0;
@@ -142,6 +145,7 @@ function BookingData() {
     'hotelFreeCancel':hotelFreeCancel,
     'hotelBreakfast':hotelBreakfast,
     'supplierId': supplierId,
+    'supplierResponse':supplierResponse
   }
 
 
@@ -149,6 +153,7 @@ function BookingData() {
   // form builder and validation.
   const form = useForm({
     initialValues: {
+      salutation:"I identify as a pencil",
       firstName: "Tan",
       lastName: "Beng Seng",
       phone: "98684420",
@@ -162,6 +167,7 @@ function BookingData() {
     },
     validate: (values) => ({
       // regex validation
+      salutation: (values.firstName.length > 1 ? null : "Salutation is missing"),
       firstName: (values.firstName.length > 1 ? null : "Please Enter First Name"),
       lastName: (values.lastName.length > 1 ? null : "Please Enter Last Name"),
       email: (/^\S+@\w+\.\w{2,7}$/.test(values.email) ? null : 'Invalid email'),
@@ -210,41 +216,7 @@ function BookingData() {
                 // let [publicKey, privateKey] = generateKeys(db);
                 // writeKey(db, privateKey, "keys/private/" + USERNAME + "/" + newBookingKey + "/");
                 // writeEncryptedJson(db, String(USERNAME), jsonObj, newBookingKey + "/", publicKey); 
-                let jsonObj = {
-                  "payee_information": {
-                      "payment_id": "123",
-                      "payee_id": "321"
-                  },
-                  "guest_information": {
-                      "salutation": "Mr",
-                      "first_name": "John",
-                      "last_name": "Doe"
-                  },
-                  "destination_id": "RsBU",
-                  "hotel_id": "diH7",
-                  "price": "1000 SGD",
-                  "supplier_booking_id": "1233",
-                  "booking_reference": "3",
-                  "supplier_booking_response": {
-                      "cost": "500 SGD",
-                      "down_stream_booking_reference": "1",
-                      "booking_terms_and_conditions": "https://google.com",
-                      "hotel_terms_and_conditions": "https:/yahoo.com"
-                  },
-                  "booking_display_information": {
-                      "number_of_nights": 3,
-                      "start_date": "2022-08-19",
-                      "end_date": "2022-08-22",
-                      "adults": 2,
-                      "children": 0,
-                      "message_to_hotel": "Need an extra bed",
-                      "room_types": [
-                          "double room",
-                          "queen sized bed",
-                          "no toilet"
-                      ]
-                  }
-                };
+                let jsonObj = getJsonObj(form,hotelDetails);
                 const postBookingApi = async (api: string) => {
                 await axios.post(api, jsonObj, {headers:{'Authorization': accessToken}}
                 ).then((response) => {
@@ -339,10 +311,13 @@ function BookingData() {
         <Space h='md'></Space>
         <form onSubmit={form.onSubmit((values) => { })}>
           <Grid>
-            <Grid.Col xs={12} sm={6}>
+            <Grid.Col xs={4} sm={4}>
+              <TextInput className="salutation" label="Salutation" required {...form.getInputProps('salutation')} />
+            </Grid.Col>
+            <Grid.Col xs={8} sm={4}>
               <TextInput className="firstName" label="First name" required {...form.getInputProps('firstName')} />
             </Grid.Col>
-            <Grid.Col xs={12} sm={6}>
+            <Grid.Col xs={8} sm={4}>
               <TextInput className="lastName" label="Last name" required {...form.getInputProps('lastName')} />
             </Grid.Col>
             <Grid.Col xs={12} sm={6}>
