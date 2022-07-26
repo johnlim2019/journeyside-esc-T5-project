@@ -10,6 +10,7 @@ interface LooseObject {
     [key: string]: any
 }
 interface bookingObject {
+    "salutation":string,
     "firstName": string,
     'lastName': string,
     'phone': string,
@@ -37,6 +38,7 @@ interface bookingObject {
     'supplierId': string
 }
 const defaultBooking = {
+    "salutation":"",
     "firstName": "",
     'lastName': "",
     'phone': "",
