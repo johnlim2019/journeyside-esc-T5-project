@@ -142,8 +142,7 @@ function NavBarSplashPage() {
                                     setLogInErr("*User already exits");
                                 });
                             };
-                            const userApi2 = userApi+"/register";
-                            registerUserApi(userApi2);
+                            registerUserApi(userApi);
                         }
                     }}>Create Account</Button>
                     <Button onClick={() => {
@@ -163,8 +162,7 @@ function NavBarSplashPage() {
                                 setLogInErr("*Password or Username is Invalid");
                             });
                         };
-                        const userApi2 = userApi+"/login";
-                        loginUserApi(userApi2);
+                        loginUserApi(userApi);
                     }}>Log In</Button>
                 </Group>
                 <Text color={'red'}>{loginErr}</Text>
