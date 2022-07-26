@@ -11,8 +11,8 @@ const SplashPage = () => {
             marginLeft: 'auto',
             marginRight: 'auto',
             position: 'fixed',
-            // Media query with value from theme
-            [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
+            // Media query with value from theme        
+            [`@media (max-width: ${1500}px)`]: {
                 top: '13em',
                 width: '60%',
             },
@@ -34,7 +34,7 @@ const SplashPage = () => {
         }
     }));
     const { classes } = useStyles();
- 
+
 
     return (
         <div style={{ alignItems: 'center', justifyContent: 'center' }}>

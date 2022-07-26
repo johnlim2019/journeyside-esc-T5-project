@@ -5,7 +5,8 @@ describe('BookingData', () => {
   const USER = "UserProfile"
   const BOOKING = "BookingData"
   const LOCATION = "Singapore, Singapore"
-  beforeEach(() => {
+  before(() => {
+    cy.reload(true);
     cy.visit(BASE)
     // log out
     // cy.get('.FullNavBar').parent().within(() => {
@@ -13,7 +14,7 @@ describe('BookingData', () => {
     // })
 
     cy.wait(1000)
-    cy.get('input').first().focus().type(LOCATION)
+    cy.get('input').first().focus().type('{selectAll}{backspace}' + LOCATION)
     cy.get('.mantine-DateRangePicker-wrapper.mantine-12sbrde').parent().within(() => {
       cy.get('input').click()
     })
@@ -35,22 +36,22 @@ describe('BookingData', () => {
       cy.get('Button').last().click()
     })
   })
-  it('check if the search query are passed on correctly',()=>{
+  it('check if the search query are passed on correctly', () => {
     cy.wait(4000)
     cy.get('div').contains('Destination').parent().within(() => {
-      cy.get('input').should('have.value',"Singapore, Singapore")
-    })    
+      cy.get('input').should('have.value', "Singapore, Singapore")
+    })
     cy.get('div').contains('Dates').parent().within(() => {
-      cy.get('input').should('have.value',"December 17, 2022 – December 18, 2022")
+      cy.get('input').should('have.value', "December 17, 2022 – December 18, 2022")
     })
     cy.get('div').contains('Adults').parent().within(() => {
-      cy.get('select').should('have.value',2)
+      cy.get('select').should('have.value', 2)
     })
     cy.get('div').contains('Kids').parent().within(() => {
-      cy.get('select').should('have.value',2)
+      cy.get('select').should('have.value', 2)
     })
     cy.get('div').contains('Rooms').parent().within(() => {
-      cy.get('select').should('have.value',2)
+      cy.get('select').should('have.value', 2)
     })
     // cy.pause()
     cy.get('.mantine-Grid-root.mantine-pafeaw').parent().within(() => {
@@ -58,8 +59,6 @@ describe('BookingData', () => {
     })
   })
   it('check results load success and use cache for repeated destination, ', () => {
-    cy.get('.loaderSpinner').should('be.exist')
-    cy.wait(4000)
     cy.get('.notification').contains("Singapore, Singapore")
     cy.get('div').contains('The Ritz-Carlton, Millenia Singapore')
     cy.get('div').contains('Shangri-La Hotel Singapore')
@@ -67,7 +66,7 @@ describe('BookingData', () => {
     cy.get('div').contains('The Fullerton Hotel Singapore')
     cy.get('div').contains('Fairmont Singapore')
     cy.get('div').contains('The St. Regis Singapore')
-    cy.get('div').contains('The Westin Singapore')    
+    cy.get('div').contains('The Westin Singapore')
     cy.get('.SearchButton').parent().within(() => {
       cy.get('Button').click();
     })
@@ -82,6 +81,15 @@ describe('BookingData', () => {
     cy.wait(4000)
     // cy.pause()
     cy.get('.notification').contains("Kuala Lumpur, Malaysia")
+  })
+  it.only('change the date value', () => {
+    cy.get('input[name="date"]').click()
+    cy.wait(100)
+    cy.get('.mantine-388pmv.mantine-DateRangePicker-day').contains('12').click()
+    cy.get('.mantine-DateRangePicker-day.__mantine-ref-weekend.mantine-DateRangePicker-weekend.mantine-mg157d"').contains('18').click()
+    cy.get('.loaderSpinner').should('be.exist')
+    cy.wait(4000)
+    // cy.pause()
   })
   it('change category, page, items shown, refresh page and check success cache', () => {
     cy.get('div').contains("Show").first().parent().within(() => {
@@ -108,7 +116,7 @@ describe('BookingData', () => {
     })
     // cy.pause()
   })
-  it ('no search results show notification',() => {
+  it('no search results show notification', () => {
     cy.get('.DestinationInput').parent().within(() => {
       cy.get('input').type('{selectAll}{backspace}not real{enter}');
     })

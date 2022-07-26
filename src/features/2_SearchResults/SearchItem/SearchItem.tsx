@@ -44,38 +44,38 @@ const useStyles = createStyles((theme) => ({
 export function sortResults(hotelDataLongSort: any, sortBy: string) {
   if (sortBy === "Rating") {
     if (hotelDataLongSort.length > 0) {
-      console.log("sort by rating");
+      // console.log("sort by rating");
       hotelDataLongSort.sort((a: any, b: any) => (a.rating < b.rating) ? 1 : -1);
     }
   }
   else if (sortBy === "Reviews") {
     if (hotelDataLongSort.length > 0) {
-      console.log("sort by review");
+      // console.log("sort by review");
       hotelDataLongSort.sort((a: any, b: any) => (a.trustyou.score.kaligo_overall < b.trustyou.score.kaligo_overall) ? 1 : -1);
     }
   }
   else if (sortBy === "Price") {
     if (hotelDataLongSort.length > 0) {
-      console.log("sort by price");
+      // console.log("sort by price");
       hotelDataLongSort.sort((a: any, b: any) => (a.converted_price > b.converted_price) ? 1 : -1);
     }
   }
   else if (sortBy === "Value") {
     if (hotelDataLongSort.length > 0) {
-      console.log("sort by value");
+      // console.log("sort by value");
       hotelDataLongSort.sort((a: any, b: any) => (((a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment) * 5 + a.rating * 0.8 + a.trustyou.score.kaligo_overall * 1.2 < ((b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment) * 5 + b.rating * 0.8 + b.trustyou.score.kaligo_overall * 1.2) ? 1 : -1);
     }
   }
   else if (sortBy === "Sale") {
     if (hotelDataLongSort.length > 0) {
-      console.log("sort by value");
+      // console.log("sort by value");
       hotelDataLongSort.sort((a: any, b: any) => ( /*the misspelled converted here so type coverted */
         (a.coverted_max_cash_payment - a.converted_price) / a.coverted_max_cash_payment < (b.coverted_max_cash_payment - b.converted_price) / b.coverted_max_cash_payment) ? 1 : -1);
     }
   }
   return hotelDataLongSort;
 }
-export function getCardValues(data: any) {
+export function getCardValues(data: any, nights: number) {
   //console.log(data.image_details.prefix);
   // get Card values. 
   let imageUrl = data.image_details.prefix + "1" + data.image_details.suffix;
@@ -99,16 +99,17 @@ export function getCardValues(data: any) {
     distance = distance / 1000;
   }
   distance = distance.toFixed(1);
-  let convertedPrice = data.converted_price;
-  convertedPrice = convertedPrice.toFixed(2);
-  let maxConvertedPrice = data.coverted_max_cash_payment; // the data base misspells it so pleas mispellit
-  return [imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice]
+  let convertedPrice = data.converted_price / nights;
+  let convertedPriceStr = convertedPrice.toFixed(2);
+  let maxConvertedPrice = data.coverted_max_cash_payment / nights; // the data base misspells it so pleas misspell it
+  let maxConvertedPriceStr = maxConvertedPrice.toFixed(2);
+  return [imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPriceStr, maxConvertedPriceStr]
 }
 
 
 export function isSale(price: number, maxPrice: number) {
-  console.log("price " + price);
-  console.log("maxPrice " + maxPrice);
+  // console.log("price " + price);
+  // console.log("maxPrice " + maxPrice);
   let salePercent = (maxPrice - price) / maxPrice * 100;
   let colour = 'gray';
   if (salePercent < 5 && salePercent > 0) {
@@ -281,10 +282,13 @@ export function getStars(ratingScore: number) {
 
 function SearchItem() {
   const dest = useAppSelector(state => state.SearchBarReducer.location); // to load things from store !!!
-  const queryId = useAppSelector(state => state.SearchBarReducer.locationId); // to load things from store !!!
-  const destId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId); // This shows whether the search bar API GET request is successful? NO means there was a catch
+  // const queryId = useAppSelector(state => state.SearchBarReducer.locationId); // to load things from store !!!
+  // const destId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId); // This shows whether the search bar API GET request is successful? NO means there was a catch
   let hotelDataLong = useAppSelector(state => state.SearchBarReducer.hotelData.hotels); // to load things from store !!!
   const isLoading = useAppSelector(state => state.SearchBarReducer.isLoading);
+  const checkIn = useAppSelector(state => state.SearchBarReducer.checkIn);
+  const checkOut = useAppSelector(state => state.SearchBarReducer.checkOut);
+  const nightsNum = (checkOut - checkIn) / 86400000;
   // console.log("HELP "+dest);
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
@@ -324,10 +328,10 @@ function SearchItem() {
     // console.log("HELP "+activePage);
   }, [dispatch, numberItems]);
 
-  console.log("search item component");
-  console.log('active page: ' + activePage);
-  console.log('numberItems: ' + numberItemsDirty.slice(0, 3));
-  console.log("element Start " + elementsStart);
+  // console.log("search item component");
+  // console.log('active page: ' + activePage);
+  // console.log('numberItems: ' + numberItemsDirty.slice(0, 3));
+  // console.log("element Start " + elementsStart);
 
   // print the new list of data
   let hotelDataLs: any[] = [];
@@ -344,7 +348,7 @@ function SearchItem() {
     hidden = false;
   }
   // declare mantine style classes
-  const theme = useMantineTheme();
+  // const theme = useMantineTheme();
   const { classes } = useStyles();
 
   const numberItemsLs = ['10 items', '20 items', '30 items', '40 items', '50 items'];
@@ -360,10 +364,7 @@ function SearchItem() {
 
   return (
     <div className={classes.resultsContainer} >
-      {isLoading && <Overlay color='white' style={{
-        position: 'fixed',
-        height: '100%',
-        width: "100%",
+      {isLoading && <Overlay color='white' opacity={1} style={{
         zIndex: '10'
       }}>
       </Overlay>}
@@ -423,7 +424,7 @@ function SearchItem() {
       <div className={classes.cardContainer}>
         {hotelDataLs.map((data, key) => {
           // Load card values
-          let [imageUrl, ratingScore, reviewScore, reviewColor, distance, price, ogPrice] = getCardValues(data);
+          let [imageUrl, ratingScore, reviewScore, reviewColor, distance, price, ogPrice] = getCardValues(data, nightsNum);
 
           let salesComp = isSale(price, ogPrice);
 

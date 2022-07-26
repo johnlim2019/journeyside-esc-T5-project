@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
 import { RootState } from "./store";
 
 interface searchBarInterface {
@@ -60,8 +61,8 @@ export const searchBarSlice = createSlice({
             state.locationId = action.payload.dispatchQuery.id;
             state.lng = action.payload.dispatchQuery.lng;
             state.lat = action.payload.dispatchQuery.lat;
-            state.checkIn = action.payload.dispatchQuery.checkIn?.getTime();
-            state.checkOut = action.payload.dispatchQuery.checkOut?.getTime();
+            state.checkIn = action.payload.dispatchQuery.checkIn;
+            state.checkOut = action.payload.dispatchQuery.checkOut;
             state.adults = action.payload.dispatchQuery.adults;
             state.children = action.payload.dispatchQuery.children;
             state.rooms = action.payload.dispatchQuery.rooms;
@@ -70,9 +71,9 @@ export const searchBarSlice = createSlice({
             // console.log(state.locationId);
             // console.log(state.lng);
             // console.log(state.lat);
-            // console.log("Date in store")
-            // console.log(state.checkIn);
-            // console.log(state.checkOut);
+            console.log("Date in store")
+            console.log(new Date(state.checkIn));
+            console.log(new Date(state.checkOut));
             // console.log("STORE Data misc");
             // console.log("adults " + state.adults);
             // console.log("children " + state.children);

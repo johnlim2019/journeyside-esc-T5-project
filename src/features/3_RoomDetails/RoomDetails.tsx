@@ -47,6 +47,9 @@ function RoomDetails() {
   let roomsList = useAppSelector(state => state.RoomDetailReducer.roomsList);
   let isLoading = useAppSelector(state => state.RoomDetailReducer.isLoading);
 
+  // html request error
+  const [timeoutErr, setTimeoutErr] = useState<boolean>(false);
+  const [notFoundErr, setNotFoundErr] = useState<boolean>(false);
   useEffect(() => {
     // const roomPriceApi = './rooms/diH7.json';
     const roomPriceApi = "https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/hotels/" + selectedHotelId + "/price?destination_id=" + locationId + "&checkin=" + checkIn + "&checkout=" + checkOut + "&lang=en_US&currency=SGD&country_code=SG&guests=" + 2 + "&partner_id=1";
@@ -59,8 +62,13 @@ function RoomDetails() {
     }).catch(errors => {
       console.error(errors);
       dispatch(setLoading({ loading: false }));
-
-    });;
+      if (errors.response.status === 0) {
+        setTimeoutErr(true);
+      }
+      else {
+        setNotFoundErr(true);
+      }
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -96,10 +104,10 @@ function RoomDetails() {
         <List.Item icon={<ThemeIcon radius='xl'><IconMoon size={16} /></ThemeIcon>}>
           {checkInObj.toLocaleDateString()} to {checkOutObj.toLocaleDateString()} for {nightsNum} night(s)
         </List.Item>
-        <List.Item icon={<ThemeIcon radius='xl'><IconUsers size={16}/></ThemeIcon>}>
+        <List.Item icon={<ThemeIcon radius='xl'><IconUsers size={16} /></ThemeIcon>}>
           Adults: {adults} Children: {children}
         </List.Item>
-        <List.Item icon={<ThemeIcon radius='xl'><IconBed size={16}/></ThemeIcon>}>
+        <List.Item icon={<ThemeIcon radius='xl'><IconBed size={16} /></ThemeIcon>}>
           Rooms: {rooms}
         </List.Item>
       </List>
@@ -114,7 +122,31 @@ function RoomDetails() {
             return <RoomType key={key} data={roomsList[data]} />
           })
       }
-      {/* <RoomType data={roomsList[0]} /> */}
+      {
+        timeoutErr && <Card>
+          <Center>
+            <Title style={{ fontSize: 18, fontWeight: 500 }}>Oops!</Title>
+          </Center>
+          <Space></Space>
+          <Center>
+            <Text>There are no rooms available for</Text>
+          </Center>
+          <Center>
+            <Text>{checkInObj.toLocaleDateString()} to {checkOutObj.toLocaleDateString()}</Text>
+          </Center>
+        </Card>
+      }
+      {
+        notFoundErr && <Card>
+          <Center>
+            <Title style={{ fontSize: 18, fontWeight: 500 }}>Oops our service is currently down</Title>
+          </Center>
+          <Space></Space>
+          <Center>
+            <Text>Pleas try again later</Text>
+          </Center>
+        </Card>
+      }
     </Container>
   );
 }

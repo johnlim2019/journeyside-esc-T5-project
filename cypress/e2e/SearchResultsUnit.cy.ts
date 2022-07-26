@@ -5,8 +5,9 @@ console.log(hotelArray);
 
 describe("search Results unit testing", () => {
     it('test getCardValues()', () => {
-        const [imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice] = getCardValues(hotelArray[0]);
-        const answer = ["https://d2ey9sqrvkqdfs.cloudfront.net/0aMv/1.jpg", 5.0, 4.0, 'blue', "11.3", "500.00", 550];
+        const [imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice] = getCardValues(hotelArray[0],1);
+        const answer = ["https://d2ey9sqrvkqdfs.cloudfront.net/0aMv/1.jpg", 5.0, 4.0, 'blue', "11.3", "500.00", "550.00"];
+        console.log([imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice]);
         assert.deepEqual([imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice], answer);
     })
     it('test sort results value and empty array', () => {
@@ -77,7 +78,7 @@ describe("search Results unit testing", () => {
     })
     it('test getStars', () => {
         const lengthStarsArr: number[] = [2, 2, 3, 3, 4, 4, 5, 5];
-        const stars: string[] = ['StarHalf', 'Star'];
+        const stars: string[] = ['IconStarHalf', 'IconStar'];
         let k = 0;
         for (let i = 1.5; i <= 5; i += 0.5) {
             let j = Number(i.toFixed(1));

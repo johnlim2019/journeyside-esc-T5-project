@@ -46,7 +46,7 @@ export function validateQuery(queryObj: any) {
   if ((queryObj.location.length === 0) || (queryObj.id.length === 0)) {
     outcome.push(1);
   }
-  if ((queryObj.checkIn === null) || (queryObj.checkOut === null)) {
+  if ((typeof queryObj.checkIn === 'undefined') || (typeof queryObj.checkOut === 'undefined') || (isNaN(queryObj.checkIn)) ||(isNaN(queryObj.checkOut)) || (queryObj.checkOut === null) || (queryObj.checkOut === null)) {
     outcome.push(2);
   }
   // console.log("HELP" + outcome);
@@ -102,22 +102,26 @@ export function SearchBarSplashPage(): JSX.Element {
   //get STORE values form input components
   const destinations = useAppSelector(state => state.SearchBarReducer.destinationsObjLs);
   var autoCompleteList = useAppSelector(state => state.SearchBarReducer.autocompleteLs);
-  const [date1, date2] = getDefaultDates();
+  const [default1, default2] = getDefaultDates();
+  var checkInDate = new Date(useAppSelector(state => state.SearchBarReducer.checkIn));
+  var checkOutDate = new Date(useAppSelector(state => state.SearchBarReducer.checkOut));
+  const [longHolAlert, setLongHolAlert] = useState<boolean>(false);
+  if (default1.getTime() - 1000 * 3600 * 24 > checkInDate.getTime()) {
+    checkInDate = default1;
+    checkOutDate = default2;
+  }
   const [adults, setAdults] = useState(useAppSelector(state => state.SearchBarReducer.adults));
   const [children, setChildren] = useState(useAppSelector(state => state.SearchBarReducer.children));
   const [rooms, setRoom] = useState(useAppSelector(state => state.SearchBarReducer.rooms));
   const [location, setLocation] = useState(useAppSelector(state => state.SearchBarReducer.location));
-  const [dates, setDates] = useState<[Date | null, Date | null]>([
-    date1, date2
-  ]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [dates, setDates] = useState<[Date | null, Date | null]>([checkInDate, checkOutDate]);
   // flags for inputs 
   const [validDestination, setValidDestination] = useState(true);
   const [validDate, setValidDates] = useState(true);
-  const STAYPAGE = "/";
-  const NEXTPAGE = "/SearchResults";
-  const [nextPage, setNextPage] = useState(STAYPAGE);
+  const [isLoading, setIsLoading] = useState(false);
 
+
+  let cacheId = useAppSelector(state => state.SearchBarReducer.hotelData.locationId);
   // console.log("SEARCHBAR DATES");
   // console.log(dates[0]);
   // console.log(dates[1]);
@@ -131,13 +135,14 @@ export function SearchBarSplashPage(): JSX.Element {
     }).then((response) => {
       // do what u want with the response here
       //console.log(response.data);
+      setIsLoading(false);
       const data = response.data as object[];
       dispatch(setDestinations({ dest: data }));
-      setIsLoading(false);
     }).catch(errors => {
-      console.error(errors);
       setIsLoading(false);
+      console.error(errors);
       dispatch(setDestinations({ dest: [] }));
+
     });
   };
   const destApi = './destinations.json';
@@ -150,6 +155,8 @@ export function SearchBarSplashPage(): JSX.Element {
     }
     // eslint-disable-next-line
   }, []);
+
+
 
   // load styles css
   const { classes } = useStyles();
@@ -173,31 +180,54 @@ export function SearchBarSplashPage(): JSX.Element {
     location: location,
     lng: lng,
     lat: lat,
-    checkIn: dates[0],
-    checkOut: dates[1],
+    checkIn: dates[0]?.getTime(),
+    checkOut: dates[1]?.getTime(),
     adults: adults,
     children: children,
     rooms: rooms,
   }
+  if (dispatchQuery.checkIn === undefined || dispatchQuery.checkIn === NaN || dispatchQuery.checkOut === undefined || dispatchQuery.checkOut === NaN){
+    
+  }
 
-  // check validity upon changes
+
+  // trigger the validation 
   const triggerValidation = () => {
     let validation = validateQuery(dispatchQuery);
     let errorsObj = setErrorMessages(validation);
     setValidDestination(errorsObj['locationValid']);
     setValidDates(errorsObj["dateValid"]);
-  }
-  // this is needed so we can update the state manager upon any change
-  // once the state manager is updated, the polling cache system can save the state. 
-  useEffect(() => {
-    dispatch(query({ dispatchQuery }));
+    if ((checkOutDate.getTime() - checkInDate.getTime()) / 86400000 > 30) {
+      setLongHolAlert(true);
+    } else {
+      setLongHolAlert(false);
+    }
+  };
+
+
+  // the following called to check if the query has been changed and we need to reload the results 
+  const hotels = useAppSelector(state => state.SearchBarReducer.hotelData.hotels);
+  function submitQuery() {
     let validation = validateQuery(dispatchQuery);
     if (validation.length === 0) {
-      setNextPage(NEXTPAGE);
-    } else { setNextPage(STAYPAGE); }
-    // eslint-disable-next-line
-  }, [dates, location, nextPage]);
+      // remove any invalid query flags
+      setValidDestination(true);
+      setValidDates(true);
+      dispatch(query({ dispatchQuery }));// update the state with new search  
+      return true;
+    }
+    else {
+      let errorsObj = setErrorMessages(validation);
+      setValidDestination(errorsObj['locationValid']);
+      setValidDates(errorsObj["dateValid"]);
+      return false;
+    }
+  }
+  useEffect(()=>{
+    submitQuery();
+  }, [location, dates]);
 
+  //  the following are different code from the other code in SearchBar.tsx
   const navigate = useNavigate();
 
   return (
@@ -300,18 +330,10 @@ export function SearchBarSplashPage(): JSX.Element {
               <Grid.Col span={2}>
                 <Space className={classes.searchbarcomponets} h="xl" />
                 <Button fullWidth
-                  onClick={() => {
-                    // validation check
-                    let validation = validateQuery(dispatchQuery);
-                    let errorsObj = setErrorMessages(validation);
-                    setValidDestination(errorsObj['locationValid']);
-                    setValidDates(errorsObj["dateValid"]);
-                    dispatch(query({ dispatchQuery }));
-                    if (isLoading) {
-                      navigate("/");
-                    }
-                    else {
-                      navigate(nextPage);
+                  onClick={()=>{
+                    const go = submitQuery();
+                    if (go){
+                      navigate("/SearchResults")
                     }
                   }}>
                   Search &nbsp;

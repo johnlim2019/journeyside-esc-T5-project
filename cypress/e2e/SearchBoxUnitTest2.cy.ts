@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 //import functions to test
-import { validateQuery, setErrorMessages, getDestDetails, getDefaultDates, getMinDate} from '../../src/features/1_DestinationSearch/SearchBoxSplashPage';
+import { validateQuery, setErrorMessages, getDestDetails, getDefaultDates, getMinDate} from '../../src/features/2_SearchResults/SearchBar/SearchBar';
 
 
 describe("Unit Test Feature 1",()=>{
-      it('test validateQuery',() => {
+    it('test validateQuery',() => {
         const missing_location = {
           'id': 'abcd',
           'location': '',
@@ -33,7 +33,7 @@ describe("Unit Test Feature 1",()=>{
       assert.deepEqual(validateQuery(missing_checkin), [2])
       assert.deepEqual(validateQuery(proper_checkin),[])
       assert.deepEqual(validateQuery(null_checkin),[1,2])
-    })
+    }),
     it('test setErrorMessages',() => {
       const locationinvalid = [1];
       const dateinvalid = [2];

@@ -1,9 +1,9 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem, Loader } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem, Loader, Notification } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
 import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../../services/hooks';
-import { IconPlaneDeparture } from '@tabler/icons';
+import { IconMoodConfuzed, IconPlaneDeparture } from '@tabler/icons';
 import axios from 'axios';
 const useStyles = createStyles((theme) => ({
   searchbarwrapper: {
@@ -42,7 +42,7 @@ export function validateQuery(queryObj: any) {
   if ((queryObj.location.length === 0) || (queryObj.id.length === 0)) {
     outcome.push(1);
   }
-  if ((queryObj.checkIn === null) || (queryObj.checkOut === null)) {
+  if ((typeof queryObj.checkIn === 'undefined') || (typeof queryObj.checkOut === 'undefined') || (isNaN(queryObj.checkIn)) ||(isNaN(queryObj.checkOut)) || (queryObj.checkOut === null) || (queryObj.checkOut === null)) {
     outcome.push(2);
   }
   // console.log("HELP" + outcome);
@@ -94,8 +94,13 @@ export function getMinDate() {
   return minDate;
 }
 
-export function getUrlDates(date: Date) {
-  return date.getFullYear() + "-" + Number(date.getMonth() + 1) + "-" + date.getDate();
+export function getUrlDates(date: Date | null) {
+  if (date !== null) {
+    return date.getFullYear() + "-" + Number(date.getMonth() + 1) + "-" + date.getDate();
+  }
+  else {
+    return null
+  }
 }
 export function validateHotelApiData(data: any[]) {
   try {
@@ -152,20 +157,18 @@ function SearchBar(): JSX.Element {
   const destinations = useAppSelector(state => state.SearchBarReducer.destinationsObjLs);
   var autoCompleteList = useAppSelector(state => state.SearchBarReducer.autocompleteLs);
   const [default1, default2] = getDefaultDates();
-  const checkInDate = new Date(useAppSelector(state => state.SearchBarReducer.checkIn));
-  const checkOutDate = new Date(useAppSelector(state => state.SearchBarReducer.checkOut));
-  var [date1, date2] = [default1, default2];
-  if (default1.getTime() < checkInDate.getTime()) {
-    date1 = checkInDate;
-    date2 = checkOutDate;
+  var checkInDate = new Date(useAppSelector(state => state.SearchBarReducer.checkIn));
+  var checkOutDate = new Date(useAppSelector(state => state.SearchBarReducer.checkOut));
+  const [longHolAlert, setLongHolAlert] = useState<boolean>(false);
+  if (default1.getTime() - 1000 * 3600 * 24 > checkInDate.getTime()) {
+    checkInDate = default1;
+    checkOutDate = default2;
   }
-  var checkIn = getUrlDates(checkInDate);
-  var checkOut = getUrlDates(checkOutDate);
   const [adults, setAdults] = useState(useAppSelector(state => state.SearchBarReducer.adults));
   const [children, setChildren] = useState(useAppSelector(state => state.SearchBarReducer.children));
   const [rooms, setRoom] = useState(useAppSelector(state => state.SearchBarReducer.rooms));
   const [location, setLocation] = useState(useAppSelector(state => state.SearchBarReducer.location));
-  const [dates, setDates] = useState<[Date | null, Date | null]>([date1, date2]);
+  const [dates, setDates] = useState<[Date | null, Date | null]>([checkInDate, checkOutDate]);
   // flags for inputs 
   const [validDestination, setValidDestination] = useState(true);
   const [validDate, setValidDates] = useState(true);
@@ -231,11 +234,14 @@ function SearchBar(): JSX.Element {
     location: location,
     lng: lng,
     lat: lat,
-    checkIn: dates[0],
-    checkOut: dates[1],
+    checkIn: dates[0]?.getTime(),
+    checkOut: dates[1]?.getTime(),
     adults: adults,
     children: children,
     rooms: rooms,
+  }
+  if (dispatchQuery.checkIn === undefined || dispatchQuery.checkIn === NaN || dispatchQuery.checkOut === undefined || dispatchQuery.checkOut === NaN){
+    
   }
 
 
@@ -247,10 +253,13 @@ function SearchBar(): JSX.Element {
 
   // const hotelApi = "?destination_id=" + queryId
   // const hotelPriceApi = "./prices/" + queryId + ".json";
+  var checkIn = getUrlDates(dates[0]);
+  var checkOut = getUrlDates(dates[1]);
   const hotelPriceApi = "https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/hotels-all/prices?destination_id=" + queryId + "&checkin=" + checkIn + "&checkout=" + checkOut + "&lang=en_US&currency=SGD&country_code=SG&guests=" + 2 + "&partner_id=1";
   // https://us-central1-t5-esc-ascendas-hotels.cloudfunctions.net/app/hotels-all/prices?destination_id=vJQX&checkin=2022-08-18&checkout=2022-08-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
   function sendGetRequest(hotelApi: string, hotelPriceApi: string, queryId: string) {
     // axios.defaults.withCredentials = true;
+    console.log(hotelPriceApi);
     const hotelApiCall = axios({
       url: hotelApi,
       method: 'GET',
@@ -283,26 +292,6 @@ function SearchBar(): JSX.Element {
     });
   }
 
-  // check validity upon changes
-  useEffect(() => {
-    let validation = validateQuery(dispatchQuery);
-    if (validation.length === 0) {
-      dispatch(query({ dispatchQuery }));// update the state with new search  
-      // remove any invalid query flags
-      setValidDestination(true);
-      setValidDates(true);
-      if (cacheId !== queryId) { // only reload the query state if it changes.
-        dispatch(setLoading({ loading: true }));
-        dispatch(pageStartLoad({ start: 1 }));
-        sendGetRequest(hotelApi, hotelPriceApi, queryId);
-      }
-      if (queryId === undefined || queryId.length === 0) {
-        dispatch(setLoading({ loading: false }));
-      }
-      //console.log("HELP querylocation "+dispatchQuery.location);
-    }
-    // eslint-disable-next-line
-  }, [dates, location, dispatchQuery]);
 
   // trigger the validation 
   const triggerValidation = () => {
@@ -310,6 +299,11 @@ function SearchBar(): JSX.Element {
     let errorsObj = setErrorMessages(validation);
     setValidDestination(errorsObj['locationValid']);
     setValidDates(errorsObj["dateValid"]);
+    if ((checkOutDate.getTime() - checkInDate.getTime()) / 86400000 > 30) {
+      setLongHolAlert(true);
+    } else {
+      setLongHolAlert(false);
+    }
   };
 
 
@@ -325,7 +319,36 @@ function SearchBar(): JSX.Element {
     // eslint-disable-next-line
   }, []);
 
-
+  // the following called to check if the query has been changed and we need to reload the results 
+  const hotels = useAppSelector(state => state.SearchBarReducer.hotelData.hotels);
+  const submitQuery = ()=>{
+    let validation = validateQuery(dispatchQuery);
+    if (validation.length === 0) {
+      // remove any invalid query flags
+      setValidDestination(true);
+      setValidDates(true);
+      if (cacheId !== queryId) { // only reload the query state if it changes.
+        dispatch(setLoading({ loading: true }));
+        dispatch(pageStartLoad({ start: 1 }));
+        sendGetRequest(hotelApi, hotelPriceApi, queryId);
+      }
+      else if (((checkInDate.getTime() !== dates[0]?.getTime()) || (checkOutDate.getTime() !== dates[1]?.getTime())) && (dates[0] !== null && dates[1] !== null)) {
+        dispatch(setLoading({ loading: true }));
+        sendGetRequest(hotelApi, hotelPriceApi, queryId);
+      }
+      if (queryId === undefined || queryId.length === 0) {
+        dispatch(setLoading({ loading: false }));
+      }
+      //console.log("HELP querylocation "+dispatchQuery.location);
+      dispatch(query({ dispatchQuery }));// update the state with new search  
+    }
+    else {
+      let errorsObj = setErrorMessages(validation);
+      setValidDestination(errorsObj['locationValid']);
+      setValidDates(errorsObj["dateValid"]);
+    }
+  }
+  useEffect(submitQuery, [location, dates]);
 
   return (
     <div className={classes.searchbarwrapper} >
@@ -432,31 +455,7 @@ function SearchBar(): JSX.Element {
               <Space className={classes.searchbarcomponets} h="xl" />
               <Center>
                 <div className='SearchButton'>
-                  <Button fullWidth onClick={() => {
-                    // console.log("HELP cache " + cacheId)
-                    // console.log('HELP query ' + queryId)
-                    let validation = validateQuery(dispatchQuery);
-                    if (validation.length === 0) {
-                      dispatch(query({ dispatchQuery }));// update the state with new search  
-                      // remove any invalid query flags
-                      setValidDestination(true);
-                      setValidDates(true);
-                      if (cacheId !== queryId) { // only reload the query state if it changes.
-                        dispatch(setLoading({ loading: true }));
-                        dispatch(pageStartLoad({ start: 1 }));
-                        sendGetRequest(hotelApi, hotelPriceApi, queryId);
-                      }
-                      if (queryId === undefined || queryId.length === 0) {
-                        dispatch(setLoading({ loading: false }));
-                      }
-                      //console.log("HELP querylocation "+dispatchQuery.location);
-                    }
-                    else {
-                      let errorsObj = setErrorMessages(validation);
-                      setValidDestination(errorsObj['locationValid']);
-                      setValidDates(errorsObj["dateValid"]);
-                    }
-                  }}>
+                  <Button fullWidth onClick={submitQuery}>
                     <IconPlaneDeparture />
                   </Button>
                 </div>
@@ -466,10 +465,15 @@ function SearchBar(): JSX.Element {
           </Grid>
         </Paper>
       </Center>
+      {
+        longHolAlert &&
+        <Center>
+          <Notification style={{ width: '20rem' }} onClose={() => { setLongHolAlert(false) }} icon={<IconMoodConfuzed size={20} />}>
+            Did you mean to put more than 30 nights?
+          </Notification>
+        </Center>
+      }
     </div>
-
-
-
   );
 } export default SearchBar;
 
