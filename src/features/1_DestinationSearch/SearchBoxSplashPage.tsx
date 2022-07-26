@@ -187,16 +187,14 @@ export function SearchBarSplashPage(): JSX.Element {
         setValidDestination(errorsObj['locationValid']);
         setValidDates(errorsObj["dateValid"]);
     }
-
-    // check validity upon changes
+    // this is needed so we can update the state manager upon any change
+    // once the state manager is updated, the polling cache system can save the state. 
     useEffect(() => {
-        // console.log("HELP DEBOUNCE");
+        dispatch(query({ dispatchQuery }));
         let validation = validateQuery(dispatchQuery);
-        // console.log("DEBOUNCE " + validation.length);;
         if (validation.length === 0) {
             setNextPage(NEXTPAGE);
         } else { setNextPage(STAYPAGE); }
-        console.log("DEBOUNCE " + nextPage);
         // eslint-disable-next-line
     }, [dates, location, nextPage]);
 
