@@ -39,17 +39,17 @@ export function validateQuery(queryObj: any) {
     // 2 - invalid date 
 
     let outcome = [];
-    console.log("HELP " + queryObj.id);
-    console.log("HELP " + queryObj.location);
-    console.log("HELP " + queryObj.checkIn);
-    console.log("HELP " + queryObj.checkOut);
+    // console.log("HELP " + queryObj.id);
+    // console.log("HELP " + queryObj.location);
+    // console.log("HELP " + queryObj.checkIn);
+    // console.log("HELP " + queryObj.checkOut);
     if ((queryObj.location.length === 0) || (queryObj.id.length === 0)) {
         outcome.push(1);
     }
     if ((queryObj.checkIn === null) || (queryObj.checkOut === null)) {
         outcome.push(2);
     }
-    console.log("HELP" + outcome);
+    // console.log("HELP" + outcome);
     return outcome;
 }
 export function setErrorMessages(outcomes: number[]) {
@@ -181,21 +181,17 @@ export function SearchBarSplashPage(): JSX.Element {
     }
 
     // check validity upon changes
-    useEffect(() => {
-        // console.log("HELP DEBOUNCE");
+    const triggerValidation = () => {
         let validation = validateQuery(dispatchQuery);
-        console.log("DEBOUNCE " + validation.length);
         let errorsObj = setErrorMessages(validation);
         setValidDestination(errorsObj['locationValid']);
         setValidDates(errorsObj["dateValid"]);
         if (validation.length === 0) {
             setNextPage(NEXTPAGE);
         } else { setNextPage(STAYPAGE); }
-        console.log("DEBOUNCE " + nextPage);
-        // eslint-disable-next-line
-    }, [dates, location, nextPage]);
-    const navigate = useNavigate();
+    }
 
+    const navigate = useNavigate();
 
     return (
         <>
@@ -213,6 +209,7 @@ export function SearchBarSplashPage(): JSX.Element {
                                                     label="Destination"
                                                     placeholder="Begin Your Adventure"
                                                     value={location}
+                                                    onBlur={triggerValidation}
                                                     onChange={setLocation}
                                                     data={autoCompleteList}
                                                     error={(!validDestination) ? "Invalid Destination" : false}
@@ -244,6 +241,7 @@ export function SearchBarSplashPage(): JSX.Element {
                                                 minDate={minDate}
                                                 value={dates}
                                                 onChange={setDates}
+                                                onBlur={triggerValidation}
                                                 error={!validDate ? "Invalid Date" : false}
                                             />
                                         </Tooltip>
@@ -293,21 +291,20 @@ export function SearchBarSplashPage(): JSX.Element {
                             </Grid.Col>
                             <Grid.Col span={2}>
                                 <Space className={classes.searchbarcomponets} h="xl" />
-                                <Center>
-                                    <Button
-                                        onClick={() => {
-                                            //console.log("HELP querylocation "+dispatchQuery.location);
-                                            dispatch(query({ dispatchQuery }));
-                                            if (isLoading) {
-                                                navigate("/");
-                                            }
-                                            else {
-                                                navigate(nextPage);
-                                            }
-                                        }}>
-                                        <IconPlaneDeparture />
-                                    </Button>
-                                </Center>
+                                <Button fullWidth
+                                    onClick={() => {
+                                        //console.log("HELP querylocation "+dispatchQuery.location);
+                                        dispatch(query({ dispatchQuery }));
+                                        if (isLoading) {
+                                            navigate("/");
+                                        }
+                                        else {
+                                            navigate(nextPage);
+                                        }
+                                    }}>
+                                    Search &nbsp;
+                                    <IconPlaneDeparture />
+                                </Button>
                             </Grid.Col>
                         </Grid>
                     </Paper>
