@@ -177,8 +177,6 @@ function UserProfile() {
             console.log(resultArr);
             setDataArr(resultArr);
         }
-        setLoading(false);
-
     }
     const BREAKPOINT = useMantineTheme().breakpoints.sm;
     // check window size
@@ -205,15 +203,17 @@ function UserProfile() {
             }, 3000);
         }
         const getBookingsApi = async (api: string) => {
-            await axios.get(api, { headers: { 'Authorization': accessToken} }
+            await axios.get(api, { headers: { 'Authorization': accessToken } }
             ).then((response) => {
+                setLoading(true);
                 let responseData = response.data;
                 console.log(responseData);
                 let bookingsArr = responseData["bookings"];
                 console.log(bookingsArr);
                 setDataObj(bookingsArr);
+                setLoading(false);
             }).catch(
-                
+
                 () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
             );
         };
@@ -315,13 +315,13 @@ function UserProfile() {
                     <Center>
                         <Group>
                             <Button color={'red'} onClick={() => {
-                                var uniqueBookingReferences = bookings.filter(function (x, i, a) { 
-                                    return a.indexOf(x) == i; 
+                                var uniqueBookingReferences = bookings.filter(function (x, i, a) {
+                                    return a.indexOf(x) == i;
                                 });
                                 console.log(uniqueBookingReferences);
                                 for (let booking of uniqueBookingReferences) {
                                     const deleteBookingsApi = async (api: string) => {
-                                        await axios.delete(api + booking,  { headers: { 'Authorization': accessToken}, params: { "booking_reference": booking } }
+                                        await axios.delete(api + booking, { headers: { 'Authorization': accessToken }, params: { "booking_reference": booking } }
                                         ).then((response) => {
                                             console.log(response.data);
                                         }).catch(
@@ -408,12 +408,12 @@ function UserProfile() {
                             </tr>
                             <tr>
                                 <th className={classes.th}>Breakfast Included</th>
-                                <td className={classes.td}>{hotelBreakfast? "Yes": "No"}</td>
+                                <td className={classes.td}>{hotelBreakfast ? "Yes" : "No"}</td>
                             </tr>
                             <tr>
                                 <th className={classes.th}>Cancellation</th>
-                                <td className={classes.td}>{hotelFreeCancel? "Free Cancellation":"With Cancellation Fee"}</td>
-                            </tr>                            
+                                <td className={classes.td}>{hotelFreeCancel ? "Free Cancellation" : "With Cancellation Fee"}</td>
+                            </tr>
                             <tr>
                                 <th className={classes.th}>Price</th>
                                 <td className={classes.td}>{hotelPrice} SGD</td>
@@ -440,7 +440,7 @@ function UserProfile() {
                                 copyCurrBooking.cancellation = !copyCurrBooking.cancellation;
                                 console.log(copyCurrBooking);
                                 const updateBookingsApi = async (api: string) => {
-                                    await axios.put(api + currBooking.booking_reference, copyCurrBooking, { headers: { 'Authorization': accessToken}, params: { "booking_reference": currBooking.booking_reference } }
+                                    await axios.put(api + currBooking.booking_reference, copyCurrBooking, { headers: { 'Authorization': accessToken }, params: { "booking_reference": currBooking.booking_reference } }
                                     ).then((response) => {
                                         console.log(response.data);
                                     })
@@ -500,7 +500,7 @@ function UserProfile() {
                     <Center>
                         <Text>No Bookings on file</Text>
                     </Center>
-                    </Paper>}
+                </Paper>}
                 {(userId === "") && <Paper>
                     <Center>
                         <Title>Not Logged In</Title>
