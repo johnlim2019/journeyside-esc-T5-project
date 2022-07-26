@@ -203,14 +203,17 @@ function UserProfile() {
             }, 3000);
         }
         const getBookingsApi = async (api: string) => {
-            await axios.get(api, { headers: { 'Authorization': accessToken} }
+            await axios.get(api, { headers: { 'Authorization': accessToken } }
             ).then((response) => {
+                setLoading(true);
                 let responseData = response.data;
                 console.log(responseData);
                 let bookingsArr = responseData["bookings"];
                 console.log(bookingsArr);
                 setDataObj(bookingsArr);
+                setLoading(false);
             }).catch(
+
                 () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
             );
         };
@@ -224,7 +227,6 @@ function UserProfile() {
         } catch (error) {
             console.error(error);
         }
-        setLoading(false);
     }, [dataObj])
 
     // setup table 
@@ -313,8 +315,8 @@ function UserProfile() {
                     <Center>
                         <Group>
                             <Button color={'red'} onClick={() => {
-                                var uniqueBookingReferences = bookings.filter(function (x, i, a) { 
-                                    return a.indexOf(x) == i; 
+                                var uniqueBookingReferences = bookings.filter(function (x, i, a) {
+                                    return a.indexOf(x) == i;
                                 });
                                 console.log(uniqueBookingReferences);
                                 for (let booking of uniqueBookingReferences) {
@@ -406,12 +408,12 @@ function UserProfile() {
                             </tr>
                             <tr>
                                 <th className={classes.th}>Breakfast Included</th>
-                                <td className={classes.td}>{hotelBreakfast? "Yes": "No"}</td>
+                                <td className={classes.td}>{hotelBreakfast ? "Yes" : "No"}</td>
                             </tr>
                             <tr>
                                 <th className={classes.th}>Cancellation</th>
-                                <td className={classes.td}>{hotelFreeCancel? "Free Cancellation":"With Cancellation Fee"}</td>
-                            </tr>                            
+                                <td className={classes.td}>{hotelFreeCancel ? "Free Cancellation" : "With Cancellation Fee"}</td>
+                            </tr>
                             <tr>
                                 <th className={classes.th}>Price</th>
                                 <td className={classes.td}>{hotelPrice} SGD</td>
@@ -499,7 +501,7 @@ function UserProfile() {
                     <Center>
                         <Text>No Bookings on file</Text>
                     </Center>
-                    </Paper>}
+                </Paper>}
                 {(userId === "") && <Paper>
                     <Center>
                         <Title>Not Logged In</Title>
