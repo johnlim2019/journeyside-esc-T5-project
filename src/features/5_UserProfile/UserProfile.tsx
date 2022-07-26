@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons";
 import { useAppSelector } from "../../services/hooks";
 import axios from "axios";
-const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings/';
+const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings';
 
 interface LooseObject {
     [key: string]: any
@@ -319,16 +319,16 @@ function UserProfile() {
                                 console.log(uniqueBookingReferences);
                                 for (let booking of uniqueBookingReferences) {
                                     const deleteBookingsApi = async (api: string) => {
-                                        await axios.delete(api + booking,  { headers: { 'Authorization': accessToken}, params: { "booking_reference": booking } }
+                                        await axios.delete(api + "/" + booking,  { headers: { 'Authorization': accessToken}, params: { "booking_reference": booking } }
                                         ).then((response) => {
                                             console.log(response.data);
+                                            window.location.reload();
                                         }).catch(
                                             () => { console.log("hi"); alert("No Service Sorry"); }
                                         );
                                     };
                                     deleteBookingsApi(userApi);
                                 }
-                                window.location.reload();
                             }}>Burn Baby Burn!</Button>
                             <Button onClick={() => { setDeleteModal(false) }}>Aw Hell No!</Button>
                         </Group>
@@ -438,9 +438,10 @@ function UserProfile() {
                                 copyCurrBooking.cancellation = !copyCurrBooking.cancellation;
                                 console.log(copyCurrBooking);
                                 const updateBookingsApi = async (api: string) => {
-                                    await axios.put(api + currBooking.booking_reference, copyCurrBooking, { headers: { 'Authorization': accessToken}, params: { "booking_reference": currBooking.booking_reference } }
+                                    await axios.put(api + "/" + currBooking.booking_reference, copyCurrBooking, { headers: { 'Authorization': accessToken}, params: { "booking_reference": currBooking.booking_reference } }
                                     ).then((response) => {
                                         console.log(response.data);
+                                        window.location.reload();
                                     })
                                 };
                                 updateBookingsApi(userApi);
@@ -448,7 +449,7 @@ function UserProfile() {
 
                                 setModal(false);
                                 // hard reload page to refresh modal
-                                window.location.reload();
+                                
                             }}>Cancel Booking</Button>
                             <Button onClick={() => setModal(false)}>Return</Button>
                         </Group>
