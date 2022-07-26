@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons";
 import { useAppSelector } from "../../services/hooks";
 import axios from "axios";
-const userApi = 'http://localhost:3000/api/bookings/';
+const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings/';
 
 interface LooseObject {
     [key: string]: any
@@ -177,6 +177,8 @@ function UserProfile() {
             console.log(resultArr);
             setDataArr(resultArr);
         }
+        setLoading(false);
+
     }
     const BREAKPOINT = useMantineTheme().breakpoints.sm;
     // check window size
@@ -211,6 +213,7 @@ function UserProfile() {
                 console.log(bookingsArr);
                 setDataObj(bookingsArr);
             }).catch(
+                
                 () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
             );
         };
@@ -224,7 +227,6 @@ function UserProfile() {
         } catch (error) {
             console.error(error);
         }
-        setLoading(false);
     }, [dataObj])
 
     // setup table 

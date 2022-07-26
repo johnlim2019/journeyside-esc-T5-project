@@ -140,7 +140,7 @@ function NavBarSplashPage() {
                                     setLogInErr("*User already exits");
                                 });
                             };
-                            const userApi = 'http://localhost:3000/api/users/register';
+                            const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/users/register';
                             registerUserApi(userApi);
                         }
                     }}>Create Account</Button>
@@ -161,7 +161,7 @@ function NavBarSplashPage() {
                                 setLogInErr("*Password or Username is Invalid");
                             });
                         };
-                        const userApi = 'http://localhost:3000/api/users/login';
+                        const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/users/login';
                         loginUserApi(userApi);
                     }}>Log In</Button>
                 </Group>

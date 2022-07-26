@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 
-const bookingApi = 'http://localhost:3000/api/bookings';
+const bookingApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   th: {
