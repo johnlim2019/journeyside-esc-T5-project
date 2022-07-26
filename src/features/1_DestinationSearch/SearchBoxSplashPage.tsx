@@ -186,10 +186,19 @@ export function SearchBarSplashPage(): JSX.Element {
         let errorsObj = setErrorMessages(validation);
         setValidDestination(errorsObj['locationValid']);
         setValidDates(errorsObj["dateValid"]);
+    }
+
+    // check validity upon changes
+    useEffect(() => {
+        // console.log("HELP DEBOUNCE");
+        let validation = validateQuery(dispatchQuery);
+        // console.log("DEBOUNCE " + validation.length);;
         if (validation.length === 0) {
             setNextPage(NEXTPAGE);
         } else { setNextPage(STAYPAGE); }
-    }
+        console.log("DEBOUNCE " + nextPage);
+        // eslint-disable-next-line
+    }, [dates, location, nextPage]);
 
     const navigate = useNavigate();
 
@@ -197,7 +206,7 @@ export function SearchBarSplashPage(): JSX.Element {
         <>
             <div>
                 <Center>
-                    <Paper className={classes.searchbarwrapper} style={{ position: 'absolute', padding:'1em' }} withBorder>
+                    <Paper className={classes.searchbarwrapper} style={{ position: 'absolute', padding: '1em' }} withBorder>
                         <Grid columns={16} grow gutter='sm' align='center' p='sm'>
                             <Grid.Col md={8} sm={8}>
                                 <div className="destinationInput">
@@ -293,7 +302,11 @@ export function SearchBarSplashPage(): JSX.Element {
                                 <Space className={classes.searchbarcomponets} h="xl" />
                                 <Button fullWidth
                                     onClick={() => {
-                                        //console.log("HELP querylocation "+dispatchQuery.location);
+                                        // validation check
+                                        let validation = validateQuery(dispatchQuery);
+                                        let errorsObj = setErrorMessages(validation);
+                                        setValidDestination(errorsObj['locationValid']);
+                                        setValidDates(errorsObj["dateValid"]);
                                         dispatch(query({ dispatchQuery }));
                                         if (isLoading) {
                                             navigate("/");
