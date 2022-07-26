@@ -495,6 +495,12 @@ function UserProfile() {
                         </thead>
                         <tbody>{rowsNarrow}</tbody>
                     </Table>}
+                {(dataArr.length === 0) && <Paper>
+                    <Space h='md'></Space>
+                    <Center>
+                        <Text>No Bookings on file</Text>
+                    </Center>
+                    </Paper>}
                 {(userId === "") && <Paper>
                     <Center>
                         <Title>Not Logged In</Title>
