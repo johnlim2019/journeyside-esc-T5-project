@@ -1,15 +1,9 @@
 import { Button, Center, createStyles, Dialog, Group, Loader, LoadingOverlay, Modal, Paper, Space, Table, Text, Title, useMantineTheme } from "@mantine/core";
-import { wait } from "@testing-library/user-event/dist/utils";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons";
-import { deleteBookings, readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
-import { Firebase } from "../../services/Firebase-Storage";
 import { useAppSelector } from "../../services/hooks";
 import axios from "axios";
-import { getJsonObj } from "../4_BookingData/BookingData";
-
-const db = Firebase();
 
 interface LooseObject {
     [key: string]: any
@@ -158,6 +152,7 @@ function UserProfile() {
     const [dataArr, setDataArr] = useState<any[]>([]);
     const userId = (useAppSelector(state => state.UserDetailsReducer.userKey));
     const accessToken = useAppSelector(state => state.UserDetailsReducer.sessionKey);
+    const [bookings, setBookings] = useState<any[]>([]);
 
 
     function parseDataObj(data: object, dataObj: LooseObject) {
@@ -166,31 +161,20 @@ function UserProfile() {
         let bookingIterator = Object.entries(data);
         for (let [key, value] of bookingIterator) {
             console.log(value);
-            // value = readEncryptedJson(db, userId, key).then(
-            //     (value) => {
             resultObj[key] = value;
             setData(resultObj);
-            //     }
-            // ).catch(
-                // () => { resultObj = {}; alert("No Service Sorry"); setLoading(false); }
-            // );
         }
     }
     function parseDataArr(data: object) {
         let bookingIterator = Object.entries(data);
         let resultArr: any[] = []
         for (let [key, value] of bookingIterator) {
-            // value = readEncryptedJson(db, userId, key).then(
-            //     (value) => {
-                    // console.log(value);
+            console.log(key);
+            // get the list of booking_references for deletion
+            bookings.push(value["booking_reference"]);
             resultArr.push(value);
             console.log(resultArr);
             setDataArr(resultArr);
-            setLoading(false);
-            //     }
-            // ).catch(
-            //     () => { console.log("hi"); setDataArr([]); alert("No Service Sorry"); setLoading(false); }
-            // );
         }
     }
     const BREAKPOINT = useMantineTheme().breakpoints.sm;
@@ -217,10 +201,6 @@ function UserProfile() {
                 navigate("/");
             }, 3000);
         }
-        // readEncryptedBookings(db, userId, "booking/").then(async (result) => {
-        //     setDataObj(result);
-        //     // console.log(result);
-        // }
         const getBookingsApi = async (api: string) => {
             await axios.get(api, { headers: { 'Authorization': accessToken} }
             ).then((response) => {
@@ -235,12 +215,6 @@ function UserProfile() {
         };
         const userApi = 'http://localhost:3000/api/bookings';
         getBookingsApi(userApi);
-        // readEncryptedBookings(db, userId, "booking/").then(async (result) => {
-            // setDataObj(result);
-        //     // console.log(result);
-        // }).catch(
-        //     () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
-        // );
     }, [])
 
     useEffect(() => {
@@ -248,9 +222,9 @@ function UserProfile() {
             parseDataObj(dataObj, data);
             parseDataArr(dataObj);
         } catch (error) {
-            setLoading(false);
             console.error(error);
         }
+        setLoading(false);
     }, [dataObj])
 
     // setup table 
@@ -339,23 +313,22 @@ function UserProfile() {
                     <Center>
                         <Group>
                             <Button color={'red'} onClick={() => {
-                                // deleteBookings(db, userId);
-                                
-                                
-                                // FIX
-                                const deleteBookingsApi = async (api: string) => {
-                                    await axios.delete(api,  { headers: { 'Authorization': accessToken} }
-                                    ).then((response) => {
-                                        console.log(response.data);
-                                        setDataObj(response.data);
-                                    }).catch(
-                                        () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
-                                    );
-                                };
-                                const userApi = 'http://localhost:3000/api/bookings/:booking_reference';
-                                deleteBookingsApi(userApi);
-
-
+                                var uniqueBookingReferences = bookings.filter(function (x, i, a) { 
+                                    return a.indexOf(x) == i; 
+                                });
+                                console.log(uniqueBookingReferences);
+                                for (let booking of uniqueBookingReferences) {
+                                    const deleteBookingsApi = async (api: string) => {
+                                        await axios.delete(api + booking,  { headers: { 'Authorization': accessToken}, params: { "booking_reference": booking } }
+                                        ).then((response) => {
+                                            console.log(response.data);
+                                        }).catch(
+                                            () => { console.log("hi"); alert("No Service Sorry"); }
+                                        );
+                                    };
+                                    const userApi = 'http://localhost:3000/api/bookings/';
+                                    deleteBookingsApi(userApi);
+                                }
                                 navigate("/");
                             }}>Burn Baby Burn!</Button>
                             <Button onClick={() => { setDeleteModal(false) }}>Aw Hell No!</Button>
@@ -464,26 +437,17 @@ function UserProfile() {
                             <Button color='red' onClick={() => {
                                 let copyCurrBooking = { ...currBooking };
                                 copyCurrBooking.cancellation = !copyCurrBooking.cancellation;
-                                setCurrBooking(copyCurrBooking);
-                                // let jsonObj = getJsonObj(copyCurrBooking);
-                                // push curr booking
-                                // updateEncryptedJson(db, userId, copyCurrBooking, copyCurrBooking["bookingKey"] + "/");
-
-                                // FIX
-
+                                console.log(copyCurrBooking);
                                 const updateBookingsApi = async (api: string) => {
-                                    await axios.delete(api,  { headers: { 'Authorization': accessToken} }
+                                    await axios.put(api + currBooking.booking_reference, copyCurrBooking, { headers: { 'Authorization': accessToken}, params: { "booking_reference": currBooking.booking_reference } }
                                     ).then((response) => {
                                         console.log(response.data);
-                                        setDataObj(response.data);
-                                    }).catch(
-                                        () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
-                                    );
+                                    })
                                 };
-                                const userApi = 'http://localhost:3000/api/bookings/:booking_reference';
+                                const userApi = 'http://localhost:3000/api/bookings/';
                                 updateBookingsApi(userApi);
 
-                                
+
                                 setModal(false);
                                 // hard reload page to refresh modal
                                 window.location.reload();
@@ -543,7 +507,7 @@ function UserProfile() {
                 <Center>
                     <Button color={'red'} disabled={(userId === "")} onClick={() => {
                         setDeleteModal(true);
-                    }}>Delete My Data</Button>
+                    }}>Delete All Bookings</Button>
                 </Center>
             </Paper>
         </div>
