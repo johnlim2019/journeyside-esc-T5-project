@@ -2,11 +2,15 @@ import { Card, Image, Title, Text, Button, List, ThemeIcon, Grid, Divider, Space
 import { Link } from "react-router-dom";
 import { IconCheck, IconCoffee, IconCoffeeOff, IconX } from "@tabler/icons";
 import { selectRoom } from '../../services/RoomDetailSlice';
-import { useAppDispatch } from "../../services/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 
 function RoomType(props: any) {
 
   const dispatch = useAppDispatch();
+  const checkIn: Date = new Date(useAppSelector(state => state.SearchBarReducer.checkIn));
+  const checkOut: Date = new Date(useAppSelector(state => state.SearchBarReducer.checkOut));
+  const nightsNum: number = (checkOut.getTime() - checkIn.getTime()) / 86400000;
+  const rooms = useAppSelector(state => state.SearchBarReducer.rooms);
 
   return (
     <Card shadow="md" mt={16} mb={16}>
@@ -16,7 +20,7 @@ function RoomType(props: any) {
       <Title order={3}>{props.data.description}</Title>
       <Space h="sm" />
       {
-        props.data.subtypes.map((d: any) => {
+        props.data.subtypes.map((d: any) => {          
           return (<>
             <Divider />
             <Space h="sm" />
@@ -46,9 +50,9 @@ function RoomType(props: any) {
                 </List>
               </Grid.Col>
               <Grid.Col span={4}>
-                <Text sx={{ fontSize: "2em" }} align="right">${d.price}</Text>
+                <Text sx={{ fontSize: "2em" }} align="right">${d.price * Number(rooms)}</Text>
                 <Text align="right">+{d.points} points</Text>
-                <Text align="right" color="dimmed">per night per room</Text>
+                <Text align="right" color="dimmed">for {nightsNum} night(s) for {rooms} room(s)</Text>
               </Grid.Col>
               <Grid.Col xs={4} md={2}>
                 <Button mt={8} fullWidth onClick={() => dispatch(selectRoom({ key: d.key }))} component={Link} to="/BookingData">Select</Button>

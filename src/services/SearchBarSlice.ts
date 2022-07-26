@@ -60,39 +60,39 @@ export const searchBarSlice = createSlice({
             state.locationId = action.payload.dispatchQuery.id;
             state.lng = action.payload.dispatchQuery.lng;
             state.lat = action.payload.dispatchQuery.lat;
-            state.checkIn = action.payload.dispatchQuery.checkIn.getTime();
-            state.checkOut = action.payload.dispatchQuery.checkOut.getTime();
+            state.checkIn = action.payload.dispatchQuery.checkIn?.getTime();
+            state.checkOut = action.payload.dispatchQuery.checkOut?.getTime();
             state.adults = action.payload.dispatchQuery.adults;
             state.children = action.payload.dispatchQuery.children;
             state.rooms = action.payload.dispatchQuery.rooms;
-            console.log("STORE destination details")
-            console.log(state.location);
-            console.log(state.locationId);
-            console.log(state.lng);
-            console.log(state.lat);
-            console.log("Date in store")
-            console.log(state.checkIn);
-            console.log(state.checkOut);
-            console.log("STORE Data misc");
-            console.log("adults " + state.adults);
-            console.log("children " + state.children);
-            console.log("rooms " + state.rooms);
-            console.log("pageStart " + state.pageStart);
+            // console.log("STORE destination details")
+            // console.log(state.location);
+            // console.log(state.locationId);
+            // console.log(state.lng);
+            // console.log(state.lat);
+            // console.log("Date in store")
+            // console.log(state.checkIn);
+            // console.log(state.checkOut);
+            // console.log("STORE Data misc");
+            // console.log("adults " + state.adults);
+            // console.log("children " + state.children);
+            // console.log("rooms " + state.rooms);
+            // console.log("pageStart " + state.pageStart);
         },
         pageItemsLoad: (state, action) => {
             state.pageItems = action.payload.items;
-            console.log("STORE page length");
-            console.log(state.pageItems);
+            // console.log("STORE page length");
+            // console.log(state.pageItems);
         },
         pageStartLoad: (state, action) => {
             state.pageStart = action.payload.start;
-            console.log("STORE page start");
-            console.log(state.pageStart);
+            // console.log("STORE page start");
+            // console.log(state.pageStart);
         },
         selectHotelId: (state, action) => {
             state.selectHotelId = action.payload.id;
-            console.log("STORE selected hotel id");
-            console.log(state.selectHotelId);
+            // console.log("STORE selected hotel id");
+            // console.log(state.selectHotelId);
             for (let i = 0; i < state.hotelData.hotels.length; i++) {
                 if (state.hotelData.hotels[i]["id"] === action.payload.id) {
                     state.selectHotelObj = state.hotelData.hotels[i];
@@ -103,23 +103,23 @@ export const searchBarSlice = createSlice({
         },
         setCategory: (state, action) => {
             state.sortByCat = action.payload.category;
-            console.log("STORE category");
-            console.log(state.sortByCat);
+            // console.log("STORE category");
+            // console.log(state.sortByCat);
         },
         setDestinations: (state, action) => {
             state.destinationsObjLs = action.payload.dest;
-            console.log("STORE destinations");
-            console.log(state.destinationsObjLs);
+            // console.log("STORE destinations");
+            // console.log(state.destinationsObjLs);
             var destinations = action.payload.dest;
             var destLs: string[] = [];
             for (let i = 0; i < destinations?.length; i++) {
                 destLs.push(destinations[i]['term']);
             }
             state.autocompleteLs = destLs;
-            console.log(state.autocompleteLs);
+            // console.log(state.autocompleteLs);
         },
         compileHotelData: (state, action) => {
-            console.log("COMPILED hotel DATA");
+            // console.log("COMPILED hotel DATA");
             let hotelByDestData = action.payload.hotels;
             let hotelPricesData = action.payload.prices;
             var list: any[] = [];
@@ -127,14 +127,6 @@ export const searchBarSlice = createSlice({
                 // console.log(action.payload.prices[i].id);
                 var currObj: any = {};
                 let convertedPrice = hotelPricesData[i].converted_price;
-                if (typeof hotelPricesData[i].market_rates != 'undefined') {
-                    if (hotelPricesData[i].market_rates.length > 0) {
-                        for (let k = 0; k < hotelPricesData[i].market_rates.length; k++) {
-                            convertedPrice = hotelPricesData[i]["market_rates"][k]["rate"];
-
-                        }
-                    }
-                }
                 let hotelId = hotelPricesData[i].id;
                 for (let j = 0; j < hotelByDestData.length; j++) {
                     if (hotelByDestData[j].id === hotelId) {
@@ -145,10 +137,10 @@ export const searchBarSlice = createSlice({
                     }
                 }
             }
-            console.log(list);
+            // console.log(list);
             state.hotelData.locationId = action.payload.id;
             state.hotelData.hotels = list;
-            console.log(state.hotelData.hotels);
+            // console.log(state.hotelData.hotels);
         },
         setHotelData :(state,action)=>{
             state.hotelData.hotels = action.payload.hotels;

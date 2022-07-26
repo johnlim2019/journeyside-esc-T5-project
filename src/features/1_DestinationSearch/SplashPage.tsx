@@ -12,10 +12,13 @@ const SplashPage = () => {
             marginRight: 'auto',
             position: 'fixed',
             // Media query with value from theme
+            [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
+                top: '13em',
+                width: '60%',
+            },
             [`@media (max-width: ${theme.breakpoints.md}px)`]: {
                 top: '13em',
                 width: '95%',
-
             },
             [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
                 top: '7.5em',
