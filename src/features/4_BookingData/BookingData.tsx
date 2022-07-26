@@ -260,13 +260,14 @@ return (
                 ).then((response) => {
                   const data = response.data as object[];
                   console.log(data);
+                  navigate("/SearchResults");
                 }).catch(errors => {
                   console.error(errors);
+                  alert("failed to book just now");
                 });
               };
               postBookingApi(bookingApi);
               setIsLoading(false);
-              navigate("/");
             }}>Confirm</Button>
           </Group>
         </div>

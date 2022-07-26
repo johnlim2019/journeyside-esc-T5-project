@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons";
 import { useAppSelector } from "../../services/hooks";
 import axios from "axios";
+const userApi = 'http://localhost:3000/api/bookings/';
 
 interface LooseObject {
     [key: string]: any
@@ -213,7 +214,6 @@ function UserProfile() {
                 () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
             );
         };
-        const userApi = 'http://localhost:3000/api/bookings';
         getBookingsApi(userApi);
     }, [])
 
@@ -326,10 +326,9 @@ function UserProfile() {
                                             () => { console.log("hi"); alert("No Service Sorry"); }
                                         );
                                     };
-                                    const userApi = 'http://localhost:3000/api/bookings/';
                                     deleteBookingsApi(userApi);
                                 }
-                                navigate("/");
+                                window.location.reload();
                             }}>Burn Baby Burn!</Button>
                             <Button onClick={() => { setDeleteModal(false) }}>Aw Hell No!</Button>
                         </Group>
@@ -444,7 +443,6 @@ function UserProfile() {
                                         console.log(response.data);
                                     })
                                 };
-                                const userApi = 'http://localhost:3000/api/bookings/';
                                 updateBookingsApi(userApi);
 
 
