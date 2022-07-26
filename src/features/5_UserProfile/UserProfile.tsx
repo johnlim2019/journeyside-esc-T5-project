@@ -1,13 +1,10 @@
 import { Button, Center, createStyles, Dialog, Group, Loader, LoadingOverlay, Modal, Paper, Space, Table, Text, Title, useMantineTheme } from "@mantine/core";
-import { wait } from "@testing-library/user-event/dist/utils";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons";
-import { deleteBookings, readEncryptedBookings, readEncryptedJson, updateEncryptedJson, writeEncryptedJson } from "../../services/Firebase-Functions";
-import { Firebase } from "../../services/Firebase-Storage";
 import { useAppSelector } from "../../services/hooks";
-
-const db = Firebase();
+import axios from "axios";
+const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings';
 
 interface LooseObject {
     [key: string]: any
@@ -22,7 +19,7 @@ interface bookingObject {
     'cardNum': string,
     'address': string,
     'bookingCreateDate': number,
-    'bookingKey': string,
+    'booking_reference': string,
     'cancellation': boolean,
     'location': string,
     'locationId': string,
@@ -50,7 +47,7 @@ const defaultBooking = {
     'cardNum': "",
     'address': "",
     'bookingCreateDate': -1,
-    'bookingKey': "",
+    'booking_reference': "",
     'cancellation': false,
     'location': "",
     'locationId': "",
@@ -78,7 +75,7 @@ function getBookingDetails(data: bookingObject) {
         data.specialReq,
         data.address,
         new Date(data.bookingCreateDate).toLocaleDateString(),
-        data.bookingKey,
+        data.booking_reference,
         data.cancellation,
         data.location,
         data.locationId,
@@ -157,6 +154,8 @@ function UserProfile() {
     const [data, setData] = useState({});
     const [dataArr, setDataArr] = useState<any[]>([]);
     const userId = (useAppSelector(state => state.UserDetailsReducer.userKey));
+    const accessToken = useAppSelector(state => state.UserDetailsReducer.sessionKey);
+    const [bookings, setBookings] = useState<any[]>([]);
 
 
     function parseDataObj(data: object, dataObj: LooseObject) {
@@ -164,31 +163,21 @@ function UserProfile() {
         // console.log(data);
         let bookingIterator = Object.entries(data);
         for (let [key, value] of bookingIterator) {
-            value = readEncryptedJson(db, userId, key).then(
-                (value) => {
-                    resultObj[key] = value;
-                    setData(resultObj);
-                }
-            ).catch(
-                () => { resultObj = {}; alert("No Service Sorry"); setLoading(false); }
-            );
+            console.log(value);
+            resultObj[key] = value;
+            setData(resultObj);
         }
     }
     function parseDataArr(data: object) {
         let bookingIterator = Object.entries(data);
         let resultArr: any[] = []
         for (let [key, value] of bookingIterator) {
-            value = readEncryptedJson(db, userId, key).then(
-                (value) => {
-                    // console.log(value);
-                    resultArr.push(value);
-                    // console.log(resultArr);
-                    setDataArr(resultArr);
-                    setLoading(false);
-                }
-            ).catch(
-                () => { console.log("hi"); setDataArr([]); alert("No Service Sorry"); setLoading(false); }
-            );
+            console.log(key);
+            // get the list of booking_references for deletion
+            bookings.push(value["booking_reference"]);
+            resultArr.push(value);
+            console.log(resultArr);
+            setDataArr(resultArr);
         }
     }
     const BREAKPOINT = useMantineTheme().breakpoints.sm;
@@ -215,12 +204,33 @@ function UserProfile() {
                 navigate("/");
             }, 3000);
         }
-        readEncryptedBookings(db, userId, "booking/").then(async (result) => {
-            setDataObj(result);
-            // console.log(result);
-        }).catch(
-            () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
-        );
+        const getBookingsApi = async (api: string) => {
+            await axios.get(api, { headers: { 'Authorization': accessToken } }
+            ).then((response) => {
+                setLoading(true);
+                let responseData = response.data;
+                console.log(responseData);
+                let bookingsArr = responseData["bookings"];
+                console.log(bookingsArr);
+                setDataObj(bookingsArr);
+                setLoading(false);
+            }).catch(
+                (error) => {
+                    console.log("hi");
+                    setDataObj({});
+                    // alert(error.response.status);
+                    // alert(typeof error.response.status);
+                    if (error.response.status === 401){
+                        alert("Session Expired");
+                    }
+                    else {
+                        alert("Sorry No Service");
+                    }
+                    setLoading(false);
+                }
+            );
+        };
+        getBookingsApi(userApi);
     }, [])
 
     useEffect(() => {
@@ -228,18 +238,17 @@ function UserProfile() {
             parseDataObj(dataObj, data);
             parseDataArr(dataObj);
         } catch (error) {
-            setLoading(false);
             console.error(error);
         }
     }, [dataObj])
 
     // setup table 
     var rowsWide = dataArr.map((element) => (
-        <tr key={element.bookingKey}>
+        <tr key={element.booking_reference}>
             <td>{element.hotelName}</td>
             <td>{new Date(element.bookingCreateDate).toLocaleDateString()}</td>
             <td>{new Date(element.checkIn).toLocaleDateString() + "-" + new Date(element.checkOut).toLocaleDateString()}</td>
-            <td>{element.hotelPrice.toFixed(2)} SGD</td>
+            <td>{element.hotelPrice} SGD</td>
             <td>
                 <Button onClick={() => {
                     setCurrBooking(element);
@@ -282,7 +291,7 @@ function UserProfile() {
         specialReq,
         address,
         bookingCreateDate,
-        bookingKey,
+        booking_reference,
         cancellation,
         location,
         locationId,
@@ -319,8 +328,23 @@ function UserProfile() {
                     <Center>
                         <Group>
                             <Button color={'red'} onClick={() => {
-                                deleteBookings(db, userId);
-                                navigate("/");
+                                var uniqueBookingReferences = bookings.filter(function (x, i, a) {
+                                    return a.indexOf(x) == i;
+                                });
+                                console.log(uniqueBookingReferences);
+                                for (let booking of uniqueBookingReferences) {
+                                    const deleteBookingsApi = async (api: string) => {
+                                        await axios.delete(api + "/" + booking,  { headers: { 'Authorization': accessToken}, params: { "booking_reference": booking } }
+                                        ).then((response) => {
+                                            console.log(response.data);
+                                            window.location.reload();
+                                        }).catch(
+                                            () => { console.log("hi"); alert("No Service Sorry"); }
+                                        );
+                                    };
+                                    deleteBookingsApi(userApi);
+                                }
+                                // window.location.reload();
                             }}>Burn Baby Burn!</Button>
                             <Button onClick={() => { setDeleteModal(false) }}>Aw Hell No!</Button>
                         </Group>
@@ -362,7 +386,7 @@ function UserProfile() {
                             </tr>
                             <tr>
                                 <th className={classes.th}>Booking ID</th>
-                                <td className={classes.td}>{bookingKey}</td>
+                                <td className={classes.td}>{booking_reference}</td>
                             </tr>
                             <tr>
                                 <th className={classes.th}>Number of Nights</th>
@@ -398,12 +422,12 @@ function UserProfile() {
                             </tr>
                             <tr>
                                 <th className={classes.th}>Breakfast Included</th>
-                                <td className={classes.td}>{hotelBreakfast? "Yes": "No"}</td>
+                                <td className={classes.td}>{hotelBreakfast ? "Yes" : "No"}</td>
                             </tr>
                             <tr>
                                 <th className={classes.th}>Cancellation</th>
-                                <td className={classes.td}>{hotelFreeCancel? "Free Cancellation":"With Cancellation Fee"}</td>
-                            </tr>                            
+                                <td className={classes.td}>{hotelFreeCancel ? "Free Cancellation" : "With Cancellation Fee"}</td>
+                            </tr>
                             <tr>
                                 <th className={classes.th}>Price</th>
                                 <td className={classes.td}>{hotelPrice} SGD</td>
@@ -428,12 +452,17 @@ function UserProfile() {
                             <Button color='red' onClick={() => {
                                 let copyCurrBooking = { ...currBooking };
                                 copyCurrBooking.cancellation = !copyCurrBooking.cancellation;
-                                setCurrBooking(copyCurrBooking);
-                                // push curr booking
-                                updateEncryptedJson(db, userId, copyCurrBooking, copyCurrBooking["bookingKey"] + "/");
+                                console.log(copyCurrBooking);
+                                const updateBookingsApi = async (api: string) => {
+                                    await axios.put(api + "/" + currBooking.booking_reference, copyCurrBooking, { headers: { 'Authorization': accessToken}, params: { "booking_reference": currBooking.booking_reference } }
+                                    ).then((response) => {
+                                        console.log(response.data);
+                                        window.location.reload();
+                                    })
+                                };
+                                updateBookingsApi(userApi);
                                 setModal(false);
                                 // hard reload page to refresh modal
-                                window.location.reload();
                             }}>Cancel Booking</Button>
                             <Button onClick={() => setModal(false)}>Return</Button>
                         </Group>
@@ -478,6 +507,12 @@ function UserProfile() {
                         </thead>
                         <tbody>{rowsNarrow}</tbody>
                     </Table>}
+                {(dataArr.length === 0) && <Paper>
+                    <Space h='md'></Space>
+                    <Center>
+                        <Text>No Bookings on file</Text>
+                    </Center>
+                </Paper>}
                 {(userId === "") && <Paper>
                     <Center>
                         <Title>Not Logged In</Title>
@@ -490,7 +525,7 @@ function UserProfile() {
                 <Center>
                     <Button color={'red'} disabled={(userId === "")} onClick={() => {
                         setDeleteModal(true);
-                    }}>Delete My Data</Button>
+                    }}>Delete All Bookings</Button>
                 </Center>
             </Paper>
         </div>

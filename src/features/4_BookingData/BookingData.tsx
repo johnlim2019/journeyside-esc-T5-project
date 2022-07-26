@@ -2,12 +2,11 @@ import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, 
 import { useAppSelector } from "../../services/hooks";
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
-import { Firebase } from '../../services/Firebase-Storage';
-import { writeEncryptedJson, writeKey } from "../../services/Firebase-Functions";
-import { Link, useNavigate } from "react-router-dom";
-import { ref, child, push } from "firebase/database";
-import { generateKeys } from "../../services/Encryption";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 
+const bookingApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   th: {
@@ -91,18 +90,18 @@ function BookingData() {
   const nightsNum = (checkOut - checkIn) / 86400000;
   const USERNAME = useAppSelector(state => state.UserDetailsReducer.userKey);
 
-
   // setup our data to be pushed to firebase
   // setup our uuid for the booking
-  const db = Firebase();
-  const [newBookingKey, setBookingKey] = useState<null | string>(null);
-  useEffect(() => {
-    try {
-      setBookingKey(push(child(ref(db), "data")).key);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [db])
+  const newBookingKey = uuidv4();
+  // const db = Firebase();
+  // const [newBookingKey, setBookingKey] = useState<null | string>(null);
+  // useEffect(() => {
+  //   try {
+  //     setBookingKey(push(child(ref(db), "data")).key);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [db])
 
   // Check if we are missing any query values
   const [readyRender, setReadyRender] = useState<Boolean>(false);
@@ -225,12 +224,11 @@ function BookingData() {
   const cardNum = form.getInputProps('cardNum').value;
   const cardNumReadable: string = getReadable(cardNum)
 
-  const [modal, setModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  // instead of using html links, we can use javascript to go to different pages.
-  const navigate = useNavigate();
-
-
+const [modal, setModal] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
+// instead of using html links, we can use javascript to go to different pages.
+const navigate = useNavigate();
+const accessToken = useAppSelector(state => state.UserDetailsReducer.sessionKey);
   return (
     <Container mt={20}>
       {isLoading && <Center style={{
