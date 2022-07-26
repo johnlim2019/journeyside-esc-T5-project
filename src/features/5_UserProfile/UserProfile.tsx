@@ -213,8 +213,19 @@ function UserProfile() {
                 setDataObj(bookingsArr);
                 setLoading(false);
             }).catch(
-
-                () => { console.log("hi"); setDataObj({}); alert("No Service Sorry"); setLoading(false); }
+                (error) => {
+                    console.log("hi");
+                    setDataObj({});
+                    // alert(error.response.status);
+                    // alert(typeof error.response.status);
+                    if (error.response.status === 401){
+                        alert("Session Expired");
+                    }
+                    else {
+                        alert("Sorry No Service");
+                    }
+                    setLoading(false);
+                }
             );
         };
         getBookingsApi(userApi);
@@ -331,6 +342,7 @@ function UserProfile() {
                                     };
                                     deleteBookingsApi(userApi);
                                 }
+                                // window.location.reload();
                             }}>Burn Baby Burn!</Button>
                             <Button onClick={() => { setDeleteModal(false) }}>Aw Hell No!</Button>
                         </Group>
@@ -447,11 +459,8 @@ function UserProfile() {
                                     })
                                 };
                                 updateBookingsApi(userApi);
-
-
                                 setModal(false);
                                 // hard reload page to refresh modal
-                                
                             }}>Cancel Booking</Button>
                             <Button onClick={() => setModal(false)}>Return</Button>
                         </Group>
