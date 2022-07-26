@@ -131,12 +131,7 @@ function BookingData() {
     setReadyRender(true);
 }, [])
 
-// if we have missing query return to the homepage
-if (isMissingQuery) {
-  setTimeout(() => {
-    navigate("/");
-  }, 3000);
-}
+
 
 // these are constants hard coded in place of the third party services
 const supplierId = "alas poor yorick";
