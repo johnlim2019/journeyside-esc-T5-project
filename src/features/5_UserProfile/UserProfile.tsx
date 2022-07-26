@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons";
 import { useAppSelector } from "../../services/hooks";
 import axios from "axios";
-const userApi = 'http://localhost:3000/api/bookings/';
+const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings/';
 
 interface LooseObject {
     [key: string]: any

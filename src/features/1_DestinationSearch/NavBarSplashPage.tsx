@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { login, logout } from '../../services/UserDetailsSlice';
 
+const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/users';
+
 function NavBarSplashPage() {
     const logoFontWeight = '300';
     const useStyles = createStyles((theme) => ({
@@ -131,7 +133,7 @@ function NavBarSplashPage() {
                         loginForm.validate();
                         if (loginForm.validate().hasErrors === false) {
                             const registerUserApi = async (api: string) => {
-                                await axios.post(api, { "username": loginForm.values.userName, "password": loginForm.values.password }
+                                await axios.post(api + "/register", { "username": loginForm.values.userName, "password": loginForm.values.password }
                                 ).then((response) => {
                                     const data = response.data as object[];
                                     console.log(data);
@@ -140,14 +142,13 @@ function NavBarSplashPage() {
                                     setLogInErr("*User already exits");
                                 });
                             };
-                            const userApi = 'http://localhost:3000/api/users/register';
                             registerUserApi(userApi);
                         }
                     }}>Create Account</Button>
                     <Button onClick={() => {
                         setLogInErr("");
                         const loginUserApi = async (api: string) => {
-                            await axios.post(api, { "username": loginForm.values.userName, "password": loginForm.values.password }
+                            await axios.post(api + "/login", { "username": loginForm.values.userName, "password": loginForm.values.password }
                             ).then((response) => {
                                 const data = response.data;
                                 const accessToken = data["token"];
@@ -161,7 +162,6 @@ function NavBarSplashPage() {
                                 setLogInErr("*Password or Username is Invalid");
                             });
                         };
-                        const userApi = 'http://localhost:3000/api/users/login';
                         loginUserApi(userApi);
                     }}>Log In</Button>
                 </Group>
