@@ -21,6 +21,23 @@ describe('UserProfile', () => {
         cy.get('div').contains('Not Logged In');
         cy.wait(3000);
         cy.url().should('eq',BASE);
+    })
+    it('check login modal', () => {
+        cy.visit(BASE);
+        // login
+        cy.get('.FullNavBar').parent().within(() => {
+            cy.get('Button').contains('Log in').click()
+        }).then(() => {
+            cy.get('.LogInModal').parent().within(() => {
+                cy.get('Button').contains('Create Account').click()
+            })
+            cy.get("div").contains("*User already exits")
+            cy.get('input[placeholder="User Name"]').type("{selectAll}{backspace}")
+            cy.get('.LogInModal').parent().within(() => {
+                cy.get('Button').contains('Log In').click()
+            })
+        })
+
     }); 
     it('user profile check if can select right item and decrypt data correctly', () => {
         cy.visit(BASE);
