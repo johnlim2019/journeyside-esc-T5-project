@@ -396,7 +396,7 @@
         "address1": "Fraser Residence KL, 10 Jalan Cendana Off Jalan Sultan Ismail",
         "rating": 1.5,
         "distance": 11307.098879372821,
-        "coverted_max_cash_payment":150,
+        "coverted_max_cash_payment":140,
         "converted_price":120,
         "trustyou": {
             "id": null,

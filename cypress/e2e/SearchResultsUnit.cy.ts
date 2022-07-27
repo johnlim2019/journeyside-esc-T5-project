@@ -5,7 +5,7 @@ console.log(hotelArray);
 
 describe("search Results unit testing", () => {
     it('test getCardValues()', () => {
-        const [imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice] = getCardValues(hotelArray[0],1);
+        const [imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice] = getCardValues(hotelArray[0], 1);
         const answer = ["https://d2ey9sqrvkqdfs.cloudfront.net/0aMv/1.jpg", 5.0, 4.0, 'blue', "11.3", "500.00", "550.00"];
         console.log([imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice]);
         assert.deepEqual([imageUrl, ratingScore, reviewScore, reviewColor, distance, convertedPrice, maxConvertedPrice], answer);
@@ -49,11 +49,158 @@ describe("search Results unit testing", () => {
         sortResults(hotelArraySort, "Value");
         assert.deepEqual(hotelArraySort, []);
     })
+    it('test Sort by stars', () => {
+        let hotelArraySort = [...hotelArray];
+        sortResults(hotelArraySort, "Rating");
+        let sortedArray: number[] = [];
+        for (let i = 0; i < hotelArraySort.length; i++) {
+            sortedArray.push(hotelArraySort[i].rating);
+        }
+        const expected = [
+            5,
+            5,
+            5,
+            5,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            2,
+            1.5,
+            1,
+            1,
+            1,
+        ]
+        assert.deepEqual(expected,sortedArray)
+    })
+    it('test Sort by reviews', () => {
+        let hotelArraySort = [...hotelArray];
+        sortResults(hotelArraySort, "Reviews");
+        let sortedArray: number[] = [];
+        for (let i = 0; i < hotelArraySort.length; i++) {
+            sortedArray.push(hotelArraySort[i].trustyou.score.kaligo_overall);
+        }
+        const expected = [
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+        ]
+        assert.deepEqual(expected,sortedArray)
+    })
+    it('test Sort by price', () => {
+        let hotelArraySort = [...hotelArray];
+        sortResults(hotelArraySort, "Price");
+        let sortedArray: number[] = [];
+        for (let i = 0; i < hotelArraySort.length; i++) {
+            sortedArray.push(hotelArraySort[i].converted_price);
+        }
+        const expected = [
+            95,
+            100,
+            100,
+            120,
+            120,
+            210,
+            210,
+            250,
+            269,
+            281.25,
+            281.25,
+            300,
+            320,
+            337.5,
+            350,
+            370,
+            380,
+            380,
+            400,
+            500,
+            500,
+            500,
+            500,
+            600,
+            600,
+        ]
+        assert.deepEqual(expected,sortedArray)
+    })
+    it('test Sort by sale', () => {
+        let hotelArraySort = [...hotelArray];
+        sortResults(hotelArraySort, "Sale");
+        let sortedArray: number[] = [];
+        for (let i = 0; i < hotelArraySort.length; i++) {
+            sortedArray.push(+((hotelArraySort[i].coverted_max_cash_payment-hotelArraySort[i].converted_price)/hotelArraySort[i].coverted_max_cash_payment).toFixed(10));
+        }
+        const expected = [
+            0.2058823529,
+            0.2000000000,
+            0.2000000000,
+            0.2000000000,
+            0.2000000000,
+            0.1666666667,
+            0.1666666667,
+            0.1666666667,
+            0.1555555556,
+            0.1542857143,
+            0.1466666667,
+            0.1428571429,
+            0.1314285714,
+            0.1250000000,
+            0.1228070175,
+            0.1228070175,
+            0.1000000000,
+            0.1000000000,
+            0.0909090909,
+            0.0857142857,
+            0.0435555556,
+            0.0404040404,
+            0.0400000000,
+            0.0400000000,
+            0.0000000000,
+        ]
+        console.log(sortedArray)
+        console.log(expected)
+        assert.deepEqual(expected,sortedArray)
+    })
     it('test isSale', () => {
         let price = 990;
         const maxPrice = 1000;
         let badge = isSale(price, maxPrice);
         console.log(badge);
+        
         const [percent_1, percent_1_colour] = [['was ', 1000, " -", "1.0", "%"], "yellow"]
         assert.deepEqual(badge.props.color, percent_1_colour);
         assert.deepEqual(badge.props.children, percent_1);
@@ -83,18 +230,18 @@ describe("search Results unit testing", () => {
         for (let i = 1.5; i <= 5; i += 0.5) {
             let j = Number(i.toFixed(1));
             let lengthTrue = lengthStarsArr[k];
-            let htmlElementTrue = stars[k%2];
+            let htmlElementTrue = stars[k % 2];
             // console.log(Math.ceil(j));
             let length = getStars(j).props.children.length;
             let htmlElement = getStars(j).props.children[Math.ceil(j) - 1].props.children.type.name;
             console.log(htmlElement);
             console.log(length);
-            assert.equal(length,lengthTrue);
-            assert.equal(htmlElement,htmlElementTrue);
+            assert.equal(length, lengthTrue);
+            assert.equal(htmlElement, htmlElementTrue);
             k++;
         }
     })
-    it('set local cache',()=>{
+    it('set local cache', () => {
 
     })
 })

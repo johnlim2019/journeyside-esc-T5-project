@@ -1,0 +1,80 @@
+[
+    {
+        "_id": {
+            "$oid": "62e0e0a7a7822efc6d983d5e"
+        },
+        "user": {
+            "$oid": "62df72b3a48d875fb3fff9e9"
+        },
+        "salutation": "Mr",
+        "firstName": "john",
+        "lastName": "lim",
+        "specialReq": "",
+        "bookingCreateDate": {
+            "$numberDouble": "1.6589047407800E+12"
+        },
+        "booking_reference": "1617711a-644d-409d-a6f8-b1386bebd583",
+        "cancellation": false,
+        "location": "Singapore, Singapore (SIN-Changi)",
+        "locationId": "WD0M",
+        "checkIn": {
+            "$numberDouble": "1.6698240000000E+12"
+        },
+        "checkOut": {
+            "$numberDouble": "1.6699104000000E+12"
+        },
+        "adults": {
+            "$numberInt": "2"
+        },
+        "children": {
+            "$numberInt": "0"
+        },
+        "rooms": "(1) Quaint Queen room only",
+        "nights": {
+            "$numberInt": "1"
+        },
+        "hotelId": "oyOm",
+        "hotelName": "Hotel NuVe Heritage, City Hall",
+        "hotelAddr": "13 Purvis Street",
+        "hotelPrice": {
+            "$numberDouble": "283.91"
+        },
+        "hotelFreeCancel": false,
+        "hotelBreakfast": false,
+        "supplierId": "alas poor yorick",
+        "supplierBookingId": "i knew him horatio",
+        "supplierResponse": {
+            "cost": "a man of infinite jest",
+            "down_stream_booking_reference": "and most excellent fancy",
+            "booking_terms_and_conditions": "he had borne me upon his back a thousand times",
+            "hotel_terms_and_conditions": "and here hung the lips that I kissed i know not how oft?"
+        },
+        "createdAt": {
+            "$date": {
+                "$numberLong": "1658904743255"
+            }
+        },
+        "updatedAt": {
+            "$date": {
+                "$numberLong": "1658904743255"
+            }
+        },
+        "_ct": {
+            "$binary": {
+                "base64": "YZOe9IlZvWgZxZSEhbldApjHyMRcff1XRSyK0XHQ8tgFFmC5ZjRP2XfKb0kETk2C8TlkfEQTMJX1oo3WFbLWgANHAOWoGEl4HZi3KP2J2eW7zDASvKiFkanw/14e4BG5YYQAvkrj8GVaN7jCMrswJv+TIG7ctkeJM7r66I7uzYv8",
+                "subType": "00"
+            }
+        },
+        "_ac": {
+            "$binary": {
+                "base64": "YR5TQoPXs067RvV9kARWZpgB5uUWwGoQMUqoUcUjNLLqWyJfaWQiLCJfY3QiXQ==",
+                "subType": "00"
+            }
+        },
+        "__v": {
+            "$numberInt": "0"
+        }
+    },
+    {"_id":{"$oid":"62e0e0baa7822efc6d983d61"},"user":{"$oid":"62df72b3a48d875fb3fff9e9"},"salutation":"M","firstName":"Tan","lastName":"Beng Seng","specialReq":"","bookingCreateDate":{"$numberDouble":"1.6589047608400E+12"},"booking_reference":"6ae3e4b7-0240-4b6c-ae62-52152d5547ed","cancellation":false,"location":"Singapore, Singapore (SIN-Changi)","locationId":"WD0M","checkIn":{"$numberDouble":"1.6698240000000E+12"},"checkOut":{"$numberDouble":"1.6699104000000E+12"},"adults":{"$numberInt":"2"},"children":{"$numberInt":"0"},"rooms":"(1) Deluxe Room, 1 King Bed room only","nights":{"$numberInt":"1"},"hotelId":"0Tki","hotelName":"Wangz Hotel","hotelAddr":"231 Outram Road","hotelPrice":{"$numberDouble":"240.46"},"hotelFreeCancel":false,"hotelBreakfast":false,"supplierId":"alas poor yorick","supplierBookingId":"i knew him horatio","supplierResponse":{"cost":"a man of infinite jest","down_stream_booking_reference":"and most excellent fancy","booking_terms_and_conditions":"he had borne me upon his back a thousand times","hotel_terms_and_conditions":"and here hung the lips that I kissed i know not how oft?"},"createdAt":{"$date":{"$numberLong":"1658904762816"}},"updatedAt":{"$date":{"$numberLong":"1658904762816"}},"_ct":{"$binary":{"base64":"YQvGTkpJ0d1aLlxYFZbTUzbvM4chRIkeql8A22rN9TLoyF9tpOoOlg5TtqcunYBF94uHzSGz975WRu3D0dZQQb/rMOoNQwDgrDUN1bC9jEbMCsl+RKGv4Q7UYCnr+05+noqcPsdwrbqf7OjVrTjXgTl4VbZByPy5tmiwgpR7bKSX","subType":"00"}},"_ac":{"$binary":{"base64":"YZXxS4lhg3ke6BTUUnS4LrvGXS51HNMAH9oURBbHD4i3WyJfaWQiLCJfY3QiXQ==","subType":"00"}},"__v":{"$numberInt":"0"}},
+    {"_id":{"$oid":"62e0e0eea7822efc6d983d64"},"user":{"$oid":"62df72b3a48d875fb3fff9e9"},"salutation":"M","firstName":"Tan","lastName":"Beng Seng","specialReq":"","bookingCreateDate":{"$numberDouble":"1.6589048123260E+12"},"booking_reference":"14d1435b-cbe7-432e-8852-56675e256924","cancellation":false,"location":"Singapore, Singapore (SIN-Changi)","locationId":"WD0M","checkIn":{"$numberDouble":"1.6698240000000E+12"},"checkOut":{"$numberDouble":"1.6699104000000E+12"},"adults":{"$numberInt":"2"},"children":{"$numberInt":"0"},"rooms":"(1) Private Room With One Queen Bed room only","nights":{"$numberInt":"1"},"hotelId":"JTcI","hotelName":"Wink Hostel","hotelAddr":"8A Mosque Street","hotelPrice":{"$numberDouble":"111.47"},"hotelFreeCancel":false,"hotelBreakfast":false,"supplierId":"alas poor yorick","supplierBookingId":"i knew him horatio","supplierResponse":{"cost":"a man of infinite jest","down_stream_booking_reference":"and most excellent fancy","booking_terms_and_conditions":"he had borne me upon his back a thousand times","hotel_terms_and_conditions":"and here hung the lips that I kissed i know not how oft?"},"createdAt":{"$date":{"$numberLong":"1658904814629"}},"updatedAt":{"$date":{"$numberLong":"1658904814629"}},"_ct":{"$binary":{"base64":"Yfdxf8RiOEDikpLHAxi3yXwTFhoyjCRoWl6DRCV2P4y3GFiZcwG+LqF4wLfYzkbf6j+VBLwKYmyW34tOVKW5llrVkflntEaMYtSxyWwYacSaK2RpjU1M1dvyiWE8867WIOTO49sSl9FL56pnO7E53kLpB1fr/TA6981Gq+8p6xbT","subType":"00"}},"_ac":{"$binary":{"base64":"YSfGoXpp6Yjh9KLA5Dg/q6DhWFOsNbAxrKJK1Sd48HZ6WyJfaWQiLCJfY3QiXQ==","subType":"00"}},"__v":{"$numberInt":"0"}}
+]

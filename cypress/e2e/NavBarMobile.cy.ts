@@ -51,6 +51,8 @@ describe('NavBarCheck', () => {
     cy.get('.LogInModal').parent().within(() => {
       cy.get('Button').contains('Log In').click()
     })
+    // cy.pause()
+    cy.wait(100)
     cy.get('.NavBarDrawer').parent().within(() => {
       cy.get('Button').contains('User Profile').should('be.exist')
     })
@@ -74,7 +76,7 @@ describe('NavBarCheck', () => {
     cy.wait(1000)
   })
   it('check UserProfile does not exist when not logged in', () => {
-    cy.get('.FullNavBar').parent().within(() => {
+    cy.get('.NarrowNavBar').parent().within(() => {
       cy.get('Button').contains('User Profile').should('not.exist')
     })
   })

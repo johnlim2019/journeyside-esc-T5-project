@@ -294,12 +294,13 @@ function SearchBar(): JSX.Element {
 
 
   // trigger the validation 
+  const maxDays = 30;
   const triggerValidation = () => {
     let validation = validateQuery(dispatchQuery);
     let errorsObj = setErrorMessages(validation);
     setValidDestination(errorsObj['locationValid']);
     setValidDates(errorsObj["dateValid"]);
-    if ((checkOutDate.getTime() - checkInDate.getTime()) / 86400000 > 30) {
+    if ((checkOutDate.getTime() - checkInDate.getTime()) / 86400000 > maxDays) {
       setLongHolAlert(true);
     } else {
       setLongHolAlert(false);
@@ -469,7 +470,7 @@ function SearchBar(): JSX.Element {
         longHolAlert &&
         <Center>
           <Notification style={{ width: '20rem' }} onClose={() => { setLongHolAlert(false) }} icon={<IconMoodConfuzed size={20} />}>
-            Did you mean to put more than 30 nights?
+            Most of our suppliers do not have rooms available for more than {maxDays} days. 
           </Notification>
         </Center>
       }

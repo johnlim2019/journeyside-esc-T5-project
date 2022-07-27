@@ -1,9 +1,9 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Loader, AutocompleteItem, Tooltip } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Loader, AutocompleteItem, Tooltip, Notification } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import { query, setDestinations } from '../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { IconPlaneDeparture } from '@tabler/icons';
+import { IconPlaneDeparture, IconMoodConfuzed } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -192,12 +192,13 @@ export function SearchBarSplashPage(): JSX.Element {
 
 
   // trigger the validation 
+  const maxDays = 30;
   const triggerValidation = () => {
     let validation = validateQuery(dispatchQuery);
     let errorsObj = setErrorMessages(validation);
     setValidDestination(errorsObj['locationValid']);
     setValidDates(errorsObj["dateValid"]);
-    if ((checkOutDate.getTime() - checkInDate.getTime()) / 86400000 > 30) {
+    if ((checkOutDate.getTime() - checkInDate.getTime()) / 86400000 > maxDays) {
       setLongHolAlert(true);
     } else {
       setLongHolAlert(false);
@@ -342,7 +343,7 @@ export function SearchBarSplashPage(): JSX.Element {
               </Grid.Col>
             </Grid>
           </Paper>
-        </Center>
+        </Center>        
       </div>
     </>
   );

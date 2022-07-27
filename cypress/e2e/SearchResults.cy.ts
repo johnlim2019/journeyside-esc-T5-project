@@ -82,11 +82,14 @@ describe('BookingData', () => {
     // cy.pause()
     cy.get('.notification').contains("Kuala Lumpur, Malaysia")
   })
-  it.only('change the date value', () => {
+  it('change the date value', () => {
+
     cy.get('input[name="date"]').click()
-    cy.wait(100)
-    cy.get('.mantine-388pmv.mantine-DateRangePicker-day').contains('12').click()
-    cy.get('.mantine-DateRangePicker-day.__mantine-ref-weekend.mantine-DateRangePicker-weekend.mantine-mg157d"').contains('18').click()
+    cy.wait(4000)
+    cy.get(".mantine-Paper-root.mantine-DateRangePicker-dropdown.mantine-mrt426").parent().within(()=>{
+      cy.get('button').contains('12').click({force:true})
+      cy.get('button').contains('18').click()
+    })
     cy.get('.loaderSpinner').should('be.exist')
     cy.wait(4000)
     // cy.pause()

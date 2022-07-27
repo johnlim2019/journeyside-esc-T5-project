@@ -91,7 +91,10 @@ function BookingData() {
 
   // setup our data to be pushed to firebase
   // setup our uuid for the booking
-  const newBookingKey = uuidv4();
+  const [newBookingKey,setNewBookingKey] = useState<string>();
+  useEffect(()=>{
+    setNewBookingKey(uuidv4());
+  },[])
   // const db = Firebase();
   // const [newBookingKey, setBookingKey] = useState<null | string>(null);
   // useEffect(() => {
@@ -201,13 +204,13 @@ const form = useForm<FormValues>({
     salutation: (values.salutation.length < 1 || values.salutation.length > 9 || values.salutation.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Invalid Salutation" : null),
     firstName: (values.firstName.length < 1 || values.firstName.length > 100 || values.firstName.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Please Enter Valid First Name" : null),
     lastName: (values.lastName.length < 1 || values.lastName.length > 100 || values.lastName.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Please Enter Valid Last Name" : null),
-    specialReq: (values.specialReq.replace(/[\s]+/, "").length > 250 ? "250 words max" : values.specialReq.match(isEmoji) || values.specialReq.match(isNotPrinting) ? "Invalid character detected" : null),
+    specialReq: (values.specialReq.replace(/[\s]+/, "").length > 250 ? "250 Words Max" : values.specialReq.match(isEmoji) || values.specialReq.match(isNotPrinting) ? "Invalid Character Detected" : null),
     email: (/^\S+@\w+\.\w{2,7}$/.test(values.email) ? null : 'Invalid email'),
     cardNum: (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(values.cardNum) ? null : "Invalid Card"),
     phone: (/(^[6,8,9]{1}[0-9]{7})$/.test(values.phone) ? null : "Invalid Phone Number"),
     expiryMonth: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
     expiryYear: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
-    address: (values.address.length < 1 || values.address.length > 2000 || values.address.match(isEmoji) || values.address.match(isNotPrinting) ? "Please Enter Valid address" : null),
+    address: (values.address.length < 1 || values.address.length > 2000 || values.address.match(isEmoji) || values.address.match(isNotPrinting) ? "Please Enter Valid Address" : null),
   })
 });
 

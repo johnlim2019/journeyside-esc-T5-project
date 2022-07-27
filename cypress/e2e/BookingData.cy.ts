@@ -12,8 +12,6 @@ describe('BookingData', () => {
     //   cy.get('Button').contains('Log Out').click()
     // })
 
-    cy.reload(true)
-    cy.wait(100)
     cy.get('input').first().focus().type(LOCATION)
     cy.get('.mantine-DateRangePicker-wrapper.mantine-12sbrde').parent().within(() => {
       cy.get('input').click()
@@ -37,18 +35,27 @@ describe('BookingData', () => {
     })
     cy.wait(4000)
     cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
-    cy.wait(1000)
+    cy.wait(4000)
     cy.get('a[href="/BookingData"]').first().click()
 
   })
   it('check for invalid data and pls login notification', () => {
+    cy.wait(100)
+    cy.get('.salutation').parent().within(() => {
+      cy.get('input').type('{selectAll}{backspace}{enter}i identify as a pencil')
+      cy.get('div').contains('Invalid Salutation').should('be.exist')
+    })
     cy.get('.firstName').parent().within(() => {
       cy.get('input').type('{selectAll}{backspace}{enter}')
-      cy.get('div').contains('Please Enter First Name').should('be.exist')
+      cy.get('div').contains('Please Enter Valid First Name').should('be.exist')
+    })
+    cy.get('.firstName').parent().within(() => {
+      cy.get('input').type('{selectAll}{backspace}{enter}')
+      cy.get('div').contains('Please Enter Valid First Name').should('be.exist')
     })
     cy.get('.lastName').parent().within(() => {
       cy.get('input').type('{selectAll}{backspace}{enter}')
-      cy.get('div').contains('Please Enter Last Name').should('be.exist')
+      cy.get('div').contains('Please Enter Valid Last Name').should('be.exist')
     })
     cy.get('.phone').parent().within(() => {
       cy.get('input').type('1831273{enter}')
@@ -59,7 +66,12 @@ describe('BookingData', () => {
       cy.get('div').contains('Invalid email').should('be.exist')
     })
     cy.get('.specialReq').parent().within(() => {
-      cy.get('input').type('google black pudding')
+      cy.get('input').type('google black pudding 😊😊{enter}')
+      cy.get('div').contains('Invalid Character Detected')
+    })
+    cy.get('.specialReq').parent().within(() => {
+      cy.get('input').type('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in libero eget elit elementum fermentum ut ut ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut fermentum lorem id scelerisque varius. Cras augue ipsum, interdum sed consectetur vel, suscipit in leo. Vivamus nec nibh vel velit dictum sollicitudin vitae at mauris. Mauris rutrum risus eu feugiat scelerisque. Sed tempus nunc vel felis egestas porttitor. Donec bibendum interdum risus non consequat. Ut sit amet dolor gravida, aliquam augue et, semper sem. Morbi enim mi, venenatis a consequat at, pretium vitae tellus. Nulla lacinia velit et ipsum dignissim tincidunt id at urna. Donec non enim tempor, viverra elit ac, facilisis ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis nec est vehicula, viverra lorem finibus, accumsan dolor. Curabitur porta condimentum ante, eu lobortis nisi consequat eget. Aliquam ut sem id risus porta cursus a vitae diam. Quisque non diam sed justo fringilla pellentesque. Aliquam facilisis commodo enim, a vehicula ipsum imperdiet sit amet. Pellentesque viverra dui eget venenatis aliquam. Pellentesque rhoncus, leo id rhoncus finibus, eros ligula dignissim sem, quis consequat nulla turpis ut nibh. Sed at dolor at ex vehicula cursus. Nullam a tristique risus, vitae porta enim. Proin elementum cursus justo, nec elementum leo egestas sit amet. Pellentesque ac lacus suscipit, vehicula urna ac, bibendum nisl. Morbi pretium, lacus sed sagittis fermentum, ligula tellus porttitor ligula, id varius diam massa at quam. Suspendisse efficitur ultrices mi nec dapibus.{enter}')
+      cy.get('div').contains('250 Words Max')
     })
     cy.get('.cardNum').parent().within(() => {
       cy.get('input').type('18346791{enter}')
@@ -76,7 +88,9 @@ describe('BookingData', () => {
       cy.get('input').focus()
     })
     cy.get('.address').parent().within(() => {
-      cy.get('input').focus()
+      cy.get('input').type(' 🧑‍🦳✨😊{enter}')
+      cy.get('div').contains('Please Enter Valid Address')
+
     })
     // press submit button 
     cy.get('.submitBtn').parent().within(() => {
@@ -192,7 +206,7 @@ describe('BookingData', () => {
       cy.get('button').contains('Confirm').first().click();
     })
     cy.wait(1000)
-    cy.url().should('eq', BASE)
+    cy.url().should('eq', BASE+SEARCHRESULT)
     // log out at end of test
     cy.get('.FullNavBar').parent().within(() => {
       cy.get('Button').contains('Log Out').click()
