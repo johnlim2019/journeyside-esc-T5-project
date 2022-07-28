@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
+import { isEmoji,isCard,isNotPrinting } from "../../services/regex";
 
 const bookingApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings';
 
@@ -183,8 +184,6 @@ interface FormValues {
   cvv: number,
   address: string
 }
-const isEmoji = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
-const isNotPrinting = /(\u200e|\u200f|\r|\n|\v|\f|[\u0001-\u001f])/;
 const form = useForm<FormValues>({
   initialValues: {
     salutation: "M",
@@ -204,13 +203,13 @@ const form = useForm<FormValues>({
     salutation: (values.salutation.length < 1 || values.salutation.length > 9 || values.salutation.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Invalid Salutation" : null),
     firstName: (values.firstName.length < 1 || values.firstName.length > 100 || values.firstName.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Please Enter Valid First Name" : null),
     lastName: (values.lastName.length < 1 || values.lastName.length > 100 || values.lastName.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Please Enter Valid Last Name" : null),
-    specialReq: (values.specialReq.replace(/[\s]+/, "").length > 250 ? "250 Words Max" : values.specialReq.match(isEmoji) || values.specialReq.match(isNotPrinting) ? "Invalid Character Detected" : null),
+    specialReq: (values.specialReq.replace(/[\s]+/, "").length > 250 || values.specialReq.length > 1250 ? "250 Words Max" : values.specialReq.match(isEmoji) || values.specialReq.match(isNotPrinting) ? "Invalid Character Detected" : null),
     email: (/^\S+@\w+\.\w{2,7}$/.test(values.email) ? null : 'Invalid email'),
-    cardNum: (/(^4[0-9]{12}(?:[0-9]{3})?$)|(^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$)|(3[47][0-9]{13})|(^3(?:0[0-5]|[68][0-9])[0-9]{11}$)|(^6(?:011|5[0-9]{2})[0-9]{12}$)|(^(?:2131|1800|35\d{3})\d{11}$)/.test(values.cardNum) ? null : "Invalid Card"),
+    cardNum: (values.cardNum.match(isCard) ? null : "Invalid Card"),
     phone: (/(^[6,8,9]{1}[0-9]{7})$/.test(values.phone) ? null : "Invalid Phone Number"),
     expiryMonth: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
     expiryYear: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
-    address: (values.address.length < 1 || values.address.length > 2000 || values.address.match(isEmoji) || values.address.match(isNotPrinting) ? "Please Enter Valid Address" : null),
+    address: (values.address.length < 1 || values.address.length > 1250 || values.address.match(isEmoji) || values.address.match(isNotPrinting) ? "Please Enter Valid Address" : null),
   })
 });
 

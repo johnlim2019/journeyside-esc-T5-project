@@ -63,9 +63,7 @@ describe('BookingData', () => {
     cy.get('div').contains('The Westin Singapore')
   })
   it('check results load success and use cache for repeated search query on first page ', () => {
-    cy.get('.SearchButton').parent().within(() => {
-      cy.get('Button').click();
-    })
+    
     cy.get('.loaderSpinner').should('not.exist');
     cy.get('.notification').contains("Singapore, Singapore")
     cy.get('div').contains('The Ritz-Carlton, Millenia Singapore')

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { login, logout } from '../../services/UserDetailsSlice';
+import { isLetter, isNotPrinting, isNumber, isSymbol, isWhitespace } from "../../services/regex";
 
 const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/users';
 
@@ -33,6 +34,9 @@ function NavBarSplashPage() {
     const currentUser = useAppSelector(state => state.UserDetailsReducer.userKey);
     const { classes } = useStyles();
     const [logIn, setLogIn] = useState(currentUser !== "" ? true : false);
+    const [isLoadingLog, setIsLoadingLog] = useState(false);
+    const [isLoadingReg, setIsLoadingReg] = useState(false);
+
     useEffect(() => {
         if (currentUser !== "") {
             setLogIn(true);
@@ -54,7 +58,12 @@ function NavBarSplashPage() {
         },
         validate: (values) => ({
             // regex validation
-            password: (/^(?=.+\d)(?=.+[a-z])(?=.+[A-Z])(?=.+[a-zA-Z])(?=.+[^a-zA-Z0-9]).{8,}$/.test(values.password) ? null : "1 Uppercase, Symbol and Number"),
+            userName: (values.userName.length < 8 || values.userName.length > 25 ? "Username must be between 8 to 25 characters." 
+            : values.userName.match(isNotPrinting) || values.userName.match(isWhitespace) ? "Invalid Character" : null),
+            password: ( values.password.length < 8 ? "Password at least 8 characters" 
+            : values.password.length > 100 ? "Password is too long" 
+            : isNotPrinting.test(values.password) ? "Invalid Characters":
+            isNumber.test(values.password) && isSymbol.test(values.password) && isLetter.test((values.password)) ? null: "Need 1 symbol, 1 number, 1 letter" ) 
         })
     }
     )
@@ -123,44 +132,53 @@ function NavBarSplashPage() {
                 title='Log In'
                 className="LogInModal"
             >
-                <TextInput placeholder='User Name' {...loginForm.getInputProps('userName')}></TextInput>
+                <TextInput onFocus={() => { loginForm.validate() }} onBlur={() => { loginForm.validate() }} placeholder='User Name' {...loginForm.getInputProps('userName')}></TextInput>
                 <Space h="lg"></Space>
-                <PasswordInput placeholder='Password' {...loginForm.getInputProps('password')}></PasswordInput>
+                <PasswordInput onFocus={() => { loginForm.validate() }} onBlur={() => { loginForm.validate() }} placeholder='Password' {...loginForm.getInputProps('password')}></PasswordInput>
                 <Space h="lg"></Space>
+
                 <Group position={'apart'}>
-                    <Button color={'pink'} onClick={() => {
+                    <Button loading={isLoadingReg} color={'pink'} onClick={() => {
                         setLogInErr("");
-                        loginForm.validate();
                         if (loginForm.validate().hasErrors === false) {
+                            setIsLoadingReg(true);
                             const registerUserApi = async (api: string) => {
                                 await axios.post(api + "/register", { "username": loginForm.values.userName, "password": loginForm.values.password }
                                 ).then((response) => {
                                     const data = response.data as object[];
                                     console.log(data);
+                                    setIsLoadingReg(false);
+                                    setLogInModal(false);
                                 }).catch(errors => {
                                     console.error(errors);
                                     setLogInErr("*User already exits");
+                                    setIsLoadingReg(false);
                                 });
                             };
                             registerUserApi(userApi);
                         }
                     }}>Create Account</Button>
-                    <Button onClick={() => {
+                    <Button loading={isLoadingLog} loaderPosition="right" onClick={() => {
                         setLogInErr("");
                         const loginUserApi = async (api: string) => {
-                            await axios.post(api + "/login", { "username": loginForm.values.userName, "password": loginForm.values.password }
-                            ).then((response) => {
-                                const data = response.data;
-                                const accessToken = data["token"];
-                                console.log(data);
-                                console.log(accessToken);
-                                setLogInModal(false);
-                                setLogIn(true);
-                                dispatch(login({ userKey: loginForm.values.userName, sessionKey: accessToken }));
-                            }).catch(errors => {
-                                console.error(errors);
-                                setLogInErr("*Password or Username is Invalid");
-                            });
+                            if (loginForm.validate().hasErrors === false) {
+                                setIsLoadingLog(true);
+                                await axios.post(api + "/login", { "username": loginForm.values.userName, "password": loginForm.values.password }
+                                ).then((response) => {
+                                    const data = response.data;
+                                    const accessToken = data["token"];
+                                    console.log(data);
+                                    console.log(accessToken);
+                                    setLogInModal(false);
+                                    setLogIn(true);
+                                    setIsLoadingLog(false);
+                                    dispatch(login({ userKey: loginForm.values.userName, sessionKey: accessToken }));
+                                }).catch(errors => {
+                                    console.error(errors);
+                                    setIsLoadingLog(false);
+                                    setLogInErr("*Password or Username is Invalid");
+                                });
+                            }
                         };
                         loginUserApi(userApi);
                     }}>Log In</Button>
