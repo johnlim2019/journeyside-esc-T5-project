@@ -6,9 +6,6 @@ describe('Feature 1 E2E Test', () => {
   it('passes', () => {
     cy.visit('http://localhost:3000/SearchResults')
   })
-  it('Search Button Click Test',() => {
-    cy.get('.SearchButton').click()    
-  })
   it('Autocomplete Test',()=>{
     const $input = cy.get('.DestinationInput').within(()=>{cy.get('input').focus().clear().type('Singapore')})
     $input.type('{downarrow}')

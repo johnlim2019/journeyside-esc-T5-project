@@ -53,12 +53,6 @@ describe('BookingData', () => {
     cy.get('div').contains('Rooms').parent().within(() => {
       cy.get('select').should('have.value', 2)
     })
-    // cy.pause()
-    cy.get('.mantine-Grid-root.mantine-pafeaw').parent().within(() => {
-      cy.get('Button').last().click()
-    })
-  })
-  it('check results load success and use cache for repeated destination, ', () => {
     cy.get('.notification').contains("Singapore, Singapore")
     cy.get('div').contains('The Ritz-Carlton, Millenia Singapore')
     cy.get('div').contains('Shangri-La Hotel Singapore')
@@ -67,23 +61,41 @@ describe('BookingData', () => {
     cy.get('div').contains('Fairmont Singapore')
     cy.get('div').contains('The St. Regis Singapore')
     cy.get('div').contains('The Westin Singapore')
+  })
+  it('check results load success and use cache for repeated search query on first page ', () => {
     cy.get('.SearchButton').parent().within(() => {
       cy.get('Button').click();
     })
     cy.get('.loaderSpinner').should('not.exist');
-
+    cy.get('.notification').contains("Singapore, Singapore")
+    cy.get('div').contains('The Ritz-Carlton, Millenia Singapore')
+    cy.get('div').contains('Shangri-La Hotel Singapore')
+    cy.get('div').contains('AMOY')
+    cy.get('div').contains('The Fullerton Hotel Singapore')
+    cy.get('div').contains('Fairmont Singapore')
+    cy.get('div').contains('The St. Regis Singapore')
+    cy.get('div').contains('The Westin Singapore')
   })
   it('change the search value', () => {
+    cy.get('.pagination').parent().within(() => {
+      cy.get('button').contains("2").click()
+    })
     cy.get('.DestinationInput').parent().within(() => {
       cy.get('input').type('{selectAll}{backspace}Kuala Lumpur, Malaysia');
-    })
+    })    
     cy.get('.loaderSpinner').should('be.exist')
     cy.wait(4000)
     // cy.pause()
+    // check for the page reset to 1 
     cy.get('.notification').contains("Kuala Lumpur, Malaysia")
+    cy.get('.pagination').parent().within(() => {
+      cy.get('button').contains("1").should('have.css', 'background-color', 'rgb(34, 139, 230)')
+    })
   })
   it('change the date value', () => {
-
+    cy.get('.pagination').parent().within(() => {
+      cy.get('button').contains("2").click()
+    })
     cy.get('input[name="date"]').click()
     cy.wait(4000)
     cy.get(".mantine-Paper-root.mantine-DateRangePicker-dropdown.mantine-mrt426").parent().within(()=>{
@@ -93,6 +105,11 @@ describe('BookingData', () => {
     cy.get('.loaderSpinner').should('be.exist')
     cy.wait(4000)
     // cy.pause()
+    // check for the page reset to 1 
+    cy.get('.notification').contains("Kuala Lumpur, Malaysia")
+    cy.get('.pagination').parent().within(() => {
+      cy.get('button').contains("1").should('have.css', 'background-color', 'rgb(34, 139, 230)')
+    })
   })
   it('change category, page, items shown, refresh page and check success cache', () => {
     cy.get('div').contains("Show").first().parent().within(() => {
@@ -117,7 +134,6 @@ describe('BookingData', () => {
     cy.get('.pagination').parent().within(() => {
       cy.get('button').contains("2").should('have.css', 'background-color', 'rgb(34, 139, 230)')
     })
-    // cy.pause()
   })
   it('no search results show notification', () => {
     cy.get('.DestinationInput').parent().within(() => {

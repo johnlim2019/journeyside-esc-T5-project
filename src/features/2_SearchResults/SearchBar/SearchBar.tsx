@@ -329,12 +329,13 @@ function SearchBar(): JSX.Element {
       setValidDestination(true);
       setValidDates(true);
       if (cacheId !== queryId) { // only reload the query state if it changes.
-        dispatch(setLoading({ loading: true }));
-        dispatch(pageStartLoad({ start: 1 }));
+        dispatch(setLoading({ loading: true }));        
+        dispatch(pageStartLoad({ start: 1 })); // reset to page 1 
         sendGetRequest(hotelApi, hotelPriceApi, queryId);
       }
       else if (((checkInDate.getTime() !== dates[0]?.getTime()) || (checkOutDate.getTime() !== dates[1]?.getTime())) && (dates[0] !== null && dates[1] !== null)) {
         dispatch(setLoading({ loading: true }));
+        dispatch(pageStartLoad({ start: 1 })); // reset page to 1
         sendGetRequest(hotelApi, hotelPriceApi, queryId);
       }
       if (queryId === undefined || queryId.length === 0) {

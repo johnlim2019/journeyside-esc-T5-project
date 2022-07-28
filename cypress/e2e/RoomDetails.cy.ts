@@ -39,6 +39,11 @@ testIndex.forEach((index) => {
             cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').eq(index).click();
             cy.wait(4500);
         });
+        it("check search query is correct",() => {
+            cy.get('#rooms').contains("Rooms: 1") 
+            cy.get("#guests").contains("Adults: 2 Children: 0")
+            cy.get("#hotel-dates").contains("07/07/2024 to 08/07/2024 for 1 night(s)")
+        })
     
         it('Check Google Maps embed loads', () => {
             cy.get('.gm-style > iframe').should('exist');

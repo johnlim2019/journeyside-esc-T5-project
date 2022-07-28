@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { stat } from "fs";
 import { RootState } from "./store";
 
 interface searchBarInterface {

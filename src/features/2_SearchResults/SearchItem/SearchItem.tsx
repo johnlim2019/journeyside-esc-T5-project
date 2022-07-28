@@ -289,6 +289,9 @@ function SearchItem() {
   const checkIn = useAppSelector(state => state.SearchBarReducer.checkIn);
   const checkOut = useAppSelector(state => state.SearchBarReducer.checkOut);
   const nightsNum = (checkOut - checkIn) / 86400000;
+  const pageNum = useAppSelector(state => state.SearchBarReducer.pageStart);
+  // console.log(pageNum);
+
   // console.log("HELP "+dest);
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
@@ -312,6 +315,9 @@ function SearchItem() {
   const [numberItemsDirty, setNumberItemsDirty] = useState(useAppSelector(state => state.SearchBarReducer.pageItems) + " items");
   const [activePage, setPage] = useState(useAppSelector(state => state.SearchBarReducer.pageStart));
 
+  useEffect(()=>{
+    setPage(pageNum);
+  },[pageNum])
   // Pagination controls
   const numberItems = +numberItemsDirty.slice(0, 3).trim();
   const elementsStart = ((activePage - 1) * numberItems);
@@ -320,27 +326,18 @@ function SearchItem() {
   if (elementsEnd >= hotelDataLong.length) {
     elementsEnd = hotelDataLong.length;
   }
-  // set default page
-  // console.log("HELP "+value);
-  // eslint-disable-next-line
-  useEffect(() => {
-    dispatch(pageItemsLoad({ items: numberItems }))
-    // console.log("HELP "+activePage);
-  }, [dispatch, numberItems]);
 
   // console.log("search item component");
   // console.log('active page: ' + activePage);
-  // console.log('numberItems: ' + numberItemsDirty.slice(0, 3));
-  // console.log("element Start " + elementsStart);
+  // console.log("start item: " + elementsStart);
+  // console.log("end item: " + elementsEnd);
 
   // print the new list of data
   let hotelDataLs: any[] = [];
   for (let i = elementsStart; i < elementsEnd; i++) {
     hotelDataLs.push(hotelDataLong[i]);
   }
-  // console.log("start item: " + elementsStart);
-  // console.log("LIST SIZE: " + hotelDataLs.length);
-  // console.log("end item: " + elementsEnd);
+
 
   // show or hide pagination!
   let hidden = true;
@@ -396,7 +393,12 @@ function SearchItem() {
               <NativeSelect
                 data={numberItemsLs}
                 value={numberItemsDirty}
-                onChange={(event) => setNumberItemsDirty(event.currentTarget.value)}
+                onChange={(event) => {
+                  setNumberItemsDirty(event.currentTarget.value);
+                  dispatch(pageItemsLoad({
+                    items: event.currentTarget.value.slice(0, 3).trim()
+                  }))
+                }}
                 label="Show"
                 radius="md"
                 size="xs"
@@ -427,7 +429,6 @@ function SearchItem() {
           let [imageUrl, ratingScore, reviewScore, reviewColor, distance, price, ogPrice] = getCardValues(data, nightsNum);
 
           let salesComp = isSale(price, ogPrice);
-
           let starsComp = getStars(ratingScore);
           return (
             <>

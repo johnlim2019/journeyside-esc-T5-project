@@ -27,9 +27,9 @@ function RoomDetails() {
   const selectedHotelId = useAppSelector(state => state.SearchBarReducer.selectHotelId); // to load things from store !!!
   const locationId = useAppSelector(state => state.SearchBarReducer.locationId); // to load things from store !!!
   const checkInObj = new Date(useAppSelector(state => state.SearchBarReducer.checkIn));
-  console.log(checkInObj.toLocaleDateString());
+  // console.log(checkInObj.toLocaleDateString());
   const checkIn = getUrlDates(checkInObj);
-  console.log(checkIn);
+  // console.log(checkIn);
   const checkOutObj = new Date(useAppSelector(state => state.SearchBarReducer.checkOut));
   const checkOut = getUrlDates(checkOutObj);
   const selectedHotelObj = useAppSelector(state => state.SearchBarReducer.selectHotelObj);
@@ -101,13 +101,13 @@ function RoomDetails() {
         <List.Item id="hotel-coordinates" icon={<ThemeIcon radius="xl"><IconMapPin size={16} /></ThemeIcon>}>
           Lat: {selectedHotelObj.latitude}, Lng: {selectedHotelObj.longitude}
         </List.Item>
-        <List.Item icon={<ThemeIcon radius='xl'><IconMoon size={16} /></ThemeIcon>}>
+        <List.Item id="hotel-dates" icon={<ThemeIcon radius='xl'><IconMoon size={16} /></ThemeIcon>}>
           {checkInObj.toLocaleDateString()} to {checkOutObj.toLocaleDateString()} for {nightsNum} night(s)
         </List.Item>
-        <List.Item icon={<ThemeIcon radius='xl'><IconUsers size={16} /></ThemeIcon>}>
+        <List.Item id="guests" icon={<ThemeIcon radius='xl'><IconUsers size={16} /></ThemeIcon>}>
           Adults: {adults} Children: {children}
         </List.Item>
-        <List.Item icon={<ThemeIcon radius='xl'><IconBed size={16} /></ThemeIcon>}>
+        <List.Item id="rooms" icon={<ThemeIcon radius='xl'><IconBed size={16} /></ThemeIcon>}>
           Rooms: {rooms}
         </List.Item>
       </List>
