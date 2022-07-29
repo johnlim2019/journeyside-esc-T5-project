@@ -81,7 +81,7 @@ describe('fuzzy login spec', () => {
       it("illegal usernames", () => {
         let string = usernameGen(true);
         cy.get('.LogInModal').within(() => {
-          cy.get('input[placeholder="User Name"]').type('{selectAll}{backspace}' + string).blur();
+          cy.get('input[placeholder="User Name"]').type('{selectAll}{backspace}' + string,{delay:0}).blur();
           cy.get('div').contains('Username must be between 8 to 25 characters.')
           cy.get('Button').contains('Log In').click()
           cy.get('Button').contains('Create Account').click()
@@ -90,7 +90,7 @@ describe('fuzzy login spec', () => {
       it("legal usernames", () => {
         let string = usernameGen(false);
         cy.get('.LogInModal').within(() => {
-          cy.get('input[placeholder="User Name"]').type('{selectAll}{backspace}' + string).blur();
+          cy.get('input[placeholder="User Name"]').type('{selectAll}{backspace}' + string,{delay:0}).blur();
           cy.get('div').contains('Username must be between 8 to 25 characters.').should('not.exist')
           cy.get('Button').contains('Log In').click()
           cy.get('div').contains('*Password or Username is Invalid')
@@ -99,7 +99,7 @@ describe('fuzzy login spec', () => {
       it("illegal passwords", () => {
         let string = illegalPasswords(true);
         cy.get('.LogInModal').within(() => {
-          cy.get('input[placeholder="Password"]').type('{selectAll}{backspace}' + string).blur();
+          cy.get('input[placeholder="Password"]').type('{selectAll}{backspace}' + string,{delay:0}).blur();
           cy.get('div').contains('Need 1 symbol, 1 number, 1 letter')
           cy.get('Button').contains('Log In').click()
           cy.get('Button').contains('Create Account').click()
@@ -108,7 +108,7 @@ describe('fuzzy login spec', () => {
       it("legal passwords", () => {
         let string = illegalPasswords(false);
         cy.get('.LogInModal').within(() => {
-          cy.get('input[placeholder="Password"]').type('{selectAll}{backspace}' + string).blur();
+          cy.get('input[placeholder="Password"]').type('{selectAll}{backspace}' + string,{delay:0}).blur();
           cy.get('div').contains('Need 1 symbol, 1 number, 1 letter').should('not.exist')
           cy.get('Button').contains('Log In').click()
           cy.get('div').contains('*Password or Username is Invalid')

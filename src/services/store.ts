@@ -21,7 +21,7 @@ export const store = configureStore({
     reducer: reducers,
     preloadedState: {
         SearchBarReducer:loadState(SEARCHBARKEY),
-        RoomDetailReducer:loadState(ROOMKEY),
+        RoomDetailReducer:loadSession(ROOMKEY),
         UserDetailsReducer:loadSession(USERDETAILSKEY)
     },
     // for prices api

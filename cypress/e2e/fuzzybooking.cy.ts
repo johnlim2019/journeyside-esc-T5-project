@@ -1,119 +1,42 @@
 /// <reference types="cypress" />
 
-function usernameGen(illegal: boolean) {
-  let string = "";
-  const charset = "qwertyuiopasdfghjklzxcvbnm,./;'[]=-0987654321!@#$%^&*()_+;ςερτυθιοπασδφγηξκλζχψωβνμ:΅ΕΡΤΥΘΙΟΠΑΣΔΦΓΗΞΚΛΖΧΨΩΒΝΜضصثقفغعهخحمنتالبيسشئءؤرلاىةة";
-  if (illegal) {
-    const choose = Math.random();
-    let usernameLength = -1;
-    if (choose <= 0.5) {
-      usernameLength = 7;
-    }
-    else {
-      usernameLength = 25;
-    }
-    let length = 0;
-    if (usernameLength > 7) {
-      length = Math.ceil(Math.random() * usernameLength) + 25;
-    }
-    else {
-      length = Math.floor(Math.random() * usernameLength);
-    }
-    for (let i = 0; i < length; i++) {
-      let charIndex = Math.floor(Math.random() * charset.length);
-      string += charset.substring(charIndex, charIndex + 1);
-    }
-  }
-  else {
-    let length = Math.floor(Math.random() * (25 - 8)) + 8;
-    for (let i = 0; i < length; i++) {
-      let charIndex = Math.floor(Math.random() * charset.length);
-      string += charset.substring(charIndex, charIndex + 1);
-    }
-  }
-  return string
-}
 
-function illegalPasswords(illegal: boolean) {
-  let string = "";
-  const letters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNMςερτυθιοπασδφγηξκλζχψωβνμΜΝΒΩΨΧΖΑΣΔΦΓΗΞΚΛΠΟΙΘΥΤΡΕ΅ضصثقفغعهخحشسيبلاتنممئءؤرلاىة"
-  const symbols = ",./;'[]=-!@#$%^&*()_+}{:\"?><"
-  if (illegal) {
-    let length = 10
-    let index = Math.floor(Math.random() * letters.length)
-    for (let i = 0; i < length; i++) {
-      string += letters[index]
-    }
-    if (Math.random() < 0.333) {
-      string += symbols[Math.floor(Math.random() * symbols.length)]
-    }
-    else if (Math.random() > 0.666) {
-      string += String(Math.floor(Math.random() * 9))
-    }
-    else {
-      string += "LOL"
-    }
-  }
-  else {
-    let length = 10
-    let index = Math.floor(Math.random() * letters.length)
-    for (let i = 0; i < length; i++) {
-      string += letters[index]
-    }
-    string += symbols[Math.floor(Math.random() * symbols.length)]
-    string += String(Math.floor(Math.random() * 9))
 
-  }
-  return string
-}
-describe('fuzzy login spec', () => {
-  const testIndex = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-
+describe('fuzzy booking  spec', () => {
+  const BASE = 'http://localhost:3000/'
+  const SEARCHRESULT = "SearchResults"
+  const USER = "UserProfile"
+  const BOOKING = "BookingData"
+  const LOCATION = "Singapore, Singapore"
   before(() => {
-    cy.visit('http://localhost:3000')
-    cy.get('.FullNavBar').within(() => {
-      cy.get('button').contains('Log in').click()
+    cy.visit(BASE)
+    cy.get('input').first().focus().type(LOCATION)
+    cy.get('.mantine-DateRangePicker-wrapper.mantine-12sbrde').parent().within(() => {
+      cy.get('input').click()
     })
+    cy.get('.mantine-UnstyledButton-root.mantine-DateRangePicker-calendarHeaderLevel.mantine-1xk0qjw').click()
+    cy.get('button').contains('Dec').click()
+    cy.get('button').contains('17').click()
+    cy.get('button').contains('18').click()
+    cy.get('div').contains('Adults').parent().within(() => {
+      cy.get('select').select(2)
+    })
+    cy.get('div').contains('Kids').parent().within(() => {
+      cy.get('select').select(2)
+    })
+    cy.get('div').contains('Rooms').parent().within(() => {
+      cy.get('select').select(1)
+    })
+    cy.wait(1000)
+    cy.get('.mantine-Grid-root.mantine-pafeaw').parent().within(() => {
+      cy.get('Button').last().click()
+    })
+    cy.wait(4000)
+    cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
+    cy.wait(4000)
+    cy.get('a[href="/BookingData"]').first().click()  
   })
+  it("inputs that are too long ",()=>{
 
-  testIndex.forEach((index) => {
-    describe(`Test ${index}`, () => {
-      it("illegal usernames", () => {
-        let string = usernameGen(true);
-        cy.get('.LogInModal').within(() => {
-          cy.get('input[placeholder="User Name"]').type('{selectAll}{backspace}' + string).blur();
-          cy.get('div').contains('Username must be between 8 to 25 characters.')
-          cy.get('Button').contains('Log In').click()
-          cy.get('Button').contains('Create Account').click()
-        })
-      })
-      it("legal usernames", () => {
-        let string = usernameGen(false);
-        cy.get('.LogInModal').within(() => {
-          cy.get('input[placeholder="User Name"]').type('{selectAll}{backspace}' + string).blur();
-          cy.get('div').contains('Username must be between 8 to 25 characters.').should('not.exist')
-          cy.get('Button').contains('Log In').click()
-          cy.get('div').contains('*Password or Username is Invalid')
-        })        
-      })
-      it("illegal passwords", () => {
-        let string = illegalPasswords(true);
-        cy.get('.LogInModal').within(() => {
-          cy.get('input[placeholder="Password"]').type('{selectAll}{backspace}' + string).blur();
-          cy.get('div').contains('Need 1 symbol, 1 number, 1 letter')
-          cy.get('Button').contains('Log In').click()
-          cy.get('Button').contains('Create Account').click()
-        })
-      })
-      it("legal passwords", () => {
-        let string = illegalPasswords(false);
-        cy.get('.LogInModal').within(() => {
-          cy.get('input[placeholder="Password"]').type('{selectAll}{backspace}' + string).blur();
-          cy.get('div').contains('Need 1 symbol, 1 number, 1 letter').should('not.exist')
-          cy.get('Button').contains('Log In').click()
-          cy.get('div').contains('*Password or Username is Invalid')
-        })
-      })
-    })
   })
 })

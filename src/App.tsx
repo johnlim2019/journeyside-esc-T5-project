@@ -16,7 +16,7 @@ function App() {
     store.subscribe(
         debounce(() => {
             saveState(store.getState().SearchBarReducer,SEARCHBARKEY);
-            saveState(store.getState().RoomDetailReducer,ROOMKEY)
+            saveSession(store.getState().RoomDetailReducer,ROOMKEY)
             saveSession(store.getState().UserDetailsReducer,USERDETAILSKEY);
         }, 1000)
     );
