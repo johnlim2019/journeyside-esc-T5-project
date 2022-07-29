@@ -352,15 +352,10 @@ function SearchBar(): JSX.Element {
   }
   useEffect(submitQuery, [location, dates]);
 
-  const numberItemsLs = ['10 items', '20 items', '30 items', '40 items', '50 items'];
-  const [numberItemsDirty, setNumberItemsDirty] = useState(useAppSelector(state => state.SearchBarReducer.pageItems) + " items");
-
-  const [sortBy, setSortBy] = useState(useAppSelector(state => state.SearchBarReducer.sortByCat));
-
   return (
     <div className={classes.searchbarwrapper} >
       <Center>
-        <Paper shadow='sm' p='sm' ml='sm' mr='sm' radius="md" style={{ width: '100%' }}>
+        <Paper shadow='sm' p='xs' radius="md" style={{ width: '100%' }}>
           <Grid grow gutter='xs' align='center' >
             <Grid.Col sm={4}>
               <div className="DestinationInput">
@@ -457,36 +452,6 @@ function SearchBar(): JSX.Element {
                   <Space h='xl'></Space>
                 </Paper>
               </div>
-            </Grid.Col>
-          </Grid>
-          <Grid justify="center" gutter="xs">
-            <Grid.Col span={3} pt={0}>
-              <NativeSelect
-                  data={numberItemsLs}
-                  value={numberItemsDirty}
-                  onChange={(event) => {
-                    setNumberItemsDirty(event.currentTarget.value);
-                    dispatch(pageItemsLoad({
-                      items: event.currentTarget.value.slice(0, 3).trim()
-                    }))
-                  }}
-                  label="Show per page:"
-                  radius="md"
-                  size="xs"
-                />
-            </Grid.Col>
-            <Grid.Col span={3} pt={0}>
-              <NativeSelect
-                  data={['Reviews', 'Rating', 'Price', 'Value', "Sale"]}
-                  value={sortBy}
-                  onChange={(event) => {
-                    setSortBy(event.currentTarget.value);
-                    dispatch(setCategory({ category: event.currentTarget.value }));
-                  }}
-                  label="Sort By: "
-                  radius="md"
-                  size="xs"
-                />
             </Grid.Col>
           </Grid>
         </Paper>

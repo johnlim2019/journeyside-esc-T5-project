@@ -105,7 +105,7 @@ describe('BookingData', () => {
     // cy.pause()
     cy.on('window:alert', (t) => {
       //assertions
-      expect(t).to.contains('Pls Login');
+      expect(t).to.contains('Please login');
     })
   })
   it('check submission cheangemind showing and with filled in special requests', () => {

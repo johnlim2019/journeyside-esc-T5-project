@@ -2,7 +2,7 @@
 import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, ThemeIcon, NativeSelect, createStyles, Pagination, Center, Space, Loader, Overlay, Title, Grid, Stack, Skeleton } from '@mantine/core';
 import { useAppSelector, useAppDispatch } from '../../../services/hooks';
 import { useEffect, useState } from 'react';
-import { pageStartLoad, selectHotelId } from '../../../services/SearchBarSlice';
+import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../../services/SearchBarSlice';
 import { IconStar, IconStarHalf, IconMoodSad } from '@tabler/icons';
 import { Link } from 'react-router-dom';
 
@@ -302,7 +302,7 @@ function SearchItem() {
   const dispatch = useAppDispatch(); // to add things to store!!!
 
   // sort selector
-  const sortBy = useAppSelector(state => state.SearchBarReducer.sortByCat);
+  const [sortBy, setSortBy] = useState(useAppSelector(state => state.SearchBarReducer.sortByCat));
 
   // sort code
   // create copy to sort
@@ -311,7 +311,7 @@ function SearchItem() {
   // assign the new sorted values
   hotelDataLong = hotelDataLongSort;
 
-  const numberItemsDirty = useAppSelector(state => state.SearchBarReducer.pageItems) + " items";
+  const [numberItemsDirty, setNumberItemsDirty] = useState(useAppSelector(state => state.SearchBarReducer.pageItems) + " items");
   const [activePage, setPage] = useState(useAppSelector(state => state.SearchBarReducer.pageStart));
 
   useEffect(()=>{
@@ -350,6 +350,7 @@ function SearchItem() {
       document.body.style.overflow = "unset";
     }
   }, [isLoading]);
+  
 
 
   return (
@@ -370,6 +371,52 @@ function SearchItem() {
         <Loader style={{ zIndex: '100', opacity: '1' }} />
       </Center>
       }
+      <Center>
+        <div className='notification'>
+          <Text style={{ marginTop: "2rem", color: 'gray' }}>
+            {header}
+          </Text>
+        </div>
+      </Center>
+
+      {hidden && <Paper className={classes.cardContainer} mt='lg' mb='lg'>
+        {/* <Pagination total={numPages} size="xs" radius="xs" withEdges /> */}
+        <Group position='center'>
+          <Text pl='lg' pr='lg' color='dimmed'>Showing {elementsStart+1} to {elementsEnd} of {hotelDataLong.length} hotels</Text>
+          <Group>
+            <div className='numberItems'>
+              <NativeSelect
+                data={numberItemsLs}
+                value={numberItemsDirty}
+                onChange={(event) => {
+                  setNumberItemsDirty(event.currentTarget.value);
+                  dispatch(pageItemsLoad({
+                    items: event.currentTarget.value.slice(0, 3).trim()
+                  }))
+                }}
+                label="Show per page:"
+                radius="md"
+                size="xs"
+                sx={{ width:'8em' }}
+              />
+            </div>
+            <div className='category'>
+              <NativeSelect
+                data={['Reviews', 'Rating', 'Price', 'Value', "Sale"]}
+                value={sortBy}
+                onChange={(event) => {
+                  setSortBy(event.currentTarget.value);
+                  dispatch(setCategory({ category: event.currentTarget.value }));
+                }}
+                label="Sort By: "
+                radius="md"
+                size="xs"
+                sx={{ width:'8em' }}
+              />
+            </div>
+          </Group>
+        </Group>
+      </Paper>}
 
       <div className={classes.cardContainer}>
         {!hidden && <Center pt={32}><Text color='dimmed'>We could not find any results for your search</Text>&nbsp;<IconMoodSad color='gray'/></Center>}
@@ -387,7 +434,7 @@ function SearchItem() {
                 </Card.Section>
                 <Space h="sm" />
                 <Grid>
-                  <Grid.Col span={8}>
+                  <Grid.Col xs={8}>
                     <Title order={3} id='title' mb={0} className={classes.title}>{data.name}</Title>
                     <Text id="address" size="sm" className={classes.subtitle}>
                       {data.address}
@@ -401,11 +448,11 @@ function SearchItem() {
                       </Badge>
                     {starsComp}
                   </Grid.Col>
-                  <Grid.Col span={4}>
+                  <Grid.Col xs={4}>
                     <Stack justify="space-between" sx={{ height:"100%" }}>
-                      <Stack align="flex-end" spacing={0} justify="flex-start">
-                        <Text sx={{ fontSize: "2em" }} align="right">${price}</Text>
-                        <Text align="right" mt={-8}>a night</Text>
+                      <Stack spacing={0} justify="flex-start">
+                        <Text sx={{ fontSize: "2em" }}>${price}</Text>
+                        <Text mt={-8}>a night</Text>
                       </Stack>
                       <Button variant="filled" fullWidth loaderPosition="right"
                       onClick={() => dispatch(selectHotelId({ id: data.id }))}

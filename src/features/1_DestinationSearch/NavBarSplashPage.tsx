@@ -189,6 +189,7 @@ function NavBarSplashPage() {
 
             {(windowSize.innerWidth < BREAKPOINT) && <div className="NarrowNavBar">
                 <Paper withBorder className={classes.navbarContainer}>
+
                     <Grid justify="space-between" columns={12} gutter='xs' p='sm' className={classes.navbarMobile} >
                         <Grid.Col span={4}>
                             <Button 
@@ -200,8 +201,8 @@ function NavBarSplashPage() {
                                     navigate("/")
                                 }}>journeyside</Button>
                         </Grid.Col>
-                        <Grid.Col span={1}>
-                            <Burger id='Burger' p='md' style={{ zIndex: '5' }} size='sm' opened={openNav} onClick={() => { setOpenNav(!openNav) }} ></Burger>
+                        <Grid.Col span={2}>
+                            <Burger id='Burger' style={{ zIndex: '5', float:'right' }} opened={openNav} onClick={() => { setOpenNav(!openNav) }} ></Burger>
                         </Grid.Col>
                     </Grid>
                 </Paper>

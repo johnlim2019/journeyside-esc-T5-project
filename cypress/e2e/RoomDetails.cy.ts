@@ -41,7 +41,7 @@ testIndex.forEach((index) => {
         });
         it("check search query is correct",() => {
             cy.get('#rooms').contains("Rooms: 1") 
-            cy.get("#guests").contains("Adults: 2 Children: 0")
+            cy.get("#guests").contains("Adults: 2, Children: 0")
             cy.get("#hotel-dates").contains("07/07/2024 to 08/07/2024 for 1 night(s)")
         })
     

@@ -110,7 +110,7 @@ describe('BookingData', () => {
     })
   })
   it('change category, page, items shown, refresh page and check success cache', () => {
-    cy.get('div').contains("Show").first().parent().within(() => {
+    cy.get('div').contains("Show per page").first().parent().within(() => {
       cy.get('select').select('20 items')
     })
     cy.get('div').contains("Sort By:").parent().within(() => {
@@ -123,7 +123,7 @@ describe('BookingData', () => {
     cy.wait(1000); // wait for the cache to register 
     cy.reload()
     // assert that our page is the same 
-    cy.get('div').contains("Show").first().parent().within(() => {
+    cy.get('div').contains("Show per page").first().parent().within(() => {
       cy.get('select').should('have.value', '20 items')
     })
     cy.get('div').contains("Sort By:").parent().within(() => {

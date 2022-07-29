@@ -25,7 +25,7 @@ function RoomType(props: any) {
             <Divider />
             <Space h="sm" />
             <Grid>
-              <Grid.Col span={8} sm={6}>
+              <Grid.Col span={6} sm={6}>
                 <List mt={8} mb={16} center spacing="xs">
 
                   { // BREAKFAST
@@ -49,7 +49,7 @@ function RoomType(props: any) {
 
                 </List>
               </Grid.Col>
-              <Grid.Col span={4} sm={4}>
+              <Grid.Col span={6} sm={4}>
                 <Text sx={{ fontSize: "2em" }} align="right">${d.price * Number(rooms)}</Text>
                 <Text align="right">+{d.points} points</Text>
                 <Text align="right" color="dimmed">for {nightsNum} night(s) for {rooms} room(s)</Text>

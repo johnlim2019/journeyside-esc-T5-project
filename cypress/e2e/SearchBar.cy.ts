@@ -16,7 +16,7 @@ describe('Feature 1 E2E Test', () => {
     cy.reload(true)
     cy.get('.DestinationInput').within(()=>{cy.get('input').focus().clear().type('Peekaboobooboo')})
     cy.get(".Autocomplete").contains('Invalid Destination')
-    cy.get('.SearchButton').children().click()
+    // cy.get('.SearchButton').children().click()
     cy.get('.Date').within(()=>{
       cy.get('input').click()
       cy.get('button').first().click()
