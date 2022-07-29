@@ -1,7 +1,7 @@
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem, Loader, Notification } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
-import { pageStartLoad, query, setDestinations, compileHotelData, setLoading } from '../../../services/SearchBarSlice';
+import { pageStartLoad, query, setDestinations, compileHotelData, setLoading, pageItemsLoad, setCategory } from '../../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../../services/hooks';
 import { IconMoodConfuzed, IconPlaneDeparture } from '@tabler/icons';
 import axios from 'axios';
@@ -352,12 +352,17 @@ function SearchBar(): JSX.Element {
   }
   useEffect(submitQuery, [location, dates]);
 
+  const numberItemsLs = ['10 items', '20 items', '30 items', '40 items', '50 items'];
+  const [numberItemsDirty, setNumberItemsDirty] = useState(useAppSelector(state => state.SearchBarReducer.pageItems) + " items");
+
+  const [sortBy, setSortBy] = useState(useAppSelector(state => state.SearchBarReducer.sortByCat));
+
   return (
     <div className={classes.searchbarwrapper} >
       <Center>
-        <Paper shadow='sm' style={{ width: '100%' }}>
-          <Grid columns={24} grow gutter='sm' align='center' p='sm' >
-            <Grid.Col md={6} sm={4}>
+        <Paper shadow='sm' p='sm' ml='sm' mr='sm' radius="md" style={{ width: '100%' }}>
+          <Grid grow gutter='xs' align='center' >
+            <Grid.Col sm={4}>
               <div className="DestinationInput">
                 <Paper>
                   <Tooltip className={classes.searchbarcomponets} opened={!validDestination} label={NODEST} withArrow position='top'>
@@ -387,7 +392,7 @@ function SearchBar(): JSX.Element {
                 {validDestination && <Space h='xl'></Space>}
               </div>
             </Grid.Col>
-            <Grid.Col md={6} sm={4}>
+            <Grid.Col sm={4}>
               <div className='Date'>
                 <Paper>
                   <Tooltip className={classes.searchbarcomponets} opened={!validDate} label={NODATE} withArrow position='bottom'>
@@ -410,7 +415,7 @@ function SearchBar(): JSX.Element {
                 {validDate && <Space h='xl'></Space>}
               </div>
             </Grid.Col>
-            <Grid.Col span={2}>
+            <Grid.Col span={1}>
               <div className='Adults'>
                 <Paper>
                   <NativeSelect
@@ -425,7 +430,7 @@ function SearchBar(): JSX.Element {
                 </Paper>
               </div>
             </Grid.Col>
-            <Grid.Col span={2}>
+            <Grid.Col span={1}>
               <div className='Kids'>
                 <Paper>
                   <NativeSelect
@@ -439,7 +444,7 @@ function SearchBar(): JSX.Element {
                 </Paper>
               </div>
             </Grid.Col>
-            <Grid.Col span={2}>
+            <Grid.Col span={1}>
               <div className='Rooms'>
                 <Paper>
                   <NativeSelect
@@ -453,16 +458,35 @@ function SearchBar(): JSX.Element {
                 </Paper>
               </div>
             </Grid.Col>
-            <Grid.Col span={1}>
-              <Space className={classes.searchbarcomponets} h="xl" />
-              <Center>
-                <div className='SearchButton'>
-                  <Button fullWidth onClick={submitQuery}>
-                    <IconPlaneDeparture />
-                  </Button>
-                </div>
-              </Center>
-              <Space h='xl'></Space>
+          </Grid>
+          <Grid justify="center" gutter="xs">
+            <Grid.Col span={3} pt={0}>
+              <NativeSelect
+                  data={numberItemsLs}
+                  value={numberItemsDirty}
+                  onChange={(event) => {
+                    setNumberItemsDirty(event.currentTarget.value);
+                    dispatch(pageItemsLoad({
+                      items: event.currentTarget.value.slice(0, 3).trim()
+                    }))
+                  }}
+                  label="Show per page:"
+                  radius="md"
+                  size="xs"
+                />
+            </Grid.Col>
+            <Grid.Col span={3} pt={0}>
+              <NativeSelect
+                  data={['Reviews', 'Rating', 'Price', 'Value', "Sale"]}
+                  value={sortBy}
+                  onChange={(event) => {
+                    setSortBy(event.currentTarget.value);
+                    dispatch(setCategory({ category: event.currentTarget.value }));
+                  }}
+                  label="Sort By: "
+                  radius="md"
+                  size="xs"
+                />
             </Grid.Col>
           </Grid>
         </Paper>

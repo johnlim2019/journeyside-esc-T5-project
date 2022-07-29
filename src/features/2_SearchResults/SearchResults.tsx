@@ -51,7 +51,7 @@ function SearchResults() {
                 <SearchBar />
             </Center>
             {(scrollPosition > 500) && <div className={classes.gototop}>
-                <ThemeIcon variant="filled" color="blue" radius="xl" size='xl'
+                <ThemeIcon variant="filled" radius="xl" size='xl'
                 style={{cursor:'pointer'}}
                 onClick={() => {
                     

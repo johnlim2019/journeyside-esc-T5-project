@@ -1,4 +1,4 @@
-import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Loader, AutocompleteItem, Tooltip, Notification } from '@mantine/core';
+import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Loader, AutocompleteItem, Tooltip, Notification, Title, Text, Divider } from '@mantine/core';
 import { DateRangePicker } from '@mantine/dates';
 import { useEffect, useState } from 'react';
 import { query, setDestinations } from '../../services/SearchBarSlice';
@@ -218,9 +218,6 @@ export function SearchBarSplashPage(): JSX.Element {
       return true;
     }
     else {
-      let errorsObj = setErrorMessages(validation);
-      setValidDestination(errorsObj['locationValid']);
-      setValidDates(errorsObj["dateValid"]);
       return false;
     }
   }
@@ -235,7 +232,9 @@ export function SearchBarSplashPage(): JSX.Element {
     <>
       <div>
         <Center>
-          <Paper className={classes.searchbarwrapper} style={{ position: 'absolute', padding: '1em' }} withBorder>
+          <Paper radius="lg" shadow="lg" className={classes.searchbarwrapper} style={{ position: 'absolute', padding: '1em' }} withBorder>
+            <Title align='center' sx={{ fontWeight:300 }}>Welcome to <Text inherit sx={{fontWeight:700}} variant='gradient' gradient={{ from: 'orange', to:'yellow', deg: 45 }} component='span'> journeyside</Text>!</Title>
+            <Divider m='sm'/>
             <Grid columns={16} grow gutter='sm' align='center' p='sm'>
               <Grid.Col md={8} sm={8}>
                 <div className="destinationInput">

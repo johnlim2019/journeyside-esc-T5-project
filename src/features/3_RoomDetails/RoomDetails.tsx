@@ -1,4 +1,4 @@
-import { Title, Text, Loader, Space, Center, Container, Card, List, ThemeIcon, Divider, Group } from "@mantine/core";
+import { Title, Text, Loader, Space, Center, Container, Card, List, ThemeIcon, Divider, Group, Grid } from "@mantine/core";
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import { useEffect, useRef, useState } from "react";
 import RoomType from "./RoomType";
@@ -101,23 +101,26 @@ function RoomDetails() {
         <List.Item id="hotel-coordinates" icon={<ThemeIcon radius="xl"><IconMapPin size={16} /></ThemeIcon>}>
           Lat: {selectedHotelObj.latitude}, Lng: {selectedHotelObj.longitude}
         </List.Item>
-        <List.Item id="hotel-dates" icon={<ThemeIcon radius='xl'><IconMoon size={16} /></ThemeIcon>}>
-          {checkInObj.toLocaleDateString()} to {checkOutObj.toLocaleDateString()} for {nightsNum} night(s)
-        </List.Item>
-        <List.Item id="guests" icon={<ThemeIcon radius='xl'><IconUsers size={16} /></ThemeIcon>}>
-          Adults: {adults} Children: {children}
-        </List.Item>
-        <List.Item id="rooms" icon={<ThemeIcon radius='xl'><IconBed size={16} /></ThemeIcon>}>
-          Rooms: {rooms}
-        </List.Item>
       </List>
 
       <Space h="md" />
       <Divider />
       <Space h="sm" />
       <Title order={3}>Room Options</Title>
+      <Space h="sm" />
+      <List center spacing="xs">
+        <List.Item id="hotel-dates" icon={<ThemeIcon variant="light" radius='xl'><IconMoon size={16} /></ThemeIcon>}>
+          {checkInObj.toLocaleDateString()} to {checkOutObj.toLocaleDateString()} for {nightsNum} night(s)
+        </List.Item>
+        <List.Item id="guests" icon={<ThemeIcon variant="light" radius='xl'><IconUsers size={16} /></ThemeIcon>}>
+          Adults: {adults}, Children: {children}
+        </List.Item>
+        <List.Item id="rooms" icon={<ThemeIcon variant="light" radius='xl'><IconBed size={16} /></ThemeIcon>}>
+          Rooms: {rooms}
+        </List.Item>
+      </List>
       {
-        isLoading ? <Center p="lg"><Loader /></Center> :
+        isLoading ? <Center p="lg"><Text color='dimmed' p='lg'>Hold tight...</Text><Loader /></Center> :
           Object.keys(roomsList).map((data: any, key) => {
             return <RoomType key={key} data={roomsList[data]} />
           })

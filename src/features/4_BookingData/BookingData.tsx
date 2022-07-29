@@ -1,4 +1,4 @@
-import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, Space, Table, Text, TextInput, Title, Modal, Paper, Center, Group, LoadingOverlay } from "@mantine/core";
+import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, Space, Table, Text, TextInput, Title, Modal, Paper, Center, Group, LoadingOverlay, ThemeIcon } from "@mantine/core";
 import { useAppSelector } from "../../services/hooks";
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import { isEmoji,isCard,isNotPrinting } from "../../services/regex";
+import { IconStar, IconUser, IconCheck } from "@tabler/icons";
 
 const bookingApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings';
 
@@ -237,13 +238,13 @@ return (
     </Center>}
     <Modal onClose={() => setModal(false)} closeOnEscape withCloseButton={false} centered={true} opened={modal}>
       <Paper>
-        <Center style={{ padding: '0em 0em 2em 0em' }}>
-          <Text>Confirm your booking?</Text>
+        <Center pb="lg">
+          <Title order={3}>Confirm your booking?</Title>
         </Center>
         <div className="confirmModal">
-          <Group position="apart">
-            <Button color='red' onClick={() => setModal(false)}>Hold on!</Button>
-            <Button onClick={() => {
+          <Group position="center">
+            <Button size='md' color='red' onClick={() => setModal(false)}>Hold on!</Button>
+            <Button size='md' onClick={() => {
               console.log("push booking");
               // writeEncryptedJson(db, "testUser", "Test message");
               setIsLoading(true);
@@ -274,136 +275,143 @@ return (
       {!isMissingQuery && <div className={classes.bookingWrapper}>
         <Title order={2}>Booking Data</Title>
         <Space h="md" />
-        <Title order={3}>Summary</Title>
+        <Title order={3}> <ThemeIcon radius="lg" variant="light" mr="xs"><IconStar size={16}/></ThemeIcon>Summary</Title>
+        <Space h="xs" />
         <Text>Please check your booking data.</Text>
         <Space h="sm" />
-        <Table highlightOnHover>
-          <tbody>
-            <tr>
-              <th className={classes.th}>Destination ID</th>
-              <td className={classes.td}>{locationName} ({locationId})</td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Hotel ID</th>
-              <td className={classes.td}>{hotelName}, {hotelAddr} ({hotelId})</td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Number of Night</th>
-              <td className={classes.td}>
-                <Text size='sm'>
-                  {nightsNum} Night(s)
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Check In</th>
-              <td className={classes.td}>
-                <Text size='sm'>
-                  {new Date(checkIn).toLocaleDateString()}
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Check Out</th>
-              <td className={classes.td}>
-                <Text size='sm'>
-                  {new Date(checkOut).toLocaleDateString()}
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Number Guests</th>
-              <td className={classes.td}>
-                <Text size='sm'>
-                  Adults: {adults}, Children: {children}
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Rooms</th>
-              <td className={classes.td}>
-                <Text size='sm'>
-                  {roomString}
-                </Text>
-              </td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Price</th>
-              <td className={classes.td}>{hotelPrice} SGD</td>
-            </tr>
-            <tr>
-              <th className={classes.th}>Booking ID</th>
-              <td className={classes.td}>{newBookingKey}</td>
-            </tr>
-          </tbody>
-        </Table>
-        <Space h="lg" />
-        <Title order={3}>Please fill in your personal information</Title>
-        <Text>User: {USERNAME}</Text>
-        <Space h='md'></Space>
-        <form onSubmit={form.onSubmit((values) => { })}>
-          <Grid>
-            <Grid.Col xs={4} sm={4}>
-              <TextInput className="salutation" label="Salutation" required {...form.getInputProps('salutation')} />
-            </Grid.Col>
-            <Grid.Col xs={8} sm={4}>
-              <TextInput className="firstName" label="First name" required {...form.getInputProps('firstName')} />
-            </Grid.Col>
-            <Grid.Col xs={8} sm={4}>
-              <TextInput className="lastName" label="Last name" required {...form.getInputProps('lastName')} />
-            </Grid.Col>
-            <Grid.Col xs={12} sm={6}>
-              <TextInput className="phone" label="Phone Number" required {...form.getInputProps('phone')} />
-            </Grid.Col>
-            <Grid.Col xs={12} sm={6}>
-              <TextInput className='email' label="Email" required {...form.getInputProps('email')} />
-            </Grid.Col>
-            <Grid.Col xs={12}>
-              <TextInput className="specialReq" label="Special requests to hotel" {...form.getInputProps('specialReq')} />
-            </Grid.Col>
-            <Grid.Col xs={12} sm={6}>
-              <TextInput className="cardNum" label="Credit Card Number" required {...form.getInputProps('cardNum')} />
-              <Text size="sm" style={{ marginLeft: '12px', marginTop: '5px' }}>{cardNumReadable}</Text>
-            </Grid.Col>
-            <Grid.Col xs={8} sm={4}>
-              <InputWrapper label="Expiry Date" required>
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <NumberInput className="expiryMonth" min={1} max={12} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryMonth')} placeholder="MM" />
-                  <Text style={{ marginLeft: '1em', marginRight: '1em' }}> / </Text>
-                  <NumberInput className='expiryYear' min={0} max={99} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryYear')} placeholder="YY" />
-                </Box>
-              </InputWrapper>
-            </Grid.Col>
-            <Grid.Col xs={4} sm={2}>
-              <NumberInput className="cvv" min={0} max={999} label="CVV/CVC" hideControls required {...form.getInputProps('cvv')} />
-            </Grid.Col>
-            <Grid.Col xs={12}>
-              <TextInput className='address' label="Billing Address" required {...form.getInputProps('address')} />
-            </Grid.Col>
-            <Grid.Col xs={12}>
-              <Center className="submitBtn">
-                <Button
-                  type="submit" onClick={() => {
-                    form.validate();
-                    if (USERNAME === "") {
-                      alert("Pls Login To Place Booking");
-                    }
-                    else {
-                      if (form.validate().hasErrors === false) {
-                        setModal(true);
-                        let jsonObj = getJsonObj(form.values, hotelDetails);
-                        console.log(jsonObj);
+        <Paper shadow="md" p="sm" radius="md" withBorder>
+          <Table highlightOnHover>
+            <tbody>
+              <tr>
+                <th className={classes.th}>Destination ID</th>
+                <td className={classes.td}>{locationName} ({locationId})</td>
+              </tr>
+              <tr>
+                <th className={classes.th}>Hotel ID</th>
+                <td className={classes.td}>{hotelName}, {hotelAddr} ({hotelId})</td>
+              </tr>
+              <tr>
+                <th className={classes.th}>Number of Night</th>
+                <td className={classes.td}>
+                  <Text size='sm'>
+                    {nightsNum} Night(s)
+                  </Text>
+                </td>
+              </tr>
+              <tr>
+                <th className={classes.th}>Check In</th>
+                <td className={classes.td}>
+                  <Text size='sm'>
+                    {new Date(checkIn).toLocaleDateString()}
+                  </Text>
+                </td>
+              </tr>
+              <tr>
+                <th className={classes.th}>Check Out</th>
+                <td className={classes.td}>
+                  <Text size='sm'>
+                    {new Date(checkOut).toLocaleDateString()}
+                  </Text>
+                </td>
+              </tr>
+              <tr>
+                <th className={classes.th}>Number Guests</th>
+                <td className={classes.td}>
+                  <Text size='sm'>
+                    Adults: {adults}, Children: {children}
+                  </Text>
+                </td>
+              </tr>
+              <tr>
+                <th className={classes.th}>Rooms</th>
+                <td className={classes.td}>
+                  <Text size='sm'>
+                    {roomString}
+                  </Text>
+                </td>
+              </tr>
+              <tr>
+                <th className={classes.th}>Price</th>
+                <td className={classes.td}>{hotelPrice} SGD</td>
+              </tr>
+              <tr>
+                <th className={classes.th}>Booking ID</th>
+                <td className={classes.td}>{newBookingKey}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </Paper>
+        
+        <Space h={32} />
+        <Title order={3}><ThemeIcon radius="lg" variant="light" mr="xs"><IconUser size={16}/></ThemeIcon>Please fill in your personal information</Title>
+        { USERNAME && <><Space h='xs'></Space><Text>User: {USERNAME}</Text></>}
+        <Space h='sm'></Space>
+        <Paper shadow="md" p="sm" radius="md" withBorder>
+          <form onSubmit={form.onSubmit((values) => { })}>
+            <Grid>
+              <Grid.Col xs={4} sm={4}>
+                <TextInput className="salutation" label="Salutation" required {...form.getInputProps('salutation')} />
+              </Grid.Col>
+              <Grid.Col xs={8} sm={4}>
+                <TextInput className="firstName" label="First name" required {...form.getInputProps('firstName')} />
+              </Grid.Col>
+              <Grid.Col xs={8} sm={4}>
+                <TextInput className="lastName" label="Last name" required {...form.getInputProps('lastName')} />
+              </Grid.Col>
+              <Grid.Col xs={12} sm={6}>
+                <TextInput className="phone" label="Phone Number" required {...form.getInputProps('phone')} />
+              </Grid.Col>
+              <Grid.Col xs={12} sm={6}>
+                <TextInput className='email' label="Email" required {...form.getInputProps('email')} />
+              </Grid.Col>
+              <Grid.Col xs={12}>
+                <TextInput className="specialReq" label="Special requests to hotel" {...form.getInputProps('specialReq')} />
+              </Grid.Col>
+              <Grid.Col xs={12} sm={6}>
+                <TextInput className="cardNum" label="Credit Card Number" required {...form.getInputProps('cardNum')} />
+                <Text size="sm" style={{ marginLeft: '12px', marginTop: '5px' }}>{cardNumReadable}</Text>
+              </Grid.Col>
+              <Grid.Col xs={8} sm={4}>
+                <InputWrapper label="Expiry Date" required>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <NumberInput className="expiryMonth" min={1} max={12} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryMonth')} placeholder="MM" />
+                    <Text style={{ marginLeft: '1em', marginRight: '1em' }}> / </Text>
+                    <NumberInput className='expiryYear' min={0} max={99} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryYear')} placeholder="YY" />
+                  </Box>
+                </InputWrapper>
+              </Grid.Col>
+              <Grid.Col xs={4} sm={2}>
+                <NumberInput className="cvv" min={0} max={999} label="CVV/CVC" hideControls required {...form.getInputProps('cvv')} />
+              </Grid.Col>
+              <Grid.Col xs={12}>
+                <TextInput className='address' label="Billing Address" required {...form.getInputProps('address')} />
+              </Grid.Col>
+              <Grid.Col xs={12}>
+                <Center className="submitBtn">
+                  <Button m='md' rightIcon={<IconCheck/>}
+                    type="submit" onClick={() => {
+                      form.validate();
+                      if (USERNAME === "") {
+                        alert("Please login to place your booking");
                       }
                       else {
-                        console.log("error in form");
-                        console.log(form.validate());
+                        if (form.validate().hasErrors === false) {
+                          setModal(true);
+                          let jsonObj = getJsonObj(form.values, hotelDetails);
+                          console.log(jsonObj);
+                        }
+                        else {
+                          console.log("error in form");
+                          console.log(form.validate());
+                        }
                       }
-                    }
-                  }}>Submit</Button>
-              </Center>
-            </Grid.Col>
-          </Grid>
-        </form>
+                    }}>Submit</Button>
+                </Center>
+              </Grid.Col>
+            </Grid>
+          </form>
+        </Paper>
+        <Space h={32}></Space>
       </div>}
       {isMissingQuery && <Paper>
         <Center>

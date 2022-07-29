@@ -1,9 +1,9 @@
 //import { hotelData } from '../data/hotelData' // temporary import of json 
-import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, ThemeIcon, NativeSelect, createStyles, Pagination, Center, Space, Loader, Overlay } from '@mantine/core';
+import { Paper, Card, Image, Text, Badge, Button, Group, useMantineTheme, ThemeIcon, NativeSelect, createStyles, Pagination, Center, Space, Loader, Overlay, Title, Grid, Stack, Skeleton } from '@mantine/core';
 import { useAppSelector, useAppDispatch } from '../../../services/hooks';
 import { useEffect, useState } from 'react';
-import { pageItemsLoad, pageStartLoad, selectHotelId, setCategory } from '../../../services/SearchBarSlice';
-import { IconStar, IconStarHalf } from '@tabler/icons';
+import { pageStartLoad, selectHotelId } from '../../../services/SearchBarSlice';
+import { IconStar, IconStarHalf, IconMoodSad } from '@tabler/icons';
 import { Link } from 'react-router-dom';
 
 
@@ -23,8 +23,7 @@ const useStyles = createStyles((theme) => ({
   },
   title: {
     color: 'black',
-    fontWeight: 500,
-    fontSize: '1.2em'
+    fontWeight: 500
   },
   subtitle: {
     color: 'gray'
@@ -303,7 +302,7 @@ function SearchItem() {
   const dispatch = useAppDispatch(); // to add things to store!!!
 
   // sort selector
-  const [sortBy, setSortBy] = useState(useAppSelector(state => state.SearchBarReducer.sortByCat));
+  const sortBy = useAppSelector(state => state.SearchBarReducer.sortByCat);
 
   // sort code
   // create copy to sort
@@ -312,7 +311,7 @@ function SearchItem() {
   // assign the new sorted values
   hotelDataLong = hotelDataLongSort;
 
-  const [numberItemsDirty, setNumberItemsDirty] = useState(useAppSelector(state => state.SearchBarReducer.pageItems) + " items");
+  const numberItemsDirty = useAppSelector(state => state.SearchBarReducer.pageItems) + " items";
   const [activePage, setPage] = useState(useAppSelector(state => state.SearchBarReducer.pageStart));
 
   useEffect(()=>{
@@ -327,17 +326,11 @@ function SearchItem() {
     elementsEnd = hotelDataLong.length;
   }
 
-  // console.log("search item component");
-  // console.log('active page: ' + activePage);
-  // console.log("start item: " + elementsStart);
-  // console.log("end item: " + elementsEnd);
-
   // print the new list of data
   let hotelDataLs: any[] = [];
   for (let i = elementsStart; i < elementsEnd; i++) {
     hotelDataLs.push(hotelDataLong[i]);
   }
-
 
   // show or hide pagination!
   let hidden = true;
@@ -373,57 +366,13 @@ function SearchItem() {
         zIndex: '20'
       }}>
         <div className='loaderSpinner'></div>
+        <Text color='dimmed' p='lg'>Hold tight...</Text>
         <Loader style={{ zIndex: '100', opacity: '1' }} />
       </Center>
       }
-      <Center>
-        <div className='notification'>
-          <Text style={{ marginTop: "2rem", color: 'gray' }}>
-            {header}
-          </Text>
-        </div>
-      </Center>
 
-
-      <Paper className={classes.cardContainer} style={{ marginBottom: "2em" }}>
-        {/* <Pagination total={numPages} size="xs" radius="xs" withEdges /> */}
-        <Center>
-          <Group>
-            <div className='numberItems'>
-              <NativeSelect
-                data={numberItemsLs}
-                value={numberItemsDirty}
-                onChange={(event) => {
-                  setNumberItemsDirty(event.currentTarget.value);
-                  dispatch(pageItemsLoad({
-                    items: event.currentTarget.value.slice(0, 3).trim()
-                  }))
-                }}
-                label="Show"
-                radius="md"
-                size="xs"
-                style={{ width: '5em' }}
-              />
-            </div>
-            <div className='category'>
-              <NativeSelect
-                data={['Reviews', 'Rating', 'Price', 'Value', "Sale"]}
-                value={sortBy}
-                onChange={(event) => {
-                  setSortBy(event.currentTarget.value);
-                  dispatch(setCategory({ category: event.currentTarget.value }));
-                }}
-                label="Sort By: "
-                radius="md"
-                size="xs"
-                style={{ width: '5em' }}
-              />
-            </div>
-          </Group>
-        </Center>
-
-      </Paper>
       <div className={classes.cardContainer}>
+        {!hidden && <Center pt={32}><Text color='dimmed'>We could not find any results for your search</Text>&nbsp;<IconMoodSad color='gray'/></Center>}
         {hotelDataLs.map((data, key) => {
           // Load card values
           let [imageUrl, ratingScore, reviewScore, reviewColor, distance, price, ogPrice] = getCardValues(data, nightsNum);
@@ -432,30 +381,41 @@ function SearchItem() {
           let starsComp = getStars(ratingScore);
           return (
             <>
-              <Card key={key} className={classes.cardMain} p="lg" style={{ marginBottom: '5em' }}>
+              <Card key={key} className={classes.cardMain} p="md" mb={32}>
                 <Card.Section>
                   <Image id='image' withPlaceholder={true} src={imageUrl} height={160} alt={data.name} />
                 </Card.Section>
-                <Text id='title' className={classes.title} style={{ marginTop: '1rem' }}>{data.name}</Text>
-                <Text id="address" size="sm" className={classes.subtitle}>
-                  Address: {data.address}
-                </Text>
-                <Text id="distance" size="sm" className={classes.subtitle}>
-                  {distance}km from airport
-                </Text>
-                {salesComp}
-                <Group position="apart" style={{ marginBottom: 5, marginTop: 0 }}>
-                  {starsComp}
-                  <Badge id='review' color={reviewColor} variant="filled" size="lg" radius="xs" >
-                    Reviews: {reviewScore}
-                  </Badge>
-                </Group>
-                <Button variant="filled" color="blue" fullWidth loaderPosition="right"
-                  onClick={() => dispatch(selectHotelId({ id: data.id }))}
-                  component={Link} to="/RoomDetails"
-                >
-                  <Center>${price} a night</Center>
-                </Button>
+                <Space h="sm" />
+                <Grid>
+                  <Grid.Col span={8}>
+                    <Title order={3} id='title' mb={0} className={classes.title}>{data.name}</Title>
+                    <Text id="address" size="sm" className={classes.subtitle}>
+                      {data.address}
+                    </Text>
+                    <Text id="distance" size="sm" className={classes.subtitle}>
+                      {distance}km from airport
+                    </Text>
+                    {salesComp}
+                    <Badge id='review' color={reviewColor} variant="filled" size="lg" radius="xs" >
+                        Reviews: {reviewScore}
+                      </Badge>
+                    {starsComp}
+                  </Grid.Col>
+                  <Grid.Col span={4}>
+                    <Stack justify="space-between" sx={{ height:"100%" }}>
+                      <Stack align="flex-end" spacing={0} justify="flex-start">
+                        <Text sx={{ fontSize: "2em" }} align="right">${price}</Text>
+                        <Text align="right" mt={-8}>a night</Text>
+                      </Stack>
+                      <Button variant="filled" fullWidth loaderPosition="right"
+                      onClick={() => dispatch(selectHotelId({ id: data.id }))}
+                      component={Link} to="/RoomDetails"
+                    >
+                        Select
+                      </Button>
+                    </Stack>
+                  </Grid.Col>
+                </Grid>
               </Card>
             </>
           );
@@ -469,19 +429,6 @@ function SearchItem() {
                   dispatch(pageStartLoad({ start: value }));
                 }
               } style={{ marginTop: '1.75em' }} />}
-              <NativeSelect
-                data={numberItemsLs}
-                value={numberItemsDirty}
-                onChange={(event) => {
-                  setNumberItemsDirty(event.currentTarget.value);
-                  dispatch(pageItemsLoad({
-                    items: event.currentTarget.value.slice(0, 3).trim()
-                  }))
-                }}
-                label="Show"
-                radius="md"
-                size="xs"
-              />
             </Group>
           </Paper>
         </div>

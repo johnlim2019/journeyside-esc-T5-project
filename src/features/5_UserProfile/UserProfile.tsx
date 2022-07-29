@@ -480,7 +480,10 @@ function UserProfile() {
                 <LoadingOverlay visible={isLoading} />
             </Center>}
             <Paper>
-                <Text>User: {userId}</Text>
+               {(userId !== "") && <Paper pt='lg' pb='lg'>
+                    <Text>Welcome</Text>
+                    <Title order={2}>{userId}!</Title>
+                </Paper>}
                 {!(windowSize.innerWidth < BREAKPOINT) &&
                     <Table highlightOnHover striped>
                         <thead>

@@ -13,11 +13,11 @@ function RoomType(props: any) {
   const rooms = useAppSelector(state => state.SearchBarReducer.rooms);
 
   return (
-    <Card shadow="md" mt={16} mb={16}>
+    <Card shadow="md" mt={32}>
       <Card.Section mb={16}>
         <Image withPlaceholder height={240} src={props.data.images && props.data.images[0] && props.data.images[0].url} />
       </Card.Section>
-      <Title order={3}>{props.data.description}</Title>
+      <Title order={3} sx={{ fontWeight:500 }}>{props.data.description}</Title>
       <Space h="sm" />
       {
         props.data.subtypes.map((d: any) => {          
@@ -25,7 +25,7 @@ function RoomType(props: any) {
             <Divider />
             <Space h="sm" />
             <Grid>
-              <Grid.Col span={6}>
+              <Grid.Col span={8} sm={6}>
                 <List mt={8} mb={16} center spacing="xs">
 
                   { // BREAKFAST
@@ -49,12 +49,12 @@ function RoomType(props: any) {
 
                 </List>
               </Grid.Col>
-              <Grid.Col span={4}>
+              <Grid.Col span={4} sm={4}>
                 <Text sx={{ fontSize: "2em" }} align="right">${d.price * Number(rooms)}</Text>
                 <Text align="right">+{d.points} points</Text>
                 <Text align="right" color="dimmed">for {nightsNum} night(s) for {rooms} room(s)</Text>
               </Grid.Col>
-              <Grid.Col xs={4} md={2}>
+              <Grid.Col xs={12} sm={2}>
                 <Button mt={8} fullWidth onClick={() => dispatch(selectRoom({ key: d.key }))} component={Link} to="/BookingData">Select</Button>
               </Grid.Col>
             </Grid>
