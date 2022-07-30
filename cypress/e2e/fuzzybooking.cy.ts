@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
 
+function generateIllegalnames(illegal){
+  
+}
+
 
 
 describe('fuzzy booking  spec', () => {

@@ -22,7 +22,7 @@ function SearchResults() {
             },
         },
         gototop: {
-            position: 'sticky', top: '90%', zIndex: 10, width: '100%',margin:"1em",
+            position: 'sticky', top: '85%', zIndex: 10, width: '100%',margin:"1em",
         }
     }));
     // load styles css

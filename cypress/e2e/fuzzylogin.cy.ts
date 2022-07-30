@@ -7,7 +7,7 @@ function usernameGen(illegal: boolean) {
     const choose = Math.random();
     let usernameLength = -1;
     if (choose <= 0.5) {
-      usernameLength = 7;
+      usernameLength = 6;
     }
     else {
       usernameLength = 25;

@@ -7,9 +7,13 @@ import { IconMoodConfuzed, IconPlaneDeparture } from '@tabler/icons';
 import axios from 'axios';
 const useStyles = createStyles((theme) => ({
   searchbarwrapper: {
-    width: '75%',
+    width: '60%',
     margin: 'auto',
     // Media query with value from theme
+    [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
+      width: '80%',
+      alignItems: 'center'
+    },
     [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       width: '100%',
       alignItems: 'center'

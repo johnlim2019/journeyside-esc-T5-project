@@ -21,6 +21,16 @@ const useStyles = createStyles((theme) => ({
       alignItems: 'center'
     },
   },
+  notificationContainer: {
+    width: '50em',
+    margin: 'auto',
+    marginTop: "2rem",
+    // Media query with value from theme
+    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+      width: '80%',
+      alignItems: 'center'
+    },
+  },
   title: {
     color: 'black',
     fontWeight: 500
@@ -295,9 +305,9 @@ function SearchItem() {
   // console.log("HELP "+destId);
   // console.log("HELP "+hotelDataLong);
   let header = dest
-  if (hotelDataLong.length < 1) {
-    header = NOTFOUND + dest;
-  }
+  // if (hotelDataLong.length < 1) {
+  //   header = NOTFOUND + dest;
+  // }
   // set up pagination settings
   const dispatch = useAppDispatch(); // to add things to store!!!
 
@@ -314,9 +324,9 @@ function SearchItem() {
   const [numberItemsDirty, setNumberItemsDirty] = useState(useAppSelector(state => state.SearchBarReducer.pageItems) + " items");
   const [activePage, setPage] = useState(useAppSelector(state => state.SearchBarReducer.pageStart));
 
-  useEffect(()=>{
+  useEffect(() => {
     setPage(pageNum);
-  },[pageNum])
+  }, [pageNum])
   // Pagination controls
   const numberItems = +numberItemsDirty.slice(0, 3).trim();
   const elementsStart = ((activePage - 1) * numberItems);
@@ -350,7 +360,7 @@ function SearchItem() {
       document.body.style.overflow = "unset";
     }
   }, [isLoading]);
-  
+
 
 
   return (
@@ -371,20 +381,17 @@ function SearchItem() {
         <Loader style={{ zIndex: '100', opacity: '1' }} />
       </Center>
       }
-      <Center>
-        <div className='notification'>
-          <Text style={{ marginTop: "2rem", color: 'gray' }}>
-            {header}
-          </Text>
-        </div>
-      </Center>
 
-      {hidden && <Paper className={classes.cardContainer} mt='lg' mb='lg'>
+
+     <Paper className={classes.notificationContainer} mt='lg' mb='lg'>
         {/* <Pagination total={numPages} size="xs" radius="xs" withEdges /> */}
-        <Group position='center'>
-          <Text pl='lg' pr='lg' color='dimmed'>Showing {elementsStart+1} to {elementsEnd} of {hotelDataLong.length} hotels</Text>
+        <Center style={{ marginLeft: '-1rem' }}>
           <Group>
-            <div className='numberItems'>
+            <div className='notification'>
+              {!hidden && <Center pt={32}><Text pl='lg' pr='lg' color='dimmed'>We could not find results for {header}</Text>&nbsp;<IconMoodSad color='gray' /></Center>}
+              {hidden && <Text pl='lg' pr='lg' color='dimmed'>Showing {elementsStart + 1} to {elementsEnd} of {hotelDataLong.length} hotels at <br /> <Center>{header}</Center></Text>}
+            </div>
+            {hidden && <div className='numberItems'>
               <NativeSelect
                 data={numberItemsLs}
                 value={numberItemsDirty}
@@ -397,10 +404,10 @@ function SearchItem() {
                 label="Show per page:"
                 radius="md"
                 size="xs"
-                sx={{ width:'8em' }}
+                sx={{ width: '8em' }}
               />
-            </div>
-            <div className='category'>
+            </div>}
+            {hidden && <div className='category'>
               <NativeSelect
                 data={['Reviews', 'Rating', 'Price', 'Value', "Sale"]}
                 value={sortBy}
@@ -411,15 +418,14 @@ function SearchItem() {
                 label="Sort By: "
                 radius="md"
                 size="xs"
-                sx={{ width:'8em' }}
+                sx={{ width: '8em' }}
               />
-            </div>
+            </div>}
           </Group>
-        </Group>
-      </Paper>}
+        </Center>
+      </Paper>
 
       <div className={classes.cardContainer}>
-        {!hidden && <Center pt={32}><Text color='dimmed'>We could not find any results for your search</Text>&nbsp;<IconMoodSad color='gray'/></Center>}
         {hotelDataLs.map((data, key) => {
           // Load card values
           let [imageUrl, ratingScore, reviewScore, reviewColor, distance, price, ogPrice] = getCardValues(data, nightsNum);
@@ -444,20 +450,20 @@ function SearchItem() {
                     </Text>
                     {salesComp}
                     <Badge id='review' color={reviewColor} variant="filled" size="lg" radius="xs" >
-                        Reviews: {reviewScore}
-                      </Badge>
+                      Reviews: {reviewScore}
+                    </Badge>
                     {starsComp}
                   </Grid.Col>
                   <Grid.Col xs={4}>
-                    <Stack justify="space-between" sx={{ height:"100%" }}>
+                    <Stack justify="space-between" sx={{ height: "100%" }}>
                       <Stack spacing={0} justify="flex-start">
                         <Text sx={{ fontSize: "2em" }}>${price}</Text>
                         <Text mt={-8}>a night</Text>
                       </Stack>
                       <Button variant="filled" fullWidth loaderPosition="right"
-                      onClick={() => dispatch(selectHotelId({ id: data.id }))}
-                      component={Link} to="/RoomDetails"
-                    >
+                        onClick={() => dispatch(selectHotelId({ id: data.id }))}
+                        component={Link} to="/RoomDetails"
+                      >
                         Select
                       </Button>
                     </Stack>
@@ -468,7 +474,7 @@ function SearchItem() {
           );
         })}
         <div className='pagination'>
-          <Paper className={classes.cardContainer} style={{ marginBottom: "2em" }}>
+          <Paper style={{ marginTop: '1.75em', marginBottom: "2em" }}>
             <Group position='center' spacing='xl'>
               {hidden && <Pagination total={numPages} size="xs" radius="xs" withEdges page={activePage} onChange={
                 (value) => {

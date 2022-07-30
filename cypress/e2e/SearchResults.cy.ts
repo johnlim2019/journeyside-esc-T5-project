@@ -86,9 +86,7 @@ describe('BookingData', () => {
     // cy.pause()
     // check for the page reset to 1 
     cy.get('.notification').contains("Kuala Lumpur, Malaysia")
-    cy.get('.pagination').parent().within(() => {
-      cy.get('button').contains("1").should('have.css', 'background-color', 'rgb(34, 139, 230)')
-    })
+    cy.get('.notification').contains("1 to 10")
   })
   it('change the date value', () => {
     cy.get('.pagination').parent().within(() => {
@@ -105,9 +103,7 @@ describe('BookingData', () => {
     // cy.pause()
     // check for the page reset to 1 
     cy.get('.notification').contains("Kuala Lumpur, Malaysia")
-    cy.get('.pagination').parent().within(() => {
-      cy.get('button').contains("1").should('have.css', 'background-color', 'rgb(34, 139, 230)')
-    })
+    cy.get('.notification').contains("1 to 10")
   })
   it('change category, page, items shown, refresh page and check success cache', () => {
     cy.get('div').contains("Show per page").first().parent().within(() => {
@@ -140,6 +136,6 @@ describe('BookingData', () => {
     cy.get('.loaderSpinner').should('be.exist')
     cy.wait(4000)
     // cy.pause()
-    cy.get('.notification').contains("We could not find results for not real place")
+    cy.get('div').contains("We could not find results for not real place")
   })
 })

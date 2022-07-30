@@ -59,7 +59,7 @@ function NavBarSplashPage() {
         },
         validate: (values) => ({
             // regex validation
-            userName: (values.userName.length < 8 || values.userName.length > 25 ? "Username must be between 8 to 25 characters." 
+            userName: (values.userName.length < 7 || values.userName.length > 25 ? "Username must be between 8 to 25 characters." 
             : values.userName.match(isNotPrinting) || values.userName.match(isWhitespace) ? "Invalid Character" : null),
             password: ( values.password.length < 8 ? "Password at least 8 characters" 
             : values.password.length > 100 ? "Password is too long" 
