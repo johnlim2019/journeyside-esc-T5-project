@@ -1,9 +1,123 @@
 /// <reference types="cypress" />
 
-function generateIllegalnames(illegal){
-  
+function generateIllegalNames(illegal) {
+  const charset = "qwertyuiopasdfghjklzxcvbnm,./;'[]=-0987654321!@#$%^&*()_+;ςερτυθιοπασδφγηξκλζχψωβνμ:΅ΕΡΤΥΘΙΟΠΑΣΔΦΓΗΞΚΛΖΧΨΩΒΝΜضصثقفغعهخحمنتالبيسشئءؤرلاىةة";
+  let output = "";
+  var length;
+  if (illegal) {
+    length = 30
+    let counting = length * Math.random() + length;
+    for (let i = 0; i < counting; i++) {
+      let charIndex = Math.floor(Math.random() * charset.length);
+      output += charset.substring(charIndex, charIndex + 1);
+    }
+  } else {
+    let counting = 25 * Math.random() + 1
+    for (let i = 0; i < counting; i++) {
+      let charIndex = Math.floor(Math.random() * charset.length);
+      output += charset.substring(charIndex, charIndex + 1);
+    }
+  }
+  return output
+}
+function generateIllegalSalutations(illegal) {
+  const charset = "qwertyuiopasdfghjklzxcvbnm,./;'[]=-0987654321!@#$%^&*()_+;ςερτυθιοπασδφγηξκλζχψωβνμ:΅ΕΡΤΥΘΙΟΠΑΣΔΦΓΗΞΚΛΖΧΨΩΒΝΜضصثقفغعهخحمنتالبيسشئءؤرلاىةة";
+  let output = "";
+  var length;
+  if (illegal) {
+    if (Math.random() < 0.5) {
+      length = 10
+      let counting = length * Math.random() + length;
+      for (let i = 0; i < counting; i++) {
+        let charIndex = Math.floor(Math.random() * charset.length);
+        output += charset.substring(charIndex, charIndex + 1);
+      }
+    }
+  } else {
+    let counting = 8 * Math.random() + 1
+    for (let i = 0; i < counting; i++) {
+      let charIndex = Math.floor(Math.random() * charset.length);
+      output += charset.substring(charIndex, charIndex + 1);
+    }
+  }
+  return output
 }
 
+function generateIllegalLongInput(illegal) {
+  const charset = "qwertyuiopasdfghjklzxcvbnm         ,./;'[]=-0987654321!@#$%^&*()_+;      ςερτυθιοπασδφγηξκλζχψωβνμ:        ΅ΕΡΤΥΘΙΟΠΑΣΔΦΓΗΞΚΛΖΧΨΩΒΝΜ      ضصثقفغعهخحمنتالبيسشئءؤرلاىةة";
+  const illegalchars = "😀😃😄😁😆😅😂🤣🥲☺️😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😠😡🤬🤯😳🥵🥶😱😨😰😥😓🤗🤔🤭🤫🤥😶😐😑😬🙄😯😦😧😮😲🥱😴🤤😪😵🤐🥴🤢🤮🤧😷🤒🤕🤑🤠😈👿👹👺🤡💩👻💀☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾"
+  let output = "";
+  var length;
+  if (illegal) {
+    if (Math.random() < 0.5) {
+      length = 30
+      let counting = length * Math.random() + length;
+      for (let i = 0; i < counting; i++) {
+        let charIndex = Math.floor(Math.random() * illegalchars.length);
+        output += illegalchars.substring(charIndex, charIndex + 1);
+      }
+    }
+  } else {
+    let counting = 30 * Math.random() + 1
+    for (let i = 0; i < counting; i++) {
+      let charIndex = Math.floor(Math.random() * charset.length);
+      output += charset.substring(charIndex, charIndex + 1);
+    }
+  }
+  return output
+}
+
+function generateRandomNumber() {
+  const charset = "1234567890";
+  let output = "";
+  const choose = Math.random();
+  let length = -1;
+  if (choose <= 0.5) {
+    length = 9;
+  }
+  else {
+    length = 16;
+  }
+  for (let i = 0; i < length; i++) {
+    let charIndex = Math.floor(Math.random() * charset.length);
+    output += charset.substring(charIndex, charIndex + 1);
+  }
+  return output
+}
+
+function generateLegalEmail() {
+  const charset ="abcdefghjklmnopqrstuvwxyz"
+  const back = "@gmail.com"
+  let output = ""
+  for (let i=0;i<12;i++){
+    let charIndex = Math.floor(Math.random() * charset.length);
+    output += charset.substring(charIndex, charIndex + 1);
+  }
+  output = output+back
+  return output
+}
+
+function generateLegalNumber() {
+  const charset = '1234567890'
+  let output = "9"
+  for (let i=0;i<7;i++){
+    let charIndex = Math.floor(Math.random() * charset.length);
+    output += charset.substring(charIndex, charIndex + 1);
+  }
+  return output
+}
+
+function generateIllegalEmail(){
+  const charset ="abcdefghjklmnopqrstuvwxyz"
+  const back = "@dkghdl."
+  let output = ""
+  for (let i=0;i<12;i++){
+    let charIndex = Math.floor(Math.random() * charset.length);
+    output += charset.substring(charIndex, charIndex + 1);
+  }
+  output = output+back
+  return output
+}
 
 
 describe('fuzzy booking  spec', () => {
@@ -35,12 +149,107 @@ describe('fuzzy booking  spec', () => {
     cy.get('.mantine-Grid-root.mantine-pafeaw').parent().within(() => {
       cy.get('Button').last().click()
     })
+    
     cy.wait(4000)
     cy.get('.mantine-Button-filled.mantine-Button-root.mantine-ldof9z').last().click()
     cy.wait(4000)
-    cy.get('a[href="/BookingData"]').first().click()  
+    cy.get('a[href="/BookingData"]').first().click()
   })
-  it("inputs that are too long ",()=>{
-
+  const testIndex = [1,2,3,4,5];
+  testIndex.forEach((index) => {
+    describe(`Test ${index}`, () => {
+      it("illegal variables", () => {
+        cy.scrollTo("bottom")
+        const illegalname = generateIllegalNames(true)
+        const illegalsalutation = generateIllegalSalutations(true)
+        const illegalnumber = generateRandomNumber()
+        const illegallonginput = generateIllegalLongInput(true)
+        const illegalemail = generateIllegalEmail();
+        cy.get('.salutation').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}' + illegalsalutation + '{enter}') 
+          cy.get('div').contains('Invalid Salutation').should('be.exist')
+        })
+        cy.wait(100)
+        cy.get('.firstName').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + illegalname+ '{enter}')
+          cy.get('div').contains('Please Enter Valid First Name').should('be.exist')
+        })
+        cy.wait(100)
+        cy.get('.lastName').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + illegalname+ '{enter}')       
+          cy.get('div').contains('Please Enter Valid Last Name').should('be.exist')
+        })
+        cy.wait(100)
+        cy.get('.phone').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + illegalnumber+ '{enter}') 
+          cy.get('div').contains('Invalid Phone Number').should('be.exist')
+        })
+        cy.wait(100)
+        cy.get('.email').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}' + illegalemail+ '{enter}')
+          cy.get('div').contains('Invalid email').should('be.exist')
+        })
+        cy.get('.specialReq').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}' + illegallonginput + '{enter}')
+          cy.get('div').contains('Invalid Character Detected')
+        })
+        cy.wait(100)
+        cy.get('.cardNum').parent().within(() => {
+          cy.get('input').focus()
+        })    
+        cy.get('.expiryMonth').parent().within(() => {
+          cy.get('input').first().focus()
+        })
+        cy.get('.expiryYear').parent().within(() => {
+          cy.get('input').first().focus()
+        })
+        cy.wait(100)
+        cy.get('.address').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + illegallonginput + '{enter}') 
+          cy.get('div').contains('Please Enter Valid Address')
+        })
+        cy.wait(100)
+      })
+      it('legal variables',()=>{
+        cy.wait(1000)
+        cy.get('.salutation').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + generateIllegalSalutations(false)+ '{enter}') 
+          cy.get('div').contains('Invalid Salutation').should('not.exist')
+        })
+        cy.get('.firstName').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + generateIllegalNames(false)+ '{enter}') 
+          cy.get('div').contains('Please Enter Valid First Name').should('not.exist')
+        })
+        cy.get('.lastName').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + generateIllegalNames(false)+ '{enter}')       
+          cy.get('div').contains('Please Enter Valid Last Name').should('not.exist')
+        })
+        cy.get('.phone').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + generateLegalNumber()+ '{enter}')                 
+          cy.get('div').contains('Invalid Phone Number').should('not.exist')
+        })
+        cy.get('.email').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + generateLegalEmail()+ '{enter}')
+          cy.get('div').contains('Invalid email').should('not.exist')
+        })
+        cy.get('.specialReq').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}' + generateIllegalNames(false) + '{enter}')
+          cy.get('div').contains('Invalid Character Detected').should('not.exist')
+        })
+        cy.get('.cardNum').parent().within(() => {
+          cy.get('input').focus()
+        })  
+        cy.get('.expiryMonth').parent().within(() => {
+          cy.get('input').first().focus()
+        })
+        cy.get('.expiryYear').parent().within(() => {
+          cy.get('input').first().focus()
+        })
+        cy.get('.address').parent().within(() => { 
+          cy.get("input").type('{selectAll}{backspace}{enter}' + generateIllegalNames(false)+ '{enter}') 
+          cy.get('div').contains('Please Enter Valid Address').should('not.exist')
+        })
+      })
+    })
   })
 })

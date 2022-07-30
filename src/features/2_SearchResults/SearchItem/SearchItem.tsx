@@ -370,10 +370,7 @@ function SearchItem() {
       }}>
       </Overlay>}
       {isLoading && <Center style={{
-        position: 'fixed',
-        top: 0,
-        height: '100%',
-        width: "100%",
+        position: 'relative',
         zIndex: '20'
       }}>
         <div className='loaderSpinner'></div>

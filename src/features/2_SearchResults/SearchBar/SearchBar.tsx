@@ -368,7 +368,7 @@ function SearchBar(): JSX.Element {
                     <div className="Autocomplete">
                       <Autocomplete
                         className={classes.searchbarcomponets}
-                        label="Destination"
+                        label="Destination"                        
                         placeholder="Begin Your Adventure"
                         value={location}
                         onChange={setLocation}
@@ -382,7 +382,8 @@ function SearchBar(): JSX.Element {
                             return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
                           }
                         }}
-                        limit={8}
+                        limit={50}
+                        maxDropdownHeight='20rem'
                         rightSection={isLoading && <Loader size={'sm'}></Loader>}
                       />
                     </div>

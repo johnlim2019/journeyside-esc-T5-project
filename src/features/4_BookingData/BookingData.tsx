@@ -202,10 +202,10 @@ const form = useForm<FormValues>({
   validate: (values) => ({
     // regex validation
     salutation: (values.salutation.length < 1 || values.salutation.length > 9 || values.salutation.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Invalid Salutation" : null),
-    firstName: (values.firstName.length < 1 || values.firstName.length > 100 || values.firstName.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Please Enter Valid First Name" : null),
-    lastName: (values.lastName.length < 1 || values.lastName.length > 100 || values.lastName.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Please Enter Valid Last Name" : null),
-    specialReq: (values.specialReq.replace(/[\s]+/, "").length > 250 || values.specialReq.length > 1250 ? "250 Words Max" : values.specialReq.match(isEmoji) || values.specialReq.match(isNotPrinting) ? "Invalid Character Detected" : null),
-    email: (/^\S+@\w+\.\w{2,7}$/.test(values.email) ? null : 'Invalid email'),
+    firstName: (values.firstName.length < 1 || values.firstName.length > 30 || values.firstName.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Please Enter Valid First Name" : null),
+    lastName: (values.lastName.length < 1 || values.lastName.length > 30 || values.lastName.match(isEmoji) || values.salutation.match(isNotPrinting) ? "Please Enter Valid Last Name" : null),
+    specialReq: ( values.specialReq.length > 1250 || values.specialReq.replace(/[\s]+/, "").length > 250 ? "250 Words Max" : values.specialReq.match(isEmoji) || values.specialReq.match(isNotPrinting) ? "Invalid Character Detected" : null),
+    email: (/^\S+@\w+\.\w{2,7}$/.test(values.email) || values.email.length > 35 ? null : 'Invalid email'),
     cardNum: (values.cardNum.match(isCard) ? null : "Invalid Card"),
     phone: (/(^[6,8,9]{1}[0-9]{7})$/.test(values.phone) ? null : "Invalid Phone Number"),
     expiryMonth: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
@@ -350,41 +350,41 @@ return (
           <form onSubmit={form.onSubmit((values) => { })}>
             <Grid>
               <Grid.Col xs={4} sm={4}>
-                <TextInput className="salutation" label="Salutation" required {...form.getInputProps('salutation')} />
+                <TextInput className="salutation" label="Salutation" onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}} required {...form.getInputProps('salutation')} />
               </Grid.Col>
               <Grid.Col xs={8} sm={4}>
-                <TextInput className="firstName" label="First name" required {...form.getInputProps('firstName')} />
+                <TextInput className="firstName" label="First name" required {...form.getInputProps('firstName')} onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
               </Grid.Col>
               <Grid.Col xs={8} sm={4}>
-                <TextInput className="lastName" label="Last name" required {...form.getInputProps('lastName')} />
+                <TextInput className="lastName" label="Last name" required {...form.getInputProps('lastName')} onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
               </Grid.Col>
               <Grid.Col xs={12} sm={6}>
-                <TextInput className="phone" label="Phone Number" required {...form.getInputProps('phone')} />
+                <TextInput className="phone" label="Phone Number" required {...form.getInputProps('phone')} onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
               </Grid.Col>
               <Grid.Col xs={12} sm={6}>
-                <TextInput className='email' label="Email" required {...form.getInputProps('email')} />
+                <TextInput className='email' label="Email" required {...form.getInputProps('email')} onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
               </Grid.Col>
               <Grid.Col xs={12}>
-                <TextInput className="specialReq" label="Special requests to hotel" {...form.getInputProps('specialReq')} />
+                <TextInput className="specialReq" label="Special requests to hotel" {...form.getInputProps('specialReq')} onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
               </Grid.Col>
               <Grid.Col xs={12} sm={6}>
-                <TextInput className="cardNum" label="Credit Card Number" required {...form.getInputProps('cardNum')} />
+                <TextInput className="cardNum" label="Credit Card Number" required {...form.getInputProps('cardNum')} onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
                 <Text size="sm" style={{ marginLeft: '12px', marginTop: '5px' }}>{cardNumReadable}</Text>
               </Grid.Col>
               <Grid.Col xs={8} sm={4}>
                 <InputWrapper label="Expiry Date" required>
                   <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <NumberInput className="expiryMonth" min={1} max={12} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryMonth')} placeholder="MM" />
+                    <NumberInput className="expiryMonth" min={1} max={12} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryMonth')} placeholder="MM" onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
                     <Text style={{ marginLeft: '1em', marginRight: '1em' }}> / </Text>
-                    <NumberInput className='expiryYear' min={0} max={99} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryYear')} placeholder="YY" />
+                    <NumberInput className='expiryYear' min={0} max={99} hideControls sx={{ flex: 1 }} {...form.getInputProps('expiryYear')} placeholder="YY" onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
                   </Box>
                 </InputWrapper>
               </Grid.Col>
               <Grid.Col xs={4} sm={2}>
-                <NumberInput className="cvv" min={0} max={999} label="CVV/CVC" hideControls required {...form.getInputProps('cvv')} />
+                <NumberInput className="cvv" min={0} max={999} label="CVV/CVC" hideControls required {...form.getInputProps('cvv')} onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
               </Grid.Col>
               <Grid.Col xs={12}>
-                <TextInput className='address' label="Billing Address" required {...form.getInputProps('address')} />
+                <TextInput className='address' label="Billing Address" required {...form.getInputProps('address')} onBlur={()=>{form.validate()}} onFocus={()=>{form.validate()}}/>
               </Grid.Col>
               <Grid.Col xs={12}>
                 <Center className="submitBtn">

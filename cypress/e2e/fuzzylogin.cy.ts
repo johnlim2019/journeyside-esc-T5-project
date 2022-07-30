@@ -66,7 +66,7 @@ function illegalPasswords(illegal: boolean) {
   }
   return string
 }
-describe('fuzzy login spec', () => {
+describe('fuzzy login spec, we are chekcing if the login input can reject invalid inputs and accept valid ones', () => {
   const testIndex = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
   before(() => {
@@ -82,7 +82,7 @@ describe('fuzzy login spec', () => {
         let string = usernameGen(true);
         cy.get('.LogInModal').within(() => {
           cy.get('input[placeholder="User Name"]').type('{selectAll}{backspace}' + string,{delay:0}).blur();
-          cy.get('div').contains('Username must be between 8 to 25 characters.')
+          cy.get('div').contains('Username must be between 7 to 25 characters.')
           cy.get('Button').contains('Log In').click()
           cy.get('Button').contains('Create Account').click()
         })
@@ -91,7 +91,7 @@ describe('fuzzy login spec', () => {
         let string = usernameGen(false);
         cy.get('.LogInModal').within(() => {
           cy.get('input[placeholder="User Name"]').type('{selectAll}{backspace}' + string,{delay:0}).blur();
-          cy.get('div').contains('Username must be between 8 to 25 characters.').should('not.exist')
+          cy.get('div').contains('Username must be between 7 to 25 characters.').should('not.exist')
           cy.get('Button').contains('Log In').click()
           cy.get('div').contains('*Password or Username is Invalid')
         })        
