@@ -233,7 +233,8 @@ export function SearchBarSplashPage(): JSX.Element {
       <div>
         <Center>
           <Paper radius="lg" shadow="lg" className={classes.searchbarwrapper} style={{ position: 'absolute', padding: '1em' }} withBorder>
-            <Title align='center' sx={{ fontWeight:300 }}>Welcome to <Text inherit sx={{fontWeight:700}} variant='gradient' gradient={{ from: 'orange', to:'yellow', deg: 45 }} component='span'> journeyside</Text>!</Title>
+            
+            <Title align='center' sx={{ fontWeight:300 }}><img width="32" src="./favicon.ico" alt="Logo of Journeyside" />&nbsp; Welcome to <Text inherit sx={{fontWeight:700}} variant='gradient' gradient={{ from: 'orange', to:'yellow', deg: 45 }} component='span'> journeyside</Text>!</Title>
             <Divider m='sm'/>
             <Grid columns={16} grow gutter='sm' align='center' p='sm'>
               <Grid.Col md={8} sm={8}>

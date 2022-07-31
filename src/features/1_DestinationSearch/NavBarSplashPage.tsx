@@ -195,7 +195,7 @@ function NavBarSplashPage() {
                             <Button 
                                 color='yellow' radius={32}
                                 variant='light'
-                                leftIcon={<IconBrandJavascript/>} 
+                                leftIcon={<img width="18" alt="Journeyside Icon" src="./favicon.ico"></img>} 
                                 style={{ zIndex: '5', color:'#d97700', fontWeight:logoFontWeight }}
                                 onClick={() => {
                                     navigate("/")
@@ -214,7 +214,7 @@ function NavBarSplashPage() {
                             <Button 
                                 color='yellow' radius={32}
                                 variant='light'
-                                leftIcon={<IconBrandJavascript/>} 
+                                leftIcon={<img width="18" alt="Journeyside Icon" src="./favicon.ico"></img>} 
                                 style={{ zIndex: '5', color:'#d97700', fontWeight:logoFontWeight }}
                                 onClick={() => {
                                     navigate("/")
