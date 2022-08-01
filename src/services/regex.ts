@@ -6,4 +6,6 @@ export const isWhitespace = /(\p{Separator})/u
 export const isNumber = /(\p{Number})/u
 export const isSymbol = /(\p{Punctuation}|\p{Symbol})/u
 export const isLetter = /(\p{Letter})/u
+export const isEmail = /^\S+@\w+\.\w{2,7}(\.\w{2,7}){0,3}$/
+export const isPhone = /(^[6,8,9]{1}[0-9]{7})$/
 
