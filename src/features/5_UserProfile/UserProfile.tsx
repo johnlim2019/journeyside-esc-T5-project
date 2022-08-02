@@ -481,7 +481,7 @@ function UserProfile() {
             }}>
                 <LoadingOverlay visible={isLoading} />
             </Center>}
-            <Paper>
+            <Paper style={{padding:'0.5em'}}>
                {(userId !== "") && <Paper pt='lg' pb='lg'>
                     <Text>Welcome</Text>
                     <Title order={2}>{userId}!</Title>
