@@ -52,7 +52,7 @@ describe('NavBarCheck', () => {
       cy.get('Button').contains('Log In').click()
     })
     // cy.pause()
-    cy.wait(100)
+    cy.wait(2000)
     cy.get('.NavBarDrawer').parent().within(() => {
       cy.get('Button').contains('User Profile').should('be.exist')
     })
