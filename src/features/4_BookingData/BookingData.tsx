@@ -1,5 +1,5 @@
 import { Box, Button, Container, createStyles, Grid, InputWrapper, NumberInput, Space, Table, Text, TextInput, Title, Modal, Paper, Center, Group, LoadingOverlay, ThemeIcon } from "@mantine/core";
-import { useAppSelector } from "../../services/hooks";
+import { refreshAccessToken, useAppSelector } from "../../services/hooks";
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -245,6 +245,8 @@ return (
           <Group position="center">
             <Button size='md' color='red' onClick={() => setModal(false)}>Hold on!</Button>
             <Button size='md' onClick={() => {
+              // attempt to refresh token then send post request
+              refreshAccessToken();
               console.log("push booking");
               // writeEncryptedJson(db, "testUser", "Test message");
               setIsLoading(true);

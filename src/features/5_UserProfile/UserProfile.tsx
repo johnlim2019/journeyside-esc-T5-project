@@ -2,7 +2,7 @@ import { Button, Center, createStyles, Dialog, Group, Loader, LoadingOverlay, Mo
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons";
-import { useAppSelector } from "../../services/hooks";
+import { refreshAccessToken, useAppSelector } from "../../services/hooks";
 import axios from "axios";
 const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings';
 
@@ -204,6 +204,8 @@ function UserProfile() {
                 navigate("/");
             }, 3000);
         }
+        // attempt to refresh access token before getting bookings
+        refreshAccessToken();
         const getBookingsApi = async (api: string) => {
             await axios.get(api, { headers: { 'Authorization': accessToken } }
             ).then((response) => {

@@ -144,7 +144,7 @@ function NavBarSplashPage() {
                         if (loginForm.validate().hasErrors === false) {
                             setIsLoadingReg(true);
                             const registerUserApi = async (api: string) => {
-                                await axios.post(api + "/register", { "username": loginForm.values.userName, "password": loginForm.values.password }
+                                await axios.post(api + "/register", { "username": loginForm.values.userName, "password": loginForm.values.password }, {headers: { 'Content-Type': 'application/json'}, withCredentials: true}
                                 ).then((response) => {
                                     const data = response.data as object[];
                                     console.log(data);
@@ -164,7 +164,7 @@ function NavBarSplashPage() {
                         const loginUserApi = async (api: string) => {
                             if (loginForm.validate().hasErrors === false) {
                                 setIsLoadingLog(true);
-                                await axios.post(api + "/login", { "username": loginForm.values.userName, "password": loginForm.values.password }
+                                await axios.post(api + "/login", { "username": loginForm.values.userName, "password": loginForm.values.password }, {headers: { 'Content-Type': 'application/json'}, withCredentials: true}
                                 ).then((response) => {
                                     const data = response.data;
                                     const accessToken = data["token"];
