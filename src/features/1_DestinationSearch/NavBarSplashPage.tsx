@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { login, logout } from '../../services/UserDetailsSlice';
-import { isLetter, isNotPrinting, isNumber, isSymbol, isWhitespace } from "../../services/regex";
+import { isEmoji, isLetter, isNotPrinting, isNumber, isSymbol, isWhitespace } from "../../services/regex";
 import { IconBrandJavascript } from '@tabler/icons';
 
 const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/users';
@@ -52,7 +52,12 @@ function NavBarSplashPage() {
     } else {
         buttonLabel = LOGIN;
     }
-    const loginForm = useForm({
+    interface loginFormInterface{
+        userName: string,
+        password: string
+    }
+
+    const loginForm = useForm<loginFormInterface>({
         initialValues: {
             userName: USERNAME,
             password: DEFAULTPASSWORD
@@ -63,7 +68,7 @@ function NavBarSplashPage() {
             : values.userName.match(isNotPrinting) || values.userName.match(isWhitespace) ? "Invalid Character" : null),
             password: ( values.password.length < 8 ? "Password at least 8 characters" 
             : values.password.length > 100 ? "Password is too long" 
-            : isNotPrinting.test(values.password) ? "Invalid Characters":
+            : isNotPrinting.test(values.password) || isEmoji.test(values.password) ? "Invalid Characters":
             isNumber.test(values.password) && isSymbol.test(values.password) && isLetter.test((values.password)) ? null: "Need 1 symbol, 1 number, 1 letter" ) 
         })
     }
