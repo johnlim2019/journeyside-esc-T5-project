@@ -484,7 +484,7 @@ function UserProfile() {
             <Paper style={{padding:'0.5em'}}>
                {(userId !== "") && <Paper pt='lg' pb='lg'>
                     <Text>Welcome</Text>
-                    <Title order={2}>{userId}!</Title>
+                    <Title order={2}>{userId}  !</Title>
                 </Paper>}
                 {!(windowSize.innerWidth < BREAKPOINT) &&
                     <Table highlightOnHover striped>
