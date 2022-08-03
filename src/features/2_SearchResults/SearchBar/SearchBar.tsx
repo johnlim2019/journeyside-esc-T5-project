@@ -3,7 +3,7 @@ import { DateRangePicker } from '@mantine/dates';
 import { useState, useEffect } from 'react';
 import { pageStartLoad, query, setDestinations, compileHotelData, setLoading, pageItemsLoad, setCategory } from '../../../services/SearchBarSlice';
 import { useAppDispatch, useAppSelector } from '../../../services/hooks';
-import { IconMoodConfuzed, IconPlaneDeparture } from '@tabler/icons';
+import { IconMoodConfuzed } from '@tabler/icons';
 import axios from 'axios';
 const useStyles = createStyles((theme) => ({
   searchbarwrapper: {
@@ -46,7 +46,7 @@ export function validateQuery(queryObj: any) {
   if ((queryObj.location.length === 0) || (queryObj.id.length === 0)) {
     outcome.push(1);
   }
-  if ((typeof queryObj.checkIn === 'undefined') || (typeof queryObj.checkOut === 'undefined') || (isNaN(queryObj.checkIn)) ||(isNaN(queryObj.checkOut)) || (queryObj.checkOut === null) || (queryObj.checkOut === null)) {
+  if ((typeof queryObj.checkIn === 'undefined') || (typeof queryObj.checkOut === 'undefined') || (isNaN(queryObj.checkIn)) || (isNaN(queryObj.checkOut)) || (queryObj.checkOut === null) || (queryObj.checkOut === null)) {
     outcome.push(2);
   }
   // console.log("HELP" + outcome);
@@ -244,8 +244,8 @@ function SearchBar(): JSX.Element {
     children: children,
     rooms: rooms,
   }
-  if (dispatchQuery.checkIn === undefined || dispatchQuery.checkIn === NaN || dispatchQuery.checkOut === undefined || dispatchQuery.checkOut === NaN){
-    
+  if (dispatchQuery.checkIn === undefined || dispatchQuery.checkIn === NaN || dispatchQuery.checkOut === undefined || dispatchQuery.checkOut === NaN) {
+
   }
 
 
@@ -326,14 +326,15 @@ function SearchBar(): JSX.Element {
 
   // the following called to check if the query has been changed and we need to reload the results 
   const hotels = useAppSelector(state => state.SearchBarReducer.hotelData.hotels);
-  const submitQuery = ()=>{
+  const submitQuery = () => {
+    console.log(location)
     let validation = validateQuery(dispatchQuery);
     if (validation.length === 0) {
       // remove any invalid query flags
       setValidDestination(true);
       setValidDates(true);
       if (cacheId !== queryId) { // only reload the query state if it changes.
-        dispatch(setLoading({ loading: true }));        
+        dispatch(setLoading({ loading: true }));
         dispatch(pageStartLoad({ start: 1 })); // reset to page 1 
         sendGetRequest(hotelApi, hotelPriceApi, queryId);
       }
@@ -356,6 +357,7 @@ function SearchBar(): JSX.Element {
   }
   useEffect(submitQuery, [location, dates]);
 
+
   return (
     <div className={classes.searchbarwrapper} >
       <Center>
@@ -368,7 +370,7 @@ function SearchBar(): JSX.Element {
                     <div className="Autocomplete">
                       <Autocomplete
                         className={classes.searchbarcomponets}
-                        label="Destination"                        
+                        label="Destination"
                         placeholder="Begin Your Adventure"
                         value={location}
                         onChange={setLocation}
@@ -376,11 +378,11 @@ function SearchBar(): JSX.Element {
                         data={autoCompleteList}
                         error={(!validDestination) ? "Invalid Destination" : false}
                         filter={(value: string, item: AutocompleteItem) => {
-                          if (!value.includes(" ")) {
-                            return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
-                          } else {
-                            return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
-                          }
+                          var autocompleteItem = item.value.replace(",", "").toLowerCase().trim();
+                          var searchValue = value.replace(/[.,\/#!$%\^@&\*;:{}=\-_`~()\[\]<>\\|+"'?]/g, "").toLowerCase().trim();
+                          const regex = new RegExp("(?=.*" + searchValue + ")|^" + searchValue);
+                          const regexPresent = regex.test(autocompleteItem);
+                          return regexPresent;
                         }}
                         limit={50}
                         maxDropdownHeight='20rem'
@@ -465,7 +467,7 @@ function SearchBar(): JSX.Element {
         longHolAlert &&
         <Center>
           <Notification style={{ width: '20rem' }} onClose={() => { setLongHolAlert(false) }} icon={<IconMoodConfuzed size={20} />}>
-            Most of our suppliers do not have rooms available for more than {maxDays} days. 
+            Most of our suppliers do not have rooms available for more than {maxDays} days.
           </Notification>
         </Center>
       }

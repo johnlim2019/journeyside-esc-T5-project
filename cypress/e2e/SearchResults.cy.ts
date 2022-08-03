@@ -136,6 +136,6 @@ describe('BookingData', () => {
     cy.get('.loaderSpinner').should('be.exist')
     cy.wait(4000)
     // cy.pause()
-    cy.get('div').contains("We could not find results for not real place")
+    cy.get('div').contains('We could not find results for "not real place"')
   })
 })

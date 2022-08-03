@@ -252,11 +252,11 @@ export function SearchBarSplashPage(): JSX.Element {
                           data={autoCompleteList}
                           error={(!validDestination) ? "Invalid Destination" : false}
                           filter={(value: string, item: AutocompleteItem) => {
-                            if (!value.includes(" ")) {
-                              return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
-                            } else {
-                              return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
-                            }
+                            var autocompleteItem = item.value.replace(",", "").toLowerCase().trim();
+                            var searchValue = value.replace(/[.,\/#!$%\^@&\*;:{}=\-_`~()\[\]<>\\|+"'?]/g, "").toLowerCase().trim();
+                            const regex = new RegExp("(?=.*" + searchValue + ")|^" + searchValue);
+                            const regexPresent = regex.test(autocompleteItem);
+                            return regexPresent;
                           }}
                           limit={8}
                           rightSection={isLoading && <Loader size={'sm'}></Loader>}
