@@ -119,8 +119,8 @@ export function getCardValues(data: any, nights: number) {
 export function isSale(price: number, maxPrice: number) {
   // console.log("price " + price);
   // console.log("maxPrice " + maxPrice);
-  let salePercent = 14;
-  // let salePercent = (maxPrice - price) / maxPrice * 100;
+  // let salePercent = 14;
+  let salePercent = (maxPrice - price) / maxPrice * 100;
   let colour = 'gray';
   if (salePercent < 5 && salePercent > 0) {
     colour = 'yellow';
