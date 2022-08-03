@@ -392,7 +392,7 @@ function SearchItem() {
           
             <div className='notification'>
               {!hidden && <Center pt={32}><Text pl='lg' pr='lg' color='dimmed'>We could not find results for "{header}"</Text>&nbsp;<IconMoodSad color='gray' /></Center>}
-              {hidden && <Text pl='lg' pr='lg' color='dimmed'>Showing {elementsStart + 1} to {elementsEnd} of {hotelDataLong.length} hotels at <br /> <Center>{header}</Center></Text>}
+              {hidden && <Text align="center" pl='lg' pr='lg' color='dimmed'>Showing {elementsStart + 1} to {elementsEnd} of {hotelDataLong.length} hotels at <br /> <Center>{header}</Center></Text>}
             </div>
             <Group>
             {hidden && <div className='numberItems'>
