@@ -119,6 +119,7 @@ export function getCardValues(data: any, nights: number) {
 export function isSale(price: number, maxPrice: number) {
   // console.log("price " + price);
   // console.log("maxPrice " + maxPrice);
+  // let salePercent = 14;
   let salePercent = (maxPrice - price) / maxPrice * 100;
   let colour = 'gray';
   if (salePercent < 5 && salePercent > 0) {
@@ -140,9 +141,14 @@ export function isSale(price: number, maxPrice: number) {
   }
   let salePercentOut = salePercent.toFixed(1);
   return (
-    <Badge id='review' color={"" + colour} variant="filled" style={{ marginTop: '.7rem' }}>
-      was {maxPrice} -{salePercentOut}%
-    </Badge>
+    <>
+      <Group spacing={2}>
+        <Text component='span' color="dimmed" mr="xs">was ${maxPrice}</Text>
+        <Badge id='review' color={"" + colour} variant="filled">
+          -{salePercentOut}%
+        </Badge>
+      </Group>
+    </>
   );
 }
 export function getStars(ratingScore: number) {
@@ -383,11 +389,12 @@ function SearchItem() {
      <Paper className={classes.notificationContainer} mt='lg' mb='lg'>
         {/* <Pagination total={numPages} size="xs" radius="xs" withEdges /> */}
         <Center style={{ marginLeft: '-1rem' }}>
-          <Group>
+          
             <div className='notification'>
               {!hidden && <Center pt={32}><Text pl='lg' pr='lg' color='dimmed'>We could not find results for "{header}"</Text>&nbsp;<IconMoodSad color='gray' /></Center>}
-              {hidden && <Text pl='lg' pr='lg' color='dimmed'>Showing {elementsStart + 1} to {elementsEnd} of {hotelDataLong.length} hotels at <br /> <Center>{header}</Center></Text>}
+              {hidden && <Text align="center" pl='lg' pr='lg' color='dimmed'>Showing {elementsStart + 1} to {elementsEnd} of {hotelDataLong.length} hotels at <br /> <Center>{header}</Center></Text>}
             </div>
+            <Group>
             {hidden && <div className='numberItems'>
               <NativeSelect
                 data={numberItemsLs}
@@ -401,7 +408,6 @@ function SearchItem() {
                 label="Show per page:"
                 radius="md"
                 size="xs"
-                sx={{ width: '8em' }}
               />
             </div>}
             {hidden && <div className='category'>
@@ -415,7 +421,6 @@ function SearchItem() {
                 label="Sort By: "
                 radius="md"
                 size="xs"
-                sx={{ width: '8em' }}
               />
             </div>}
           </Group>
@@ -445,17 +450,17 @@ function SearchItem() {
                     <Text id="distance" size="sm" className={classes.subtitle}>
                       {distance}km from airport
                     </Text>
-                    {salesComp}
-                    <Badge id='review' color={reviewColor} variant="filled" size="lg" radius="xs" >
+                    <Badge id='review' mt="xs" color={reviewColor} variant="filled" size="lg" radius="xs" >
                       Reviews: {reviewScore}
                     </Badge>
                     {starsComp}
                   </Grid.Col>
                   <Grid.Col xs={4}>
                     <Stack justify="space-between" sx={{ height: "100%" }}>
-                      <Stack spacing={0} justify="flex-start">
+                      <Stack spacing={0} justify="flex-start" align="flex-start">
                         <Text sx={{ fontSize: "2em" }}>${price}</Text>
                         <Text mt={-8}>a night</Text>
+                        {salesComp}
                       </Stack>
                       <Button variant="filled" fullWidth loaderPosition="right"
                         onClick={() => dispatch(selectHotelId({ id: data.id }))}

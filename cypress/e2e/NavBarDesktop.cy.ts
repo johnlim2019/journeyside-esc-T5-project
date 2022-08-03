@@ -38,6 +38,7 @@ describe('NavBarCheck', () => {
     cy.get('.FullNavBar').parent().within(() => {
       cy.get('Button').get('Button').contains('Log Out').should('be.exist')
     })
+    cy.wait(1000)
     cy.get('.FullNavBar').parent().within(() => {
       cy.get('Button').get('Button').contains('User Profile').click()
     }).then(() => {

@@ -74,9 +74,6 @@ function generateIllegalLongInput(illegal) {
   if (illegal) {
     length = 30
     let counting = length * Math.random() + length;
-    if (Math.random()<0.5){
-      counting = 0   
-    }
     for (let i = 0; i < counting; i++) {
       let charIndex = Math.floor(Math.random() * illegalchars.length);
       output += illegalchars.substring(charIndex, charIndex + 1);

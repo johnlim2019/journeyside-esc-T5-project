@@ -199,7 +199,7 @@ function NavBarSplashPage() {
                         <Grid.Col span={4}>
                             <Button 
                                 color='yellow' radius={32}
-                                variant='light'
+                                variant='subtle'
                                 leftIcon={<img width="18" alt="Journeyside Icon" src="./favicon.ico"></img>} 
                                 style={{ zIndex: '5', color:'#d97700', fontWeight:logoFontWeight }}
                                 onClick={() => {
@@ -217,8 +217,8 @@ function NavBarSplashPage() {
                     <Grid columns={18} gutter='xs' p='sm' className={classes.navbar} >
                         <Grid.Col span={4}>
                             <Button 
-                                color='yellow' radius={32}
-                                variant='light'
+                                color='yellow' radius={5}
+                                variant='subtle'
                                 leftIcon={<img width="18" alt="Journeyside Icon" src="./favicon.ico"></img>} 
                                 style={{ zIndex: '5', color:'#d97700', fontWeight:logoFontWeight }}
                                 onClick={() => {
