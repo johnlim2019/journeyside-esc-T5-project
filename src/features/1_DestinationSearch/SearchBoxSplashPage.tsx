@@ -258,7 +258,8 @@ export function SearchBarSplashPage(): JSX.Element {
                             const regexPresent = regex.test(autocompleteItem);
                             return regexPresent;
                           }}
-                          limit={8}
+                          limit={50}
+                          maxDropdownHeight='20rem'
                           rightSection={isLoading && <Loader size={'sm'}></Loader>}
                         />
                       </div>
