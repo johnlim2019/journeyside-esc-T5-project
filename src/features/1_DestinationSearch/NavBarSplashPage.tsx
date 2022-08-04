@@ -32,7 +32,7 @@ function NavBarSplashPage() {
     }));
     const USERNAME = "mongoDbIntegrationTest";
     const DEFAULTPASSWORD = "abcdef@1G";
-    const currentUser = useAppSelector(state => state.UserDetailsReducer.userKey);
+    const currentUser = useAppSelector(state => state.UserDetailsReducer.sessionKey);
     const { classes } = useStyles();
     const [logIn, setLogIn] = useState(currentUser !== "" ? true : false);
     const [isLoadingLog, setIsLoadingLog] = useState(false);
