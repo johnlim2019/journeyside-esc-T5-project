@@ -145,17 +145,19 @@ function UserProfile() {
     // set up the style classes
     // load styles css
     const { classes } = useStyles();
-    // set up the firebase connection and prepare the object data
-    const [dataObj, setDataObj] = useState<object>({});
-    const [isLoading, setLoading] = useState<boolean>(true);
-    const [modal, setModal] = useState<boolean>(false);
-    const [deleteModal, setDeleteModal] = useState<boolean>(false);
-    const [currBooking, setCurrBooking] = useState<bookingObject>(defaultBooking);
-    const [data, setData] = useState({});
-    const [dataArr, setDataArr] = useState<any[]>([]);
+    const [isLoading, setLoading] = useState<boolean>(true); // state of the loading overlay
+    const [modal, setModal] = useState<boolean>(false); // this is state of the booking modal 
+    const [deleteModal, setDeleteModal] = useState<boolean>(false); // this is the state of delete all data modal
+    const [currBooking, setCurrBooking] = useState<bookingObject>(defaultBooking); // the current booking that is going to be shown on the modal
+    const [data, setData] = useState({}); // this is the object used for random access of the bookings when we want to open the modal 
+    const [dataArr, setDataArr] = useState<any[]>([]); // this is the bookings array used for rendering the bookings in order 
     const userId = (useAppSelector(state => state.UserDetailsReducer.userKey));
     const accessToken = useAppSelector(state => state.UserDetailsReducer.sessionKey);
-    const [bookings, setBookings] = useState<any[]>([]);
+    const [bookings, setBookings] = useState<String[]>([]); // this is a list of the booking references, in the order of dataArr,
+    //  so when we click on a item in the list, we know which booking reference we selected
+
+
+    const [dataObj, setDataObj] = useState<object>({}); // this is the raw data json taken from the api call 
 
 
     function parseDataObj(data: object, dataObj: LooseObject) {
@@ -170,14 +172,16 @@ function UserProfile() {
     }
     function parseDataArr(data: object) {
         let bookingIterator = Object.entries(data);
-        let resultArr: any[] = []
+        let resultArr: any[] = [];
+        let bookingRefs: string[] = [];
         for (let [key, value] of bookingIterator) {
             console.log(key);
             // get the list of booking_references for deletion
-            bookings.push(value["booking_reference"]);
+            bookingRefs.push(value["booking_reference"]);
             resultArr.push(value);
             console.log(resultArr);
             setDataArr(resultArr);
+            setBookings(bookingRefs);
         }
     }
     const BREAKPOINT = useMantineTheme().breakpoints.sm;
@@ -218,7 +222,7 @@ function UserProfile() {
                 setLoading(false);
             }).catch(
                 (error) => {
-                    console.log("hi");
+                    console.error(error);
                     setDataObj({});
                     // alert(error.response.status);
                     // alert(typeof error.response.status);
@@ -234,7 +238,8 @@ function UserProfile() {
         };
         getBookingsApi(userApi);
     }, [])
-
+    // read the dataObj taken from api 
+    // lo
     useEffect(() => {
         try {
             parseDataObj(dataObj, data);
