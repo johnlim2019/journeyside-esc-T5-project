@@ -1,4 +1,4 @@
-import { Button, Center, createStyles, Dialog, Group, Loader, LoadingOverlay, Modal, Paper, Space, Table, Text, Title, useMantineTheme } from "@mantine/core";
+import { Button, Center, Checkbox, createStyles, Dialog, Group, Loader, LoadingOverlay, Modal, Paper, Space, Table, Text, Title, useMantineTheme } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IconFileDescription, IconCircleX, IconCircleCheck } from "@tabler/icons";
@@ -10,7 +10,7 @@ interface LooseObject {
     [key: string]: any
 }
 interface bookingObject {
-    "salutation":string,
+    "salutation": string,
     "firstName": string,
     'lastName': string,
     'phone': string,
@@ -38,7 +38,7 @@ interface bookingObject {
     'supplierId': string
 }
 const defaultBooking = {
-    "salutation":"",
+    "salutation": "",
     "firstName": "",
     'lastName': "",
     'phone': "",
@@ -155,6 +155,7 @@ function UserProfile() {
     const accessToken = useAppSelector(state => state.UserDetailsReducer.sessionKey);
     const [bookings, setBookings] = useState<String[]>([]); // this is a list of the booking references, in the order of dataArr,
     //  so when we click on a item in the list, we know which booking reference we selected
+    const [checked, setChecked] = useState(false);
 
 
     const [dataObj, setDataObj] = useState<object>({}); // this is the raw data json taken from the api call 
@@ -226,7 +227,7 @@ function UserProfile() {
                     setDataObj({});
                     // alert(error.response.status);
                     // alert(typeof error.response.status);
-                    if (error.response.status === 401){
+                    if (error.response.status === 401) {
                         alert("Session Expired");
                     }
                     else {
@@ -341,7 +342,7 @@ function UserProfile() {
                                 console.log(uniqueBookingReferences);
                                 for (let booking of uniqueBookingReferences) {
                                     const deleteBookingsApi = async (api: string) => {
-                                        await axios.delete(api + "/" + booking,  { headers: { 'Authorization': accessToken}, params: { "booking_reference": booking } }
+                                        await axios.delete(api + "/" + booking, { headers: { 'Authorization': accessToken }, params: { "booking_reference": booking } }
                                         ).then((response) => {
                                             console.log(response.data);
                                             window.location.reload();
@@ -355,7 +356,6 @@ function UserProfile() {
                             }}>Burn Baby Burn!</Button>
                             <Button onClick={() => { setDeleteModal(false) }}>Aw Hell No!</Button>
                         </Group>
-
                     </Center>
                 </Paper>
             </Modal>
@@ -455,21 +455,32 @@ function UserProfile() {
                         </tbody>
                     </Table>
                     <Center style={{ marginTop: '1em' }}>
-                        <Group >
+                        <Group position="center">
+                            <Checkbox
+                                id="CheckBox"
+                                label="I want to cancel"
+                                styles={{label:{color:'red'}}}
+                                color="red"                            
+                                checked={checked} 
+                                onChange={(event) => setChecked(event.currentTarget.checked)}
+                            />
                             <Button color='red' onClick={() => {
-                                let copyCurrBooking = { ...currBooking };
-                                copyCurrBooking.cancellation = !copyCurrBooking.cancellation;
-                                console.log(copyCurrBooking);
-                                const updateBookingsApi = async (api: string) => {
-                                    await axios.put(api + "/" + currBooking.booking_reference, copyCurrBooking, { headers: { 'Authorization': accessToken}, params: { "booking_reference": currBooking.booking_reference } }
-                                    ).then((response) => {
-                                        console.log(response.data);
-                                        window.location.reload();
-                                    })
-                                };
-                                updateBookingsApi(userApi);
+                                if (checked === true){
+                                    let copyCurrBooking = { ...currBooking };
+                                    copyCurrBooking.cancellation = !copyCurrBooking.cancellation;
+                                    console.log(copyCurrBooking);
+                                    setLoading(true);
+                                    const updateBookingsApi = async (api: string) => {
+                                        await axios.put(api + "/" + currBooking.booking_reference, copyCurrBooking, { headers: { 'Authorization': accessToken }, params: { "booking_reference": currBooking.booking_reference } }
+                                        ).then((response) => {
+                                            console.log(response.data);
+                                            window.location.reload();
+                                        })
+                                    };
+                                    updateBookingsApi(userApi);
+                                    // hard reload page to refresh modal
+                                }
                                 setModal(false);
-                                // hard reload page to refresh modal
                             }}>Cancel Booking</Button>
                             <Button onClick={() => setModal(false)}>Return</Button>
                         </Group>
@@ -484,10 +495,10 @@ function UserProfile() {
                 top: 0,
                 left: 0
             }}>
-                <LoadingOverlay visible={isLoading} />
+                <LoadingOverlay visible={isLoading} overlayOpacity={0.9}/>
             </Center>}
-            <Paper style={{padding:'0.5em'}}>
-               {(userId !== "") && <Paper pt='lg' pb='lg'>
+            <Paper style={{ padding: '0.5em' }}>
+                {(userId !== "") && <Paper pt='lg' pb='lg'>
                     <Text>Welcome</Text>
                     <Title order={2}>{userId}  !</Title>
                 </Paper>}

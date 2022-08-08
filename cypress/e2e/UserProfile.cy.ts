@@ -99,12 +99,15 @@ describe('UserProfile', () => {
         });
         cy.url().should('eq', BASE + USER);
         cy.wait(3000);
+        
         cy.get('.mantine-Button-filled.mantine-Button-root.mantine-1grzg0q').eq(0).click();
+        cy.get('input[id="CheckBox"').click();
         cy.get('button').contains("Cancel Booking").click();
         // wait for refresh
         cy.wait(2800);
         cy.get('.icon.icon-tabler.icon-tabler-circle-x').should('have.length', 1);
         cy.get('.mantine-Button-filled.mantine-Button-root.mantine-1grzg0q').eq(2).click();
+        cy.get('input[id="CheckBox"').click();
         cy.get('button').contains("Cancel Booking").click();
         cy.wait(2800);
         // log out
