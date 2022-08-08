@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface selectedHotel {
     isLoading:boolean,
-    sortBy:string,
     roomsList:any[],
     roomsListRaw:any[],
     selectRoom:selectedRoom
@@ -19,7 +18,6 @@ interface selectedRoom {
 }
 const initialState:selectedHotel = {
     isLoading:false,
-    sortBy:"price",
     roomsList:[],
     roomsListRaw:[],
     selectRoom:{
