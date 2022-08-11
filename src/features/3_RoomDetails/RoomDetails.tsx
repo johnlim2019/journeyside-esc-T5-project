@@ -33,7 +33,7 @@ function RoomDetails() {
   const checkOutObj = new Date(useAppSelector(state => state.SearchBarReducer.checkOut));
   const checkOut = getUrlDates(checkOutObj);
   const selectedHotelObj = useAppSelector(state => state.SearchBarReducer.selectHotelObj);
-  const nightsNum = (checkOutObj.getTime() - checkInObj.getTime()) / 86400000;
+  const nightsNum = ((checkOutObj.getTime() - checkInObj.getTime()) / 86400000).toFixed(0);
   // console.log(selectedHotelObj);
   // console.log(selectedHotelId);
   let longitude: number; let latitude: number;
