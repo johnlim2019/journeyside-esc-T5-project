@@ -64,7 +64,7 @@ function fuzzer(input:string){
 }
 
 function truncatefuzzer(input: string){
-    let trimindex = Math.floor(Math.random()*(input.length-1)+1)
+    let trimindex = Math.floor(Math.random()*(input.length))
     let mode = Math.floor(Math.random()*2)
     let trimnewstring = ''
     if (mode == 0)
@@ -77,8 +77,8 @@ function truncatefuzzer(input: string){
  
 
  describe('Search Bar Fuzzing Test', ()=>{
-    let testinputs = ["Singapore", "Kuala", "Gading"]
-    let testdests = ["Singapore, Singapore", "Kuala Lumpur, Malaysia", "Gading, Jakarta, Indonesia", "Bukchon Hanok Village, Seoul, South Korea" ] 
+    let testinputs = ["Singapore", "Kuala", "Jakarta"]
+    let testdests = ["Singapore, Singapore", "Kuala Lumpur, Malaysia", "Jakarta, Indonesia", "Bukchon Hanok Village, Seoul, South Korea" ] 
     it("legal destinations", () => {
         cy.visit('http://localhost:3000/SearchResults')
         for (let i = 0; i < testinputs.length; i++){
@@ -122,7 +122,8 @@ function truncatefuzzer(input: string){
             const $input = cy.get('.DestinationInput').parent().within(()=>{cy.get('input').focus().clear().type(truncatefuzzer(testinputs[i]))})
             $input.type('{enter}')
             //cy.get('.DestinationInput').get('input').should("contain.value", testdests[i])
-            cy.get('.loaderSpinner').should('be.exist')
+            // cy.get('.loaderSpinner').should('be.exist')
+            cy.get('.notification').children().contains(testdests[i])
             cy.reload()
         }
     })
