@@ -1,16 +1,8 @@
 /// <reference types="cypress" />
 
 import { createStyles, Autocomplete, Button, Space, Grid, Paper, Center, NativeSelect, Tooltip, AutocompleteItem, Loader, Notification } from '@mantine/core';
+import { random } from 'cypress/types/lodash';
 
-function generateSearchQueries(value: string, item:AutocompleteItem){
-    if (!value.includes(" ")) {
-        return item.value.replace(",", "").toLowerCase().trim().includes(value.toLowerCase().trim());
-      } else {
-        return item.value.replace(",", "").toLowerCase().trim().startsWith(value.toLowerCase().trim());
-      }
-   
-      return null;
- }
 
  function fuzzinput(illegal: boolean, input:string){
     const illegalchars = "<>?:\"{}+_*&^%$#@!~`;'][=😀😃😄😁😆😅😂🤣🥲☺️😊😇🙂🙃😉😌😍🥰😘😗😙😚😋😛😝😜🤪🤨🧐🤓😎🥸🤩🥳😏😒😞😔😟😕🙁☹️😣😖😫😩🥺😢😭😤😠😡🤬🤯😳🥵🥶😱😨😰😥😓🤗🤔🤭🤫🤥😶😐😑😬🙄😯😦😧😮😲🥱😴🤤😪😵🤐🥴🤢🤮🤧😷🤒🤕🤑🤠😈👿👹👺🤡💩👻💀☠️👽👾🤖🎃😺😸😹😻😼😽🙀😿😾"
@@ -71,6 +63,17 @@ function fuzzer(input:string){
     return newstring
 }
 
+function truncatefuzzer(input: string){
+    let trimindex = Math.floor(Math.random()*(input.length-1)+1)
+    let mode = Math.floor(Math.random()*2)
+    let trimnewstring = ''
+    if (mode == 0)
+        trimnewstring = input.substring(0, trimindex)
+    else if (mode == 1)
+        trimnewstring = input.substring(trimindex)
+    return trimnewstring
+}
+
  
 
  describe('Search Bar Fuzzing Test', ()=>{
@@ -112,6 +115,16 @@ function fuzzer(input:string){
             cy.reload()
         })
         
+    })
+
+    it ("ensure truncated valid queries continue to return valid results", () => {
+        for (let i = 0; i < testinputs.length; i++){
+            const $input = cy.get('.DestinationInput').parent().within(()=>{cy.get('input').focus().clear().type(truncatefuzzer(testinputs[i]))})
+            $input.type('{enter}')
+            //cy.get('.DestinationInput').get('input').should("contain.value", testdests[i])
+            cy.get('.loaderSpinner').should('be.exist')
+            cy.reload()
+        }
     })
         
         
