@@ -1,12 +1,13 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-User Data Server 
+#### User Data Server 
 https://github.com/JTZ18/ascendas-userdata-server 
-Endpoint Proxy Repo
+#### Endpoint Proxy Repo
 https://github.com/JTZ18/ascendas-proxy-server 
 
 Hosted website: https://journeyside.web.app/
+Note that the Ascendas endpoint may not be available. After Aug 2022.
 
 ## Available Scripts
 
@@ -24,6 +25,7 @@ In the project directory, you can run:
 ### `npm install`
 ### `npm start`
 ### `npm run cypress:open`
+
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
