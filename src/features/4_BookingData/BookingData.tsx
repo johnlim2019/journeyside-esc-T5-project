@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import { isEmoji,isCard,isPrinting, isSymbol, isNumber, isEmail, isPhone } from "../../services/regex";
+import { isEmoji,isCard,isNotPrinting, isSymbol, isNumber, isEmail, isPhone } from "../../services/regex";
 import { IconStar, IconUser, IconCheck } from "@tabler/icons";
 
 const bookingApi = 'https://ascendas-userdata-server.herokuapp.com/api/bookings';
@@ -201,16 +201,16 @@ const form = useForm<FormValues>({
   },
   validate: (values) => ({
     // regex validation
-    salutation: (values.salutation.length < 1 || values.salutation.length > 9 || values.salutation.match(isEmoji) || values.salutation.match(isPrinting) || values.salutation.match(isSymbol) || values.salutation.match(isNumber) ? "Invalid Salutation" : null),
-    firstName: (values.firstName.length < 1 || values.firstName.length > 30 || values.firstName.match(isEmoji) || values.firstName.match(isPrinting) || values.firstName.match(isSymbol) || values.firstName.match(isNumber)? "Please Enter Valid First Name" : null),
-    lastName: (values.lastName.length < 1 || values.lastName.length > 30 || values.lastName.match(isEmoji) || values.lastName.match(isPrinting) || values.lastName.match(isSymbol) || values.lastName.match(isNumber)? "Please Enter Valid Last Name" : null),
-    specialReq: ( values.specialReq.length > 1250 || values.specialReq.replace(/[\s]+/, "").length > 250 ? "250 Words Max" : values.specialReq.match(isEmoji) || values.specialReq.match(isPrinting) ? "Invalid Character Detected" : null),
+    salutation: (values.salutation.length < 1 || values.salutation.length > 9 || values.salutation.match(isEmoji) || values.salutation.match(isNotPrinting) || values.salutation.match(isSymbol) || values.salutation.match(isNumber) ? "Invalid Salutation" : null),
+    firstName: (values.firstName.length < 1 || values.firstName.length > 30 || values.firstName.match(isEmoji) || values.firstName.match(isNotPrinting) || values.firstName.match(isSymbol) || values.firstName.match(isNumber)? "Please Enter Valid First Name" : null),
+    lastName: (values.lastName.length < 1 || values.lastName.length > 30 || values.lastName.match(isEmoji) || values.lastName.match(isNotPrinting) || values.lastName.match(isSymbol) || values.lastName.match(isNumber)? "Please Enter Valid Last Name" : null),
+    specialReq: ( values.specialReq.length > 1250 || values.specialReq.replace(/[\s]+/, "").length > 250 ? "250 Words Max" : values.specialReq.match(isEmoji) || values.specialReq.match(isNotPrinting) ? "Invalid Character Detected" : null),
     email: (isEmail.test(values.email) || values.email.length > 35 ? null : 'Invalid email'),
     cardNum: (values.cardNum.match(isCard) ? null : "Invalid Card"),
     phone: (isPhone.test(values.phone) ? null : "Invalid Phone Number"),
     expiryMonth: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
     expiryYear: (new Date(String(values.expiryMonth) + "/1/20" + String(values.expiryYear)).getTime() > new Date().getTime() ? null : "Expired Card?"),
-    address: (values.address.length < 1 || values.address.length > 1250 || values.address.match(isEmoji) || values.address.match(isPrinting) ? "Please Enter Valid Address" : null),
+    address: (values.address.length < 1 || values.address.length > 1250 || values.address.match(isEmoji) || values.address.match(isNotPrinting) ? "Please Enter Valid Address" : null),
   })
 });
 
