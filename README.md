@@ -1,8 +1,13 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+User Data Server 
+https://github.com/JTZ18/ascendas-userdata-server 
+Endpoint Proxy Repo
+https://github.com/JTZ18/ascendas-proxy-server 
 
 Hosted website: https://journeyside.web.app/
+
 ## Available Scripts
 
 Libraries to install
