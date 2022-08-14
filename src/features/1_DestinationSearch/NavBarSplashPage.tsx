@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { login, logout } from '../../services/UserDetailsSlice';
-import { isEmoji, isLetter, isNotPrinting, isNumber, isSymbol, isWhitespace } from "../../services/regex";
+import { isEmoji, isLetter, isPrinting, isNumber, isSymbol, isWhitespace } from "../../services/regex";
 import { IconBrandJavascript } from '@tabler/icons';
 
 const userApi = 'https://ascendas-userdata-server.herokuapp.com/api/users';
@@ -65,10 +65,10 @@ function NavBarSplashPage() {
         validate: (values) => ({
             // regex validation
             userName: (values.userName.length < 7 || values.userName.length > 25 ? "Username must be between 7 to 25 characters." 
-            : values.userName.match(isNotPrinting) || values.userName.match(isWhitespace) ? "Invalid Character" : null),
+            : values.userName.match(isPrinting) || values.userName.match(isWhitespace) ? "Invalid Character" : null),
             password: ( values.password.length < 8 ? "Password at least 8 characters" 
             : values.password.length > 100 ? "Password is too long" 
-            : isNotPrinting.test(values.password) || isEmoji.test(values.password) ? "Invalid Characters":
+            : isPrinting.test(values.password) || isEmoji.test(values.password) ? "Invalid Characters":
             isNumber.test(values.password) && isSymbol.test(values.password) && isLetter.test((values.password)) ? null: "Need 1 symbol, 1 number, 1 letter" ) 
         })
     }
