@@ -325,7 +325,7 @@ function SearchBar(): JSX.Element {
   }, []);
 
   // the following called to check if the query has been changed and we need to reload the results 
-  const hotels = useAppSelector(state => state.SearchBarReducer.hotelData.hotels);
+  // const hotels = useAppSelector(state => state.SearchBarReducer.hotelData.hotels);
   const submitQuery = () => {
     console.log(location)
     let validation = validateQuery(dispatchQuery);
@@ -356,6 +356,13 @@ function SearchBar(): JSX.Element {
     }
   }
   useEffect(submitQuery, [location, dates]);
+  const updateQuery = ()=>{
+    let validation = validateQuery(dispatchQuery);
+    if (validation.length === 0){
+      dispatch(query({ dispatchQuery }));// update the state with new search  
+    }
+  }
+  useEffect(updateQuery,[adults,children,rooms]);
 
 
   return (
